@@ -9,16 +9,7 @@
 # Script de NiPeGun para instalar y configurar RegRipper en Debian
 #
 # Ejecución remota:
-#   curl -sL x | bash
-#
-# Ejecución remota sin caché:
-#   curl -sL -H 'Cache-Control: no-cache, no-store' x | bash
-#
-# Ejecución remota con parámetros:
-#   curl -sL x | bash -s Parámetro1 Parámetro2
-#
-# Bajar y editar directamente el archivo en nano
-#   curl -sL x | nano -
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/main/SoftInst/RegRipper-Instalar.sh | bash
 # ----------
 
 # Definir constantes de color
@@ -73,7 +64,7 @@
   if [ $cVerSO == "13" ]; then
 
     echo ""
-    echo -e "${cColorAzulClaro}  Iniciando el script de instalación de xxxxxxxxx para Debian 13 (x)...${cFinColor}"
+    echo -e "${cColorAzulClaro}  Iniciando el script de instalación de RegRipper para Debian 13 (x)...${cFinColor}"
     echo ""
 
     echo ""
@@ -83,17 +74,50 @@
   elif [ $cVerSO == "12" ]; then
 
     echo ""
-    echo -e "${cColorAzulClaro}  Iniciando el script de instalación de xxxxxxxxx para Debian 12 (Bookworm)...${cFinColor}"
+    echo -e "${cColorAzulClaro}  Iniciando el script de instalación de RegRipper para Debian 12 (Bookworm)...${cFinColor}"
     echo ""
 
     echo ""
-    echo -e "${cColorRojo}    Comandos para Debian 12 todavía no preparados. Prueba ejecutarlo en otra versión de Debian.${cFinColor}"
+    apt-get -y update
+    apt-get -y install apt
+    apt-get -y install git
+    apt-get -y install libparse-win32registry-perl
+    # Downloads RegRipper3.0 and moves file into /usr/local/src/regripper and "chmods" files in regripper directory to allow execution
+      rm -r /usr/local/src/regripper/ 2>/dev/null
+      rm -r /usr/share/regripper/plugins 2>/dev/null
+    # Clonar repositorio
+      cd /usr/local/src/
+      git clone https://github.com/keydet89/RegRipper3.0.git
+      mv RegRipper3.0 regripper
+    #
+      mkdir /usr/share/regripper
+      ln -s  /usr/local/src/regripper/plugins /usr/share/regripper/plugins 2>/dev/nul
+      chmod 755 regripper/*
+    # Copiar módulos de perl específicos para RegRipper
+      cp regripper/File.pm /usr/share/perl5/Parse/Win32Registry/WinNT/File.pm
+      cp regripper/Key.pm  /usr/share/perl5/Parse/Win32Registry/WinNT/Key.pm
+      cp regripper/Base.pm /usr/share/perl5/Parse/Win32Registry/Base.pm
+    # Crear archivo rip.pl.linux a partir del archivo rip.pl original
+      #[ -f regripper/rip.pl ] && echo "rip.pl found!" || echo "rip.pl not found!"
+      #[ -f regripper/rip.pl ] && cp regripper/rip.pl rip.pl.linux || exit
+      cp -f regripper/rip.pl regripper/rip.pl.linux
+      sed -i '77i my \$plugindir \= \"\/usr\/share\/regripper\/plugins\/\"\;' /usr/local/src/regripper/rip.pl.linux 
+      sed -i '/^#! c:[\]perl[\]bin[\]perl.exe/d'                              /usr/local/src/regripper/rip.pl.linux
+      vUbicPerl=$(which perl) && sed -i "1i #\!$vUbicPerl"                    /usr/local/src/regripper/rip.pl.linux
+      sed -i '2i use lib qw(/usr/lib/perl5/);'                                /usr/local/src/regripper/rip.pl.linux
+    # Obtener el hash
+      md5sum /usr/local/src/regripper/rip.pl.linux && echo "  El archivo rip.pl.linux ha sido creado correctamente!"
+    # Copiar el archivo rip.pl.linux a /usr/local/bin/rip.pl
+      cp -f regripper/rip.pl.linux /usr/local/bin/rip.pl
+      echo "  El archivo /usr/local/src/regripper/rip.pl.linux ha sido copiado a /usr/local/bin/rip.pl"
+      /usr/local/bin/rip.pl
+      echo "  El archivo rip.pl de RegRipper ha sido cambiado. El archivo original está ubicado en /usr/local/src/regripper/rip.pl."
     echo ""
 
   elif [ $cVerSO == "11" ]; then
 
     echo ""
-    echo -e "${cColorAzulClaro}  Iniciando el script de instalación de xxxxxxxxx para Debian 11 (Bullseye)...${cFinColor}"
+    echo -e "${cColorAzulClaro}  Iniciando el script de instalación de RegRipper para Debian 11 (Bullseye)...${cFinColor}"
     echo ""
 
     echo ""
@@ -103,7 +127,7 @@
   elif [ $cVerSO == "10" ]; then
 
     echo ""
-    echo -e "${cColorAzulClaro}  Iniciando el script de instalación de xxxxxxxxx para Debian 10 (Buster)...${cFinColor}"
+    echo -e "${cColorAzulClaro}  Iniciando el script de instalación de RegRipper para Debian 10 (Buster)...${cFinColor}"
     echo ""
 
     echo ""
@@ -113,7 +137,7 @@
   elif [ $cVerSO == "9" ]; then
 
     echo ""
-    echo -e "${cColorAzulClaro}  Iniciando el script de instalación de xxxxxxxxx para Debian 9 (Stretch)...${cFinColor}"
+    echo -e "${cColorAzulClaro}  Iniciando el script de instalación de RegRipper para Debian 9 (Stretch)...${cFinColor}"
     echo ""
 
     echo ""
@@ -123,7 +147,7 @@
   elif [ $cVerSO == "8" ]; then
 
     echo ""
-    echo -e "${cColorAzulClaro}  Iniciando el script de instalación de xxxxxxxxx para Debian 8 (Jessie)...${cFinColor}"
+    echo -e "${cColorAzulClaro}  Iniciando el script de instalación de RegRipper para Debian 8 (Jessie)...${cFinColor}"
     echo ""
 
     echo ""
@@ -133,7 +157,7 @@
   elif [ $cVerSO == "7" ]; then
 
     echo ""
-    echo -e "${cColorAzulClaro}  Iniciando el script de instalación de xxxxxxxxx para Debian 7 (Wheezy)...${cFinColor}"
+    echo -e "${cColorAzulClaro}  Iniciando el script de instalación de RegRipper para Debian 7 (Wheezy)...${cFinColor}"
     echo ""
 
     echo ""
