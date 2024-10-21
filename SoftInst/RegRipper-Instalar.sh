@@ -10,6 +10,8 @@
 #
 # Ejecución remota:
 #   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/main/SoftInst/RegRipper-Instalar.sh | bash
+#
+# Más info: https://dfir-scripts.medium.com/installing-regripper-v2-8-on-ubuntu-26dc8bc8a2d3
 # ----------
 
 # Definir constantes de color
