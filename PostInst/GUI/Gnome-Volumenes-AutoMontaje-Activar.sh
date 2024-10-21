@@ -20,3 +20,6 @@
 # Bajar y editar directamente el archivo en nano
 #   curl -sL x | nano -
 # ----------
+
+gsettings set org.gnome.desktop.media-handling automount true
+
