@@ -9,16 +9,7 @@
 # Script de NiPeGun para activar el automontaje de volúmenes en Gnome
 #
 # Ejecución remota:
-#   curl -sL x | bash
-#
-# Ejecución remota sin caché:
-#   curl -sL -H 'Cache-Control: no-cache, no-store' x | bash
-#
-# Ejecución remota con parámetros:
-#   curl -sL x | bash -s Parámetro1 Parámetro2
-#
-# Bajar y editar directamente el archivo en nano
-#   curl -sL x | nano -
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/PostInst/GUI/Gnome-Volumenes-AutoMontaje-Activar.sh | bash
 # ----------
 
 gsettings set org.gnome.desktop.media-handling automount true
