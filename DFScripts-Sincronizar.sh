@@ -28,7 +28,7 @@
     echo ""
   fi
 
-# Comprobar si hay conexión a Internet antes de sincronizar los d-scripts
+# Comprobar si hay conexión a Internet antes de sincronizar los df-scripts
   wget -q --tries=10 --timeout=20 --spider https://github.com
   if [[ $? -eq 0 ]]; then
     # Sincronizar los d-scripts
