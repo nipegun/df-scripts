@@ -9,13 +9,7 @@
 # Script de NiPeGun para montar una imagen desde un offset específico
 #
 # Ejecución remota:
-#   curl -sL x | bash
-#
-# Ejecución remota sin caché:
-#   curl -sL -H 'Cache-Control: no-cache, no-store' x | bash
-#
-# Ejecución remota con parámetros:
-#   curl -sL x | bash -s Parámetro1 Parámetro2
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Imagen-Particion-NTFS-Montar-DesdeOffset-Lectura.sh | bash
 #
 # Bajar y editar directamente el archivo en nano
 #   curl -sL x | nano -
@@ -48,7 +42,7 @@
     echo ""
   fi
 # Definir la cantidad de argumentos esperados
-  cCantArgumEsperados=1
+  cCantArgumEsperados=3
 
 if [ $# -ne $cCantArgumEsperados ]
   then
