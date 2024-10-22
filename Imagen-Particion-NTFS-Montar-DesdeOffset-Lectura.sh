@@ -12,7 +12,7 @@
 #   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Imagen-Particion-NTFS-Montar-DesdeOffset-Lectura.sh | bash -s [RutaAlArchivoDeImagen] [PuntoDeMontaje] [Offset]
 #
 # Bajar y editar directamente el archivo en nano
-#   curl -sL x | nano -
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Imagen-Particion-NTFS-Montar-DesdeOffset-Lectura.sh | nano -
 # ----------
 
 # Definir constantes de color
@@ -48,6 +48,7 @@ if [ $# -ne $cCantArgumEsperados ]
   then
     echo ""
     echo -e "${cColorRojo}  Mal uso del script. El uso correcto sería: ${cFinColor}"
+    echo ""
     echo "    $0 [RutaAlArchivoDeImagen] [PuntoDeMontaje] [Offset]"
     echo ""
     echo "  Ejemplo:"
