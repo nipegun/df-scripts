@@ -24,4 +24,4 @@ ln -s /root/scripts/df-scripts/x.sh                      /root/scripts/df-script
 echo ""
 echo -e "${cColorVerde}    Alias creados. Deberías poder ejecutar los df-scripts escribiendo el nombre de su alias.${cFinColor}"
 echo ""
-
+# sh -c "echo 'export PATH=$PATH:/root/scripts/df-scripts/Alias/' >> /root/.bashrc"
