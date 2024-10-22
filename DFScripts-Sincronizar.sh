@@ -31,7 +31,7 @@
 # Comprobar si hay conexión a Internet antes de sincronizar los df-scripts
   wget -q --tries=10 --timeout=20 --spider https://github.com
   if [[ $? -eq 0 ]]; then
-    # Sincronizar los d-scripts
+    # Sincronizar los df-scripts
       echo ""
       echo -e "${cColorAzulClaro}  Sincronizando los df-scripts con las últimas versiones y descargando nuevos df-scripts (si es que existen)...${cFinColor}"
       echo ""
