@@ -38,10 +38,6 @@
   echo ""
   echo "  Exportando registro de usuarios..."
   echo ""
-
-  echo ""
-  echo "  Exportando registro de usuarios..."
-  echo ""
   for vCarpeta in $(find "$vPuntoDeMontaje/Documents and Settings/" -maxdepth 1 -type d | grep -v /$); do
     #if [ -d "$vCarpeta" ]; then
       # Comandos a ejecutar por cada carpeta
