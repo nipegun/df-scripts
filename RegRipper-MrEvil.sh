@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Definir variabñes
+# Definir variables
   vPuntoDeMontaje="/Particiones/Pruebas"
   vCarpetaDeCasos="/Casos"
 
