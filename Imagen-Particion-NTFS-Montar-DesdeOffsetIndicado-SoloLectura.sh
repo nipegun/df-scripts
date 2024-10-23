@@ -9,10 +9,10 @@
 # Script de NiPeGun para montar una imagen desde un offset específico
 #
 # Ejecución remota:
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Imagen-Particion-NTFS-Montar-DesdeOffset-Lectura.sh | bash -s [RutaAlArchivoDeImagen] [PuntoDeMontaje] [Offset]
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Imagen-Particion-NTFS-Montar-DesdeOffsetIndicado-SoloLectura.sh | bash -s [RutaAlArchivoDeImagen] [PuntoDeMontaje] [Offset]
 #
 # Bajar y editar directamente el archivo en nano
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Imagen-Particion-NTFS-Montar-DesdeOffset-Lectura.sh | nano -
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Imagen-Particion-NTFS-Montar-DesdeOffsetIndicado-SoloLectura.sh | nano -
 # ----------
 
 # Definir constantes de color
