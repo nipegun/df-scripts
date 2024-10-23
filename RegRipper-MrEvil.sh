@@ -41,6 +41,6 @@
   find "$vPuntoDeMontaje/Documents and Settings/" -mindepth 1 -maxdepth 1 -type d > /tmp/CarpetasDeUsuarios.txt
   while IFS= read -r linea; do
     vNomUsuario="${linea##*/}"
-    echo "$vNomUsuario"
     sudo mkdir -p "$vCarpetaDeCasos$vCasoActual"/Usuarios/"$vNomUsuario"
+    cp "$vPuntoDeMontaje"/Documents and Settings/"$vNomUsuario"/NTUSER.DAT "$vCarpetaDeCasos$vCasoActual"/Usuarios/"$vNomUsuario"/
   done < "/tmp/CarpetasDeUsuarios.txt"
