@@ -40,7 +40,7 @@
   echo ""
   find "$vPuntoDeMontaje/Documents and Settings/" -mindepth 1 -maxdepth 1 -type d > /tmp/CarpetasDeUsuarios.txt
   for linea in $(cat "/tmp/CarpetasDeUsuarios.txt"); do
-    vNomUsuario="${$linea##*/}"
+    vNomUsuario="${"$linea"##*/}"
     echo "$vNomUsuario"
     sudo mkdir -p "$vCarpetaDeCasos$vCasoActual"/"$vNomUsuario"
   done
