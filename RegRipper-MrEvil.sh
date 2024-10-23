@@ -45,7 +45,7 @@
   for linea in "${aCarpetas[@]}"; do
     vNomUsuario=$(echo "$linea" | sed 's|.*/||' )
     echo "$vNomUsuario"
-    sudo mkdir -p "$vCarpetaDeCasos$vCasoActual/$vNomUsuario"
+    sudo mkdir -p "$vCarpetaDeCasos$vCasoActual"/"$vNomUsuario"
     echo "$linea"
   done
 
