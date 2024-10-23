@@ -42,5 +42,5 @@
   while IFS= read -r linea; do
     vNomUsuario="${linea##*/}"
     sudo mkdir -p "$vCarpetaDeCasos$vCasoActual"/Usuarios/"$vNomUsuario"
-    cp "$vPuntoDeMontaje"/Documents and Settings/"$vNomUsuario"/NTUSER.DAT "$vCarpetaDeCasos$vCasoActual"/Usuarios/"$vNomUsuario"/
+    cp "$vPuntoDeMontaje"/"Documents and Settings"/"$vNomUsuario"/NTUSER.DAT "$vCarpetaDeCasos$vCasoActual"/Usuarios/"$vNomUsuario"/
   done < "/tmp/CarpetasDeUsuarios.txt"
