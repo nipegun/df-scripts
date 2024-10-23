@@ -53,10 +53,6 @@
   echo ""
   echo "  Exportando SYSTEM..."
   echo ""
-# Determinar el caso actual y crear la carpeta
-  vCasoActual="/22"
-  rm -rf $vCarpetaDeCasos$vCasoActual 2>/dev/null
-  sudo mkdir -p $vCarpetaDeCasos$vCasoActual/Registro/
 
   sudo /usr/local/bin/rip.pl -r $vCarpetaDeCasos$vCasoActual/Registro/SYSTEM   -a > $vCarpetaDeCasos$vCasoActual/SYSTEM.txt
   echo ""
