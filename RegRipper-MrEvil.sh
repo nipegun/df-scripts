@@ -36,10 +36,6 @@
 
   vPuntoDeMontaje="/Particiones/Pruebas"
   vCarpetaDeCasos="/Casos"
-  
-  vCasoActual="/22"
-  rm -rf $vCarpetaDeCasos$vCasoActual 2>/dev/null
-  sudo mkdir -p $vCarpetaDeCasos$vCasoActual
 
 # Exportando registro de usuarios
   echo ""
