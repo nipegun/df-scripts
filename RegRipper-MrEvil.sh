@@ -48,28 +48,29 @@
     cp "$vPuntoDeMontaje"/"Documents and Settings"/"$vNomUsuario"/NTUSER.DAT "$vCarpetaDeCasos"/"$vFechaCaso"/Registro/Archivos/Usuarios/"$vNomUsuario"/
   done < "/tmp/CarpetasDeUsuarios.txt"
 
+
 # Exportar registros
-  sudo mkdir -p "$vCarpetaDeCasos"/"$vFechaCaso"/Archivos/RegRipper/ 2> /dev/null
+  sudo mkdir -p "$vCarpetaDeCasos"/"$vFechaCaso"/Registro/RegRipper/ 2> /dev/null
   echo ""
   echo "  RegRippeando SYSTEM..."
   echo ""
-  sudo /usr/local/bin/rip.pl -r "$vCarpetaDeCasos"/"$vFechaCaso"/Registro/SYSTEM   -a > "$vCarpetaDeCasos"/"$vFechaCaso"/Archivos/RegRipper/SYSTEM.txt
+  sudo /usr/local/bin/rip.pl -r "$vCarpetaDeCasos"/"$vFechaCaso"/Registro/Archivos/SYSTEM   -a > "$vCarpetaDeCasos"/"$vFechaCaso"/Registro/RegRipper/SYSTEM.txt
   echo ""
   echo "  RegRippeando SAM..."
   echo ""
-  sudo /usr/local/bin/rip.pl -r "$vCarpetaDeCasos"/"$vFechaCaso"/Registro/SAM      -a > "$vCarpetaDeCasos"/"$vFechaCaso"/Archivos/RegRipper/SAM.txt
+  sudo /usr/local/bin/rip.pl -r "$vCarpetaDeCasos"/"$vFechaCaso"/Registro/Archivos/SAM      -a > "$vCarpetaDeCasos"/"$vFechaCaso"/Registro/RegRipper/SAM.txt
   echo ""
   echo "  RegRippeando SECURITY..."
   echo ""
-  sudo /usr/local/bin/rip.pl -r "$vCarpetaDeCasos"/"$vFechaCaso"/Registro/SECURITY -a > "$vCarpetaDeCasos"/"$vFechaCaso"/Archivos/RegRipper/SECURITY.txt
+  sudo /usr/local/bin/rip.pl -r "$vCarpetaDeCasos"/"$vFechaCaso"/Registro/Archivos/SECURITY -a > "$vCarpetaDeCasos"/"$vFechaCaso"/Registro/RegRipper/SECURITY.txt
   echo ""
   echo "  RegRippeando SOFTWARE..."
   echo ""
-  sudo /usr/local/bin/rip.pl -r "$vCarpetaDeCasos"/"$vFechaCaso"/Registro/SOFTWARE -a > "$vCarpetaDeCasos"/"$vFechaCaso"/Archivos/RegRipper/SOFTWARE.txt
+  sudo /usr/local/bin/rip.pl -r "$vCarpetaDeCasos"/"$vFechaCaso"/Registro/Archivos/SOFTWARE -a > "$vCarpetaDeCasos"/"$vFechaCaso"/Registro/RegRipper/SOFTWARE.txt
   echo ""
   echo "  RegRippeando DEFAULT..."
   echo ""
-  sudo /usr/local/bin/rip.pl -r "$vCarpetaDeCasos"/"$vFechaCaso"/Registro/DEFAULT  -a > "$vCarpetaDeCasos"/"$vFechaCaso"/Archivos/RegRipper/DEFAULT.txt
+  sudo /usr/local/bin/rip.pl -r "$vCarpetaDeCasos"/"$vFechaCaso"/Registro/Archivos/DEFAULT  -a > "$vCarpetaDeCasos"/"$vFechaCaso"/Registro/RegRipper/DEFAULT.txt
 
 # Exportar registro de usuarios
   echo ""
@@ -81,8 +82,8 @@
     echo ""
     echo "    RegRippeando NTUSER.DAT de $vNomUsuario..."
     echo ""
-    sudo mkdir -p "$vCarpetaDeCasos"/"$vFechaCaso"/Archivos/RegRipper/Usuarios/"$vNomUsuario" 2> /dev/null
-    sudo /usr/local/bin/rip.pl -r "$vCarpetaDeCasos"/"$vFechaCaso"/Archivos/Registro/Usuarios/"$vNomUsuario"/NTUSER.DAT  -a > "$vCarpetaDeCasos"/"$vFechaCaso"/Archivos/RegRipper/Usuarios/"$vNomUsuario"/NTUSER.DAT.txt
+    sudo mkdir -p "$vCarpetaDeCasos"/"$vFechaCaso"/Registro/RegRipper/Usuarios/"$vNomUsuario" 2> /dev/null
+    sudo /usr/local/bin/rip.pl -r "$vCarpetaDeCasos"/"$vFechaCaso"/Registro/Archivos/Usuarios/"$vNomUsuario"/NTUSER.DAT  -a > "$vCarpetaDeCasos"/"$vFechaCaso"/Registro/RegRipper/Usuarios/"$vNomUsuario"/NTUSER.DAT.txt
   done < "/tmp/CarpetasDeUsuarios.txt"
 
 # Reparar permisos
