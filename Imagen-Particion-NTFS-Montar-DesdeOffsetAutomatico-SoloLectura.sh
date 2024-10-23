@@ -9,10 +9,10 @@
 # Script de NiPeGun para montar una imagen desde un offset específico
 #
 # Ejecución remota:
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Imagen-Particion-NTFS-Montar-DesdeOffset-Lectura.sh | bash -s [RutaAlArchivoDeImagen] [PuntoDeMontaje] [Offset]
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Imagen-Particion-NTFS-Montar-DesdeOffsetAutomatico-SoloLectura.sh | bash -s [RutaAlArchivoDeImagen] [PuntoDeMontaje] [Offset]
 #
 # Bajar y editar directamente el archivo en nano
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Imagen-Particion-NTFS-Montar-DesdeOffset-Lectura.sh | nano -
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Imagen-Particion-NTFS-Montar-DesdeOffsetAutomatico-SoloLectura.sh | nano -
 # ----------
 
 # Definir constantes de color
@@ -33,36 +33,38 @@
     exit
   fi
 
-# Comprobar si el paquete curl está instalado. Si no lo está, instalarlo.
-  if [[ $(dpkg-query -s curl 2>/dev/null | grep installed) == "" ]]; then
-    echo ""
-    echo -e "${cColorRojo}  El paquete curl no está instalado. Iniciando su instalación...${cFinColor}"
-    echo ""
-    apt-get -y update && apt-get -y install curl
-    echo ""
-  fi
 # Definir la cantidad de argumentos esperados
-  cCantArgumEsperados=3
+  cCantArgumEsperados=2
 
 if [ $# -ne $cCantArgumEsperados ]
   then
     echo ""
     echo -e "${cColorRojo}  Mal uso del script. El uso correcto sería: ${cFinColor}"
     echo ""
-    echo "    $0 [RutaAlArchivoDeImagen] [PuntoDeMontaje] [Offset]"
+    echo "    $0 [RutaAlArchivoDeImagen] [PuntoDeMontaje]"
     echo ""
     echo "  Ejemplo:"
-    echo "    $0 '~/Descargas/Imagen.dd' '/Particiones/Pruebas' '63'"
+    echo "    $0 '~/Descargas/Imagen.dd' '/Particiones/Pruebas'"
     echo ""
     exit
   else
     echo ""
     echo ""
     echo ""
+    # Calcular offset
+      # Comprobar si el paquete sleuthkit está instalado. Si no lo está, instalarlo.
+        if [[ $(dpkg-query -s sleuthkit 2>/dev/null | grep installed) == "" ]]; then
+          echo ""
+          echo -e "${cColorRojo}  El paquete sleuthkit no está instalado. Iniciando su instalación...${cFinColor}"
+          echo ""
+          apt-get -y update && apt-get -y install sleuthkit
+          echo ""
+        fi
+      vOffset=$(mmls "$1" | grep NTFS | sed 's-  - -g' | sed 's-  - -g' | cut -d' ' -f3 | sed 's/^0*//')
     if [ -d "$2" ]; then
-      mount "$1" "$2" -o ro,loop,show_sys_files,streams_interface=windows,offset=$(($3*512))
+      mount "$1" "$2" -o ro,loop,show_sys_files,streams_interface=windows,offset=$(($vOffset*512))
     else
       mkdir -p "$2"
-      mount "$1" "$2" -o ro,loop,show_sys_files,streams_interface=windows,offset=$(($3*512))
+      mount "$1" "$2" -o ro,loop,show_sys_files,streams_interface=windows,offset=$(($vOffset*512))
     fi
 fi
