@@ -79,7 +79,7 @@
     echo "    RegRippeando NTUSER.DAT de $vNomUsuario..."
     echo ""
     sudo mkdir -p "$vCarpetaDeCasos$vCasoActual"/RegRipper/Usuarios/"$vNomUsuario" 2> /dev/null
-    sudo /usr/local/bin/rip.pl -r "$vCarpetaDeCasos$vCasoActual"/Registro/Usuarios/"$vNomUsuario"/NTUSER.DAT  -a > "$vCarpetaDeCasos$vCasoActual"/Registro/Usuarios/"$vNomUsuario"/NTUSER.DAT.txt
+    sudo /usr/local/bin/rip.pl -r "$vCarpetaDeCasos$vCasoActual"/Registro/Usuarios/"$vNomUsuario"/NTUSER.DAT  -a > "$vCarpetaDeCasos$vCasoActual"/RegRipper/Usuarios/"$vNomUsuario"/NTUSER.DAT.txt
   done < "/tmp/CarpetasDeUsuarios.txt"
 
 # Reparar permisos
