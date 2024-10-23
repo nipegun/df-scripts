@@ -44,6 +44,7 @@ if [ $# -ne $cCantArgumEsperados ]
     echo "    $0 [RutaAlArchivoDeImagen] [PuntoDeMontaje]"
     echo ""
     echo "  Ejemplo:"
+    echo ""
     echo "    $0 '~/Descargas/Imagen.dd' '/Particiones/Pruebas'"
     echo ""
     exit
