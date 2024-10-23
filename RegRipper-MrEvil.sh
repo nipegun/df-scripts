@@ -34,15 +34,24 @@
   echo ""
   sudo /usr/local/bin/rip.pl -r $vPuntoDeMontaje/WINDOWS/system32/config/default  -a > $vCarpetaDeCasos$vCasoActual/DEFAULT.txt
 
+  vPuntoDeMontaje="/Particiones/Pruebas"
+  vCarpetaDeCasos="/Casos"
+  
+  vCasoActual="/22"
+  rm -rf $vCarpetaDeCasos$vCasoActual 2>/dev/null
+  sudo mkdir -p $vCarpetaDeCasos$vCasoActual
+
 # Exportando registro de usuarios
   echo ""
   echo "  Exportando registro de usuarios..."
   echo ""
-  for vCarpeta in $(find "$vPuntoDeMontaje/Documents and Settings/" -maxdepth 1 -type d | grep -v /$); do
-    #if [ -d "$vCarpeta" ]; then
-      # Comandos a ejecutar por cada carpeta
-      echo "Procesando carpeta: $vCarpeta"
-      # Tus comandos aquí, por ejemplo:
-      # cd "$dir" && ejecutar_comando
-    #fi
+  aCarpetas=$(find "$vPuntoDeMontaje/Documents and Settings/" -maxdepth 1 -type d | grep -v /$)
+  for linea in "${aCarpetas[@]}"; do
+    vNomUsuario=$(echo "$linea" | sed 's|.*/||' )
+    echo "$vNomUsuario"
+    sudo mkdir -p "$vCarpetaDeCasos$vCasoActual/$vNomUsuario"
+    echo "$linea"
   done
+
+
+
