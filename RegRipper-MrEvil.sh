@@ -41,8 +41,7 @@
   echo ""
   echo "  Exportando registro de usuarios..."
   echo ""
-  aCarpetas=$(find "$vPuntoDeMontaje/Documents and Settings/" -maxdepth 1 -type d | grep -v /$)
-  for linea in "${aCarpetas[@]}"; do
+  for linea in find "$vPuntoDeMontaje/Documents and Settings/" -mindepth 1 -maxdepth 1 -type d; do
     vNomUsuario=$(echo "$linea" | sed 's|.*/||' )
     echo "$vNomUsuario"
     sudo mkdir -p "$vCarpetaDeCasos$vCasoActual"/"$vNomUsuario"
