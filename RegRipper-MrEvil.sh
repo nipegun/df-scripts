@@ -43,9 +43,7 @@
   echo ""
   for linea in $(find "$vPuntoDeMontaje/Documents and Settings/" -mindepth 1 -maxdepth 1 -type d); do
     vNomUsuario=$(echo "$linea" | sed 's|.*/||' )
-    echo "$vNomUsuario"
     sudo mkdir -p "$vCarpetaDeCasos$vCasoActual"/"$vNomUsuario"
-    echo "$linea"
   done
 
 
