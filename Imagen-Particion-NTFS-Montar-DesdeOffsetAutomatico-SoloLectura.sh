@@ -50,7 +50,7 @@ if [ $# -ne $cCantArgumEsperados ]
     exit
   else
     echo ""
-    echo ""
+    echo "  Intentando montar la primer partición NTFS de dentro del archivo de imagen $1"
     echo ""
     # Calcular offset
       # Comprobar si el paquete sleuthkit está instalado. Si no lo está, instalarlo.
