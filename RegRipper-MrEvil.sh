@@ -16,23 +16,23 @@
   echo ""
   echo "  Copiando SYSTEM..."
   echo ""
-  sudo cp -r $vPuntoDeMontaje/WINDOWS/system32/config/system   $vCarpetaDeCasos$vCasoActual/Registro/SYSTEM
+  sudo cp $vPuntoDeMontaje/WINDOWS/system32/config/system   $vCarpetaDeCasos$vCasoActual/Registro/SYSTEM
   echo ""
   echo "  Copiando SAM..."
   echo ""
-  sudo cp -r $vPuntoDeMontaje/WINDOWS/system32/config/SAM      $vCarpetaDeCasos$vCasoActual/Registro/SAM
+  sudo cp $vPuntoDeMontaje/WINDOWS/system32/config/SAM      $vCarpetaDeCasos$vCasoActual/Registro/SAM
   echo ""
   echo "  Copiando SECURITY..."
   echo ""
-  sudo cp -r $vPuntoDeMontaje/WINDOWS/system32/config/SECURITY $vCarpetaDeCasos$vCasoActual/Registro/SECURITY
+  sudo cp $vPuntoDeMontaje/WINDOWS/system32/config/SECURITY $vCarpetaDeCasos$vCasoActual/Registro/SECURITY
   echo ""
   echo "  Copiando SOFTWARE..."
   echo ""
-  sudo cp -r $vPuntoDeMontaje/WINDOWS/system32/config/software $vCarpetaDeCasos$vCasoActual/Registro/SOFTWARE
+  sudo cp $vPuntoDeMontaje/WINDOWS/system32/config/software $vCarpetaDeCasos$vCasoActual/Registro/SOFTWARE
   echo ""
   echo "  Copiando DEFAULT..."
   echo ""
-  sudo cp -r $vPuntoDeMontaje/WINDOWS/system32/config/default  $vCarpetaDeCasos$vCasoActual/Registro/DEFAULT
+  sudo cp $vPuntoDeMontaje/WINDOWS/system32/config/default  $vCarpetaDeCasos$vCasoActual/Registro/DEFAULT
 
 # Exportando registro de usuarios
   echo ""
@@ -42,7 +42,7 @@
   while IFS= read -r linea; do
     vNomUsuario="${linea##*/}"
     echo ""
-    echo "  Copiando NTUSER.DAT de $vNomUsuario..."
+    echo "    Copiando NTUSER.DAT de $vNomUsuario..."
     echo ""
     sudo mkdir -p "$vCarpetaDeCasos$vCasoActual"/Usuarios/"$vNomUsuario"
     cp "$vPuntoDeMontaje"/"Documents and Settings"/"$vNomUsuario"/NTUSER.DAT "$vCarpetaDeCasos$vCasoActual"/Usuarios/"$vNomUsuario"/
