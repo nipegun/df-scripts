@@ -1,12 +1,18 @@
 #!/bin/bash
 
-# ------
+# Definir variabñes
   vPuntoDeMontaje="/Particiones/Pruebas"
   vCarpetaDeCasos="/Casos"
-  # Determinar el caso actual
+
+# Determinar el caso actual y crear la carpeta
   vCasoActual="/22"
+  rm -rf $vCarpetaDeCasos$vCasoActual 2>/dev/null
   sudo mkdir -p $vCarpetaDeCasos$vCasoActual
+
+# Reparar permisos
   sudo chown 1000:1000 $vCarpetaDeCasos -R
+
+# Exportar registros
   echo ""
   echo "  Exportando SYSTEM..."
   echo ""
@@ -28,12 +34,15 @@
   echo ""
   sudo /usr/local/bin/rip.pl -r $vPuntoDeMontaje/WINDOWS/system32/config/default  -a > $vCarpetaDeCasos$vCasoActual/DEFAULT.txt
 
-vPuntoDeMontaje="/Particiones/Pruebas"
-for vCarpeta in "$vPuntoDeMontaje/Documents and Settings/*"; do
-  #if [ -d "$vCarpeta" ]; then
-    # Comandos a ejecutar por cada carpeta
-    echo "Procesando carpeta: $vCarpeta"
-    # Tus comandos aquí, por ejemplo:
-    # cd "$dir" && ejecutar_comando
-  #fi
-done
+# Exportando registro de usuarios
+  echo ""
+  echo "  Exportando registro de usuarios..."
+  echo ""
+  for vCarpeta in "$vPuntoDeMontaje/Documents and Settings/*"; do
+    #if [ -d "$vCarpeta" ]; then
+      # Comandos a ejecutar por cada carpeta
+      echo "Procesando carpeta: $vCarpeta"
+      # Tus comandos aquí, por ejemplo:
+      # cd "$dir" && ejecutar_comando
+    #fi
+  done
