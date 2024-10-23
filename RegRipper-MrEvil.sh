@@ -44,8 +44,8 @@
     echo ""
     echo "    Copiando NTUSER.DAT de $vNomUsuario..."
     echo ""
-    sudo mkdir -p "$vCarpetaDeCasos$vCasoActual"/Usuarios/"$vNomUsuario"
-    cp "$vPuntoDeMontaje"/"Documents and Settings"/"$vNomUsuario"/NTUSER.DAT "$vCarpetaDeCasos$vCasoActual"/Usuarios/"$vNomUsuario"/
+    sudo mkdir -p "$vCarpetaDeCasos$vCasoActual"/Registro/Usuarios/"$vNomUsuario"
+    cp "$vPuntoDeMontaje"/"Documents and Settings"/"$vNomUsuario"/NTUSER.DAT "$vCarpetaDeCasos$vCasoActual"/Registro/Usuarios/"$vNomUsuario"/
   done < "/tmp/CarpetasDeUsuarios.txt"
 
 
