@@ -16,7 +16,7 @@
   echo ""
   echo "  Copiando SYSTEM..."
   echo ""
-  sudo cp "$vPuntoDeMontaje"/WINDOWS/system32/config/system "$vCarpetaDeCasos""$vFechaCaso"/Registro/SYSTEM
+  sudo cp "$vPuntoDeMontaje"/WINDOWS/system32/config/system   "$vCarpetaDeCasos""$vFechaCaso"/Registro/SYSTEM
   echo ""
   echo "  Copiando SAM..."
   echo ""
@@ -44,8 +44,8 @@
     echo ""
     echo "    Copiando NTUSER.DAT de $vNomUsuario..."
     echo ""
-    sudo mkdir -p "$vCarpetaDeCasos$vFechaCaso"/Registro/Usuarios/"$vNomUsuario"
-    cp "$vPuntoDeMontaje"/"Documents and Settings"/"$vNomUsuario"/NTUSER.DAT "$vCarpetaDeCasos$vFechaCaso"/Registro/Usuarios/"$vNomUsuario"/
+    sudo mkdir -p "$vCarpetaDeCasos""$vFechaCaso"/Registro/Usuarios/"$vNomUsuario"
+    cp "$vPuntoDeMontaje"/"Documents and Settings"/"$vNomUsuario"/NTUSER.DAT "$vCarpetaDeCasos""$vFechaCaso"/Registro/Usuarios/"$vNomUsuario"/
   done < "/tmp/CarpetasDeUsuarios.txt"
 
 # Exportar registros
@@ -81,8 +81,8 @@
     echo ""
     echo "    RegRippeando NTUSER.DAT de $vNomUsuario..."
     echo ""
-    sudo mkdir -p "$vCarpetaDeCasos$vFechaCaso"/RegRipper/Usuarios/"$vNomUsuario" 2> /dev/null
-    sudo /usr/local/bin/rip.pl -r "$vCarpetaDeCasos$vFechaCaso"/Registro/Usuarios/"$vNomUsuario"/NTUSER.DAT  -a > "$vCarpetaDeCasos$vFechaCaso"/RegRipper/Usuarios/"$vNomUsuario"/NTUSER.DAT.txt
+    sudo mkdir -p "$vCarpetaDeCasos""$vFechaCaso"/RegRipper/Usuarios/"$vNomUsuario" 2> /dev/null
+    sudo /usr/local/bin/rip.pl -r "$vCarpetaDeCasos""$vFechaCaso"/Registro/Usuarios/"$vNomUsuario"/NTUSER.DAT  -a > "$vCarpetaDeCasos""$vFechaCaso"/RegRipper/Usuarios/"$vNomUsuario"/NTUSER.DAT.txt
   done < "/tmp/CarpetasDeUsuarios.txt"
 
 # Reparar permisos
