@@ -50,25 +50,25 @@
 
 
 # Exportar registros
+  sudo mkdir -p "$vCarpetaDeCasos""$vCasoActual"/RegRipper/ 2> /dev/null
   echo ""
   echo "  Exportando SYSTEM..."
   echo ""
-
-  sudo /usr/local/bin/rip.pl -r $vCarpetaDeCasos$vCasoActual/Registro/SYSTEM   -a > $vCarpetaDeCasos$vCasoActual/SYSTEM.txt
+  sudo /usr/local/bin/rip.pl -r "$vCarpetaDeCasos""$vCasoActual"/Registro/SYSTEM   -a > "$vCarpetaDeCasos""$vCasoActual"/RegRipper/SYSTEM.txt
   echo ""
   echo "  Exportando SAM..."
   echo ""
-  sudo /usr/local/bin/rip.pl -r $vCarpetaDeCasos$vCasoActual/Registro/SAM      -a > $vCarpetaDeCasos$vCasoActual/SAM.txt
+  sudo /usr/local/bin/rip.pl -r "$vCarpetaDeCasos""$vCasoActual"/Registro/SAM      -a > "$vCarpetaDeCasos""$vCasoActual"/RegRipper/SAM.txt
   echo ""
   echo "  Exportando SECURITY..."
   echo ""
-  sudo /usr/local/bin/rip.pl -r $vCarpetaDeCasos$vCasoActual/Registro/SECURITY -a > $vCarpetaDeCasos$vCasoActual/SECURITY.txt
+  sudo /usr/local/bin/rip.pl -r "$vCarpetaDeCasos""$vCasoActual"/Registro/SECURITY -a > "$vCarpetaDeCasos""$vCasoActual"/RegRipper/SECURITY.txt
   echo ""
   echo "  Exportando SOFTWARE..."
   echo ""
-  sudo /usr/local/bin/rip.pl -r $vCarpetaDeCasos$vCasoActual/Registro/SOFTWARE -a > $vCarpetaDeCasos$vCasoActual/SOFTWARE.txt
+  sudo /usr/local/bin/rip.pl -r "$vCarpetaDeCasos""$vCasoActual"/Registro/SOFTWARE -a > "$vCarpetaDeCasos""$vCasoActual"/RegRipper/SOFTWARE.txt
   echo ""
   echo "  Exportando DEFAULT..."
   echo ""
-  sudo /usr/local/bin/rip.pl -r $vCarpetaDeCasos$vCasoActual/Registro/DEFAULT  -a > $vCarpetaDeCasos$vCasoActual/DEFAULT.txt
+  sudo /usr/local/bin/rip.pl -r "$vCarpetaDeCasos""$vCasoActual"/Registro/DEFAULT  -a > "$vCarpetaDeCasos""$vCasoActual"/RegRipper/DEFAULT.txt
 
