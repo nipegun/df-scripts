@@ -42,6 +42,6 @@
   for linea in $(cat "/tmp/CarpetasDeUsuarios.txt"); do
     vNomUsuario="${linea##*/}"
     echo "$vNomUsuario"
-    sudo mkdir -p "$vCarpetaDeCasos$vCasoActual"/"$vNomUsuario"
+    #sudo mkdir -p "$vCarpetaDeCasos$vCasoActual"/"$vNomUsuario"
   done
 
