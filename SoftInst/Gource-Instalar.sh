@@ -130,7 +130,8 @@
               echo "    Descomprimiento el archivo .tar..."
               echo ""
               cd /root/SoftInt/Gource/
-              untar gource.tar.gz
+              tar -xvf gource.tar.gz
+              cd /root/SoftInt/Gource/gource-$vUltVersCodFuente/
               echo ""
 
             ;;
