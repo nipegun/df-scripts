@@ -123,7 +123,14 @@
               echo ""
               mkdir -p /root/SoftInt/Gource/
               cd /root/SoftInt/Gource/
-              curl -sL https://github.com/acaudwell/Gource/releases/download/gource-$vUltVersCodFuente/gource-$vUltVersCodFuente.tar.gz -o /root/SoftInt/Gource/gource.tar.gz
+              curl -L https://github.com/acaudwell/Gource/releases/download/gource-$vUltVersCodFuente/gource-$vUltVersCodFuente.tar.gz -o /root/SoftInt/Gource/gource.tar.gz
+              echo ""
+
+              echo ""
+              echo "    Descomprimiento el archivo .tar..."
+              echo ""
+              cd /root/SoftInt/Gource/
+              untar gource.tar.gz
               echo ""
 
             ;;
