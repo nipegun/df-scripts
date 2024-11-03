@@ -110,6 +110,22 @@
               echo "  Bajando código fuente, compilando e instalando..."
               echo ""
 
+              echo ""
+              echo "    Determinando última versión del código fuente..."
+              echo ""
+              vUltVersCodFuente=$(curl -sL https://github.com/acaudwell/Gource/releases/latest/ | sed 's/gource-/\n/g' | grep ^[0..9] | head -n1 | cut -d' ' -f1)
+              echo ""
+              echo "      La última versión es la $vUltVersCodFuente"
+              echo ""
+
+              echo ""
+              echo "    Descargando el código fuente de la última versión..."
+              echo ""
+              mkdir -p /root/SoftInt/Gource/
+              cd /root/SoftInt/Gource/
+              curl -sL https://github.com/acaudwell/Gource/releases/download/gource-$vUltVersCodFuente/gource-$vUltVersCodFuente.tar.gz -o /root/SoftInt/Gource/gource.tar.gz
+              echo ""
+
             ;;
 
             2)
