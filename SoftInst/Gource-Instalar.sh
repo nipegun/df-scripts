@@ -134,6 +134,21 @@
               cd /root/SoftInt/Gource/gource-$vUltVersCodFuente/
               echo ""
 
+              echo ""
+              echo "    Instalando paquetes necesarios para compilar..."
+              echo ""
+              apt-get update
+              apt-get -y install libsdl2-dev
+              apt-get -y install libsdl2-image-dev
+              apt-get -y install libpcre2-dev
+              apt-get -y install libfreetype6-dev
+              apt-get -y install libglew-dev
+              apt-get -y install libglm-dev
+              apt-get -y install libboost-filesystem-dev
+              apt-get -y install libpng-dev
+              apt-get -y install libtinyxml-dev
+              echo ""
+
             ;;
 
             2)
