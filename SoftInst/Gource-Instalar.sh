@@ -131,7 +131,6 @@
               echo ""
               cd /root/SoftInt/Gource/
               tar -xvf gource.tar.gz
-              cd /root/SoftInt/Gource/gource-$vUltVersCodFuente/
               echo ""
 
               echo ""
@@ -147,6 +146,24 @@
               apt-get -y install libboost-filesystem-dev
               apt-get -y install libpng-dev
               apt-get -y install libtinyxml-dev
+              echo ""
+
+              echo ""
+              echo "    Compilando..."
+              echo ""
+              cd /root/SoftInt/Gource/gource-$vUltVersCodFuente/
+              ./configure
+              make
+              echo ""
+
+              echo ""
+              echo "    Instalando..."
+              echo ""
+              cd /root/SoftInt/Gource/gource-$vUltVersCodFuente/
+              make install
+              vUbicGource=$(whereis gource | cut -d' ' -f2)
+              echo ""
+              echo "      Ejecutable de gource instalado en $vUbicGource"
               echo ""
 
             ;;
