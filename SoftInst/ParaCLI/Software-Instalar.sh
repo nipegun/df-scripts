@@ -6,3 +6,7 @@
 
 # Herramientas para el registro de Windows
   apt-get -y install chntpw
+
+# Metadatos de archivos
+  apt-get -y install libimage-exiftool-perl
+
