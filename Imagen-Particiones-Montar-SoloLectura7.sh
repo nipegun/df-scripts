@@ -61,7 +61,7 @@ for vIndice in "${!aOffsetsDeInicio[@]}"; do
   echo ""
   echo "  Ejecutando: mount -o loop,offset=${aOffsetsDeInicio[vIndice]} $1 /Casos/$cFechaDeEjec/Particiones/$((vIndice + 1))"
   echo ""
-  mount -o loop,offset=${aOffsetsDeInicio[vIndice]} "$1" /Casos/$cFechaDeEjec/Particiones/$((vIndice + 1))
+  mount -t auto -o loop,offset=${aOffsetsDeInicio[vIndice]} "$1" /Casos/$cFechaDeEjec/Particiones/$((vIndice + 1))
 done
 
 
