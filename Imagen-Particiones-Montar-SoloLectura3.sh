@@ -57,8 +57,8 @@
 #  done
 
 for vIndice in "${!aOffsetsDeInicio[@]}"; do
-  mkdir -p /Casos/$cFechaDeEjec/Particiones/Offset$vIndice
-  echo "  Ejecutando: mount -o loop,offset=${aOffsetsDeInicio[i]} $1 /Casos/$cFechaDeEjec/Particiones/$((i + 1))"
+  mkdir -p /Casos/$cFechaDeEjec/Particiones/$vIndice
+  echo "  Ejecutando: mount -o loop,offset=${aOffsetsDeInicio[i]} $1 /Casos/$cFechaDeEjec/Particiones/$vIndice"
   mount -o loop,offset=${aOffsetsDeInicio[i]} "$1" /Casos/$cFechaDeEjec/Particiones/$((i + 1))
 done
 
