@@ -41,7 +41,7 @@ if [ $# -ne $cCantParamEsperados ]
   then
     echo ""
     echo -e "${cColorRojo}  Mal uso del script. El uso correcto sería: ${cFinColor}"
-    echo "    $0 [PuntoDeMontaje] [CarpetaDeCasos] (Ambos sin barra final)"
+    echo "    $0 [PuntoDeMontajeDePartConWindows] [CarpetaDondeExtraerElRegistro] (Ambos sin barra final)"
     echo ""
     echo "  Ejemplo:"
     echo "    $0 'Hola' 'Mundo'"
