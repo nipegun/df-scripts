@@ -107,7 +107,7 @@ if [ $# -ne $cCantParamEsperados ]
       echo ""
       echo "  RegRippeando SAM..."
       echo ""
-      sudo /usr/local/bin/rip.pl -r "$vCarpetaDeCasos"/Registro/Archivos/SAM      -a > "$vCarpetaDeCasos"/Registro/RegRipper/SAM.txt
+      /usr/local/bin/rip.pl -r "$vCarpetaDeCasos"/Registro/Archivos/SAM      -a > "$vCarpetaDeCasos"/Registro/RegRipper/SAM.txt
       echo ""
       echo "  RegRippeando SECURITY..."
       echo ""
@@ -119,7 +119,7 @@ if [ $# -ne $cCantParamEsperados ]
       echo ""
       echo "  RegRippeando DEFAULT..."
       echo ""
-      sudo /usr/local/bin/rip.pl -r "$vCarpetaDeCasos"/Registro/Archivos/DEFAULT  -a > "$vCarpetaDeCasos"/Registro/RegRipper/DEFAULT.txt
+      /usr/local/bin/rip.pl -r "$vCarpetaDeCasos"/Registro/Archivos/DEFAULT  -a > "$vCarpetaDeCasos"/Registro/RegRipper/DEFAULT.txt
 
     # Exportar registro de usuarios
       echo ""
