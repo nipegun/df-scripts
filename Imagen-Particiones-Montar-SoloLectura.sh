@@ -56,45 +56,11 @@
     aNuevosOffsets+=("$vOffsetx512")
   done
 
-
-
-# Montar todas las particiones
-#  for vOffsetDeInicio in "${aOffsetsDeInicio[@]}"; do
-#    mkdir -p /Casos/$cFechaDeEjec/Particiones/Offset$vOffsetDeInicio
-#    echo "  Ejecutando: mount -o loop,offset=$vOffsetDeInicio $1 /Casos/$cFechaDeEjec/Particiones/Offset$vOffsetDeInicio"
-#  done
-
-
-for vIndice in "${!aOffsetsDeInicio[@]}"; do
-  mkdir -p /Casos/$cFechaDeEjec/Particiones/$((vIndice + 1))
-  echo ""
-  echo "  Ejecutando: mount -o loop,ro,offset=${aOffsetsDeInicio[vIndice]} $1 /Casos/$cFechaDeEjec/Particiones/$((vIndice + 1))"
-  echo ""
-  mount -t auto -o loop,ro,offset=${aOffsetsDeInicio[vIndice]} "$1" /Casos/$cFechaDeEjec/Particiones/$((vIndice + 1))
-done
-
-
-#for vIndice in "${!aNuevosOffsets[@]}"; do
-#  mkdir -p /Casos/$cFechaDeEjec/Particiones/$((vIndice + 1))
-#  echo ""
-#  echo "  Ejecutando: mount -o loop,ro,offset=${aNuevosOffsets[vIndice]} $1 /Casos/$cFechaDeEjec/Particiones/$((vIndice + 1))"
-#  echo ""
-#  mount -t auto -o loop,ro,offset=${aNuevosOffsets[vIndice]} "$1" /Casos/$cFechaDeEjec/Particiones/$((vIndice + 1))
-#done
-
-
-for vIndice in "${!aNuevosOffsets[@]}"; do
-  mkdir -p /Casos/$cFechaDeEjec/Particiones/$((vIndice + 1))
-  vDispositivoLoopLibre=$(losetup -f)
-  losetup -f -o ${aNuevosOffsets[vIndice]} $1
-  mount -o ro $vDispositivoLoopLibre /Casos/$cFechaDeEjec/Particiones/$((vIndice + 1))
-done
-
-# Determinar el primer dispositivo de loopback disponible
-  echo ""
-  echo "    Determinando el primer dispositivo de loopback libre..."
-  
-  echo ""
-  echo "      El primer dispositivo de loopback libre es $vPrimerDispLB"
-  echo ""
+# Crear la carpeta del caso y montar las particiones como sólo lectura
+  for vIndice in "${!aNuevosOffsets[@]}"; do
+    mkdir -p /Casos/$cFechaDeEjec/Particiones/$((vIndice + 1))
+    vDispositivoLoopLibre=$(losetup -f)
+    losetup -f -o ${aNuevosOffsets[vIndice]} $1
+    mount -o ro $vDispositivoLoopLibre /Casos/$cFechaDeEjec/Particiones/$((vIndice + 1))
+  done
 
