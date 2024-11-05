@@ -51,11 +51,17 @@
   done
 
 # Montar todas las particiones
-  for vOffsetDeInicio in "${aOffsetsDeInicio[@]}"; do
-    mkdir -p /Casos/$cFechaDeEjec/Particiones/Offset$vOffsetDeInicio
-    echo "  Ejecutando: mount -o loop,offset=$vOffsetDeInicio $1 /Casos/$cFechaDeEjec/Particiones/Offset$vOffsetDeInicio"
-    mount -o loop,offset=$vOffsetDeInicio "$1" /Casos/$cFechaDeEjec/Particiones/Offset$vOffsetDeInicio
-  done
+#  for vOffsetDeInicio in "${aOffsetsDeInicio[@]}"; do
+#    mkdir -p /Casos/$cFechaDeEjec/Particiones/Offset$vOffsetDeInicio
+#    echo "  Ejecutando: mount -o loop,offset=$vOffsetDeInicio $1 /Casos/$cFechaDeEjec/Particiones/Offset$vOffsetDeInicio"
+#  done
+
+for vIndice in "${!aOffsetsDeInicio[@]}"; do
+  mkdir -p /Casos/$cFechaDeEjec/Particiones/Offset$vIndice
+  echo "  Ejecutando: mount -o loop,offset=${aOffsetsDeInicio[i]} $1 /Casos/$cFechaDeEjec/Particiones/$((i + 1))"
+  mount -o loop,offset=${aOffsetsDeInicio[i]} "$1" /Casos/$cFechaDeEjec/Particiones/$((i + 1))
+done
+
 
 # Determinar el primer dispositivo de loopback disponible
   echo ""
