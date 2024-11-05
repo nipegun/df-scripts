@@ -10,3 +10,5 @@
 # Metadatos de archivos
   apt-get -y install libimage-exiftool-perl
 
+  # Esteganografía
+    apt-get -y install steghide
