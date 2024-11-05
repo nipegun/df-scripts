@@ -53,6 +53,7 @@
 # Montar todas las particiones
   for vOffsetDeInicio in "${aOffsetsDeInicio[@]}"; do
     mkdir -p /Casos/$cFechaDeEjec/Particiones/Offset$vOffsetDeInicio
+    echo "  Ejecutando: mount -o loop,offset=$vOffsetDeInicio $1 /Casos/$cFechaDeEjec/Particiones/Offset$vOffsetDeInicio"
     mount -o loop,offset=$vOffsetDeInicio "$1" /Casos/$cFechaDeEjec/Particiones/Offset$vOffsetDeInicio
   done
 
