@@ -9,7 +9,7 @@
 # Script de NiPeGun para extraer los archivos de registro de una partición de Windows
 #
 # Ejecución remota con parámetros:
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Registro-Extraer-Completo-WindowsVistaYPosterior.sh | bash -s Parámetro1 Parámetro2
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Registro-Extraer-Completo-WindowsVistaYPosterior.sh | sudo bash -s Parámetro1 Parámetro2
 #
 # Bajar y editar directamente el archivo en nano
 #   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Registro-Extraer-Completo-WindowsVistaYPosterior.sh | nano -
@@ -136,7 +136,7 @@ if [ $# -ne $cCantParamEsperados ]
       done < "/tmp/CarpetasDeUsuarios.txt"
 
     # Reparar permisos
-      sudo chown 1000:1000 $vCarpetaDeCasos -R
+      chown 1000:1000 $vCarpetaDeCasos -R
 
 fi
 
