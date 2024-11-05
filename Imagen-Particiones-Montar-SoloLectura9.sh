@@ -50,11 +50,20 @@
     aOffsetsDeInicio+=("$vOffset")
   done
 
+# Multiplicar el valor de cada campo del array x el tamaño de bloque
+  for vNroOffsetSimple in "${aOffsetsDeInicio[@]}"; do
+    vOffsetx512=$((vNroOffsetSimple * 512))
+    aNuevosOffsets+=("$vOffsetx512")
+  done
+
+
+
 # Montar todas las particiones
 #  for vOffsetDeInicio in "${aOffsetsDeInicio[@]}"; do
 #    mkdir -p /Casos/$cFechaDeEjec/Particiones/Offset$vOffsetDeInicio
 #    echo "  Ejecutando: mount -o loop,offset=$vOffsetDeInicio $1 /Casos/$cFechaDeEjec/Particiones/Offset$vOffsetDeInicio"
 #  done
+
 
 for vIndice in "${!aOffsetsDeInicio[@]}"; do
   mkdir -p /Casos/$cFechaDeEjec/Particiones/$((vIndice + 1))
@@ -64,6 +73,14 @@ for vIndice in "${!aOffsetsDeInicio[@]}"; do
   mount -t auto -o loop,ro,offset=${aOffsetsDeInicio[vIndice]} "$1" /Casos/$cFechaDeEjec/Particiones/$((vIndice + 1))
 done
 
+
+for vIndice in "${!aNuevosOffsets[@]}"; do
+  mkdir -p /Casos/$cFechaDeEjec/Particiones/$((vIndice + 1))
+  echo ""
+  echo "  Ejecutando: mount -o loop,ro,offset=${aNuevosOffsets[vIndice]} $1 /Casos/$cFechaDeEjec/Particiones/$((vIndice + 1))"
+  echo ""
+  mount -t auto -o loop,ro,offset=${aNuevosOffsets[vIndice]} "$1" /Casos/$cFechaDeEjec/Particiones/$((vIndice + 1))
+done
 
 # Determinar el primer dispositivo de loopback disponible
   echo ""
