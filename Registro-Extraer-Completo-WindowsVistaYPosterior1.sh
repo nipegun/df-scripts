@@ -136,7 +136,7 @@ if [ $# -ne $cCantParamEsperados ]
       done < "/tmp/CarpetasDeUsuarios.txt"
 
     # Reparar permisos
-      chown 1000:1000 $vCarpetaDeCasos -R
+      chown 1000:1000 "$vCarpetaDeCasos"/Registro/ -R
 
 fi
 
