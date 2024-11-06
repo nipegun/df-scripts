@@ -80,9 +80,11 @@
     echo -e "${cColorAzulClaro}  Iniciando el script de instalación de analyzeMFT para Debian 12 (Bookworm)...${cFinColor}"
     echo ""
 
-    echo ""
-    echo -e "${cColorRojo}    Comandos para Debian 12 todavía no preparados. Prueba ejecutarlo en otra versión de Debian.${cFinColor}"
-    echo ""
+    # Determinar las última versión
+      echo ""
+      echo "    Determinando la última versión de analyzeMFT..."
+      echo ""
+      vUltVers=$(curl -sL https://github.com/rowingdude/analyzeMFT/releases/latest/ | sed 's|/tag/|\n|g' | grep ^v[0-9] | head -n1 | cut -d'"' -f1 | cut -d'v' -f2)
 
   elif [ $cVerSO == "11" ]; then
 
