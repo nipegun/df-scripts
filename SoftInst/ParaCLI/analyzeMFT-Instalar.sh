@@ -80,24 +80,35 @@
     echo -e "${cColorAzulClaro}  Iniciando el script de instalación de analyzeMFT para Debian 12 (Bookworm)...${cFinColor}"
     echo ""
 
-    # Determinar las última versión
-      echo ""
-      echo "    Determinando la última versión de analyzeMFT..."
-      echo ""
-      vUltVers=$(curl -sL https://github.com/rowingdude/analyzeMFT/releases/latest/ | sed 's|/tag/|\n|g' | grep ^v[0-9] | head -n1 | cut -d'"' -f1 | cut -d'v' -f2)
-
-    # Obtener el enlace de descarga de la última versión
-      echo ""
-      echo "    Obteniendo en enlace de descarga de la última versión..."
-      echo ""
-      mkdir -p /root/SoftInst/analyzeMFT/
-      curl -sL https://github.com/rowingdude/analyzeMFT/archive/refs/tags/v$vUltVers.tar.gz -o /root/SoftInst/analyzeMFT/analyzeMFT.tar.gz
-      tar -xzf /root/SoftInst/analyzeMFT/analyzeMFT.tar.gz -C /root/SoftInst/analyzeMFT/
-      mv /root/SoftInst/analyzeMFT/analyzeMFT-$vUltVers/* /root/SoftInst/analyzeMFT/
-      rm -rf /root/SoftInst/analyzeMFT/analyzeMFT-$vUltVers/
-      rm -f  /root/SoftInst/analyzeMFT/analyzeMFT.tar.gz
-      for line in $(cat /root/SoftInst/analyzeMFT/requirements-dev.txt); do apt -y install python3-$line; done
-
+    # Comprobar si el paquete curl está instalado. Si no lo está, instalarlo.
+      if [[ $(dpkg-query -s curl 2>/dev/null | grep installed) == "" ]]; then
+        echo ""
+        echo -e "${cColorRojo}  El paquete curl no está instalado. Iniciando su instalación...${cFinColor}"
+        echo ""
+        apt-get -y update && apt-get -y install curl
+        echo ""
+      fi
+    vUltVers=$(curl -sL https://github.com/rowingdude/analyzeMFT/releases/latest/ | sed 's|/tag/|\n|g' | grep ^v[0-9] | head -n1 | cut -d'"' -f1 | cut -d'v' -f2)
+    mkdir -p /root/SoftInst/analyzeMFT/
+    curl -sL https://github.com/rowingdude/analyzeMFT/archive/refs/tags/v$vUltVers.tar.gz -o /root/SoftInst/analyzeMFT/analyzeMFT.tar.gz
+    tar -xzf /root/SoftInst/analyzeMFT/analyzeMFT.tar.gz -C /root/SoftInst/analyzeMFT/
+    mv /root/SoftInst/analyzeMFT/analyzeMFT-$vUltVers/* /root/SoftInst/analyzeMFT/
+    rm -rf /root/SoftInst/analyzeMFT/analyzeMFT-$vUltVers/
+    rm -f  /root/SoftInst/analyzeMFT/analyzeMFT.tar.gz
+    cd /root/SoftInst/analyzeMFT/
+    # Comprobar si el paquete python3 está instalado. Si no lo está, instalarlo.
+      if [[ $(dpkg-query -s python3 2>/dev/null | grep installed) == "" ]]; then
+        echo ""
+        echo -e "${cColorRojo}  El paquete python3 no está instalado. Iniciando su instalación...${cFinColor}"
+        echo ""
+        apt-get -y update && apt-get -y install python3
+        echo ""
+      fi
+    python3 -m venv venv
+    source venv/bin/activate
+    pip install .
+    mkdir /root/SoftInst/analyzeMFT/bin/
+    cp /root/SoftInst/analyzeMFT/venv/bin/analyzemft /root/SoftInst/analyzeMFT/bin/
   
   elif [ $cVerSO == "11" ]; then
 
