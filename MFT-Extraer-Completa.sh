@@ -5,6 +5,16 @@
 # Si se te llena la boca hablando de libertad entonces hazlo realmente libre.
 # No tienes que aceptar ningún tipo de términos de uso o licencia para utilizarlo o modificarlo porque va sin CopyLeft.
 
+# ----------
+# Script de NiPeGun para montar todas las particiones de dentro de un archivo de imagen
+#
+# Ejecución remota:
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Imagen-Particiones-Montar-SoloLectura.sh | bash -s [RutaAlArchivoDeImagen]
+#
+# Bajar y editar directamente el archivo en nano
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Imagen-Particiones-Montar-SoloLectura.sh | nano -
+# ----------
+
 # Definir constantes de color
   cColorAzul="\033[0;34m"
   cColorAzulClaro="\033[1;34m"
@@ -15,21 +25,22 @@
   cFinColor='\033[0m'
 
 # Definir la cantidad de argumentos esperados
-  cCantParamEsperados=1
+  cCantParamEsperados=2
 
 if [ $# -ne $cCantParamEsperados ]
   then
     echo ""
     echo -e "${cColorRojo}  Mal uso del script. El uso correcto sería: ${cFinColor}"
-    echo "    $0 [PuntoDeMontajeDeLaPartNTFS]"
+    echo "    $0 [PuntoDeMontajeDeLaPartNTFS] [CarpetaDeExtracción]"
     echo ""
     echo "  Ejemplo:"
-    echo "    $0 '/mnt/DiscoWindows/'"
+    echo "    $0 '/mnt/DiscoWindows/' '/Casos/002/'"
     echo ""
     exit
   else
     echo ""
     echo ""
     echo ""
-    cat $1$2
+    mkdir -p $2/MFT/
+    cp $1/\$MFT $2/MFT/
 fi
