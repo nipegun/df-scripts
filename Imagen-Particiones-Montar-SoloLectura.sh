@@ -66,6 +66,6 @@
     vDispositivoLoopLibre=$(losetup -f)
     echo "  Intentando asignar la partición del offset ${aNuevosOffsets[vIndice]} al dispositivo $vDispositivoLoopLibre... "
     losetup -f -o ${aNuevosOffsets[vIndice]} $1
-    mount -o ro $vDispositivoLoopLibre /Casos/$cFechaDeEjec/Particiones/$((vIndice + 1))
+    mount -o ro,show_sys_files,streams_interface=windows $vDispositivoLoopLibre /Casos/$cFechaDeEjec/Particiones/$((vIndice + 1))
   done
 
