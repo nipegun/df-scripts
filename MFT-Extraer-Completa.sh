@@ -9,7 +9,7 @@
 # Script de NiPeGun para montar todas las particiones de dentro de un archivo de imagen
 #
 # Ejecución remota:
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/MFT-Extraer-Completa.sh | bash -s [RutaAlArchivoDeImagen]
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/MFT-Extraer-Completa.sh | bash -s [RutaAlArchivoDeImagen] [CarpetaDeExtracción]
 #
 # Bajar y editar directamente el archivo en nano
 #   https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/MFT-Extraer-Completa.sh | nano -
