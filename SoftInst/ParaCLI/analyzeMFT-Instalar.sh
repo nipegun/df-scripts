@@ -95,7 +95,8 @@
       tar -xzf /root/SoftInst/analyzeMFT/analyzeMFT.tar.gz -C /root/SoftInst/analyzeMFT/
       mv /root/SoftInst/analyzeMFT/analyzeMFT-$vUltVers/* /root/SoftInst/analyzeMFT/
       rm -rf /root/SoftInst/analyzeMFT/analyzeMFT-$vUltVers/
-
+      rm -f  /root/SoftInst/analyzeMFT/analyzeMFT.tar.gz
+  
   elif [ $cVerSO == "11" ]; then
 
     echo ""
