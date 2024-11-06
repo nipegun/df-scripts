@@ -96,6 +96,8 @@
       mv /root/SoftInst/analyzeMFT/analyzeMFT-$vUltVers/* /root/SoftInst/analyzeMFT/
       rm -rf /root/SoftInst/analyzeMFT/analyzeMFT-$vUltVers/
       rm -f  /root/SoftInst/analyzeMFT/analyzeMFT.tar.gz
+      for line in $(cat /root/SoftInst/analyzeMFT/requirements-dev.txt); do apt -y install python3-$line; done
+
   
   elif [ $cVerSO == "11" ]; then
 
