@@ -86,6 +86,16 @@
       echo ""
       vUltVers=$(curl -sL https://github.com/rowingdude/analyzeMFT/releases/latest/ | sed 's|/tag/|\n|g' | grep ^v[0-9] | head -n1 | cut -d'"' -f1 | cut -d'v' -f2)
 
+    # Obtener el enlace de descarga de la última versión
+      echo ""
+      echo "    Obteniendo en enlace de descarga de la última versión..."
+      echo ""
+      mkdir -p /root/SoftInst/analyzeMFT/
+      curl -sL https://github.com/rowingdude/analyzeMFT/archive/refs/tags/v$vUltVers.tar.gz -o /root/SoftInst/analyzeMFT/analyzeMFT.tar.gz
+      tar -xzf /root/SoftInst/analyzeMFT/analyzeMFT.tar.gz -C /root/SoftInst/analyzeMFT/
+      mv /root/SoftInst/analyzeMFT/analyzeMFT-$vUltVers/* /root/SoftInst/analyzeMFT/
+      rm -rf /root/SoftInst/analyzeMFT/analyzeMFT-$vUltVers/
+
   elif [ $cVerSO == "11" ]; then
 
     echo ""
