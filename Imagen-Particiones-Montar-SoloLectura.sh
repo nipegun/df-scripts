@@ -17,7 +17,10 @@
 
 # Definir fecha de ejecución del script
   cFechaDeEjec=$(date +a%Ym%md%d@%T)
-      
+
+# vTamAsigMinCluster
+  vBytesPorSector=512
+
 # Definir constantes de color
   cColorAzul="\033[0;34m"
   cColorAzulClaro="\033[1;34m"
@@ -52,14 +55,16 @@
 
 # Multiplicar el valor de cada campo del array x el tamaño de bloque
   for vNroOffsetSimple in "${aOffsetsDeInicio[@]}"; do
-    vOffsetx512=$((vNroOffsetSimple * 512))
-    aNuevosOffsets+=("$vOffsetx512")
+    echo "  Multiplicando por $vBytesPorSector el offset $vNroOffsetSimple"
+    vOffsetMultiplicado=$((vNroOffsetSimple * $vBytesPorSector))
+    aNuevosOffsets+=("$vOffsetMultiplicado")
   done
 
 # Crear la carpeta del caso y montar las particiones como sólo lectura
   for vIndice in "${!aNuevosOffsets[@]}"; do
     mkdir -p /Casos/$cFechaDeEjec/Particiones/$((vIndice + 1))
     vDispositivoLoopLibre=$(losetup -f)
+    echo "  Intentando asignar la partición del offset ${aNuevosOffsets[vIndice]} al dispositivo $vDispositivoLoopLibre... "
     losetup -f -o ${aNuevosOffsets[vIndice]} $1
     mount -o ro $vDispositivoLoopLibre /Casos/$cFechaDeEjec/Particiones/$((vIndice + 1))
   done
