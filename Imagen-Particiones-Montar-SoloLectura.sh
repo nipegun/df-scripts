@@ -59,6 +59,7 @@
     vOffsetMultiplicado=$((vNroOffsetSimple * $vBytesPorSector))
     aNuevosOffsets+=("$vOffsetMultiplicado")
   done
+  echo ""
 
 # Crear la carpeta del caso y montar las particiones como sólo lectura
   for vIndice in "${!aNuevosOffsets[@]}"; do
@@ -67,4 +68,4 @@
     losetup -f -o ${aNuevosOffsets[vIndice]} $1 && echo "  Partición del offset ${aNuevosOffsets[vIndice]} asignada a $vDispositivoLoopLibre. "
     mount -o ro,show_sys_files,streams_interface=windows $vDispositivoLoopLibre /Casos/$cFechaDeEjec/Particiones/$((vIndice + 1)) &&  echo "    $vDispositivoLoopLibre montado en /Casos/$cFechaDeEjec/Particiones/$((vIndice + 1))."
   done
-
+  echo ""
