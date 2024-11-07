@@ -42,5 +42,5 @@ if [ $# -ne $cCantParamEsperados ]
     echo ""
     echo ""
     mkdir -p $2/MFT/Cruda/
-    cp $1/\$MFT $2/MFT/Cuda/
+    cp $1/\$MFT $2/MFT/Cruda/
 fi
