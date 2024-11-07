@@ -9,10 +9,10 @@
 # Script de NiPeGun para analizar y exportar el archivo $MFT original a múltimples formatos
 #
 # Ejecución remota:
-#   curl -sL curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Evidencias-Obtener-DeImagen.sh | sudo bash -s /Ruta/Al/Archivo/De/Imagen/De/Evidencia
+#   curl -sL curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Evidencias-Windows-Obtener-DeImagen.sh | sudo bash -s /Ruta/Al/Archivo/De/Imagen/De/Evidencia
 #
 # Bajar y editar directamente el archivo en nano
-#   curl -sL curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Evidencias-Obtener-DeImagen.sh | nano -
+#   curl -sL curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Evidencias-Windows-Obtener-DeImagen.sh | nano -
 # ----------
 
 # Montar particiones de imagen
