@@ -5,8 +5,10 @@
 # Montar particiones de imagen
   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Imagen-Particiones-Montar-SoloLectura.sh | sed 's|$(date +a%Ym%md%d@%T)|"Examen"|g' | sudo bash -s $1
 
-# Instalar RegRipper
+# Instalar RegRipper (Sólo se ejecuta en Debian)
   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/SoftInst/RegRipper-Instalar.sh | sudo bash
+
+
 
 # Desplegar menu pidiendo carpetas
 hacer un ls y guardar en una variable
