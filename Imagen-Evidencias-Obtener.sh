@@ -1,4 +1,7 @@
 
+# Ejecución remota:
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Imagen-Evidencias-Obtener.sh | sudo bash -s /Ruta/Al/Archivo/De/Imagen/De/Evidencia
+
 # Montar particiones de imagen
   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Imagen-Particiones-Montar-SoloLectura.sh | sed 's|$(date +a%Ym%md%d@%T)|Examen|g' | sudo bash -s $1
 
