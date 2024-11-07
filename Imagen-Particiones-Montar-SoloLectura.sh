@@ -65,6 +65,6 @@
     mkdir -p /Casos/$cFechaDeEjec/Particiones/$((vIndice + 1))
     vDispositivoLoopLibre=$(losetup -f)
     losetup -f -o ${aNuevosOffsets[vIndice]} $1 && echo "  Partición del offset ${aNuevosOffsets[vIndice]} asignada a $vDispositivoLoopLibre. "
-    mount -o ro,show_sys_files,streams_interface=windows $vDispositivoLoopLibre /Casos/$cFechaDeEjec/Particiones/$((vIndice + 1)) &&  echo "  $vDispositivoLoopLibre montado en /Casos/$cFechaDeEjec/Particiones/$((vIndice + 1))."
+    mount -o ro,show_sys_files,streams_interface=windows $vDispositivoLoopLibre /Casos/$cFechaDeEjec/Particiones/$((vIndice + 1)) &&  echo "    $vDispositivoLoopLibre montado en /Casos/$cFechaDeEjec/Particiones/$((vIndice + 1))."
   done
 
