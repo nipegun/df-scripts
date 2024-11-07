@@ -9,7 +9,7 @@
 # Script de NiPeGun para instalar y configurar RegRipper en Debian
 #
 # Ejecución remota:
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/main/SoftInst/RegRipper-Instalar.sh | sudo bash
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/SoftInst/RegRipper-Instalar.sh | sudo bash
 #
 # Más info: https://dfir-scripts.medium.com/installing-regripper-v2-8-on-ubuntu-26dc8bc8a2d3
 # ----------
