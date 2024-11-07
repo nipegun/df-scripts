@@ -71,29 +71,29 @@ if [ $# -ne $cCantParamEsperados ]
       vCarpetaDeCasos="$2" # Debe ser una carpeta sin barra final
 
     # Determinar el caso actual y crear la carpeta
-      mkdir -p "$vCarpetaDeCasos"/Registro/Archivos/
+      mkdir -p "$vCarpetaDeCasos"/Registro/ArchivosCrudos/
 
     # Copiar archivos de registro
       echo ""
       echo "  Copiando SYSTEM..."
       echo ""
-      cp "$vPuntoDeMontaje"/Windows/System32/config/SYSTEM   "$vCarpetaDeCasos"/Registro/Archivos/SYSTEM
+      cp "$vPuntoDeMontaje"/Windows/System32/config/SYSTEM   "$vCarpetaDeCasos"/Registro/ArchivosCrudos/SYSTEM
       echo ""
       echo "  Copiando SAM..."
       echo ""
-      cp "$vPuntoDeMontaje"/Windows/System32/config/SAM      "$vCarpetaDeCasos"/Registro/Archivos/SAM
+      cp "$vPuntoDeMontaje"/Windows/System32/config/SAM      "$vCarpetaDeCasos"/Registro/ArchivosCrudos/SAM
       echo ""
       echo "  Copiando SECURITY..."
       echo ""
-      cp "$vPuntoDeMontaje"/Windows/System32/config/SECURITY "$vCarpetaDeCasos"/Registro/Archivos/SECURITY
+      cp "$vPuntoDeMontaje"/Windows/System32/config/SECURITY "$vCarpetaDeCasos"/Registro/ArchivosCrudos/SECURITY
       echo ""
       echo "  Copiando SOFTWARE..."
       echo ""
-      cp "$vPuntoDeMontaje"/Windows/System32/config/SOFTWARE "$vCarpetaDeCasos"/Registro/Archivos/SOFTWARE
+      cp "$vPuntoDeMontaje"/Windows/System32/config/SOFTWARE "$vCarpetaDeCasos"/Registro/ArchivosCrudos/SOFTWARE
       echo ""
       echo "  Copiando DEFAULT..."
       echo ""
-      cp "$vPuntoDeMontaje"/Windows/system32/config/DEFAULT  "$vCarpetaDeCasos"/Registro/Archivos/DEFAULT
+      cp "$vPuntoDeMontaje"/Windows/system32/config/DEFAULT  "$vCarpetaDeCasos"/Registro/ArchivosCrudos/DEFAULT
 
     # Copiar registro de usuarios
       echo ""
@@ -105,33 +105,33 @@ if [ $# -ne $cCantParamEsperados ]
         echo ""
         echo "    Copiando NTUSER.DAT de $vNomUsuario..."
         echo ""
-        mkdir -p "$vCarpetaDeCasos"/Registro/Archivos/Usuarios/"$vNomUsuario"
-        cp "$vPuntoDeMontaje"/"Users"/"$vNomUsuario"/NTUSER.DAT "$vCarpetaDeCasos"/Registro/Archivos/Usuarios/"$vNomUsuario"/
+        mkdir -p "$vCarpetaDeCasos"/Registro/ArchivosCrudos/Usuarios/"$vNomUsuario"
+        cp "$vPuntoDeMontaje"/"Users"/"$vNomUsuario"/NTUSER.DAT "$vCarpetaDeCasos"/Registro/ArchivosCrudos/Usuarios/"$vNomUsuario"/
       done < "/tmp/CarpetasDeUsuarios.txt"
 
 
     # Exportar registros
-      mkdir -p "$vCarpetaDeCasos"/Registro/RegRipper/ 2> /dev/null
+      mkdir -p "$vCarpetaDeCasos"/Registro/ArchivosParseados/ 2> /dev/null
       echo ""
       echo "  RegRippeando SYSTEM..."
       echo ""
-      /usr/local/bin/rip.pl -r "$vCarpetaDeCasos"/Registro/Archivos/SYSTEM   -a > "$vCarpetaDeCasos"/Registro/RegRipper/SYSTEM.txt
+      /usr/local/bin/rip.pl -r "$vCarpetaDeCasos"/Registro/ArchivosCrudos/SYSTEM   -a > "$vCarpetaDeCasos"/Registro/ArchivosParseados/SYSTEM.txt
       echo ""
       echo "  RegRippeando SAM..."
       echo ""
-      /usr/local/bin/rip.pl -r "$vCarpetaDeCasos"/Registro/Archivos/SAM      -a > "$vCarpetaDeCasos"/Registro/RegRipper/SAM.txt
+      /usr/local/bin/rip.pl -r "$vCarpetaDeCasos"/Registro/ArchivosCrudos/SAM      -a > "$vCarpetaDeCasos"/Registro/ArchivosParseados/SAM.txt
       echo ""
       echo "  RegRippeando SECURITY..."
       echo ""
-      /usr/local/bin/rip.pl -r "$vCarpetaDeCasos"/Registro/Archivos/SECURITY -a > "$vCarpetaDeCasos"/Registro/RegRipper/SECURITY.txt
+      /usr/local/bin/rip.pl -r "$vCarpetaDeCasos"/Registro/ArchivosCrudos/SECURITY -a > "$vCarpetaDeCasos"/Registro/ArchivosParseados/SECURITY.txt
       echo ""
       echo "  RegRippeando SOFTWARE..."
       echo ""
-      /usr/local/bin/rip.pl -r "$vCarpetaDeCasos"/Registro/Archivos/SOFTWARE -a > "$vCarpetaDeCasos"/Registro/RegRipper/SOFTWARE.txt
+      /usr/local/bin/rip.pl -r "$vCarpetaDeCasos"/Registro/ArchivosCrudos/SOFTWARE -a > "$vCarpetaDeCasos"/Registro/ArchivosParseados/SOFTWARE.txt
       echo ""
       echo "  RegRippeando DEFAULT..."
       echo ""
-      /usr/local/bin/rip.pl -r "$vCarpetaDeCasos"/Registro/Archivos/DEFAULT  -a > "$vCarpetaDeCasos"/Registro/RegRipper/DEFAULT.txt
+      /usr/local/bin/rip.pl -r "$vCarpetaDeCasos"/Registro/ArchivosCrudos/DEFAULT  -a > "$vCarpetaDeCasos"/Registro/ArchivosParseados/DEFAULT.txt
 
     # Exportar registro de usuarios
       echo ""
@@ -143,8 +143,8 @@ if [ $# -ne $cCantParamEsperados ]
         echo ""
         echo "    RegRippeando NTUSER.DAT de $vNomUsuario..."
         echo ""
-        mkdir -p "$vCarpetaDeCasos"/Registro/RegRipper/Usuarios/"$vNomUsuario" 2> /dev/null
-        /usr/local/bin/rip.pl -r "$vCarpetaDeCasos"/Registro/Archivos/Usuarios/"$vNomUsuario"/NTUSER.DAT  -a > "$vCarpetaDeCasos"/Registro/RegRipper/Usuarios/"$vNomUsuario"/NTUSER.DAT.txt
+        mkdir -p "$vCarpetaDeCasos"/Registro/ArchivosParseados/Usuarios/"$vNomUsuario" 2> /dev/null
+        /usr/local/bin/rip.pl -r "$vCarpetaDeCasos"/Registro/ArchivosCrudos/Usuarios/"$vNomUsuario"/NTUSER.DAT  -a > "$vCarpetaDeCasos"/Registro/ArchivosParseados/Usuarios/"$vNomUsuario"/NTUSER.DAT.txt
       done < "/tmp/CarpetasDeUsuarios.txt"
 
     # Reparar permisos
