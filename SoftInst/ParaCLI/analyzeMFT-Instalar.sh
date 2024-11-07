@@ -89,13 +89,15 @@
         echo ""
       fi
     vUltVers=$(curl -sL https://github.com/rowingdude/analyzeMFT/releases/latest/ | sed 's|/tag/|\n|g' | grep ^v[0-9] | head -n1 | cut -d'"' -f1 | cut -d'v' -f2)
-    mkdir -p /root/SoftInst/analyzeMFT/
-    curl -sL https://github.com/rowingdude/analyzeMFT/archive/refs/tags/v$vUltVers.tar.gz -o /root/SoftInst/analyzeMFT/analyzeMFT.tar.gz
+    rm -rf /root/SoftInst/analyzeMFT/*  2> /dev/null
+    mkdir -p /root/SoftInst/analyzeMFT/ 2> /dev/null
+    curl -L https://github.com/rowingdude/analyzeMFT/archive/refs/tags/v$vUltVers.tar.gz -o /root/SoftInst/analyzeMFT/analyzeMFT.tar.gz
     tar -xzf /root/SoftInst/analyzeMFT/analyzeMFT.tar.gz -C /root/SoftInst/analyzeMFT/
-    mv /root/SoftInst/analyzeMFT/analyzeMFT-$vUltVers/* /root/SoftInst/analyzeMFT/
-    rm -rf /root/SoftInst/analyzeMFT/analyzeMFT-$vUltVers/
-    rm -f  /root/SoftInst/analyzeMFT/analyzeMFT.tar.gz
-    cd /root/SoftInst/analyzeMFT/
+    #mv /root/SoftInst/analyzeMFT/analyzeMFT-$vUltVers/* /root/SoftInst/analyzeMFT/
+    #rm -rf /root/SoftInst/analyzeMFT/analyzeMFT-$vUltVers/
+    #rm -f  /root/SoftInst/analyzeMFT/analyzeMFT.tar.gz
+    chmod 755 /root/SoftInst/analyzeMFT/analyzeMFT-$vUltVers/
+    cd /root/SoftInst/analyzeMFT/analyzeMFT-$vUltVers/
     # Comprobar si el paquete python3 está instalado. Si no lo está, instalarlo.
       if [[ $(dpkg-query -s python3 2>/dev/null | grep installed) == "" ]]; then
         echo ""
@@ -104,11 +106,25 @@
         apt-get -y update && apt-get -y install python3
         echo ""
       fi
-    python3 -m venv venv
-    source venv/bin/activate
+    python3 -m venv analyzemft
+    source analyzemft/bin/activate
     pip install .
-    mkdir /root/SoftInst/analyzeMFT/bin/
-    cp /root/SoftInst/analyzeMFT/venv/bin/analyzemft /root/SoftInst/analyzeMFT/bin/
+
+    # Compilar el script
+      pip install pyinstaller
+      pyinstaller --onefile /root/SoftInst/analyzeMFT/analyzeMFT-$vUltVers/analyzemft/bin/analyzemft
+
+    # Copiar el binario a /usr/bin
+      cp -r /root/SoftInst/analyzeMFT/analyzeMFT-$vUltVers/dist/analyzemft /usr/bin/
+
+    # Desactivar el entorno virtual
+      deactivate
+
+    # Notificar fin de ejecución del script
+      echo ""
+      echo "  analyzeMFT se ha descargado, compilado e instalado."
+      echo "    Puedes encontrar el binario en /usr/bin/analyzemft."  
+      echo ""
   
   elif [ $cVerSO == "11" ]; then
 
