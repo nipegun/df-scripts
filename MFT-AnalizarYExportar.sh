@@ -9,10 +9,10 @@
 # Script de NiPeGun para analizar y exportar el archivo $MFT original a múltimples formatos
 #
 # Ejecución remota:
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/MFT-Extraer-Original.sh | sudo bash -s [UbicacionDelArchivoMFTOriginalExtraido] [CarpetaDondeGuardarLasExportaciones]
+#   https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/MFT-AnalizarYExportar.sh | sudo bash -s [UbicacionDelArchivoMFTOriginalExtraido] [CarpetaDondeGuardarLasExportaciones]
 #
 # Bajar y editar directamente el archivo en nano
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/MFT-Extraer-Original.sh  | nano -
+#   https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/MFT-AnalizarYExportar.sh  | nano -
 # ----------
 
 # Definir constantes de color
