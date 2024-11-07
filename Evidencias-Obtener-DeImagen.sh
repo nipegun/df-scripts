@@ -35,5 +35,5 @@
     curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/SoftInst/ParaCLI/analyzeMFT-Instalar.sh | sudo bash
 
   # Ejecutar analyzemft sobre la evidencia
-    curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/MFT-AnalizarYExportar.sh | sudo bash -s /Casos/Examen/MFT/\$MFT /Casos/Examen/MFT/
+    curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/MFT-AnalizarYExportar.sh | sudo bash -s /Casos/Examen/MFT/MFTOriginal /Casos/Examen/MFT
 
