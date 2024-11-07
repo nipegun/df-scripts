@@ -12,7 +12,7 @@
 #   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/MFT-Extraer-Original.sh | sudo bash -s [PuntoDeMontajeDeLaPartNTFS] [CarpetaDeExtracción]
 #
 # Bajar y editar directamente el archivo en nano
-#   https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/MFT-Extraer-Completa.sh | nano -
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/MFT-Extraer-Original.sh  | nano -
 # ----------
 
 # Definir constantes de color
