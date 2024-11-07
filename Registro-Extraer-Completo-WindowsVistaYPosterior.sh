@@ -33,6 +33,16 @@
     exit
   fi
 
+# Comprobar si el script de RegRipper existe. Si no, llamar al script de instalación de RegRipper
+  if [ ! -e "/usr/local/bin/rip.pl" ]; then
+    echo -e "${cColorRojo}  No se ha encontrado el script de perl de RegRipper. Seguramente RegRipper no esté instalado.${cFinColor}"
+    echo ""
+    echo "  Puedes instalarlo con:"
+    echo ""
+    echo "    curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/main/SoftInst/RegRipper-Instalar.sh | sudo bash"
+    echo ""
+  fi
+
 # Definir la cantidad de argumentos esperados
   cCantParamEsperados=2
 
