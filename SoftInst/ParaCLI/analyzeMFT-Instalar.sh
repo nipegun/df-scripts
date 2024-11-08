@@ -106,8 +106,24 @@
         apt-get -y update && apt-get -y install python3
         echo ""
       fi
+    # Comprobar si el paquete python3-venv está instalado. Si no lo está, instalarlo.
+      if [[ $(dpkg-query -s python3-venv 2>/dev/null | grep installed) == "" ]]; then
+        echo ""
+        echo -e "${cColorRojo}  El paquete python3-venv no está instalado. Iniciando su instalación...${cFinColor}"
+        echo ""
+        apt-get -y update && apt-get -y install python3-venv
+        echo ""
+      fi
     python3 -m venv analyzemft
     source analyzemft/bin/activate
+    # Comprobar si el paquete python3-pip está instalado. Si no lo está, instalarlo.
+      if [[ $(dpkg-query -s python3-pip 2>/dev/null | grep installed) == "" ]]; then
+        echo ""
+        echo -e "${cColorRojo}  El paquete python3-pip no está instalado. Iniciando su instalación...${cFinColor}"
+        echo ""
+        apt-get -y update && apt-get -y install python3-pip
+        echo ""
+      fi
     pip install .
 
     # Compilar el script
