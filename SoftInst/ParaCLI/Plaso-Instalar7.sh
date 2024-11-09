@@ -57,7 +57,6 @@
     echo "    Compilando log2timeline..."
     echo ""
     pip install pyinstaller
-    pyinstaller --onefile /root/SoftInst/Plaso/plaso/bin/log2timeline
     pyinstaller --onefile \
       --add-data "/root/SoftInst/Plaso/plaso/lib/python3.11/site-packages/plaso/parsers/macos_core_location.yaml:plaso/parsers" \
       --add-data "/root/SoftInst/Plaso/plaso/lib/python3.11/site-packages/plaso/parsers/macos_mdns.yaml:plaso/parsers" \
