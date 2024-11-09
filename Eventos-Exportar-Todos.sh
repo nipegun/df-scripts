@@ -54,8 +54,8 @@ if [ $# -ne $cCantParamEsperados ]
       mkdir -p $vCarpetaDelCaso/Eventos/Crudos/
       find $vPuntoDeMontajePartWindows -name "*.evtx" -exec cp {} $vCarpetaDelCaso/Eventos/Crudos/ \;
 
-    # Parsear los eventos
-      mkdir -p $vCarpetaDelCaso/Eventos/Parseados
+    # Convertir los eventos a xml 
+      mkdir -p $vCarpetaDelCaso/Eventos/Parseados/XML/
       # Comprobar si el paquete libevtx-utils está instalado. Si no lo está, instalarlo.
         if [[ $(dpkg-query -s libevtx-utils 2>/dev/null | grep installed) == "" ]]; then
           echo ""
@@ -65,9 +65,13 @@ if [ $# -ne $cCantParamEsperados ]
           echo ""
         fi
       # Recorrer la carpeta y guardar todos los logs
-        find $vCarpetaDelCaso/Eventos/Crudos/ -name "*.evtx" | while read vArchivo; do
-          vArchivoDeSalida="$vCarpetaDelCaso/Eventos/Parseados/$(basename "$vArchivo" .evtx).xml"
+        find $vCarpetaDelCaso/Eventos/Crudos/XML/ -name "*.evtx" | while read vArchivo; do
+          vArchivoDeSalida="$vCarpetaDelCaso/Eventos/Parseados/XML/$(basename "$vArchivo" .evtx).xml"
           evtxexport -f xml "$vArchivo" > "$vArchivoDeSalida"
         done
+
+    # Convertir los eventos a log2timeline
+    
+
 fi
 
