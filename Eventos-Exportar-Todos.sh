@@ -9,7 +9,7 @@
 # Script de NiPeGun para exportar eventos de una partición de Windows y parsearlos a xml
 #
 # Ejecución remota con parámetros:
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Eventos-Exportar-Todos.sh | bash -s [PuntoDeMontajePartWindows] [CarpetaDelCaso]
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Eventos-Exportar-Todos.sh | sudo bash -s [PuntoDeMontajePartWindows] [CarpetaDelCaso]
 #
 # Bajar y editar directamente el archivo en nano
 #   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Eventos-Exportar-Todos.sh | nano -
