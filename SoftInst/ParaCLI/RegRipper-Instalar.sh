@@ -114,7 +114,7 @@
       echo "  El archivo /usr/local/src/regripper/rip.pl.linux ha sido copiado a /usr/local/bin/rip.pl"
       /usr/local/bin/rip.pl
       echo "  El archivo rip.pl de RegRipper ha sido cambiado. El archivo original está ubicado en /usr/local/src/regripper/rip.pl."
-    echo ""
+      echo ""
 
   elif [ $cVerSO == "11" ]; then
 
