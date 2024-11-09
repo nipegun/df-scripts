@@ -45,6 +45,6 @@
    # Desactivar el entorno virtual
      deactivate
   # Copiar el binario a /usr/bin
-    cp -r /root/SoftInst/Plaso/dist/log2timeline /usr/bin/
+    cp -f /root/SoftInst/Plaso/dist/log2timeline /usr/bin/
 
 
