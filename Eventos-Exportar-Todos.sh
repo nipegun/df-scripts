@@ -8,17 +8,11 @@
 # ----------
 # Script de NiPeGun para exportar eventos de una partición de Windows y parsearlos a xml
 #
-# Ejecución remota:
-#   curl -sL x | bash
-#
-# Ejecución remota sin caché:
-#   curl -sL -H 'Cache-Control: no-cache, no-store' x | bash
-#
 # Ejecución remota con parámetros:
-#   curl -sL x | bash -s Parámetro1 Parámetro2
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Eventos-Exportar-Todos.sh | bash -s [PuntoDeMontajePartWindows] [CarpetaDelCaso]
 #
 # Bajar y editar directamente el archivo en nano
-#   curl -sL x | nano -
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Eventos-Exportar-Todos.sh | nano -
 # ----------
 
 # Definir constantes de color
