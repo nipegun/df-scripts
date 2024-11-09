@@ -36,7 +36,7 @@
 # Comprobar si el script de RegRipper existe. Si no, llamar al script de instalación de RegRipper
   if [ ! -e "/usr/local/bin/rip.pl" ]; then
     echo ""
-    echo -e "${cColorRojo}  No se ha encontrado el script de perl de RegRipper. Seguramente RegRipper no esté instalado.${cFinColor}"
+    echo -e "${cColorRojo}  No se ha encontrado el script en perl de RegRipper. Seguramente RegRipper no esté instalado.${cFinColor}"
     echo ""
     echo "  Puedes instalarlo con:"
     echo ""
