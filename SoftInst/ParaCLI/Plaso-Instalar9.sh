@@ -28,7 +28,7 @@
     echo ""
     echo "    Verificando la ejecución del script log2timeline.py..."
     echo ""
-    ~/SoftInst/Plaso/plaso/bin/log2timeline --version
+    ~/SoftInst/Plaso/plaso/bin/log2timeline --version && echo "      log2timeline es ejecutable desde ~/SoftInst/Plaso/plaso/bin/log2timeline "
   # Compilar
     echo ""
     echo "    Compilando log2timeline..."
