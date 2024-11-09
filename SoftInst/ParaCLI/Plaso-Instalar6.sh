@@ -1,9 +1,9 @@
 
 # Actualizar lista de paquetes disponibles en los repositorios
   echo ""
-  echo "    Actualizando a lista de paquetes disponibles en los repositorios..."
+  echo "    Actualizando la lista de paquetes disponibles en los repositorios..."
   echo ""
-  apt update
+  apt -y update
 
 # Instalar dependencias
   echo ""
@@ -64,6 +64,7 @@
       --add-data "/root/SoftInst/Plaso/plaso/lib/python3.11/site-packages/plaso/parsers/macos_open_directory.yaml:plaso/parsers" \
       --add-data "/root/SoftInst/Plaso/plaso/lib/python3.11/site-packages/plaso/parsers/windows_nt.yaml:plaso/parsers" \
       --add-data "/root/SoftInst/Plaso/plaso/lib/python3.11/site-packages/plaso/preprocessors/time_zone_information.yaml:plaso/preprocessors" \
+      --add-data "/root/SoftInst/Plaso/plaso/lib/python3.11/site-packages/plaso/preprocessors/mounted_devices.yamlplaso/preprocessors" \
       /root/SoftInst/Plaso/plaso/bin/log2timeline
    # Desactivar el entorno virtual
      deactivate
