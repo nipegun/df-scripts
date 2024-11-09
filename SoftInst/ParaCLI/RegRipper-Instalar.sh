@@ -112,7 +112,7 @@
     # Copiar el archivo rip.pl.linux a /usr/local/bin/rip.pl
       cp -f regripper/rip.pl.linux /usr/local/bin/rip.pl
       echo "  El archivo /usr/local/src/regripper/rip.pl.linux ha sido copiado a /usr/local/bin/rip.pl"
-      /usr/local/bin/rip.pl
+      #sed -i -e '1s|^#!.*|#!/usr/bin/perl|' /usr/local/bin/rip.pl
       echo "  El archivo rip.pl de RegRipper ha sido cambiado. El archivo original está ubicado en /usr/local/src/regripper/rip.pl."
       echo ""
 
