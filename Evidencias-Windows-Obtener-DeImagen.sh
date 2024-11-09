@@ -37,3 +37,6 @@
   # Ejecutar analyzemft sobre la evidencia
     curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/MFT-AnalizarYExportar.sh | sudo bash -s /Casos/Examen/MFT/MFTOriginal /Casos/Examen/MFT
 
+# Eventos
+
+  #
