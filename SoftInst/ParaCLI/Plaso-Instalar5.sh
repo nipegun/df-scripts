@@ -63,7 +63,7 @@
       --add-data "/root/SoftInst/Plaso/plaso/lib/python3.11/site-packages/plaso/parsers/macos_mdns.yaml:plaso/parsers" \
       --add-data "/root/SoftInst/Plaso/plaso/lib/python3.11/site-packages/plaso/parsers/macos_open_directory.yaml:plaso/parsers" \
       --add-data "/root/SoftInst/Plaso/plaso/lib/python3.11/site-packages/plaso/parsers/windows_nt.yaml:plaso/parsers" \
-      --add-data "/root/SoftInst/Plaso/plaso/lib/python3.11/site-packages/plaso/parsers/time_zone_information.yaml:plaso/parsers" \
+      --add-data "/root/SoftInst/Plaso/plaso/lib/python3.11/site-packages/plaso/preprocessors/time_zone_information.yaml:plaso/preprocessors" \
       /root/SoftInst/Plaso/plaso/bin/log2timeline
    # Desactivar el entorno virtual
      deactivate
