@@ -40,7 +40,7 @@
     echo ""
     echo "  Puedes instalarlo con:"
     echo ""
-    echo "    curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/main/SoftInst/RegRipper-Instalar.sh | sudo bash"
+    echo "    curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/main/SoftInst/ParaCLI/RegRipper-Instalar.sh | sudo bash"
     echo ""
     exit
   fi
