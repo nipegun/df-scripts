@@ -86,6 +86,7 @@ if [ $# -ne $cCantParamEsperados ]
             fi
           done
 
+
       # Pasar todos los eventos xml a un único archivo XML
         echo ""
         echo "  Unificando todos los archivos .xml en un único archivo..."
@@ -94,8 +95,9 @@ if [ $# -ne $cCantParamEsperados ]
           cat "$archivo" >> "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventos.xml
         done
         # Agregar una etiqueta raíz para poder trabajar con el xml
-          sed -i '1i\<root>' "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventos.xml # Agrega la apertura de la etiqueta raiz en la primera linea
-          echo '</root>' >>  "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventos.xml # Agrega el cierre de la etiqueta raíz en una nueva linea al final del archivo
+          #sed -i '1i\<root>' "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventos.xml # Agrega la apertura de la etiqueta raiz en la primera linea
+          #echo '</root>' >>  "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventos.xml # Agrega el cierre de la etiqueta raíz en una nueva linea al final del archivo
+
 
       # Agregar una etiqueta raíz para poder trabajar con los xml
         for vArchivo in "$vCarpetaDelCaso/Eventos/Parseados/XML"/*; do # Recorre todos los archivos en el directorio
