@@ -145,6 +145,11 @@ if [ $# -ne $cCantParamEsperados ]
                   sed -i '1i\<Events>' "$vArchivo"                                         # Agrega la apertura de la etiqueta raiz en la primera linea
                   echo '</Events>' >> "$vArchivo"                                          # Agrega el cierre de la etiqueta raíz en una nueva linea al final del archivo
                 done
+              # Notificar el nombre del archivo
+                echo ""
+                echo "    El archivo con todos los eventos juntos, pero sin ordenar por fecha es:"
+                echo "      "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventos.xml"
+                echo ""
 
             ;;
 
@@ -266,6 +271,11 @@ if [ $# -ne $cCantParamEsperados ]
                   sed -i -e 's-</Event>-</Event>\n-g' "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventosDelUsuarioOrdenadosPorFecha.xml
                   sed -i '1i\<Events>' "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventosDelUsuarioOrdenadosPorFecha.xml # Agrega la apertura de la etiqueta raiz en la primera linea
                   echo '</Events>' >>  "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventosDelUsuarioOrdenadosPorFecha.xml # Agrega el cierre de la etiqueta raíz en una nueva linea al final del archivo
+                # Notificar el nombre del archivo
+                  echo ""
+                  echo "    El archivo con todos los eventos de usuario juntos, ordenado por fecha es:"
+                  echo "      "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventosDelUsuarioOrdenadosPorFecha.xml"
+                  echo ""
 
             ;;
 
