@@ -92,8 +92,11 @@ if [ $# -ne $cCantParamEsperados ]
       ~/SoftInst/Plaso/plaso/bin/psort $vCarpetaDelCaso/Eventos/Parseados/TimeLine.plaso -o xlsx      -w $vCarpetaDelCaso/Eventos/Parseados/TimeLineEventos.xlsx
 
      # Exportando actividad del usuario específico desde el archivo .json
+       echo ""
+       echo "  Exportando actividad específica del usuario ..."
+       echo ""
        vSIDDelUsuario="S-1-5-21-92896240-835188504-1963242017-1001"
-       cat '/Casos/Examen/Eventos/TimeLineEventos.json' | sed 's-/Casos/Examen/Eventos/Crudos/--g'  | jq '.[] | select(.user_sid == "'"$vSIDDelUsuario"'")'
+       cat '/Casos/Examen/Eventos/Parseados/TimeLineEventos.json' | sed 's-/Casos/Examen/Eventos/Crudos/--g'  | jq '.[] | select(.user_sid == "'"$vSIDDelUsuario"'")'
 
 cat /Casos/Examen/Eventos/TimeLineEventos.txt | sed 's-/Casos/Examen/Eventos/Crudos/--g' | grep S-1-5-21 > $vCarpetaDelCaso/Eventos/Parseados/TimeLineUsuario.txt
 
