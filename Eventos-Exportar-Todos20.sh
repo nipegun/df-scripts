@@ -73,8 +73,8 @@ if [ $# -ne $cCantParamEsperados ]
         find $vCarpetaDelCaso/Eventos/Crudos/ -name "*.evtx" | while read vArchivo; do
           vArchivoDeSalida="$vCarpetaDelCaso/Eventos/Parseados/XML/$(basename "$vArchivo" .evtx).xml"
           evtxexport -f xml "$vArchivo" > "$vArchivoDeSalida" && sed -i '1d' "$vArchivoDeSalida" && sed -i 's/^<Event [^>]*>/<Event>/' "$vArchivoDeSalida"
-          #sed -i '1i\<root>' "$vArchivoDeSalida"
-          #echo '</root>' >> "$vArchivoDeSalida"
+          sed -i '1i\<root>' "$vArchivoDeSalida"
+          echo '</root>' >> "$vArchivoDeSalida"
         done
         # Borrar todos los xml que no tengan la linea <Event>
           for archivo in "$vCarpetaDelCaso/Eventos/Parseados/XML"/*; do # Recorre todos los archivos en el directorio
@@ -83,12 +83,12 @@ if [ $# -ne $cCantParamEsperados ]
             fi
           done
         # Pasar todos los eventos xml a un único archivo XML
-          echo ""
-          echo "  Unificando todos los archivos .xml en un único archivo..."
-          echo ""
-          for archivo in "$vCarpetaDelCaso/Eventos/Parseados/XML"/*; do # Recorre todos los archivos en el directorio
-            cat "$archivo" >> "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventos.xml
-          done
+        #  echo ""
+        #  echo "  Unificando todos los archivos .xml en un único archivo..."
+        #  echo ""
+        #  for archivo in "$vCarpetaDelCaso/Eventos/Parseados/XML"/*; do # Recorre todos los archivos en el directorio
+        #    cat "$archivo" >> "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventos.xml
+        #  done
         # Agregar una etiqueta raíz para poder trabajar con los xml
         #  for archivo in "$vCarpetaDelCaso/Eventos/Parseados/XML"/*; do # Recorre todos los archivos en el directorio
         #    echo "<root>" > nuevo_archivo.xml
