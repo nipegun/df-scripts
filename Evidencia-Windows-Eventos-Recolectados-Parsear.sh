@@ -6,10 +6,10 @@
 # No tienes que aceptar ningún tipo de términos de uso o licencia para utilizarlo o modificarlo porque va sin CopyLeft.
 
 # ----------
-# Script de NiPeGun para copiar los eventos de una partición de Windows y parsearlos a xml
+# Script de NiPeGun para parsear los eventos recolectados de una partición de Windows
 #
 # Ejecución remota con parámetros:
-#   https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Evidencia-Windows-Eventos-Recolectados-Parsear.sh | sudo bash -s [PuntoDeMontajePartWindows] [CarpetaDelCaso]
+#   https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Evidencia-Windows-Eventos-Recolectados-Parsear.sh | sudo bash -s [CarpetaConEventosRecolectados] [CarpetaDelCaso]
 #
 # Bajar y editar directamente el archivo en nano
 #   https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Evidencia-Windows-Eventos-Recolectados-Parsear.sh | nano -
@@ -40,14 +40,14 @@ if [ $# -ne $cCantParamEsperados ]
   then
     echo ""
     echo -e "${cColorRojo}  Mal uso del script. El uso correcto sería: ${cFinColor}"
-    echo "    $0 [PuntoDeMontajePartWindows] [CarpetaDelCaso]"
+    echo "    $0 [CarpetaConEventosRecolectados] [CarpetaDelCaso]"
     echo ""
     echo "  Ejemplo:"
     echo "    $0 '/mnt/Windows/' '/Casos/2/Particiones/'"
     echo ""
     exit
   else
-    vPuntoDeMontajePartWindows=$1
+    vCarpetaConEventosRecolectados=$1
     vCarpetaDelCaso=$2
 
     # Convertir los eventos a xml
@@ -65,7 +65,7 @@ if [ $# -ne $cCantParamEsperados ]
       # Recorrer la carpeta e ir convirtiendo
         mkdir -p $vCarpetaDelCaso/Eventos/Parseados/XML/
         rm -rf $vCarpetaDelCaso/Eventos/Parseados/XML/*
-        find $vCarpetaDelCaso/Eventos/Originales/ -name "*.evtx" | while read vArchivo; do
+        find "$vCarpetaConEventosRecolectados"/ -name "*.evtx" | while read vArchivo; do
           vArchivoDeSalida="$vCarpetaDelCaso/Eventos/Parseados/XML/$(basename "$vArchivo" .evtx).xml"
           evtxexport -f xml "$vArchivo" > "$vArchivoDeSalida" && sed -i '1d' "$vArchivoDeSalida" && sed -i 's/^<Event [^>]*>/<Event>/' "$vArchivoDeSalida"
           #sed -i '1i\<root>' "$vArchivoDeSalida"
