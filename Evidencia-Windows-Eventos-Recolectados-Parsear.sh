@@ -9,10 +9,10 @@
 # Script de NiPeGun para parsear los eventos recolectados de una partición de Windows
 #
 # Ejecución remota con parámetros:
-#   https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Evidencia-Windows-Eventos-Recolectados-Parsear.sh | sudo bash -s [CarpetaConEventosRecolectados] [CarpetaDelCaso]
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Evidencia-Windows-Eventos-Recolectados-Parsear.sh | sudo bash -s [CarpetaConEventosRecolectados] [CarpetaDelCaso]
 #
 # Bajar y editar directamente el archivo en nano
-#   https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Evidencia-Windows-Eventos-Recolectados-Parsear.sh | nano -
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Evidencia-Windows-Eventos-Recolectados-Parsear.sh | nano -
 # ----------
 
 # Definir constantes de color
