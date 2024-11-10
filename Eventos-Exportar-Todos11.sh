@@ -68,7 +68,7 @@ if [ $# -ne $cCantParamEsperados ]
         mkdir -p $vCarpetaDelCaso/Eventos/Parseados/XML/
         rm -rf $vCarpetaDelCaso/Eventos/Parseados/XML/*
         echo ""
-        echo "  Exportando eventos a XML..."
+        echo "  Exportando a .xml cada archivo .evtx..."
         echo ""
         find $vCarpetaDelCaso/Eventos/Crudos/ -name "*.evtx" | while read vArchivo; do
           vArchivoDeSalida="$vCarpetaDelCaso/Eventos/Parseados/XML/$(basename "$vArchivo" .evtx).xml"
@@ -84,7 +84,7 @@ if [ $# -ne $cCantParamEsperados ]
           done
         # Pasar todos los eventos xml a un único archivo XML
           echo ""
-          echo "  Unificando los eventos de todos los diferentes archivos .xml en un único archivo..."
+          echo "  Unificando todos los archivos .xml en un único archivo..."
           echo ""
           for archivo in "$vCarpetaDelCaso/Eventos/Parseados/XML"/*; do # Recorre todos los archivos en el directorio
             cat "$archivo" >> "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventos.xml
