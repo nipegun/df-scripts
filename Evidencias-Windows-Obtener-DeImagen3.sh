@@ -25,7 +25,7 @@
   fi
 
 # Crear el menú
-  menu=(dialog --checklist "Marca las opciones que quieras instalar:" 22 60 16)
+  menu=(dialog --checklist "Marca las opciones que quieras instalar:" 22 62 16)
     opciones=(
       1 "Montar todas las particiones en modo lectura" on
       2 "Extraer y parsear el registro" on
