@@ -60,7 +60,7 @@ if [ $# -ne $cCantParamEsperados ]
 
     # Convertir los eventos a xml
       echo ""
-      echo "  Exportando cada archivo .evtx a .xml..."
+      echo "  Exportando a .xml cada archivo .evtx..."
       echo ""
       # Comprobar si el paquete libevtx-utils está instalado. Si no lo está, instalarlo.
         if [[ $(dpkg-query -s libevtx-utils 2>/dev/null | grep installed) == "" ]]; then
@@ -73,9 +73,6 @@ if [ $# -ne $cCantParamEsperados ]
       # Recorrer la carpeta e ir convirtiendo
         mkdir -p $vCarpetaDelCaso/Eventos/Parseados/XML/
         rm -rf $vCarpetaDelCaso/Eventos/Parseados/XML/*
-        echo ""
-        echo "  Exportando a .xml cada archivo .evtx..."
-        echo ""
         find $vCarpetaDelCaso/Eventos/Crudos/ -name "*.evtx" | while read vArchivo; do
           vArchivoDeSalida="$vCarpetaDelCaso/Eventos/Parseados/XML/$(basename "$vArchivo" .evtx).xml"
           evtxexport -f xml "$vArchivo" > "$vArchivoDeSalida" && sed -i '1d' "$vArchivoDeSalida" && sed -i 's/^<Event [^>]*>/<Event>/' "$vArchivoDeSalida"
@@ -134,6 +131,9 @@ if [ $# -ne $cCantParamEsperados ]
 
     # Eventos sólo del usuario
       vSIDDelUsuario="S-1-5-21-92896240-835188504-1963242017-1001"
+      echo ""
+      echo "  Agrupando eventos del usuario $vSIDDelUsuario en un único archivo..."
+      echo ""
       xmllint --xpath '//*[Data[@Name="SubjectUserSid" and text()='"'$vSIDDelUsuario'"']]/parent::*' /Casos/Examen/Eventos/Parseados/XML/*  > $vCarpetaDelCaso/Eventos/Parseados/EventosDelUsuario.xml 2> /dev/null
       xmllint --xpath '//*[Security[@UserID='"'$vSIDDelUsuario'"']]/parent::*'                       /Casos/Examen/Eventos/Parseados/XML/* >> $vCarpetaDelCaso/Eventos/Parseados/EventosDelUsuario.xml 2> /dev/null
 
