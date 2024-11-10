@@ -55,7 +55,6 @@ if [ $# -ne $cCantParamEsperados ]
       find $vPuntoDeMontajePartWindows -name "*.evtx" -exec cp {} $vCarpetaDelCaso/Eventos/Crudos/ \;
 
     # Convertir los eventos a xml 
-      mkdir -p $vCarpetaDelCaso/Eventos/Parseados/XML/
       # Comprobar si el paquete libevtx-utils está instalado. Si no lo está, instalarlo.
         if [[ $(dpkg-query -s libevtx-utils 2>/dev/null | grep installed) == "" ]]; then
           echo ""
@@ -64,9 +63,16 @@ if [ $# -ne $cCantParamEsperados ]
           apt-get -y update && apt-get -y install libevtx-utils
           echo ""
         fi
-      # Recorrer la carpeta y guardar todos los logs
-        find $vCarpetaDelCaso/Eventos/Crudos/XML/ -name "*.evtx" | while read vArchivo; do
+      # Recorrer la carpeta e ir convirtiendo
+        mkdir -p $vCarpetaDelCaso/Eventos/Parseados/XML/
+        find $vCarpetaDelCaso/Eventos/Crudos/ -name "*.evtx" | while read vArchivo; do
           vArchivoDeSalida="$vCarpetaDelCaso/Eventos/Parseados/XML/$(basename "$vArchivo" .evtx).xml"
+          evtxexport -f xml "$vArchivo" > "$vArchivoDeSalida"
+        done
+      # También convertir a texto
+        mkdir -p $vCarpetaDelCaso/Eventos/Parseados/XML/
+        find $vCarpetaDelCaso/Eventos/Crudos/ -name "*.evtx" | while read vArchivo; do
+          vArchivoDeSalida="$vCarpetaDelCaso/Eventos/Parseados/TXT/$(basename "$vArchivo" .evtx).txt"
           evtxexport -f xml "$vArchivo" > "$vArchivoDeSalida"
         done
 
@@ -81,6 +87,12 @@ if [ $# -ne $cCantParamEsperados ]
       ~/SoftInst/Plaso/plaso/bin/psort $vCarpetaDelCaso/Eventos/Parseados/timeline.plaso -o rawpy     -w $vCarpetaDelCaso/Eventos/Parseados/TimeLineEventos.rawpy
      #~/SoftInst/Plaso/plaso/bin/psort $vCarpetaDelCaso/Eventos/Parseados/timeline.plaso -o tln       -w $vCarpetaDelCaso/Eventos/Parseados/TimeLineEventos.tln
       ~/SoftInst/Plaso/plaso/bin/psort $vCarpetaDelCaso/Eventos/Parseados/timeline.plaso -o xlsx      -w $vCarpetaDelCaso/Eventos/Parseados/TimeLineEventos.xlsx
+
+     # Exportando actividad del usuario específico desde el archivo .json
+       vSIDDelUsuario="S-1-5-21-92896240-835188504-1963242017-1001"
+       cat '/Casos/Examen/Eventos/TimeLineEventos.json' | sed 's-/Casos/Examen/Eventos/Crudos/--g'  | jq '.[] | select(.user_sid == "'"$vSIDDelUsuario"'")'
+
+cat /Casos/Examen/Eventos/TimeLineEventos.txt | sed 's-/Casos/Examen/Eventos/Crudos/--g' | grep S-1-5-21 > $vCarpetaDelCaso/Eventos/Parseados/TimeLineUsuario.txt
 
 
 fi
