@@ -74,6 +74,13 @@ if [ $# -ne $cCantParamEsperados ]
           vArchivoDeSalida="$vCarpetaDelCaso/Eventos/Parseados/XML/$(basename "$vArchivo" .evtx).xml"
           evtxexport -f xml "$vArchivo" > "$vArchivoDeSalida" && sed -i '1d' "$vArchivoDeSalida" && sed -i 's/^<Event [^>]*>/<Event>/' "$vArchivoDeSalida"
         done
+        # Borrar todos los xml que no tengan la linea <Event>
+          for archivo in "$vCarpetaDelCaso/Eventos/Parseados/XML"/*; do # Recorre todos los archivos en el directorio
+            if ! grep -q "<Event>" "$archivo"; then # Verifica si el archivo contiene la línea "<Event>"
+              rm -f "$archivo" # Si no contiene "<Event>", lo elimina
+            fi
+          done
+
       # También convertir a texto
         mkdir -p $vCarpetaDelCaso/Eventos/Parseados/TXT/
         rm -rf $vCarpetaDelCaso/Eventos/Parseados/TXT/*
