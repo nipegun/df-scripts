@@ -79,40 +79,80 @@ if [ $# -ne $cCantParamEsperados ]
           done
 
 
-      # Pasar todos los eventos xml a un único archivo XML
-        echo ""
-        echo "  Unificando todos los archivos .xml en un único archivo..."
-        echo ""
-        for archivo in "$vCarpetaDelCaso/Eventos/Parseados/XML"/*; do # Recorre todos los archivos en el directorio
-          cat "$archivo" >> "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventos.xml
+    # También convertir a texto
+      mkdir -p $vCarpetaDelCaso/Eventos/Parseados/TXT/
+      rm -rf $vCarpetaDelCaso/Eventos/Parseados/TXT/*
+      echo ""
+      echo "  Exportando eventos a TXT..."
+      echo ""
+      find $vCarpetaDelCaso/Eventos/Originales/ -name "*.evtx" | while read vArchivo; do
+        vArchivoDeSalida="$vCarpetaDelCaso/Eventos/Parseados/TXT/$(basename "$vArchivo" .evtx).txt"
+        evtxexport "$vArchivo" > "$vArchivoDeSalida" && sed -i '1d' "$vArchivoDeSalida"
+      done
+      # Borrar todos los txt que no tengan el texto "Event number"
+        for archivo in "$vCarpetaDelCaso/Eventos/Parseados/TXT"/*; do # Recorre todos los archivos en el directorio
+          if ! grep -q "Event number" "$archivo"; then                # Verifica si el archivo contiene la cadena "Even number" y
+            rm -f "$archivo"                                          # si no contiene "Event number", lo elimina
+          fi
         done
-        # Agregar una etiqueta raíz para poder trabajar con el xml
-          #sed -i '1i\<root>' "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventos.xml # Agrega la apertura de la etiqueta raiz en la primera linea
-          #echo '</root>' >>  "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventos.xml # Agrega el cierre de la etiqueta raíz en una nueva linea al final del archivo
+
+    # Unificar todos los archivos XML en un único archivo
+      echo ""
+      echo "  Unificando todos los archivos .xml en un único archivo..."
+      echo ""
+      for archivo in "$vCarpetaDelCaso/Eventos/Parseados/XML"/*; do # Recorre todos los archivos en el directorio
+        cat "$archivo" >> "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventos.xml
+      done
+      # Agregar una etiqueta raíz para poder trabajar con el xml
+        #sed -i '1i\<root>' "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventos.xml # Agrega la apertura de la etiqueta raiz en la primera linea
+        #echo '</root>' >>  "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventos.xml # Agrega el cierre de la etiqueta raíz en una nueva linea al final del archivo
 
 
-      # Agregar una etiqueta raíz para poder trabajar con los xml
-        for vArchivo in "$vCarpetaDelCaso/Eventos/Parseados/XML"/*; do # Recorre todos los archivos en el directorio
-          sed -i '1i\<root>' "$vArchivo"                               # Agrega la apertura de la etiqueta raiz en la primera linea
-          echo '</root>' >> "$vArchivo"                                # Agrega el cierre de la etiqueta raíz en una nueva linea al final del archivo
-        done
-
-      # También convertir a texto
-        mkdir -p $vCarpetaDelCaso/Eventos/Parseados/TXT/
-        rm -rf $vCarpetaDelCaso/Eventos/Parseados/TXT/*
-        echo ""
-        echo "  Exportando eventos a TXT..."
-        echo ""
-        find $vCarpetaDelCaso/Eventos/Originales/ -name "*.evtx" | while read vArchivo; do
-          vArchivoDeSalida="$vCarpetaDelCaso/Eventos/Parseados/TXT/$(basename "$vArchivo" .evtx).txt"
-          evtxexport "$vArchivo" > "$vArchivoDeSalida" && sed -i '1d' "$vArchivoDeSalida"
-        done
-        # Borrar todos los txt que no tengan el texto "Event number"
-          for archivo in "$vCarpetaDelCaso/Eventos/Parseados/TXT"/*; do # Recorre todos los archivos en el directorio
-            if ! grep -q "Event number" "$archivo"; then                # Verifica si el archivo contiene la cadena "Even number" y
-              rm -f "$archivo"                                          # si no contiene "Event number", lo elimina
-            fi
+    # Crear un único archivo con todos los eventos ordenador por fecha
+      echo ""
+      echo "  Creando un único archivo .xml con todos los eventos ordenados por fecha..."
+      echo ""
+      # Crear una carpeta para almacenar los archivos de vEventos
+        vCarpetaDeEventosIndividuales="TodosLosEventosIndividuales"
+        mkdir -p "$vCarpetaDelCaso"/Eventos/Parseados/XML/"$vCarpetaDeEventosIndividuales"/
+      # Contador de vEventos
+        vContador=1
+      # Variable para almacenar un vEvento temporalmente
+        vEvento=""
+      # Leer el archivo línea por línea
+        while IFS= read -r line; do
+          if [[ "$line" == *"<Event>"* ]]; then
+            # Iniciar un nuevo bloque de vEvento
+              vEvento="$line"
+          elif [[ "$line" == *"</Event>"* ]]; then
+            # Agregar la línea de cierre del vEvento
+              vEvento+=$'\n'"$line"
+            # Guardar el bloque en un archivo
+              echo "$vEvento" > "$vCarpetaDelCaso"/Eventos/Parseados/XML/"$vCarpetaDeEventosIndividuales"/$vEvento_${vContador}.xml
+            # Incrementar el vContador y limpiar la variable del vEvento
+              vContador=$((vContador + 1))
+            vEvento=""
+          else
+            # Agregar la línea al bloque de vEvento en curso
+            vEvento+=$'\n'"$line"
+          fi
+        done < "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventos.xml
+      # Renombrar cada archivo con el valor del campo SystemTime
+        mkdir -p "$vCarpetaDelCaso"/Eventos/Parseados/XML/EventosIndividualesOrdenadosPorFecha/
+        # Recorrer cada archivo XML en la carpeta
+          for file in "$vCarpetaDelCaso"/Eventos/Parseados/XML/EventosIndividualesOrdenadosPorFecha/* ; do
+            # Extraer el valor de SystemTime usando xmlstarlet
+              system_time=$(xmlstarlet sel -t -v "//TimeCreated/@SystemTime" "$file" 2>/dev/null)
+            # Renombrar el archivo
+              cp "$file" "$vCarpetaDelCaso"/Eventos/Parseados/XML/EventosIndividualesOrdenadosPorFecha/"${system_time}".xml
           done
+        rm -f "$vCarpetaDelCaso"/Eventos/Parseados/XML/EventosIndividualesOrdenadosPorFecha/.xml
+      # Crear un nuevo archivo xml con todos los eventos
+        cat $(ls "$vCarpetaDelCaso"/Eventos/Parseados/XML/EventosIndividualesOrdenadosPorFecha/* | sort) > "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventosOrdenadosPorFecha.xml
+        sed -i -e 's-</Event>-</Event>\n-g' "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventosOrdenadosPorFecha.xml
+        sed -i '1i\<Events>' "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventosOrdenadosPorFecha.xml # Agrega la apertura de la etiqueta raiz en la primera linea
+        echo '</Events>' >>  "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventosOrdenadosPorFecha.xml # Agrega el cierre de la etiqueta raíz en una nueva linea al final del archivo
+
 
     # Convertir los eventos a log2timeline
       #~/SoftInst/Plaso/plaso/bin/log2timeline $vCarpetaDelCaso/Eventos/Originales/ --storage-file $vCarpetaDelCaso/Eventos/Parseados/TimeLine.plaso
@@ -128,6 +168,22 @@ if [ $# -ne $cCantParamEsperados ]
 
      # Pasar todo el TimeLine de eventos, de json a xml
       # cat "$vCarpetaDelCaso"/Eventos/Parseados/TimeLineEventos.json | jq | grep xml_string | sed 's-"xml_string": "--g' | sed 's/\\n/\n/g' | sed '/^"/d' | sed 's-xmlns=\"http://schemas.microsoft.com/win/2004/08/events/event\"--g' > "$vCarpetaDelCaso"/Eventos/Parseados/TimeLineCompleto.xml
+
+
+
+
+
+      # Agregar una etiqueta raíz para poder trabajar con los xml
+        for vArchivo in "$vCarpetaDelCaso/Eventos/Parseados/XML"/*; do # Recorre todos los archivos en el directorio
+          sed -i '1i\<root>' "$vArchivo"                               # Agrega la apertura de la etiqueta raiz en la primera linea
+          echo '</root>' >> "$vArchivo"                                # Agrega el cierre de la etiqueta raíz en una nueva linea al final del archivo
+        done
+
+
+
+        
+
+
 
     # Eventos sólo del usuario
       vSIDvSIDDelUsuario=$1
