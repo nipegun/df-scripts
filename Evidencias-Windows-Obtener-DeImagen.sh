@@ -25,13 +25,13 @@
   fi
 
 # Crear el menú
-  menu=(dialog --checklist "Marca las opciones que quieras instalar:" 22 96 16)
+  menu=(dialog --checklist "Marca las opciones que quieras instalar:" 22 60 16)
     opciones=(
-      1 "Montar todas las particiones en modo lectura" off
-      2 "Extraer y parsear el registro" off
+      1 "Montar todas las particiones en modo lectura" on
+      2 "Extraer y parsear el registro" on
       3 "Extraer y parsear la MFT" off
-      4 "Extraer y parsear eventos" off
-      5 "Opción 5" off
+      4 "Recolectar eventos originales" on
+      5 "  Parsear eventos originales" off
     )
   choices=$("${menu[@]}" "${opciones[@]}" 2>&1 >/dev/tty)
 
@@ -77,17 +77,18 @@
         4)
 
           echo ""
-          echo "  Extrayendo y parseando eventos..."
+          echo "  Recolectando eventos originales..."
           echo ""
-          curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Eventos-Exportar-Todos.sh | sudo bash -s /Casos/Examen/Particiones/2 /Casos/Examen
+          curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Evidencia-Windows-Eventos-Originales-Recolectar.sh | sudo bash -s /Casos/Examen/Particiones/2 /Casos/Examen
 
         ;;
 
         5)
 
           echo ""
-          echo "  Opción 5..."
+          echo "  Parseando eventos recolectados..."
           echo ""
+          curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Evidencia-Windows-Eventos-Recolectados-Parsear.sh | sudo bash -s /Casos/Examen/Eventos/Originales/ /Casos/Examen
 
         ;;
 
