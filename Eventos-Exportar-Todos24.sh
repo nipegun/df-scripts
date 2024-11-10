@@ -143,6 +143,8 @@ if [ $# -ne $cCantParamEsperados ]
       xmllint --xpath '//*[Data[@Name="SubjectUserSid" and text()='"'$vSIDDelUsuario'"']]/parent::*' /Casos/Examen/Eventos/Parseados/XML/*  > $vCarpetaDelCaso/Eventos/Parseados/EventosDelUsuario.xml 2> /dev/null
       xmllint --xpath '//*[Security[@UserID='"'$vSIDDelUsuario'"']]/parent::*'                       /Casos/Examen/Eventos/Parseados/XML/* >> $vCarpetaDelCaso/Eventos/Parseados/EventosDelUsuario.xml 2> /dev/null
 
+      xmllint --xpath '//*[Data[@Name="SubjectUserSid" and text()='"'$vSIDDelUsuario'"']]/parent::*' "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventos.xml  > $vCarpetaDelCaso/Eventos/Parseados/EventosDelUsuario2.xml 2> /dev/null
+      xmllint --xpath '//*[Security[@UserID='"'$vSIDDelUsuario'"']]/parent::*'                       "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventos.xml >> $vCarpetaDelCaso/Eventos/Parseados/EventosDelUsuario2.xml 2> /dev/null
 
 
      # Exportando actividad del usuario específico desde el archivo .json
