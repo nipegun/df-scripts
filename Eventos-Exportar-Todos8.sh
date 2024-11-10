@@ -97,11 +97,11 @@ if [ $# -ne $cCantParamEsperados ]
     # Parsear
       ~/SoftInst/Plaso/plaso/bin/psort $vCarpetaDelCaso/Eventos/Parseados/TimeLine.plaso -o dynamic   -w $vCarpetaDelCaso/Eventos/Parseados/TimeLineEventos.txt
       ~/SoftInst/Plaso/plaso/bin/psort $vCarpetaDelCaso/Eventos/Parseados/TimeLine.plaso -o json      -w $vCarpetaDelCaso/Eventos/Parseados/TimeLineEventos.json
-      ~/SoftInst/Plaso/plaso/bin/psort $vCarpetaDelCaso/Eventos/Parseados/TimeLine.plaso -o json_line -w $vCarpetaDelCaso/Eventos/Parseados/TimeLineEventos.json_line 
-     #~/SoftInst/Plaso/plaso/bin/psort $vCarpetaDelCaso/Eventos/Parseados/TimeLine.plaso -o l2tcsv    -w $vCarpetaDelCaso/Eventos/Parseados/TimeLineEventos.l2tcsv
-     #~/SoftInst/Plaso/plaso/bin/psort $vCarpetaDelCaso/Eventos/Parseados/TimeLine.plaso -o l2ttln    -w $vCarpetaDelCaso/Eventos/Parseados/TimeLineEventos.l2ttln
-      ~/SoftInst/Plaso/plaso/bin/psort $vCarpetaDelCaso/Eventos/Parseados/TimeLine.plaso -o rawpy     -w $vCarpetaDelCaso/Eventos/Parseados/TimeLineEventos.rawpy
-     #~/SoftInst/Plaso/plaso/bin/psort $vCarpetaDelCaso/Eventos/Parseados/TimeLine.plaso -o tln       -w $vCarpetaDelCaso/Eventos/Parseados/TimeLineEventos.tln
+      #~/SoftInst/Plaso/plaso/bin/psort $vCarpetaDelCaso/Eventos/Parseados/TimeLine.plaso -o json_line -w $vCarpetaDelCaso/Eventos/Parseados/TimeLineEventos.json_line 
+      #~/SoftInst/Plaso/plaso/bin/psort $vCarpetaDelCaso/Eventos/Parseados/TimeLine.plaso -o l2tcsv    -w $vCarpetaDelCaso/Eventos/Parseados/TimeLineEventos.l2tcsv
+      #~/SoftInst/Plaso/plaso/bin/psort $vCarpetaDelCaso/Eventos/Parseados/TimeLine.plaso -o l2ttln    -w $vCarpetaDelCaso/Eventos/Parseados/TimeLineEventos.l2ttln
+      #~/SoftInst/Plaso/plaso/bin/psort $vCarpetaDelCaso/Eventos/Parseados/TimeLine.plaso -o rawpy     -w $vCarpetaDelCaso/Eventos/Parseados/TimeLineEventos.rawpy
+      #~/SoftInst/Plaso/plaso/bin/psort $vCarpetaDelCaso/Eventos/Parseados/TimeLine.plaso -o tln       -w $vCarpetaDelCaso/Eventos/Parseados/TimeLineEventos.tln
       ~/SoftInst/Plaso/plaso/bin/psort $vCarpetaDelCaso/Eventos/Parseados/TimeLine.plaso -o xlsx      -w $vCarpetaDelCaso/Eventos/Parseados/TimeLineEventos.xlsx
 
      # Exportando actividad del usuario específico desde el archivo .json
@@ -111,7 +111,7 @@ if [ $# -ne $cCantParamEsperados ]
        vSIDDelUsuario="S-1-5-21-92896240-835188504-1963242017-1001"
        cat '/Casos/Examen/Eventos/Parseados/TimeLineEventos.json' | sed 's-/Casos/Examen/Eventos/Crudos/--g'  | jq '.[] | select(.user_sid == "'"$vSIDDelUsuario"'")' > $vCarpetaDelCaso/Eventos/Parseados/TimeLineUsuario.json
 
-cat /Casos/Examen/Eventos/Parseados/TimeLineEventos.txt | sed 's-/Casos/Examen/Eventos/Crudos/--g' | grep S-1-5-21 > $vCarpetaDelCaso/Eventos/Parseados/TimeLineUsuario.txt
+     cat /Casos/Examen/Eventos/Parseados/TimeLineEventos.txt | sed 's-/Casos/Examen/Eventos/Crudos/--g' | grep S-1-5-21 > $vCarpetaDelCaso/Eventos/Parseados/TimeLineUsuario.txt
 
 
 fi
