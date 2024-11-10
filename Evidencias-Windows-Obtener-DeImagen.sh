@@ -39,4 +39,4 @@
 
 # Eventos
 
-  #
+  curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Eventos-Exportar-Todos.sh | sudo bash -s /Casos/Examen/Particiones/2 /Casos/Examen
