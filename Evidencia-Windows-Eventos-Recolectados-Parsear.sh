@@ -151,7 +151,7 @@ if [ $# -ne $cCantParamEsperados ]
             4)
 
               echo ""
-              echo "  Crear un único archivo con todos los eventos ordenados por fecha..."
+              echo "  Intentando crear un único archivo XML con todos los eventos ordenados por fecha..."
               echo ""
               # Crear una carpeta para almacenar los archivos de vEventos
                 vNombreCarpetaDeEventosIndividuales="EventosIndividuales"
@@ -160,6 +160,9 @@ if [ $# -ne $cCantParamEsperados ]
                 vContador=1
               # Variable para almacenar un vEvento temporalmente
                 vEvento=""
+              echo ""
+              echo "    Guardando cada evento en un archivo .xml único..."
+              echo ""
               # Leer el archivo línea por línea
                 while IFS= read -r line; do
                   if [[ "$line" == *"<Event>"* ]]; then
@@ -180,7 +183,7 @@ if [ $# -ne $cCantParamEsperados ]
                 done < "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventos.xml
               # Renombrar cada archivo con el valor del campo SystemTime
                 echo ""
-                echo "  Renombrando cada archivo .xml con el valor del campo SystemTime..."
+                echo "    Renombrando cada archivo .xml creado con el valor del campo SystemTime..."
                 echo ""
                 mkdir -p "$vCarpetaDelCaso"/Eventos/Parseados/EventosIndividualesOrdenadosPorFecha/
                 # Recorrer cada archivo XML en la carpeta
@@ -193,7 +196,7 @@ if [ $# -ne $cCantParamEsperados ]
                 rm -f "$vCarpetaDelCaso"/Eventos/Parseados/EventosIndividualesOrdenadosPorFecha/.xml
               # Crear un nuevo archivo xml con todos los eventos
                 echo ""
-                echo "  Creando un nuevo archivo xml con todos los eventos..."
+                echo "    Agrupando todos los archivos creados en un único archivo final..."
                 echo ""
                 cat $(ls "$vCarpetaDelCaso"/Eventos/Parseados/EventosIndividualesOrdenadosPorFecha/* | sort) > "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventosOrdenadosPorFecha.xml
                 sed -i -e 's-</Event>-</Event>\n-g' "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventosOrdenadosPorFecha.xml
@@ -221,6 +224,9 @@ if [ $# -ne $cCantParamEsperados ]
                   vContador=1
                 # Variable para almacenar un vEvento temporalmente
                   vEvento=""
+                echo ""
+                echo "    Guardando cada evento en un archivo .xml único..."
+                echo ""
                 # Leer el archivo línea por línea
                   while IFS= read -r line; do
                     if [[ "$line" == *"<Event>"* ]]; then
@@ -240,6 +246,9 @@ if [ $# -ne $cCantParamEsperados ]
                     fi
                   done < "/Casos/Examen/Eventos/Parseados/TodosLosEventosDelUsuario.xml"
                 # Renombrar cada archivo con el valor del campo SystemTime
+                  echo ""
+                  echo "    Renombrando cada archivo .xml creado con el valor del campo SystemTime..."
+                  echo ""
                   mkdir -p "$vCarpetaDelCaso"/Eventos/Parseados/EventosIndividualesDeUsuarioOrdenadosPorFecha/
                   # Recorrer cada archivo XML en la carpeta
                     for file in "$vCarpetaDelCaso"/Eventos/Parseados/EventosIndividualesDeUsuario/* ; do
@@ -250,6 +259,9 @@ if [ $# -ne $cCantParamEsperados ]
                     done
                   rm -f "$vCarpetaDelCaso"/Eventos/Parseados/EventosIndividualesDeUsuarioOrdenadosPorFecha/.xml
                 # Crear un nuevo archivo xml con todos los eventos
+                  echo ""
+                  echo "    Agrupando todos los archivos creados en un único archivo final..."
+                  echo ""
                   cat $(ls "$vCarpetaDelCaso"/Eventos/Parseados/EventosIndividualesDeUsuarioOrdenadosPorFecha/* | sort) > "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventosDelUsuarioOrdenadosPorFecha.xml
                   sed -i -e 's-</Event>-</Event>\n-g' "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventosDelUsuarioOrdenadosPorFecha.xml
                   sed -i '1i\<Events>' "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventosDelUsuarioOrdenadosPorFecha.xml # Agrega la apertura de la etiqueta raiz en la primera linea
