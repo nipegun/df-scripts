@@ -47,8 +47,8 @@ if [ $# -ne $cCantParamEsperados ]
     echo ""
     exit
   else
-    vCarpetaConEventosRecolectados=$1
-    vCarpetaDelCaso=$2
+    vCarpetaConEventosRecolectados="$1"
+    vCarpetaDelCaso="$2"
 
     # Convertir los eventos a xml
       echo ""
@@ -63,16 +63,16 @@ if [ $# -ne $cCantParamEsperados ]
           echo ""
         fi
       # Recorrer la carpeta e ir convirtiendo
-        mkdir -p $vCarpetaDelCaso/Eventos/Parseados/OriginalesEnXML/
-        rm -rf $vCarpetaDelCaso/Eventos/Parseados/OriginalesEnXML/*
+        mkdir -p "$vCarpetaDelCaso"/Eventos/Parseados/OriginalesEnXML/
+        rm -rf "$vCarpetaDelCaso"/Eventos/Parseados/OriginalesEnXML/*
         find "$vCarpetaConEventosRecolectados"/ -name "*.evtx" | while read vArchivo; do
-          vArchivoDeSalida="$vCarpetaDelCaso/Eventos/Parseados/OriginalesEnXML/$(basename "$vArchivo" .evtx).xml"
+          vArchivoDeSalida=""$vCarpetaDelCaso"/Eventos/Parseados/OriginalesEnXML/$(basename "$vArchivo" .evtx).xml"
           evtxexport -f xml "$vArchivo" > "$vArchivoDeSalida" && sed -i '1d' "$vArchivoDeSalida" && sed -i 's/^<Event [^>]*>/<Event>/' "$vArchivoDeSalida"
           #sed -i '1i\<root>' "$vArchivoDeSalida"
           #echo '</root>' >> "$vArchivoDeSalida"
         done
         # Borrar todos los xml que no tengan la linea <Event>
-          for archivo in "$vCarpetaDelCaso/Eventos/Parseados/OriginalesEnXML"/*; do # Recorre todos los archivos en el directorio
+          for archivo in ""$vCarpetaDelCaso"/Eventos/Parseados/OriginalesEnXML"/*; do # Recorre todos los archivos en el directorio
             if ! grep -q "<Event>" "$archivo"; then # Verifica si el archivo contiene la línea "<Event>"
               rm -f "$archivo" # Si no contiene "<Event>", lo elimina
             fi
@@ -80,19 +80,19 @@ if [ $# -ne $cCantParamEsperados ]
 
 
     # También convertir a texto
-      mkdir -p $vCarpetaDelCaso/Eventos/Parseados/OriginalesEnTXT/
-      rm -rf $vCarpetaDelCaso/Eventos/Parseados/OriginalesEnTXT/*
+      mkdir -p "$vCarpetaDelCaso"/Eventos/Parseados/OriginalesEnTXT/
+      rm -rf "$vCarpetaDelCaso"/Eventos/Parseados/OriginalesEnTXT/*
       echo ""
-      echo "  Exportando eventos a TXT..."
+      echo "  Exportando a .txt cada archivo .evtx..."
       echo ""
-      find $vCarpetaDelCaso/Eventos/Originales/ -name "*.evtx" | while read vArchivo; do
-        vArchivoDeSalida="$vCarpetaDelCaso/Eventos/Parseados/OriginalesEnTXT/$(basename "$vArchivo" .evtx).txt"
+      find "$vCarpetaDelCaso"/Eventos/Originales/ -name "*.evtx" | while read vArchivo; do
+        vArchivoDeSalida=""$vCarpetaDelCaso"/Eventos/Parseados/OriginalesEnTXT/$(basename "$vArchivo" .evtx).txt"
         evtxexport "$vArchivo" > "$vArchivoDeSalida" && sed -i '1d' "$vArchivoDeSalida"
       done
       # Borrar todos los txt que no tengan el texto "Event number"
-        for archivo in "$vCarpetaDelCaso/Eventos/Parseados/OriginalesEnTXT"/*; do # Recorre todos los archivos en el directorio
-          if ! grep -q "Event number" "$archivo"; then                # Verifica si el archivo contiene la cadena "Even number" y
-            rm -f "$archivo"                                          # si no contiene "Event number", lo elimina
+        for archivo in ""$vCarpetaDelCaso"/Eventos/Parseados/OriginalesEnTXT"/*; do # Recorre todos los archivos en el directorio
+          if ! grep -q "Event number" "$archivo"; then                            # Verifica si el archivo contiene la cadena "Even number" y
+            rm -f "$archivo"                                                      # si no contiene "Event number", lo elimina
           fi
         done
 
@@ -100,7 +100,7 @@ if [ $# -ne $cCantParamEsperados ]
       echo ""
       echo "  Unificando todos los archivos .xml en un único archivo..."
       echo ""
-      for archivo in "$vCarpetaDelCaso/Eventos/Parseados/OriginalesEnXML"/*; do # Recorre todos los archivos en el directorio
+      for archivo in ""$vCarpetaDelCaso"/Eventos/Parseados/OriginalesEnXML"/*; do # Recorre todos los archivos en el directorio
         cat "$archivo" >> "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventos.xml
       done
       # Agregar una etiqueta raíz para poder trabajar con el xml
@@ -113,8 +113,8 @@ if [ $# -ne $cCantParamEsperados ]
       echo "  Creando un único archivo .xml con todos los eventos ordenados por fecha..."
       echo ""
       # Crear una carpeta para almacenar los archivos de vEventos
-        vCarpetaDeEventosIndividuales="EventosIndividuales"
-        mkdir -p "$vCarpetaDelCaso"/Eventos/Parseados/"$vCarpetaDeEventosIndividuales"/
+        vNombreCarpetaDeEventosIndividuales="EventosIndividuales"
+        mkdir -p "$vCarpetaDelCaso"/Eventos/Parseados/$vNombreCarpetaDeEventosIndividuales/
       # Contador de vEventos
         vContador=1
       # Variable para almacenar un vEvento temporalmente
@@ -128,7 +128,7 @@ if [ $# -ne $cCantParamEsperados ]
             # Agregar la línea de cierre del vEvento
               vEvento+=$'\n'"$line"
             # Guardar el bloque en un archivo
-              echo "$vEvento" > "$vCarpetaDelCaso"/Eventos/Parseados/"$vCarpetaDeEventosIndividuales"/$vEvento_${vContador}.xml
+              echo "$vEvento" > "$vCarpetaDelCaso"/Eventos/Parseados/$vNombreCarpetaDeEventosIndividuales/$vEvento_${vContador}.xml
             # Incrementar el vContador y limpiar la variable del vEvento
               vContador=$((vContador + 1))
             vEvento=""
@@ -140,7 +140,7 @@ if [ $# -ne $cCantParamEsperados ]
       # Renombrar cada archivo con el valor del campo SystemTime
         mkdir -p "$vCarpetaDelCaso"/Eventos/Parseados/EventosIndividualesOrdenadosPorFecha/
         # Recorrer cada archivo XML en la carpeta
-          for file in "$vCarpetaDelCaso"/Eventos/Parseados/EventosIndividualesOrdenadosPorFecha/* ; do
+          for file in "$vCarpetaDelCaso"/Eventos/Parseados/EventosIndividuales/* ; do
             # Extraer el valor de SystemTime usando xmlstarlet
               system_time=$(xmlstarlet sel -t -v "//TimeCreated/@SystemTime" "$file" 2>/dev/null)
             # Renombrar el archivo
