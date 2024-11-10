@@ -260,7 +260,7 @@ if [ $# -ne $cCantParamEsperados ]
                   rm -f "$vCarpetaDelCaso"/Eventos/Parseados/EventosIndividualesDeUsuarioOrdenadosPorFecha/.xml
                 # Crear un nuevo archivo xml con todos los eventos
                   echo ""
-                  echo "    Finalmente, agrupando todos los archivos .xml únicos en archivo unificado final..."
+                  echo "    Agrupando todos los archivos .xml únicos en un archivo unificado final..."
                   echo ""
                   cat $(ls "$vCarpetaDelCaso"/Eventos/Parseados/EventosIndividualesDeUsuarioOrdenadosPorFecha/* | sort) > "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventosDelUsuarioOrdenadosPorFecha.xml
                   sed -i -e 's-</Event>-</Event>\n-g' "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventosDelUsuarioOrdenadosPorFecha.xml
