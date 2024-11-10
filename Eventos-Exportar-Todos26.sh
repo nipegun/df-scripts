@@ -142,13 +142,11 @@ if [ $# -ne $cCantParamEsperados ]
       echo ""
       echo "  Agrupando eventos del usuario $vSIDDelUsuario en un único archivo..."
       echo ""
-      xmllint --xpath '//*[Data[@Name="SubjectUserSid" and text()='"'$vSIDDelUsuario'"']]/parent::*' /Casos/Examen/Eventos/Parseados/XML/*  > $vCarpetaDelCaso/Eventos/Parseados/EventosDelUsuario.xml 2> /dev/null
-      xmllint --xpath '//*[Security[@UserID='"'$vSIDDelUsuario'"']]/parent::*'                       /Casos/Examen/Eventos/Parseados/XML/* >> $vCarpetaDelCaso/Eventos/Parseados/EventosDelUsuario.xml 2> /dev/null
-
-      xmllint --xpath '//*[Data[@Name="SubjectUserSid" and text()='"'$vSIDDelUsuario'"']]/parent::*' "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventos.xml  > $vCarpetaDelCaso/Eventos/Parseados/EventosDelUsuario2.xml 2> /dev/null
-      xmllint --xpath '//*[Security[@UserID='"'$vSIDDelUsuario'"']]/parent::*'                       "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventos.xml >> $vCarpetaDelCaso/Eventos/Parseados/EventosDelUsuario2.xml 2> /dev/null
-
-
+      xmllint --xpath '//*[Data[@Name="SubjectUserSid" and text()='"'$vSIDDelUsuario'"']]/parent::*' /Casos/Examen/Eventos/Parseados/XML/*  > "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventosDelUsuario.xml 2> /dev/null
+      xmllint --xpath '//*[Security[@UserID='"'$vSIDDelUsuario'"']]/parent::*'                       /Casos/Examen/Eventos/Parseados/XML/* >> "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventosDelUsuario.xml 2> /dev/null
+      sed -i '1i\<root>' "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventosDelUsuario.xml # Agrega la apertura de la etiqueta raiz en la primera linea
+      echo '</root>' >>  "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventosDelUsuario.xml # Agrega el cierre de la etiqueta raíz en una nueva linea al final del archivo
+          
      # Exportando actividad del usuario específico desde el archivo .json
      #  echo ""
      #  echo "  Exportando actividad específica del usuario ..."
