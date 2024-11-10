@@ -111,7 +111,7 @@ if [ $# -ne $cCantParamEsperados ]
             2)
 
               echo ""
-              echo "  Parseando cada archivo .evtx original a .xml..."
+              echo "  Parseando cada archivo .evtx original a .txt..."
               echo ""
               # También convertir a texto
                 mkdir -p "$vCarpetaDelCaso"/Eventos/Parseados/OriginalesEnTXT/
@@ -148,6 +148,7 @@ if [ $# -ne $cCantParamEsperados ]
               # Notificar el nombre del archivo
                 echo ""
                 echo "    El archivo con todos los eventos juntos, pero sin ordenar por fecha es:"
+                echo ""
                 echo "      "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventos.xml"
                 echo ""
 
@@ -274,6 +275,7 @@ if [ $# -ne $cCantParamEsperados ]
                 # Notificar el nombre del archivo
                   echo ""
                   echo "    El archivo con todos los eventos de usuario juntos, ordenado por fecha es:"
+                  echo ""
                   echo "      "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventosDelUsuarioOrdenadosPorFecha.xml"
                   echo ""
 
