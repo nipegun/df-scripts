@@ -179,12 +179,13 @@ if [ $# -ne $cCantParamEsperados ]
               # Extraer el valor de SystemTime usando xmlstarlet
                 system_time=$(xmlstarlet sel -t -v "//TimeCreated/@SystemTime" "$file" 2>/dev/null)
               # Renombrar el archivo
-                mv "$file" "$vCarpetaDelCaso"/Eventos/Parseados/XML/EventosIndividualesDeUsuarioOrdenadosPorFecha/"${system_time}".xml
+                cp "$file" "$vCarpetaDelCaso"/Eventos/Parseados/XML/EventosIndividualesDeUsuarioOrdenadosPorFecha/"${system_time}".xml
             done
           rm -f "$vCarpetaDelCaso"/Eventos/Parseados/XML/EventosIndividualesDeUsuarioOrdenadosPorFecha/.xml
         # Crear un nuevop archivo xml con todos los eventos
           cat $(ls "$vCarpetaDelCaso"/Eventos/Parseados/XML/EventosIndividualesDeUsuarioOrdenadosPorFecha/* | sort) > /Casos/Examen/Eventos/Parseados/TodosLosEventosDelUsuarioOrdenadosPorFecha.xml
-
+          sed -i '1i\<Events>' "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventosDelUsuario.xml # Agrega la apertura de la etiqueta raiz en la primera linea
+          echo '</Events>' >>  "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventosDelUsuario.xml # Agrega el cierre de la etiqueta raíz en una nueva linea al final del archivo
 
      # Exportando actividad del usuario específico desde el archivo .json
      #  echo ""
