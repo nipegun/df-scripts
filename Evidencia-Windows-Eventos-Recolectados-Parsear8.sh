@@ -138,8 +138,8 @@ if [ $# -ne $cCantParamEsperados ]
                 cat "$archivo" >> "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventos.xml
               done
               # Agregar una etiqueta raíz para poder trabajar con el xml
-                #sed -i '1i\<root>' "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventos.xml # Agrega la apertura de la etiqueta raiz en la primera linea
-                #echo '</root>' >>  "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventos.xml # Agrega el cierre de la etiqueta raíz en una nueva linea al final del archivo
+                sed -i '1i\<Events>' "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventos.xml # Agrega la apertura de la etiqueta raiz en la primera linea
+                echo '</Events>' >>  "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventos.xml # Agrega el cierre de la etiqueta raíz en una nueva linea al final del archivo
               # Agregar una etiqueta raíz para poder trabajar con los xml a posteriori
                 for vArchivo in "$vCarpetaDelCaso/Eventos/Parseados/OriginalesEnXML"/*; do # Recorre todos los archivos en el directorio
                   sed -i '1i\<Events>' "$vArchivo"                                         # Agrega la apertura de la etiqueta raiz en la primera linea
