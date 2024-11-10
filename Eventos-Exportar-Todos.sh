@@ -71,7 +71,17 @@ if [ $# -ne $cCantParamEsperados ]
         done
 
     # Convertir los eventos a log2timeline
-    
+      ~/SoftInst/Plaso/plaso/bin/log2timeline $vCarpetaDelCaso/Eventos/Crudos/ --storage-file $vCarpetaDelCaso/Eventos/Parseados/TimeLine.plaso
+    # Parsear
+      ~/SoftInst/Plaso/plaso/bin/psort $vCarpetaDelCaso/Eventos/Parseados/timeline.plaso -o dynamic   -w $vCarpetaDelCaso/Eventos/Parseados/TimeLineEventos.txt
+      ~/SoftInst/Plaso/plaso/bin/psort $vCarpetaDelCaso/Eventos/Parseados/timeline.plaso -o json      -w $vCarpetaDelCaso/Eventos/Parseados/TimeLineEventos.json
+      ~/SoftInst/Plaso/plaso/bin/psort $vCarpetaDelCaso/Eventos/Parseados/timeline.plaso -o json_line -w $vCarpetaDelCaso/Eventos/Parseados/TimeLineEventos.json_line 
+     #~/SoftInst/Plaso/plaso/bin/psort $vCarpetaDelCaso/Eventos/Parseados/timeline.plaso -o l2tcsv    -w $vCarpetaDelCaso/Eventos/Parseados/TimeLineEventos.l2tcsv
+     #~/SoftInst/Plaso/plaso/bin/psort $vCarpetaDelCaso/Eventos/Parseados/timeline.plaso -o l2ttln    -w $vCarpetaDelCaso/Eventos/Parseados/TimeLineEventos.l2ttln
+      ~/SoftInst/Plaso/plaso/bin/psort $vCarpetaDelCaso/Eventos/Parseados/timeline.plaso -o rawpy     -w $vCarpetaDelCaso/Eventos/Parseados/TimeLineEventos.rawpy
+     #~/SoftInst/Plaso/plaso/bin/psort $vCarpetaDelCaso/Eventos/Parseados/timeline.plaso -o tln       -w $vCarpetaDelCaso/Eventos/Parseados/TimeLineEventos.tln
+      ~/SoftInst/Plaso/plaso/bin/psort $vCarpetaDelCaso/Eventos/Parseados/timeline.plaso -o xlsx      -w $vCarpetaDelCaso/Eventos/Parseados/TimeLineEventos.xlsx
+
 
 fi
 
