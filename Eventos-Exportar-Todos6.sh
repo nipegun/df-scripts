@@ -69,7 +69,7 @@ if [ $# -ne $cCantParamEsperados ]
         rm -rf $vCarpetaDelCaso/Eventos/Parseados/XML/*
         find $vCarpetaDelCaso/Eventos/Crudos/ -name "*.evtx" | while read vArchivo; do
           vArchivoDeSalida="$vCarpetaDelCaso/Eventos/Parseados/XML/$(basename "$vArchivo" .evtx).xml"
-          evtxexport -f xml "$vArchivo" > "$vArchivoDeSalida" && sed -i '1d' "$vArchivoDeSalida"
+          evtxexport -f xml "$vArchivo" > "$vArchivoDeSalida" && sed -i '1d' "$vArchivoDeSalida" && sed -i 's/^<Event [^>]*>/<Event>/' "$vArchivoDeSalida"
         done
       # También convertir a texto
         mkdir -p $vCarpetaDelCaso/Eventos/Parseados/TXT/
@@ -96,9 +96,9 @@ if [ $# -ne $cCantParamEsperados ]
        echo "  Exportando actividad específica del usuario ..."
        echo ""
        vSIDDelUsuario="S-1-5-21-92896240-835188504-1963242017-1001"
-       cat '/Casos/Examen/Eventos/Parseados/TimeLineEventos.json' | sed 's-/Casos/Examen/Eventos/Crudos/--g'  | jq '.[] | select(.user_sid == "'"$vSIDDelUsuario"'")'
+       cat '/Casos/Examen/Eventos/Parseados/TimeLineEventos.json' | sed 's-/Casos/Examen/Eventos/Crudos/--g'  | jq '.[] | select(.user_sid == "'"$vSIDDelUsuario"'")' > $vCarpetaDelCaso/Eventos/Parseados/TimeLineUsuario.json
 
-cat /Casos/Examen/Eventos/TimeLineEventos.txt | sed 's-/Casos/Examen/Eventos/Crudos/--g' | grep S-1-5-21 > $vCarpetaDelCaso/Eventos/Parseados/TimeLineUsuario.txt
+cat /Casos/Examen/Eventos/Parseados/TimeLineEventos.txt | sed 's-/Casos/Examen/Eventos/Crudos/--g' | grep S-1-5-21 > $vCarpetaDelCaso/Eventos/Parseados/TimeLineUsuario.txt
 
 
 fi
