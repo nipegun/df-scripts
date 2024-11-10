@@ -56,7 +56,7 @@
           # Instalar RegRipper (Sólo se ejecuta en Debian)
             curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/SoftInst/ParaCLI/RegRipper-Instalar.sh | sudo bash
           # Ejecutar RegRipper
-            curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Registro-Extraer-Completo-WindowsVistaYPosterior.sh | sudo bash -s /Casos/Examen/Particiones/2 /Casos/Examen
+            curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Registro-Extraer-Completo-WindowsVistaYPosterior.sh | sudo bash -s /Evidencias/Windows/Particiones/2 /Evidencias/Windows
 
         ;;
 
@@ -66,11 +66,11 @@
           echo "  Extrayendo y parseando la MFT..."
           echo ""
           # Extraer MFT
-            curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/MFT-Extraer-Original.sh | sudo bash -s /Casos/Examen/Particiones/2 /Casos/Examen
+            curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/MFT-Extraer-Original.sh | sudo bash -s /Evidencias/Windows/Particiones/2 /Evidencias/Windows
          # Instalar analyzeMFT
            curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/SoftInst/ParaCLI/analyzeMFT-Instalar.sh | sudo bash
          # Ejecutar analyzemft sobre la evidencia
-           curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/MFT-AnalizarYExportar.sh | sudo bash -s /Casos/Examen/MFT/MFTOriginal /Casos/Examen/MFT
+           curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/MFT-AnalizarYExportar.sh | sudo bash -s /Evidencias/Windows/MFT/MFTOriginal /Evidencias/Windows/MFT
 
         ;;
 
@@ -79,7 +79,7 @@
           echo ""
           echo "  Recolectando eventos originales..."
           echo ""
-          curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Evidencia-Windows-Eventos-Originales-Recolectar.sh | sudo bash -s /Casos/Examen/Particiones/2 /Casos/Examen
+          curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Evidencia-Windows-Eventos-Originales-Recolectar.sh | sudo bash -s /Evidencias/Windows/Particiones/2 /Evidencias/Windows
 
         ;;
 
@@ -88,7 +88,7 @@
           echo ""
           echo "  Parseando eventos recolectados..."
           echo ""
-          curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Evidencia-Windows-Eventos-Recolectados-Parsear.sh | sudo bash -s /Casos/Examen/Eventos/Originales/ /Casos/Examen
+          curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Evidencia-Windows-Eventos-Recolectados-Parsear.sh | sudo bash -s /Evidencias/Windows/Eventos/Originales/ /Evidencias/Windows
 
         ;;
 
