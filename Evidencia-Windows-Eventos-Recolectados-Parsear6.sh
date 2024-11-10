@@ -140,6 +140,11 @@ if [ $# -ne $cCantParamEsperados ]
               # Agregar una etiqueta raíz para poder trabajar con el xml
                 #sed -i '1i\<root>' "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventos.xml # Agrega la apertura de la etiqueta raiz en la primera linea
                 #echo '</root>' >>  "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventos.xml # Agrega el cierre de la etiqueta raíz en una nueva linea al final del archivo
+              # Agregar una etiqueta raíz para poder trabajar con los xml a posteriori
+                for vArchivo in "$vCarpetaDelCaso/Eventos/Parseados/OriginalesEnXML"/*; do # Recorre todos los archivos en el directorio
+                  sed -i '1i\<Events>' "$vArchivo"                                         # Agrega la apertura de la etiqueta raiz en la primera linea
+                  echo '</Events>' >> "$vArchivo"                                          # Agrega el cierre de la etiqueta raíz en una nueva linea al final del archivo
+                done
 
             ;;
 
@@ -202,7 +207,7 @@ if [ $# -ne $cCantParamEsperados ]
               echo ""
               echo "  Creando un único archivo con todos los eventos del usuario ordenados por fecha..."
               echo ""
-              vSIDvSIDDelUsuario=$1
+              vSIDvSIDDelUsuario="$1"
               vSIDDelUsuario="S-1-5-21-92896240-835188504-1963242017-1001"
               xmllint --xpath '//*[Data[@Name="SubjectUserSid" and text()='"'$vSIDDelUsuario'"']]/parent::*' /Casos/Examen/Eventos/Parseados/OriginalesEnXML/*  > "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventosDelUsuario.xml 2> /dev/null
               xmllint --xpath '//*[Security[@UserID='"'$vSIDDelUsuario'"']]/parent::*'                       /Casos/Examen/Eventos/Parseados/OriginalesEnXML/* >> "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventosDelUsuario.xml 2> /dev/null
@@ -273,11 +278,6 @@ fi
       # cat "$vCarpetaDelCaso"/Eventos/Parseados/TimeLineEventos.json | jq | grep xml_string | sed 's-"xml_string": "--g' | sed 's/\\n/\n/g' | sed '/^"/d' | sed 's-xmlns=\"http://schemas.microsoft.com/win/2004/08/events/event\"--g' > "$vCarpetaDelCaso"/Eventos/Parseados/TimeLineCompleto.xml
 
 
-      # Agregar una etiqueta raíz para poder trabajar con los xml
-      #  for vArchivo in "$vCarpetaDelCaso/Eventos/Parseados/XML"/*; do # Recorre todos los archivos en el directorio
-      #    sed -i '1i\<root>' "$vArchivo"                               # Agrega la apertura de la etiqueta raiz en la primera linea
-      #    echo '</root>' >> "$vArchivo"                                # Agrega el cierre de la etiqueta raíz en una nueva linea al final del archivo
-      #  done
 
 
      # Exportando actividad del usuario específico desde el archivo .json
