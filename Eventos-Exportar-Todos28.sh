@@ -154,7 +154,7 @@ if [ $# -ne $cCantParamEsperados ]
         # Leer el archivo línea por línea
           while IFS= read -r line; do
             if [[ "$line" == *"<Event>"* ]]; then
-              vEvento="$line"# Iniciar un nuevo bloque de evento
+              vEvento="$line" # Iniciar un nuevo bloque de evento
             elif [[ "$line" == *"</Event>"* ]]; then
               vEvento+=$'\n'"$line" # Agregar la línea de cierre del evento
               # Guardar el bloque en un archivo
