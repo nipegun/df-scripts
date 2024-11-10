@@ -147,36 +147,52 @@ if [ $# -ne $cCantParamEsperados ]
       sed -i '1i\<root>' "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventosDelUsuario.xml # Agrega la apertura de la etiqueta raiz en la primera linea
       echo '</root>' >>  "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventosDelUsuario.xml # Agrega el cierre de la etiqueta raíz en una nueva linea al final del archivo
       # Generar un archivo por cada evento dentro del xml
-        mkdir -p "$vCarpetaDelCaso"/Eventos/Parseados/XML/EventosIndividualesDeUsuario/
-        vcontadorDeEventos=1
-        # Variable para almacenar un evento temporalmente
+        # Crear una carpeta para almacenar los archivos de vEventos
+          vNombreNuevaCarpeta="EventosIndividualesDeUsuario"
+          mkdir -p "$vCarpetaDelCaso"/Eventos/Parseados/XML/$vNombreNuevaCarpeta/
+        # Contador de vEventos
+          vContador=1
+        # Variable para almacenar un vEvento temporalmente
           vEvento=""
         # Leer el archivo línea por línea
           while IFS= read -r line; do
             if [[ "$line" == *"<Event>"* ]]; then
-              vEvento="$line" # Iniciar un nuevo bloque de evento
+              # Iniciar un nuevo bloque de vEvento
+                vEvento="$line"
             elif [[ "$line" == *"</Event>"* ]]; then
-              vEvento+=$'\n'"$line" # Agregar la línea de cierre del evento
+              # Agregar la línea de cierre del vEvento
+                vEvento+=$'\n'"$line"
               # Guardar el bloque en un archivo
-                output_file="EventosIndividualesDeUsuario/evento_${contador}.xml"
-                echo "$vEvento" > "$output_file"
-              # Incrementar el contador y limpiar la variable del evento
-                vContadorDeEventos=$((vContadorDeEventos + 1))
-                vEvento=""
+                echo "$vEvento" > /Casos/Examen/Eventos/Parseados/XML/$vNombreNuevaCarpeta/$vEvento_${vContador}.xml
+              # Incrementar el vContador y limpiar la variable del vEvento
+                vContador=$((vContador + 1))
+              vEvento=""
             else
-              vEvento+=$'\n'"$line" # Agregar la línea al bloque de evento en curso
+              # Agregar la línea al bloque de vEvento en curso
+              vEvento+=$'\n'"$line"
             fi
-          done < "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventosDelUsuario.xml
-        # Renombrar cada archivo con el valor del campo SystemTime
-          mkdir -p "$vCarpetaDelCaso"/Eventos/Parseados/XML/EventosIndividualesDeUsuario/EventosOrdenadosPorFecha/
-          # Recorrer cada archivo XML en la carpeta
-            for file in "$vCarpetaDelCaso"/Eventos/Parseados/XML/EventosIndividualesDeUsuario/*.xml; do
-              # Extraer el valor de SystemTime usando xmlstarlet
-                system_time=$(xmlstarlet sel -t -v "//TimeCreated/@SystemTime" "$file" 2>/dev/null)
-              # Renombrar el archivo
-                new_filename=""$vCarpetaDelCaso"/Eventos/Parseados/XML/EventosIndividualesDeUsuario/EventosOrdenadosPorFecha/${system_time}.xml"
-                mv "$file" "$new_filename"
-            done
+          done < "/Casos/Examen/Eventos/Parseados/TodosLosEventosDelUsuario.xml"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
 
 
 
