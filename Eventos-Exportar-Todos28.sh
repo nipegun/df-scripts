@@ -159,7 +159,7 @@ if [ $# -ne $cCantParamEsperados ]
               vEvento+=$'\n'"$line" # Agregar la línea de cierre del evento
               # Guardar el bloque en un archivo
                 output_file="eventos_separados/evento_${contador}.xml"
-                echo "$evento" > "$output_file"
+                echo "$vEvento" > "$output_file"
               # Incrementar el contador y limpiar la variable del evento
                 vContadorDeEventos=$((vContadorDeEventos + 1))
                 vEvento=""
