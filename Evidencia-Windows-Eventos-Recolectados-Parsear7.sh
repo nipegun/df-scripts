@@ -68,7 +68,7 @@ if [ $# -ne $cCantParamEsperados ]
           2 "Parsear cada archivo .evtx original a .txt" on
           3 "Unificando en un único archivo todos los archivos XML parseados" on
           4 "  Crear un único archivo con todos los eventos ordenados por fecha" off
-          5 "  Crear un único archivo con todos los eventos del usuario ordenados por fecha" off
+          5 "  Crear un único archivo con todos los eventos del usuario ordenados por fecha" on
         )
       choices=$("${menu[@]}" "${opciones[@]}" 2>&1 >/dev/tty)
       #clear
