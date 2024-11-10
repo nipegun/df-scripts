@@ -76,7 +76,7 @@ if [ $# -ne $cCantParamEsperados ]
         rm -rf $vCarpetaDelCaso/Eventos/Parseados/TXT/*
         find $vCarpetaDelCaso/Eventos/Crudos/ -name "*.evtx" | while read vArchivo; do
           vArchivoDeSalida="$vCarpetaDelCaso/Eventos/Parseados/TXT/$(basename "$vArchivo" .evtx).txt"
-          evtxexport -f xml "$vArchivo" > "$vArchivoDeSalida"
+          evtxexport "$vArchivo" > "$vArchivoDeSalida"
         done
 
     # Convertir los eventos a log2timeline
