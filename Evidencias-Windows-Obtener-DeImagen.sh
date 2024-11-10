@@ -15,28 +15,83 @@
 #   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Evidencias-Windows-Obtener-DeImagen.sh | nano -
 # ----------
 
-# Montar particiones de imagen
-  curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Imagen-Particiones-Montar-SoloLectura.sh | sed 's|$(date +a%Ym%md%d@%T)|"Examen"|g' | sudo bash -s $1
+# Comprobar si el paquete dialog está instalado. Si no lo está, instalarlo.
+  if [[ $(dpkg-query -s dialog 2>/dev/null | grep installed) == "" ]]; then
+    echo ""
+    echo -e "${cColorRojo}  El paquete dialog no está instalado. Iniciando su instalación...${cFinColor}"
+    echo ""
+    apt-get -y update && apt-get -y install dialog
+    echo ""
+  fi
 
-# Registro
+# Crear el menú
+  menu=(dialog --checklist "Marca las opciones que quieras instalar:" 22 96 16)
+    opciones=(
+      1 "Montar todas las particiones en modo lectura" off
+      2 "Extraer y parsear el registro" off
+      3 "Extraer y parsear la MFT" off
+      4 "Extraer y parsear eventos" off
+      5 "Opción 5" off
+    )
+  choices=$("${menu[@]}" "${opciones[@]}" 2>&1 >/dev/tty)
 
-  # Instalar RegRipper (Sólo se ejecuta en Debian)
-    curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/SoftInst/ParaCLI/RegRipper-Instalar.sh | sudo bash
+  for choice in $choices
+    do
+      case $choice in
 
-  # Ejecutar RegRipper
-    curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Registro-Extraer-Completo-WindowsVistaYPosterior.sh | sudo bash -s /Casos/Examen/Particiones/2 /Casos/Examen
+        1)
 
-# MFT
+          echo ""
+          echo "  Montando todas las particiones en modo lectura..."
+          echo ""
+          curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Imagen-Particiones-Montar-SoloLectura.sh | sed 's|$(date +a%Ym%md%d@%T)|"Examen"|g' | sudo bash -s $1
 
-  # Extraer MFT
-    curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/MFT-Extraer-Original.sh | sudo bash -s /Casos/Examen/Particiones/2 /Casos/Examen
+        ;;
 
-  # Instalar analyzeMFT
-    curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/SoftInst/ParaCLI/analyzeMFT-Instalar.sh | sudo bash
+        2)
 
-  # Ejecutar analyzemft sobre la evidencia
-    curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/MFT-AnalizarYExportar.sh | sudo bash -s /Casos/Examen/MFT/MFTOriginal /Casos/Examen/MFT
+          echo ""
+          echo "  Extrayendo y parseando el registro..."
+          echo ""
+          # Instalar RegRipper (Sólo se ejecuta en Debian)
+            curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/SoftInst/ParaCLI/RegRipper-Instalar.sh | sudo bash
+          # Ejecutar RegRipper
+            curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Registro-Extraer-Completo-WindowsVistaYPosterior.sh | sudo bash -s /Casos/Examen/Particiones/2 /Casos/Examen
 
-# Eventos
+        ;;
 
-  curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Eventos-Exportar-Todos.sh | sudo bash -s /Casos/Examen/Particiones/2 /Casos/Examen
+        3)
+
+          echo ""
+          echo "  Extrayendo y parseando la MFT..."
+          echo ""
+          # Extraer MFT
+            curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/MFT-Extraer-Original.sh | sudo bash -s /Casos/Examen/Particiones/2 /Casos/Examen
+         # Instalar analyzeMFT
+           curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/SoftInst/ParaCLI/analyzeMFT-Instalar.sh | sudo bash
+         # Ejecutar analyzemft sobre la evidencia
+           curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/MFT-AnalizarYExportar.sh | sudo bash -s /Casos/Examen/MFT/MFTOriginal /Casos/Examen/MFT
+
+        ;;
+
+        4)
+
+          echo ""
+          echo "  Extrayendo y parseando eventos..."
+          echo ""
+          curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Eventos-Exportar-Todos.sh | sudo bash -s /Casos/Examen/Particiones/2 /Casos/Examen
+
+        ;;
+
+        5)
+
+          echo ""
+          echo "  Opción 5..."
+          echo ""
+
+        ;;
+
+    esac
+
+done
+
