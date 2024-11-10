@@ -50,9 +50,9 @@ if [ $# -ne $cCantParamEsperados ]
     vPuntoDeMontajePartWindows="$1"
     vCarpetaDelCaso="$2"
 
-    # Copiar los eventos crudos
+    # Copiar los eventos originales
       echo ""
-      echo "  Copiando todos los eventos .evtx de la partición de Windows a la carpeta del caso..."
+      echo "    Copiando todos los eventos .evtx de la partición de Windows a la carpeta del caso..."
       echo ""
       mkdir -p "$vCarpetaDelCaso"/Eventos/Originales/
       rm -rf "$vCarpetaDelCaso"/Eventos/Originales/*
