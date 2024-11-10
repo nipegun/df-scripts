@@ -82,12 +82,19 @@ if [ $# -ne $cCantParamEsperados ]
               rm -f "$archivo" # Si no contiene "<Event>", lo elimina
             fi
           done
-        # Agregar una etiqueta raíz para poder trabajar con los xml
+        # Pasar todos los eventos xml a un único archivo XML
+          echo ""
+          echo "  Unificando los eventos de todos los diferentes archivos .xml en un único archivo..."
+          echo ""
           for archivo in "$vCarpetaDelCaso/Eventos/Parseados/XML"/*; do # Recorre todos los archivos en el directorio
-            echo "<root>" > nuevo_archivo.xml
-            cat archivo.xml >> nuevo_archivo.xml
-            echo "</root>" >> nuevo_archivo.xml
+            cat "$archivo" >> "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventos.xml
           done
+        # Agregar una etiqueta raíz para poder trabajar con los xml
+        #  for archivo in "$vCarpetaDelCaso/Eventos/Parseados/XML"/*; do # Recorre todos los archivos en el directorio
+        #    echo "<root>" > nuevo_archivo.xml
+        #    cat archivo.xml >> nuevo_archivo.xml
+        #    echo "</root>" >> nuevo_archivo.xml
+        #  done
 
 
     # Convertir los eventos a json
