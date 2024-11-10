@@ -69,14 +69,14 @@ if [ $# -ne $cCantParamEsperados ]
         rm -rf $vCarpetaDelCaso/Eventos/Parseados/XML/*
         find $vCarpetaDelCaso/Eventos/Crudos/ -name "*.evtx" | while read vArchivo; do
           vArchivoDeSalida="$vCarpetaDelCaso/Eventos/Parseados/XML/$(basename "$vArchivo" .evtx).xml"
-          evtxexport -f xml "$vArchivo" > "$vArchivoDeSalida"
+          evtxexport -f xml "$vArchivo" > "$vArchivoDeSalida" && sed -i '1d' "$vArchivoDeSalida"
         done
       # También convertir a texto
         mkdir -p $vCarpetaDelCaso/Eventos/Parseados/TXT/
         rm -rf $vCarpetaDelCaso/Eventos/Parseados/TXT/*
         find $vCarpetaDelCaso/Eventos/Crudos/ -name "*.evtx" | while read vArchivo; do
           vArchivoDeSalida="$vCarpetaDelCaso/Eventos/Parseados/TXT/$(basename "$vArchivo" .evtx).txt"
-          evtxexport "$vArchivo" > "$vArchivoDeSalida"
+          evtxexport "$vArchivo" > "$vArchivoDeSalida" && sed -i '1d' "$vArchivoDeSalida"
         done
 
     # Convertir los eventos a log2timeline
