@@ -6,7 +6,7 @@
 # No tienes que aceptar ningún tipo de términos de uso o licencia para utilizarlo o modificarlo porque va sin CopyLeft.
 
 # ----------
-# Script de NiPeGun para exportar eventos de una partición de Windows y parsearlos a xml
+# Script de NiPeGun para copiar los eventos de una partición de Windows y parsearlos a xml
 #
 # Ejecución remota con parámetros:
 #   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Eventos-Exportar-Todos.sh | sudo bash -s [PuntoDeMontajePartWindows] [CarpetaDelCaso]
@@ -138,6 +138,7 @@ if [ $# -ne $cCantParamEsperados ]
       # cat "$vCarpetaDelCaso"/Eventos/Parseados/TimeLineEventos.json | jq | grep xml_string | sed 's-"xml_string": "--g' | sed 's/\\n/\n/g' | sed '/^"/d' | sed 's-xmlns=\"http://schemas.microsoft.com/win/2004/08/events/event\"--g' > "$vCarpetaDelCaso"/Eventos/Parseados/TimeLineCompleto.xml
 
     # Eventos sólo del usuario
+      vSIDvSIDDelUsuario=$1
       vSIDDelUsuario="S-1-5-21-92896240-835188504-1963242017-1001"
       echo ""
       echo "  Agrupando eventos del usuario $vSIDDelUsuario en un único archivo..."
@@ -184,6 +185,7 @@ if [ $# -ne $cCantParamEsperados ]
           rm -f "$vCarpetaDelCaso"/Eventos/Parseados/XML/EventosIndividualesDeUsuarioOrdenadosPorFecha/.xml
         # Crear un nuevop archivo xml con todos los eventos
           cat $(ls "$vCarpetaDelCaso"/Eventos/Parseados/XML/EventosIndividualesDeUsuarioOrdenadosPorFecha/* | sort) > /Casos/Examen/Eventos/Parseados/TodosLosEventosDelUsuarioOrdenadosPorFecha.xml
+          sed -i -e 's-</Event>-</Event>\n-g' "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventosDelUsuario.xml
           sed -i '1i\<Events>' "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventosDelUsuario.xml # Agrega la apertura de la etiqueta raiz en la primera linea
           echo '</Events>' >>  "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventosDelUsuario.xml # Agrega el cierre de la etiqueta raíz en una nueva linea al final del archivo
 
