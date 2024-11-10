@@ -73,8 +73,8 @@ if [ $# -ne $cCantParamEsperados ]
         find $vCarpetaDelCaso/Eventos/Crudos/ -name "*.evtx" | while read vArchivo; do
           vArchivoDeSalida="$vCarpetaDelCaso/Eventos/Parseados/XML/$(basename "$vArchivo" .evtx).xml"
           evtxexport -f xml "$vArchivo" > "$vArchivoDeSalida" && sed -i '1d' "$vArchivoDeSalida" && sed -i 's/^<Event [^>]*>/<Event>/' "$vArchivoDeSalida"
-          sed -i '1i\<root>' "$vArchivoDeSalida"
-          echo '</root>' >> "$vArchivoDeSalida"
+          #sed -i '1i\<root>' "$vArchivoDeSalida"
+          #echo '</root>' >> "$vArchivoDeSalida"
         done
         # Borrar todos los xml que no tengan la linea <Event>
           for archivo in "$vCarpetaDelCaso/Eventos/Parseados/XML"/*; do # Recorre todos los archivos en el directorio
