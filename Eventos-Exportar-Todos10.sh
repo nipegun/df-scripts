@@ -90,6 +90,25 @@ if [ $# -ne $cCantParamEsperados ]
           done
 
 
+    # Convertir los eventos a json
+      # Comprobar si el paquete libevtx-utils está instalado. Si no lo está, instalarlo.
+        if [[ $(dpkg-query -s libevtx-utils 2>/dev/null | grep installed) == "" ]]; then
+          echo ""
+          echo -e "${cColorRojo}  El paquete libevtx-utils no está instalado. Iniciando su instalación...${cFinColor}"
+          echo ""
+          apt-get -y update && apt-get -y install libevtx-utils
+          echo ""
+        fi
+      # Recorrer la carpeta e ir convirtiendo
+        mkdir -p $vCarpetaDelCaso/Eventos/Parseados/JSON/
+        rm -rf $vCarpetaDelCaso/Eventos/Parseados/JSON/*
+        echo ""
+        echo "  Exportando eventos a JSON..."
+        echo ""
+        find $vCarpetaDelCaso/Eventos/Crudos/ -name "*.evtx" | while read vArchivo; do
+          vArchivoDeSalida="$vCarpetaDelCaso/Eventos/Parseados/JSON/$(basename "$vArchivo" .evtx).json"
+          evtxexport -f json "$vArchivo" > "$vArchivoDeSalida" && sed -i '1d' "$vArchivoDeSalida"
+        done
 
 
       # También convertir a texto
