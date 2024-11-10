@@ -113,6 +113,12 @@ if [ $# -ne $cCantParamEsperados ]
           vArchivoDeSalida="$vCarpetaDelCaso/Eventos/Parseados/TXT/$(basename "$vArchivo" .evtx).txt"
           evtxexport "$vArchivo" > "$vArchivoDeSalida" && sed -i '1d' "$vArchivoDeSalida"
         done
+        # Borrar todos los txt que no tengan el texto "Event number"
+          for archivo in "$vCarpetaDelCaso/Eventos/Parseados/TXT"/*; do # Recorre todos los archivos en el directorio
+            if ! grep -q "Event number" "$archivo"; then                # Verifica si el archivo contiene la cadena "Even number" y
+              rm -f "$archivo"                                          # si no contiene "Event number", lo elimina
+            fi
+          done
 
     # Convertir los eventos a log2timeline
       #~/SoftInst/Plaso/plaso/bin/log2timeline $vCarpetaDelCaso/Eventos/Crudos/ --storage-file $vCarpetaDelCaso/Eventos/Parseados/TimeLine.plaso
