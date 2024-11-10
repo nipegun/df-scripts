@@ -247,7 +247,7 @@ if [ $# -ne $cCantParamEsperados ]
                   done < "/Casos/Examen/Eventos/Parseados/TodosLosEventosDelUsuario.xml"
                 # Renombrar cada archivo con el valor del campo SystemTime
                   echo ""
-                  echo "    Renombrando cada archivo .xml creado con el valor del campo SystemTime..."
+                  echo "    Asignando el valor del campor SystemTime al nombre de cada archivo .xml único..."
                   echo ""
                   mkdir -p "$vCarpetaDelCaso"/Eventos/Parseados/EventosIndividualesDeUsuarioOrdenadosPorFecha/
                   # Recorrer cada archivo XML en la carpeta
@@ -260,7 +260,7 @@ if [ $# -ne $cCantParamEsperados ]
                   rm -f "$vCarpetaDelCaso"/Eventos/Parseados/EventosIndividualesDeUsuarioOrdenadosPorFecha/.xml
                 # Crear un nuevo archivo xml con todos los eventos
                   echo ""
-                  echo "    Agrupando todos los archivos creados en un único archivo final..."
+                  echo "    Finalmente, agrupando todos los archivos .xml únicos en archivo unificado final..."
                   echo ""
                   cat $(ls "$vCarpetaDelCaso"/Eventos/Parseados/EventosIndividualesDeUsuarioOrdenadosPorFecha/* | sort) > "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventosDelUsuarioOrdenadosPorFecha.xml
                   sed -i -e 's-</Event>-</Event>\n-g' "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventosDelUsuarioOrdenadosPorFecha.xml
