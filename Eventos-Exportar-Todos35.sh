@@ -183,28 +183,7 @@ if [ $# -ne $cCantParamEsperados ]
             done
           rm -f "$vCarpetaDelCaso"/Eventos/Parseados/XML/EventosIndividualesDeUsuarioOrdenadosPorFecha/.xml
         # Crear un nuevop archivo xml con todos los eventos
-          for file in "$vCarpetaDelCaso"/Eventos/Parseados/XML/EventosIndividualesDeUsuarioOrdenadosPorFecha/*; do
-            cat "$file" >> "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventosDelUsuario.xml
-            echo -e "\n---\n" >> "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventosDelUsuarioOrdenadosPorFecha.xml
-          done
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
+          cat $(ls "$vCarpetaDelCaso"/Eventos/Parseados/XML/EventosIndividualesDeUsuarioOrdenadosPorFecha/* | sort) > /Casos/Examen/Eventos/Parseados/TodosLosEventosDelUsuarioOrdenadosPorFecha.xml
 
 
      # Exportando actividad del usuario específico desde el archivo .json
