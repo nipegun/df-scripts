@@ -175,7 +175,7 @@ if [ $# -ne $cCantParamEsperados ]
         # Renombrar cada archivo con el valor del campo SystemTime
           mkdir -p "$vCarpetaDelCaso"/Eventos/Parseados/XML/EventosIndividualesDeUsuarioOrdenadosPorFecha/
           # Recorrer cada archivo XML en la carpeta
-            for file in "$vCarpetaDelCaso"/Eventos/Parseados/XML/EventosIndividualesDeUsuario/*; do
+            for file in "$vCarpetaDelCaso"/Eventos/Parseados/XML/EventosIndividualesDeUsuario/* ; do
               # Extraer el valor de SystemTime usando xmlstarlet
                 system_time=$(xmlstarlet sel -t -v "//TimeCreated/@SystemTime" "$file" 2>/dev/null)
               # Renombrar el archivo
