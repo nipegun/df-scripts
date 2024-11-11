@@ -44,7 +44,7 @@
           echo ""
           echo "  Montando todas las particiones en modo lectura..."
           echo ""
-          curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Imagen-Particiones-Montar-SoloLectura.sh | sed 's|$(date +a%Ym%md%d@%T)|"Examen"|g' | sudo bash -s $1
+          curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Imagen-Particiones-Montar-SoloLectura.sh | sed 's|$(date +a%Ym%md%d@%T)|"Windows"|g' | sudo bash -s $1
 
         ;;
 
@@ -56,7 +56,7 @@
           # Instalar RegRipper (Sólo se ejecuta en Debian)
             curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/SoftInst/ParaCLI/RegRipper-Instalar.sh | sudo bash
           # Ejecutar RegRipper
-            curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Registro-Extraer-Completo-WindowsVistaYPosterior.sh | sudo bash -s /Evidencias/Windows/Particiones/2 /Evidencias/Windows
+            curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Registro-Extraer-Completo-WindowsVistaYPosterior.sh | sudo bash -s /Artefactos/Windows/Particiones/2 /Artefactos/Windows
 
         ;;
 
@@ -66,11 +66,11 @@
           echo "  Extrayendo y parseando la MFT..."
           echo ""
           # Extraer MFT
-            curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/MFT-Extraer-Original.sh | sudo bash -s /Evidencias/Windows/Particiones/2 /Evidencias/Windows
+            curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/MFT-Extraer-Original.sh | sudo bash -s /Artefactos/Windows/Particiones/2 /Artefactos/Windows
          # Instalar analyzeMFT
            curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/SoftInst/ParaCLI/analyzeMFT-Instalar.sh | sudo bash
          # Ejecutar analyzemft sobre la evidencia
-           curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/MFT-AnalizarYExportar.sh | sudo bash -s /Evidencias/Windows/MFT/MFTOriginal /Evidencias/Windows/MFT
+           curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/MFT-AnalizarYExportar.sh | sudo bash -s /Artefactos/Windows/MFT/MFTOriginal /Artefactos/Windows/MFT
 
         ;;
 
@@ -79,7 +79,7 @@
           echo ""
           echo "  Recolectando eventos originales..."
           echo ""
-          curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Evidencia-Windows-Eventos-Originales-Recolectar.sh | sudo bash -s /Evidencias/Windows/Particiones/2 /Evidencias/Windows
+          curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Evidencia-Windows-Eventos-Originales-Recolectar.sh | sudo bash -s /Artefactos/Windows/Particiones/2 /Artefactos/Windows
 
         ;;
 
@@ -88,7 +88,7 @@
           echo ""
           echo "  Parseando eventos recolectados..."
           echo ""
-          curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Evidencia-Windows-Eventos-Recolectados-Parsear.sh | sudo bash -s /Evidencias/Windows/Eventos/Originales/ /Evidencias/Windows
+          curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Evidencia-Windows-Eventos-Recolectados-Parsear.sh | sudo bash -s /Artefactos/Windows/Eventos/Originales/ /Artefactos/Windows
 
         ;;
 
