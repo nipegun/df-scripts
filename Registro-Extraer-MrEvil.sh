@@ -1,38 +1,37 @@
 #!/bin/bash
 
-# Definir fecha de ejecución del script
-  cFechaDeEjec=$(date +a%Ym%md%d@%T)
+# Definir fecha del caso
+  vFechaCaso=$(date +a%Ym%md%d@%T)
 
 # Definir variables
-  vPuntoDeMontaje="/Particiones/Pruebas"
   vCarpetaDeCasos="/Casos"
+  vPuntoDeMontaje="/Casos/"$vFechaCaso"/Particiones/2"
 
 # Determinar el caso actual y crear la carpeta
-  vFechaCaso="$cFechaDeEjec"
-  rm -rf "$vCarpetaDeCasos"/"$vFechaCaso" 2>/dev/null
-  sudo mkdir -p "$vCarpetaDeCasos"/"$vFechaCaso"/Registro/Archivos/
+  rm -rf "$vCarpetaDeCasos"/"$vFechaCaso"/Artefactos/Registro/* 2>/dev/null
+  mkdir -p  "$vCarpetaDeCasos"/"$vFechaCaso"/Artefactos/Registro/Original/
 
 # Copiar archivos de registro
   echo ""
   echo "  Copiando SYSTEM..."
   echo ""
-  sudo cp "$vPuntoDeMontaje"/WINDOWS/system32/config/system   "$vCarpetaDeCasos"/"$vFechaCaso"/Registro/Archivos/SYSTEM
+  cp "$vPuntoDeMontaje"/WINDOWS/system32/config/system   "$vCarpetaDeCasos"/"$vFechaCaso"/Artefactos/Registro/Original/SYSTEM
   echo ""
   echo "  Copiando SAM..."
   echo ""
-  sudo cp "$vPuntoDeMontaje"/WINDOWS/system32/config/SAM      "$vCarpetaDeCasos"/"$vFechaCaso"/Registro/Archivos/SAM
+  cp "$vPuntoDeMontaje"/WINDOWS/system32/config/SAM      "$vCarpetaDeCasos"/"$vFechaCaso"/Artefactos/Registro/Original/SAM
   echo ""
   echo "  Copiando SECURITY..."
   echo ""
-  sudo cp "$vPuntoDeMontaje"/WINDOWS/system32/config/SECURITY "$vCarpetaDeCasos"/"$vFechaCaso"/Registro/Archivos/SECURITY
+  cp "$vPuntoDeMontaje"/WINDOWS/system32/config/SECURITY "$vCarpetaDeCasos"/"$vFechaCaso"/Artefactos/Registro/Original/SECURITY
   echo ""
   echo "  Copiando SOFTWARE..."
   echo ""
-  sudo cp "$vPuntoDeMontaje"/WINDOWS/system32/config/software "$vCarpetaDeCasos"/"$vFechaCaso"/Registro/Archivos/SOFTWARE
+  cp "$vPuntoDeMontaje"/WINDOWS/system32/config/software "$vCarpetaDeCasos"/"$vFechaCaso"/Artefactos/Registro/Original/SOFTWARE
   echo ""
   echo "  Copiando DEFAULT..."
   echo ""
-  sudo cp "$vPuntoDeMontaje"/WINDOWS/system32/config/default  "$vCarpetaDeCasos"/"$vFechaCaso"/Registro/Archivos/DEFAULT
+  cp "$vPuntoDeMontaje"/WINDOWS/system32/config/default  "$vCarpetaDeCasos"/"$vFechaCaso"/Artefactos/Registro/Original/DEFAULT
 
 # Copiar registro de usuarios
   echo ""
@@ -44,33 +43,33 @@
     echo ""
     echo "    Copiando NTUSER.DAT de $vNomUsuario..."
     echo ""
-    sudo mkdir -p "$vCarpetaDeCasos"/"$vFechaCaso"/Registro/Archivos/Usuarios/"$vNomUsuario"
-    cp "$vPuntoDeMontaje"/"Documents and Settings"/"$vNomUsuario"/NTUSER.DAT "$vCarpetaDeCasos"/"$vFechaCaso"/Registro/Archivos/Usuarios/"$vNomUsuario"/
+    mkdir -p "$vCarpetaDeCasos"/"$vFechaCaso"/Artefactos/Registro/Original/"$vNomUsuario"
+    cp "$vPuntoDeMontaje"/"Documents and Settings"/"$vNomUsuario"/NTUSER.DAT "$vCarpetaDeCasos"/"$vFechaCaso"/Artefactos/Registro/Original/"$vNomUsuario"/
   done < "/tmp/CarpetasDeUsuarios.txt"
 
 
 # Exportar registros
-  sudo mkdir -p "$vCarpetaDeCasos"/"$vFechaCaso"/Registro/RegRipper/ 2> /dev/null
+  sudo mkdir -p "$vCarpetaDeCasos"/"$vFechaCaso"/Artefactos/Registro/RegRipper/ 2> /dev/null
   echo ""
   echo "  RegRippeando SYSTEM..."
   echo ""
-  sudo /usr/local/bin/rip.pl -r "$vCarpetaDeCasos"/"$vFechaCaso"/Registro/Archivos/SYSTEM   -a > "$vCarpetaDeCasos"/"$vFechaCaso"/Registro/RegRipper/SYSTEM.txt
+  /usr/local/bin/rip.pl -r "$vCarpetaDeCasos"/"$vFechaCaso"/Artefactos/Registro/Original/SYSTEM   -a > "$vCarpetaDeCasos"/"$vFechaCaso"/Artefactos/Registro/RegRipper/SYSTEM.txt
   echo ""
   echo "  RegRippeando SAM..."
   echo ""
-  sudo /usr/local/bin/rip.pl -r "$vCarpetaDeCasos"/"$vFechaCaso"/Registro/Archivos/SAM      -a > "$vCarpetaDeCasos"/"$vFechaCaso"/Registro/RegRipper/SAM.txt
+  /usr/local/bin/rip.pl -r "$vCarpetaDeCasos"/"$vFechaCaso"/Artefactos/Registro/Original/SAM      -a > "$vCarpetaDeCasos"/"$vFechaCaso"/Artefactos/Registro/RegRipper/SAM.txt
   echo ""
   echo "  RegRippeando SECURITY..."
   echo ""
-  sudo /usr/local/bin/rip.pl -r "$vCarpetaDeCasos"/"$vFechaCaso"/Registro/Archivos/SECURITY -a > "$vCarpetaDeCasos"/"$vFechaCaso"/Registro/RegRipper/SECURITY.txt
+  /usr/local/bin/rip.pl -r "$vCarpetaDeCasos"/"$vFechaCaso"/Artefactos/Registro/Original/SECURITY -a > "$vCarpetaDeCasos"/"$vFechaCaso"/Artefactos/Registro/RegRipper/SECURITY.txt
   echo ""
   echo "  RegRippeando SOFTWARE..."
   echo ""
-  sudo /usr/local/bin/rip.pl -r "$vCarpetaDeCasos"/"$vFechaCaso"/Registro/Archivos/SOFTWARE -a > "$vCarpetaDeCasos"/"$vFechaCaso"/Registro/RegRipper/SOFTWARE.txt
+  /usr/local/bin/rip.pl -r "$vCarpetaDeCasos"/"$vFechaCaso"/Artefactos/Registro/Original/SOFTWARE -a > "$vCarpetaDeCasos"/"$vFechaCaso"/Artefactos/Registro/RegRipper/SOFTWARE.txt
   echo ""
   echo "  RegRippeando DEFAULT..."
   echo ""
-  sudo /usr/local/bin/rip.pl -r "$vCarpetaDeCasos"/"$vFechaCaso"/Registro/Archivos/DEFAULT  -a > "$vCarpetaDeCasos"/"$vFechaCaso"/Registro/RegRipper/DEFAULT.txt
+  /usr/local/bin/rip.pl -r "$vCarpetaDeCasos"/"$vFechaCaso"/Artefactos/Registro/Original/DEFAULT  -a > "$vCarpetaDeCasos"/"$vFechaCaso"/Artefactos/Registro/RegRipper/DEFAULT.txt
 
 # Exportar registro de usuarios
   echo ""
@@ -82,8 +81,8 @@
     echo ""
     echo "    RegRippeando NTUSER.DAT de $vNomUsuario..."
     echo ""
-    sudo mkdir -p "$vCarpetaDeCasos"/"$vFechaCaso"/Registro/RegRipper/Usuarios/"$vNomUsuario" 2> /dev/null
-    sudo /usr/local/bin/rip.pl -r "$vCarpetaDeCasos"/"$vFechaCaso"/Registro/Archivos/Usuarios/"$vNomUsuario"/NTUSER.DAT  -a > "$vCarpetaDeCasos"/"$vFechaCaso"/Registro/RegRipper/Usuarios/"$vNomUsuario"/NTUSER.DAT.txt
+    mkdir -p "$vCarpetaDeCasos"/"$vFechaCaso"/Artefactos/Registro/RegRipper/"$vNomUsuario"/ 2> /dev/null
+    /usr/local/bin/rip.pl -r "$vCarpetaDeCasos"/"$vFechaCaso"/Artefactos/Registro/Original/"$vNomUsuario"/NTUSER.DAT  -a > "$vCarpetaDeCasos"/"$vFechaCaso"/Artefactos/Registro/RegRipper/"$vNomUsuario"/NTUSER.DAT.txt
   done < "/tmp/CarpetasDeUsuarios.txt"
 
 # Reparar permisos
