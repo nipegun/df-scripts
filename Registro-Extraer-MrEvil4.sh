@@ -5,6 +5,33 @@
 # Si se te llena la boca hablando de libertad entonces hazlo realmente libre.
 # No tienes que aceptar ningún tipo de términos de uso o licencia para utilizarlo o modificarlo porque va sin CopyLeft.
 
+# Definir constantes de color
+  cColorAzul="\033[0;34m"
+  cColorAzulClaro="\033[1;34m"
+  cColorVerde='\033[1;32m'
+  cColorRojo='\033[1;31m'
+  # Para el color rojo también:
+    #echo "$(tput setaf 1)Mensaje en color rojo. $(tput sgr 0)"
+  cFinColor='\033[0m'
+
+# Definir la cantidad de argumentos esperados
+  cCantParamEsperados=1
+
+# Comprobar que los parámetros indicados sean los mínimos necesarios
+  if [ $# -ne $cCantParamEsperados ]
+    then
+      echo ""
+      echo -e "${cColorRojo}  Mal uso del script. El uso correcto sería: ${cFinColor}"
+      echo "    $0 [PuntoDeMontajePartWindows]"
+      echo ""
+      echo "  Ejemplo:"
+      echo "    $0 '/Casos/x/Particiones/2'"
+      echo ""
+      exit
+    else
+      vPuntoMontajePartWindows="$1" # Debe ser sin barra / final
+
+
 # Comprobar si el paquete dialog está instalado. Si no lo está, instalarlo.
   if [[ $(dpkg-query -s dialog 2>/dev/null | grep installed) == "" ]]; then
     echo ""
@@ -15,11 +42,10 @@
   fi
 
 # Crear el menú
-  #menu=(dialog --timeout 5 --checklist "Marca las opciones que quieras instalar:" 22 96 16)
   menu=(dialog --checklist "Marca las opciones que quieras instalar:" 22 96 16)
     opciones=(
       1 "Comprobar que la partición esté montada"                                     on
-      2 "Crear las carpetas del caso"                                                 on
+      2 "Crear la carpeta para el artefacto"                                          on
       3 "Copiar los archivos de registro Windows a la carpeta del caso"               off
       4 "Copiar los archivos de registro de todos los usuarios a la carpeta del caso" off
       5 "Parsear los archivos de registro de Windows guardados"                       off
@@ -36,16 +62,19 @@
         1)
 
           echo ""
-          echo "  Comprobando que la partición este montada..."
+          echo "  Comprobando que la partición esté montada..."
           echo ""
 
-  
+          if [ -d "$vPuntoMontajePartWindows" ]; then
+            echo "  La partición está montada"
+          fi
+
         ;;
 
         2)
 
           echo ""
-          echo "  Creando las carpetas del caso..."
+          echo "  Creando la carpeta para el artefacto..."
           echo ""
           # Definir fecha del caso
             vFechaCaso=$(date +a%Ym%md%d@%T)
@@ -198,4 +227,9 @@
     esac
 
 done
+
+
+fi
+
+
 
