@@ -32,15 +32,6 @@
     exit
   fi
 
-# Comprobar si el paquete curl está instalado. Si no lo está, instalarlo.
-  if [[ $(dpkg-query -s curl 2>/dev/null | grep installed) == "" ]]; then
-    echo ""
-    echo -e "${cColorRojo}  El paquete curl no está instalado. Iniciando su instalación...${cFinColor}"
-    echo ""
-    apt-get -y update && apt-get -y install curl
-    echo ""
-  fi
-
 # Determinar la versión de Debian
   if [ -f /etc/os-release ]; then             # Para systemd y freedesktop.org.
     . /etc/os-release
@@ -89,6 +80,14 @@
       rm -r /usr/share/regripper/plugins 2>/dev/null
     # Clonar repositorio
       cd /usr/local/src/
+    # Comprobar si el paquete git está instalado. Si no lo está, instalarlo.
+      if [[ $(dpkg-query -s git 2>/dev/null | grep installed) == "" ]]; then
+        echo ""
+        echo -e "${cColorRojo}  El paquete git no está instalado. Iniciando su instalación...${cFinColor}"
+        echo ""
+        apt-get -y update && apt-get -y install git
+        echo ""
+      fi
       git clone https://github.com/keydet89/RegRipper3.0.git
       mv RegRipper3.0 regripper
     #
