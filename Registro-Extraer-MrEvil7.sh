@@ -65,10 +65,14 @@
           echo ""
 
           if [ -f "$vPuntoMontajePartWindows"/$\MFT ]; then
+            echo ""
             echo "  La partición está montada"
+            echo ""
             tail "$vPuntoMontajePartWindows"/$\MFT
           else
+            echo ""
             echo "  La partición no está montada"
+            echo ""
           fi
 
         ;;
