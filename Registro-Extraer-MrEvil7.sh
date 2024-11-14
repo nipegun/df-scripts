@@ -44,7 +44,7 @@
   menu=(dialog --checklist "Marca las opciones que quieras instalar:" 22 96 16)
     opciones=(
       1 "Comprobar que la partición esté montada"                                     on
-      2 "Crear la carpeta para el artefacto"                                          on
+      2 "Crear la carpeta para el artefacto"                                          off
       3 "Copiar los archivos de registro Windows a la carpeta del caso"               off
       4 "Copiar los archivos de registro de todos los usuarios a la carpeta del caso" off
       5 "Parsear los archivos de registro de Windows guardados"                       off
@@ -66,6 +66,7 @@
 
           if [ -f "$vPuntoMontajePartWindows"/$\MFT ]; then
             echo "  La partición está montada"
+            tail "$vPuntoMontajePartWindows"/$\MFT
           else
             echo "  La partición no está montada"
           fi
