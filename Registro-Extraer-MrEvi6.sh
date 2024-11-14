@@ -31,7 +31,6 @@
     else
       vPuntoMontajePartWindows="$1" # Debe ser sin barra / final
 
-
 # Comprobar si el paquete dialog está instalado. Si no lo está, instalarlo.
   if [[ $(dpkg-query -s dialog 2>/dev/null | grep installed) == "" ]]; then
     echo ""
@@ -65,7 +64,7 @@
           echo "  Comprobando que la partición esté montada..."
           echo ""
 
-          if [ -d "$vPuntoMontajePartWindows" ]; then
+          if [ -f "$vPuntoMontajePartWindows"/$\MFT ]; then
             echo "  La partición está montada"
           else
             echo "  La partición no está montada"
