@@ -69,11 +69,11 @@
 
                 if [ -f "$vPuntoMontajePartWindows"/$\MFT ]; then
                   echo ""
-                  echo "  La partición está montada en $vPuntoMontajePartWindows"
+                  echo "    La partición está montada en $vPuntoMontajePartWindows"
                   echo ""
                 else
                   echo ""
-                  echo "  La partición no está montada. No se puede continuar."
+                  echo "    La partición no está montada. No se puede continuar."
                   echo ""
                   exit
                 fi
@@ -102,23 +102,23 @@
 
                 # Copiar archivos de registro
                   echo ""
-                  echo "  Copiando SYSTEM..."
+                  echo "    Copiando SYSTEM..."
                   echo ""
                   cp "$vPuntoMontajePartWindows"/WINDOWS/system32/config/system   "$vCarpetaDeCasos"/"$vFechaDeEjec"/Artefactos/Registro/Original/SYSTEM
                   echo ""
-                  echo "  Copiando SAM..."
+                  echo "    Copiando SAM..."
                   echo ""
                   cp "$vPuntoMontajePartWindows"/WINDOWS/system32/config/SAM      "$vCarpetaDeCasos"/"$vFechaDeEjec"/Artefactos/Registro/Original/SAM
                   echo ""
-                  echo "  Copiando SECURITY..."
+                  echo "    Copiando SECURITY..."
                   echo ""
                   cp "$vPuntoMontajePartWindows"/WINDOWS/system32/config/SECURITY "$vCarpetaDeCasos"/"$vFechaDeEjec"/Artefactos/Registro/Original/SECURITY
                   echo ""
-                  echo "  Copiando SOFTWARE..."
+                  echo "    Copiando SOFTWARE..."
                   echo ""
                   cp "$vPuntoMontajePartWindows"/WINDOWS/system32/config/software "$vCarpetaDeCasos"/"$vFechaDeEjec"/Artefactos/Registro/Original/SOFTWARE
                   echo ""
-                  echo "  Copiando DEFAULT..."
+                  echo "    Copiando DEFAULT..."
                   echo ""
                   cp "$vPuntoMontajePartWindows"/WINDOWS/system32/config/default  "$vCarpetaDeCasos"/"$vFechaDeEjec"/Artefactos/Registro/Original/DEFAULT
 
@@ -151,11 +151,11 @@
                 # Comprobar si el script de RegRipper existe. Si no, llamar al script de instalación de RegRipper
                   if [ ! -e "/usr/local/bin/rip.pl" ]; then
                     echo ""
-                    echo -e "${cColorRojo}  No se ha encontrado el script en perl de RegRipper. Seguramente RegRipper no esté instalado.${cFinColor}"
+                    echo -e "${cColorRojo}    No se ha encontrado el script en perl de RegRipper. Seguramente RegRipper no esté instalado.${cFinColor}"
                     echo ""
-                    echo "  Puedes instalarlo con:"
+                    echo "    Puedes instalarlo con:"
                     echo ""
-                    echo "    curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/main/SoftInst/ParaCLI/RegRipper-Instalar.sh | sudo bash"
+                    echo "      curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/main/SoftInst/ParaCLI/RegRipper-Instalar.sh | sudo bash"
                     echo ""
                     exit
                   fi
