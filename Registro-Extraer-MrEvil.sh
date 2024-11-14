@@ -85,19 +85,16 @@
               echo "  Copiando los archivos de registro de todos los usuarios a la carpeta del caso..."
               echo ""
 
-              # Copiar registro de usuarios
+              find "$vPuntoDeMontaje/Documents and Settings/" -mindepth 1 -maxdepth 1 -type d > /tmp/CarpetasDeUsuarios.txt
+              while IFS= read -r linea; do
+                vNomUsuario="${linea##*/}"
                 echo ""
-                echo "  Copiando archivos de registro de usuarios..."
+                echo "    Copiando NTUSER.DAT de $vNomUsuario..."
                 echo ""
-                find "$vPuntoDeMontaje/Documents and Settings/" -mindepth 1 -maxdepth 1 -type d > /tmp/CarpetasDeUsuarios.txt
-                while IFS= read -r linea; do
-                  vNomUsuario="${linea##*/}"
-                  echo ""
-                  echo "    Copiando NTUSER.DAT de $vNomUsuario..."
-                  echo ""
-                  mkdir -p "$vCarpetaDeCasos"/"$vFechaCaso"/Artefactos/Registro/Original/"$vNomUsuario"
-                  cp "$vPuntoDeMontaje"/"Documents and Settings"/"$vNomUsuario"/NTUSER.DAT "$vCarpetaDeCasos"/"$vFechaCaso"/Artefactos/Registro/Original/"$vNomUsuario"/
-                done < "/tmp/CarpetasDeUsuarios.txt"
+                mkdir -p "$vCarpetaDeCasos"/"$vFechaCaso"/Artefactos/Registro/Original/"$vNomUsuario"
+                cp "$vPuntoDeMontaje"/"Documents and Settings"/"$vNomUsuario"/NTUSER.DAT "$vCarpetaDeCasos"/"$vFechaCaso"/Artefactos/Registro/Original/"$vNomUsuario"/
+              done < "/tmp/CarpetasDeUsuarios.txt"
+
             ;;
 
             4)
