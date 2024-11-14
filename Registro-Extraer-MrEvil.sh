@@ -48,12 +48,11 @@
         menu=(dialog --checklist "Marca las opciones que quieras instalar:" 22 96 16)
         opciones=(
           1 "Comprobar que la partición esté montada"                                     on
-          2 "Crear la carpeta para el artefacto"                                          off
-          3 "Copiar los archivos de registro Windows a la carpeta del caso"               off
-          4 "Copiar los archivos de registro de todos los usuarios a la carpeta del caso" off
-          5 "Parsear los archivos de registro de Windows guardados"                       off
-          6 "Parsear los archivos de registro de todos los usuarios guardados"            off
-          7 "Reparar permisos"                                                            off
+          2 "Copiar los archivos de registro Windows a la carpeta del caso"               off
+          3 "Copiar los archivos de registro de todos los usuarios a la carpeta del caso" off
+          4 "Parsear los archivos de registro de Windows guardados"                       off
+          5 "Parsear los archivos de registro de todos los usuarios guardados"            off
+          6 "Reparar permisos"                                                            off
         )
         choices=$("${menu[@]}" "${opciones[@]}" 2>&1 >/dev/tty)
 
@@ -81,16 +80,6 @@
               ;;
 
               2)
-
-                echo ""
-                echo "  Creando la carpeta para el artefacto..."
-                echo ""
-
-                
-  
-              ;;
-
-              3)
 
                 echo ""
                 echo "  Copiando los archivos de registro Windows a la carpeta del caso..."
@@ -124,7 +113,7 @@
 
               ;;
 
-              4)
+              3)
 
                 echo ""
                 echo "  Copiando los archivos de registro de todos los usuarios a la carpeta del caso..."
@@ -142,7 +131,7 @@
 
               ;;
 
-              5)
+              4)
 
                 echo ""
                 echo "  Parseando los archivos de registro de Windows guardados..."
@@ -185,7 +174,7 @@
 
                 ;;
 
-                6)
+                5)
 
                   echo ""
                   echo "  Parseando los archivos de registro de todos los usuarios guardados..."
@@ -207,7 +196,7 @@
                       echo ""
                       echo "  RegRippeando archivos de registro de usuarios..."
                       echo ""
-                      find "$vPuntoDeMontaje/Documents and Settings/" -mindepth 1 -maxdepth 1 -type d > /tmp/CarpetasDeUsuarios.txt
+                      find "$vPuntoMontajePartWindows/Documents and Settings/" -mindepth 1 -maxdepth 1 -type d > /tmp/CarpetasDeUsuarios.txt
                       while IFS= read -r linea; do
                         vNomUsuario="${linea##*/}"
                         echo ""
@@ -219,7 +208,7 @@
 
                 ;;
 
-                7)
+                6)
 
                 echo ""
                 echo "  Parseando los archivos de registro de todos los usuarios guardados..."
