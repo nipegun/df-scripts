@@ -14,6 +14,9 @@
     #echo "$(tput setaf 1)Mensaje en color rojo. $(tput sgr 0)"
   cFinColor='\033[0m'
 
+# Definir fecha de ejecución del script
+  vFechaDeEjec=$(date +a%Ym%md%d)
+
 # Definir la cantidad de argumentos esperados
   cCantParamEsperados=1
 
@@ -25,11 +28,12 @@
       echo "    $0 [PuntoDeMontajePartWindows]"
       echo ""
       echo "  Ejemplo:"
-      echo "    $0 '/Casos/x/Particiones/2'"
+      echo "    $0 '/Casos/a2024m04d29/Particiones/2'"
       echo ""
       exit
     else
-      vPuntoMontajePartWindows="$1" # Debe ser sin barra / final
+      vCarpetaDeCasos="/Casos"
+      vPuntoMontajePartWindows="/$vCarpetaDeCasos/$vFechaDeEjec/Particiones/$1" # Debe ser sin barra / final
 
       # Comprobar si el paquete dialog está instalado. Si no lo está, instalarlo.
         if [[ $(dpkg-query -s dialog 2>/dev/null | grep installed) == "" ]]; then
@@ -65,11 +69,11 @@
 
                 if [ -f "$vPuntoMontajePartWindows"/$\MFT ]; then
                   echo ""
-                  echo "  La partición está montada"
+                  echo "  La partición está montada en $vPuntoMontajePartWindows"
                   echo ""
                 else
                   echo ""
-                  echo "  La partición no está montada"
+                  echo "  La partición no está montada. No se puede continuar."
                   echo ""
                   exit
                 fi
@@ -81,16 +85,8 @@
                 echo ""
                 echo "  Creando la carpeta para el artefacto..."
                 echo ""
-                # Definir fecha del caso
-                  vFechaCaso=$(date +a%Ym%md%d@%T)
 
-                # Definir variables
-                  vCarpetaDeCasos="/Casos"
-                  vPuntoDeMontaje="/Casos/"$vFechaCaso"/Particiones/2"
-
-                # Determinar el caso actual y crear la carpeta
-                  rm -rf "$vCarpetaDeCasos"/"$vFechaCaso"/Artefactos/Registro/* 2>/dev/null
-                  mkdir -p  "$vCarpetaDeCasos"/"$vFechaCaso"/Artefactos/Registro/Original/
+                
   
               ;;
 
@@ -100,27 +96,31 @@
                 echo "  Copiando los archivos de registro Windows a la carpeta del caso..."
                 echo ""
 
+                # Crear la carpeta
+                  rm -rf   /$vCarpetaDeCasos/"$vFechaDeEjec"/Artefactos/Registro/Original/* 2>/dev/null
+                  mkdir -p /$vCarpetaDeCasos/"$vFechaDeEjec"/Artefactos/Registro/Original/
+
                 # Copiar archivos de registro
                   echo ""
                   echo "  Copiando SYSTEM..."
                   echo ""
-                  cp "$vPuntoDeMontaje"/WINDOWS/system32/config/system   "$vCarpetaDeCasos"/"$vFechaCaso"/Artefactos/Registro/Original/SYSTEM
+                  cp "$vPuntoMontajePartWindows"/WINDOWS/system32/config/system   "$vCarpetaDeCasos"/"$vFechaDeEjec"/Artefactos/Registro/Original/SYSTEM
                   echo ""
                   echo "  Copiando SAM..."
                   echo ""
-                  cp "$vPuntoDeMontaje"/WINDOWS/system32/config/SAM      "$vCarpetaDeCasos"/"$vFechaCaso"/Artefactos/Registro/Original/SAM
+                  cp "$vPuntoMontajePartWindows"/WINDOWS/system32/config/SAM      "$vCarpetaDeCasos"/"$vFechaDeEjec"/Artefactos/Registro/Original/SAM
                   echo ""
                   echo "  Copiando SECURITY..."
                   echo ""
-                  cp "$vPuntoDeMontaje"/WINDOWS/system32/config/SECURITY "$vCarpetaDeCasos"/"$vFechaCaso"/Artefactos/Registro/Original/SECURITY
+                  cp "$vPuntoMontajePartWindows"/WINDOWS/system32/config/SECURITY "$vCarpetaDeCasos"/"$vFechaDeEjec"/Artefactos/Registro/Original/SECURITY
                   echo ""
                   echo "  Copiando SOFTWARE..."
                   echo ""
-                  cp "$vPuntoDeMontaje"/WINDOWS/system32/config/software "$vCarpetaDeCasos"/"$vFechaCaso"/Artefactos/Registro/Original/SOFTWARE
+                  cp "$vPuntoMontajePartWindows"/WINDOWS/system32/config/software "$vCarpetaDeCasos"/"$vFechaDeEjec"/Artefactos/Registro/Original/SOFTWARE
                   echo ""
                   echo "  Copiando DEFAULT..."
                   echo ""
-                  cp "$vPuntoDeMontaje"/WINDOWS/system32/config/default  "$vCarpetaDeCasos"/"$vFechaCaso"/Artefactos/Registro/Original/DEFAULT
+                  cp "$vPuntoMontajePartWindows"/WINDOWS/system32/config/default  "$vCarpetaDeCasos"/"$vFechaDeEjec"/Artefactos/Registro/Original/DEFAULT
 
               ;;
 
@@ -130,14 +130,14 @@
                 echo "  Copiando los archivos de registro de todos los usuarios a la carpeta del caso..."
                 echo ""
 
-                find "$vPuntoDeMontaje/Documents and Settings/" -mindepth 1 -maxdepth 1 -type d > /tmp/CarpetasDeUsuarios.txt
+                find "$vPuntoMontajePartWindows/Documents and Settings/" -mindepth 1 -maxdepth 1 -type d > /tmp/CarpetasDeUsuarios.txt
                 while IFS= read -r linea; do
                   vNomUsuario="${linea##*/}"
                   echo ""
                   echo "    Copiando NTUSER.DAT de $vNomUsuario..."
                   echo ""
-                  mkdir -p "$vCarpetaDeCasos"/"$vFechaCaso"/Artefactos/Registro/Original/"$vNomUsuario"
-                  cp "$vPuntoDeMontaje"/"Documents and Settings"/"$vNomUsuario"/NTUSER.DAT "$vCarpetaDeCasos"/"$vFechaCaso"/Artefactos/Registro/Original/"$vNomUsuario"/
+                  mkdir -p "$vCarpetaDeCasos"/"$vFechaDeEjec"/Artefactos/Registro/Original/"$vNomUsuario"
+                  cp "$vPuntoMontajePartWindows"/"Documents and Settings"/"$vNomUsuario"/NTUSER.DAT "$vCarpetaDeCasos"/"$vFechaDeEjec"/Artefactos/Registro/Original/"$vNomUsuario"/
                 done < "/tmp/CarpetasDeUsuarios.txt"
 
               ;;
@@ -161,27 +161,27 @@
                   fi
 
                 # Exportar registros
-                  mkdir -p "$vCarpetaDeCasos"/"$vFechaCaso"/Artefactos/Registro/RegRipper/ 2> /dev/null
+                  mkdir -p "$vCarpetaDeCasos"/"$vFechaDeEjec"/Artefactos/Registro/RegRipper/ 2> /dev/null
                   echo ""
                   echo "  RegRippeando SYSTEM..."
                   echo ""
-                  /usr/local/bin/rip.pl -r "$vCarpetaDeCasos"/"$vFechaCaso"/Artefactos/Registro/Original/SYSTEM   -a > "$vCarpetaDeCasos"/"$vFechaCaso"/Artefactos/Registro/RegRipper/SYSTEM.txt
+                  /usr/local/bin/rip.pl -r "$vCarpetaDeCasos"/"$vFechaDeEjec"/Artefactos/Registro/Original/SYSTEM   -a > "$vCarpetaDeCasos"/"$vFechaDeEjec"/Artefactos/Registro/RegRipper/SYSTEM.txt
                   echo ""
                   echo "  RegRippeando SAM..."
                   echo ""
-                  /usr/local/bin/rip.pl -r "$vCarpetaDeCasos"/"$vFechaCaso"/Artefactos/Registro/Original/SAM      -a > "$vCarpetaDeCasos"/"$vFechaCaso"/Artefactos/Registro/RegRipper/SAM.txt
+                  /usr/local/bin/rip.pl -r "$vCarpetaDeCasos"/"$vFechaDeEjec"/Artefactos/Registro/Original/SAM      -a > "$vCarpetaDeCasos"/"$vFechaDeEjec"/Artefactos/Registro/RegRipper/SAM.txt
                   echo ""
                   echo "  RegRippeando SECURITY..."
                   echo ""
-                  /usr/local/bin/rip.pl -r "$vCarpetaDeCasos"/"$vFechaCaso"/Artefactos/Registro/Original/SECURITY -a > "$vCarpetaDeCasos"/"$vFechaCaso"/Artefactos/Registro/RegRipper/SECURITY.txt
+                  /usr/local/bin/rip.pl -r "$vCarpetaDeCasos"/"$vFechaDeEjec"/Artefactos/Registro/Original/SECURITY -a > "$vCarpetaDeCasos"/"$vFechaDeEjec"/Artefactos/Registro/RegRipper/SECURITY.txt
                   echo ""
                   echo "  RegRippeando SOFTWARE..."
                   echo ""
-                  /usr/local/bin/rip.pl -r "$vCarpetaDeCasos"/"$vFechaCaso"/Artefactos/Registro/Original/SOFTWARE -a > "$vCarpetaDeCasos"/"$vFechaCaso"/Artefactos/Registro/RegRipper/SOFTWARE.txt
+                  /usr/local/bin/rip.pl -r "$vCarpetaDeCasos"/"$vFechaDeEjec"/Artefactos/Registro/Original/SOFTWARE -a > "$vCarpetaDeCasos"/"$vFechaDeEjec"/Artefactos/Registro/RegRipper/SOFTWARE.txt
                   echo ""
                   echo "  RegRippeando DEFAULT..."
                   echo ""
-                  /usr/local/bin/rip.pl -r "$vCarpetaDeCasos"/"$vFechaCaso"/Artefactos/Registro/Original/DEFAULT  -a > "$vCarpetaDeCasos"/"$vFechaCaso"/Artefactos/Registro/RegRipper/DEFAULT.txt
+                  /usr/local/bin/rip.pl -r "$vCarpetaDeCasos"/"$vFechaDeEjec"/Artefactos/Registro/Original/DEFAULT  -a > "$vCarpetaDeCasos"/"$vFechaDeEjec"/Artefactos/Registro/RegRipper/DEFAULT.txt
 
                 ;;
 
@@ -213,8 +213,8 @@
                         echo ""
                         echo "    RegRippeando NTUSER.DAT de $vNomUsuario..."
                         echo ""
-                        mkdir -p "$vCarpetaDeCasos"/"$vFechaCaso"/Artefactos/Registro/RegRipper/"$vNomUsuario"/ 2> /dev/null
-                        /usr/local/bin/rip.pl -r "$vCarpetaDeCasos"/"$vFechaCaso"/Artefactos/Registro/Original/"$vNomUsuario"/NTUSER.DAT  -a > "$vCarpetaDeCasos"/"$vFechaCaso"/Artefactos/Registro/RegRipper/"$vNomUsuario"/NTUSER.DAT.txt
+                        mkdir -p "$vCarpetaDeCasos"/"$vFechaDeEjec"/Artefactos/Registro/RegRipper/"$vNomUsuario"/ 2> /dev/null
+                        /usr/local/bin/rip.pl -r "$vCarpetaDeCasos"/"$vFechaDeEjec"/Artefactos/Registro/Original/"$vNomUsuario"/NTUSER.DAT  -a > "$vCarpetaDeCasos"/"$vFechaDeEjec"/Artefactos/Registro/RegRipper/"$vNomUsuario"/NTUSER.DAT.txt
                       done < "/tmp/CarpetasDeUsuarios.txt"
 
                 ;;
