@@ -67,6 +67,8 @@
 
           if [ -d "$vPuntoMontajePartWindows" ]; then
             echo "  La partición está montada"
+          else
+            echo "  La partición no está montada"
           fi
 
         ;;
