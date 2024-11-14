@@ -33,7 +33,7 @@
       exit
     else
       vCarpetaDeCasos="/Casos"
-      vPuntoMontajePartWindows="/$vCarpetaDeCasos/$vFechaDeEjec/Particiones/$1" # Debe ser sin barra / final
+      vPuntoMontajePartWindows="$vCarpetaDeCasos/$vFechaDeEjec/Particiones/$1" # Debe ser sin barra / final
 
       # Comprobar si el paquete dialog está instalado. Si no lo está, instalarlo.
         if [[ $(dpkg-query -s dialog 2>/dev/null | grep installed) == "" ]]; then
@@ -97,8 +97,8 @@
                 echo ""
 
                 # Crear la carpeta
-                  rm -rf   /$vCarpetaDeCasos/"$vFechaDeEjec"/Artefactos/Registro/Original/* 2>/dev/null
-                  mkdir -p /$vCarpetaDeCasos/"$vFechaDeEjec"/Artefactos/Registro/Original/
+                  rm -rf   $vCarpetaDeCasos/"$vFechaDeEjec"/Artefactos/Registro/Original/* 2>/dev/null
+                  mkdir -p $vCarpetaDeCasos/"$vFechaDeEjec"/Artefactos/Registro/Original/
 
                 # Copiar archivos de registro
                   echo ""
@@ -226,7 +226,7 @@
                 echo ""
 
                 # Reparar permisos
-                  sudo chown 1000:1000 $vCarpetaDeCasos -R
+                  sudo chown 1000:1000 $vCarpetaDeCasos -R 2> /dev/null
 
                 ;;
 
