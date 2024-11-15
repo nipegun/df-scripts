@@ -200,14 +200,51 @@ if [ $# -ne $cCantParamEsperados ]
                       cp "$file" "$vCarpetaDelCaso"/Eventos/Parseados/EventosIndividualesOrdenadosPorFecha/"${system_time}".xml
                   done
                 rm -f "$vCarpetaDelCaso"/Eventos/Parseados/EventosIndividualesOrdenadosPorFecha/.xml
+
+              # Agregar los mensajes a los eventos
+                echo ""
+                echo "  Agregando los mensajes de eventos a los archivos .xml..."
+                echo ""
+                # Descargar el CSV con los eventos:
+                  curl -sL https://raw.githubusercontent.com/nipegun/dicts/refs/heads/main/windows/eventos-en-es.csv -o /tmp/eventos-en-es.csv
+                # Declarar arrays para guardar los mensajes
+                  declare -A aMensajesEng
+                  declare -A aMensajesEsp
+                # Popular los arrays
+                  while IFS=';' read -r campoIdDelEvento campoMensajeEng campoMensajeEsp; do
+                    aMensajesEng["$campoIdDelEvento"]="$campoMensajeEng"
+                    aMensajesEsp["$campoIdDelEvento"]="$campoMensajeEsp"
+                  done < /tmp/eventos-en-es.csv
+                # Procesar cada archivo .xml
+                  for vArchivoXML in "$vCarpetaDelCaso"/Eventos/Parseados/EventosIndividualesOrdenadosPorFecha/*.xml; do
+                    echo "  Procesando archivo: $vArchivoXML"
+                    # Leer todo el contenido del archivo XML en memoria
+                      vContenidoDelArchivo=$(cat "$vArchivoXML")
+                    # Buscar todas las ocurrencias de <eventID> y procesarlas
+                      while [[ $vContenidoDelArchivo =~ <EventID>([0-9]+)</EventID> ]]; do
+                        vIDDelEvento="${BASH_REMATCH[1]}"
+                        # Verificar si el event_id existe en el array
+                          if [[ -n "${event_messages_en[$vIDDelEvento]}" ]]; then
+                            # Generar las etiquetas nuevas
+                              vNuevaEtiquetaEng="<EventMessageEN>${event_messages_en[$vIDDelEvento]}</EventMessageEN>"
+                              vNuevaEtiquetaEsp="<EventMessageES>${event_messages_es[$vIDDelEvento]}</EventMessageES>"
+                            # Insertar las etiquetas nuevas debajo de <eventID>
+                              vContenidoDelArchivo=${vContenidoDelArchivo//"<EventID>$vIDDelEvento</EventID>"/"<EventID>$vIDDelEvento</EventID>$vNuevaEtiquetaEng$vNuevaEtiquetaEsp"}
+                          else
+                            echo "No se encontró el evento $vIDDelEvento en el CSV."
+                          fi
+                      done
+                    # Escribir el contenido actualizado de vuelta al archivo
+                      echo "$vContenidoDelArchivo" > "$vArchivoXML"
+                  done
               # Crear un nuevo archivo xml con todos los eventos
-                echo ""
-                echo "    Agrupando todos los archivos creados en un único archivo final..."
-                echo ""
-                cat $(ls "$vCarpetaDelCaso"/Eventos/Parseados/EventosIndividualesOrdenadosPorFecha/* | sort) > "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventosOrdenadosPorFecha.xml
-                sed -i -e 's-</Event>-</Event>\n-g' "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventosOrdenadosPorFecha.xml
-                sed -i '1i\<Events>' "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventosOrdenadosPorFecha.xml # Agrega la apertura de la etiqueta raiz en la primera linea
-                echo '</Events>' >>  "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventosOrdenadosPorFecha.xml # Agrega el cierre de la etiqueta raíz en una nueva linea al final del archivo
+#                echo ""
+#                echo "    Agrupando todos los archivos creados en un único archivo final..."
+#                echo ""
+#                cat $(ls "$vCarpetaDelCaso"/Eventos/Parseados/EventosIndividualesOrdenadosPorFecha/* | sort) > "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventosOrdenadosPorFecha.xml
+#                sed -i -e 's-</Event>-</Event>\n-g' "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventosOrdenadosPorFecha.xml
+#                sed -i '1i\<Events>' "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventosOrdenadosPorFecha.xml # Agrega la apertura de la etiqueta raiz en la primera linea
+#                echo '</Events>' >>  "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventosOrdenadosPorFecha.xml # Agrega el cierre de la etiqueta raíz en una nueva linea al final del archivo
 
             ;;
 
