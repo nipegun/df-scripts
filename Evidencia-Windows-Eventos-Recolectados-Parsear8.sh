@@ -261,8 +261,7 @@ if [ $# -ne $cCantParamEsperados ]
               echo '</root>' >>  "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventosDelUsuario.xml # Agrega el cierre de la etiqueta raíz en una nueva linea al final del archivo
               # Generar un archivo por cada evento dentro del xml
                 # Crear una carpeta para almacenar los archivos de vEventos
-                  vNombreNuevaCarpeta="EventosIndividualesDeUsuario"
-                  mkdir -p "$vCarpetaDelCaso"/Eventos/Parseados/$vNombreNuevaCarpeta/
+                  mkdir -p "$vCarpetaDelCaso"/Eventos/Parseados/EventosIndividualesDeUsuario/
                 # Contador de vEventos
                   vContador=1
                 # Variable para almacenar un vEvento temporalmente
@@ -279,7 +278,7 @@ if [ $# -ne $cCantParamEsperados ]
                       # Agregar la línea de cierre del vEvento
                         vEvento+=$'\n'"$line"
                       # Guardar el bloque en un archivo
-                        echo "$vEvento" > "$vCarpetaDelCaso"/Eventos/Parseados/$vNombreNuevaCarpeta/$vEvento_${vContador}.xml
+                        echo "$vEvento" > "$vCarpetaDelCaso"/Eventos/Parseados/EventosIndividualesDeUsuario/$vEvento_${vContador}.xml
                       # Incrementar el vContador y limpiar la variable del vEvento
                         vContador=$((vContador + 1))
                       vEvento=""
@@ -317,14 +316,12 @@ if [ $# -ne $cCantParamEsperados ]
                     done < /tmp/eventos-en-es.csv
                   # Procesar cada archivo .xml
                     for vArchivoXML in "$vCarpetaDelCaso"/Eventos/Parseados/EventosIndividualesDeUsuarioOrdenadosPorFecha/*.xml; do
-                      # echo "  Procesando archivo: $vArchivoXML"
-                      # Leer todo el contenido del archivo XML en memoria
+                      # Volcar todo el contenido del archivo XML en una variable
                         vContenidoDelArchivo=$(cat "$vArchivoXML")
                       # Buscar todas las ocurrencias de <EventID> y procesarlas
-                        while [[ "$vContenidoDelArchivo" =~ '<EventID>'([0-9]+)'</EventID>' ]]; do
+                        while [[ "$vContenidoDelArchivo" =~ \<EventID\>([0-9]+)\</EventID\> ]]; do 
                           vIdDelEvento="${BASH_REMATCH[1]}"
-                          echo $vIdDelEvento
-                          # Verificar si el event_id existe en el array
+                          # Verificar si vIdDelEvento existe en el array
                             if [[ -n "${aMensajesEng[$vIdDelEvento]}" ]]; then
                               # Generar las etiquetas nuevas
                                 vNuevaEtiquetaEng="<EventMessageEN>${aMensajesEng[$vIdDelEvento]}</EventMessageEN>"
