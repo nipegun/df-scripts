@@ -255,8 +255,8 @@ if [ $# -ne $cCantParamEsperados ]
               echo ""
               vSIDvSIDDelUsuario="$1"
               vSIDDelUsuario="S-1-5-21-92896240-835188504-1963242017-1001"
-              xmllint --xpath '//*[Data[@Name="SubjectUserSid" and text()='"'$vSIDDelUsuario'"']]/parent::*' /Casos/Examen/Eventos/Parseados/OriginalesEnXML/*  > "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventosDelUsuario.xml 2> /dev/null
-              xmllint --xpath '//*[Security[@UserID='"'$vSIDDelUsuario'"']]/parent::*'                       /Casos/Examen/Eventos/Parseados/OriginalesEnXML/* >> "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventosDelUsuario.xml 2> /dev/null
+              xmllint --xpath '//*[Data[@Name="SubjectUserSid" and text()='"'$vSIDDelUsuario'"']]/parent::*' "$vCarpetaDelCaso"/Eventos/Parseados/OriginalesEnXML/*  > "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventosDelUsuario.xml 2> /dev/null
+              xmllint --xpath '//*[Security[@UserID='"'$vSIDDelUsuario'"']]/parent::*'                       "$vCarpetaDelCaso"/Eventos/Parseados/OriginalesEnXML/* >> "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventosDelUsuario.xml 2> /dev/null
               sed -i '1i\<root>' "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventosDelUsuario.xml # Agrega la apertura de la etiqueta raiz en la primera linea
               echo '</root>' >>  "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventosDelUsuario.xml # Agrega el cierre de la etiqueta raíz en una nueva linea al final del archivo
               # Generar un archivo por cada evento dentro del xml
