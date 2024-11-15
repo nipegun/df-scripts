@@ -8,7 +8,7 @@
 # ----------
 # Script de NiPeGun para instalar y configurar Volatility en Debian
 #
-# Ejecución remota con sudo:
+# Ejecución remota :
 #   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/SoftInst/ParaCLI/Volatility-Instalar.sh | sudo bash
 #
 # Ejecución remota como root:
@@ -26,24 +26,6 @@
   # Para el color rojo también:
     #echo "$(tput setaf 1)Mensaje en color rojo. $(tput sgr 0)"
   cFinColor='\033[0m'
-
-# Comprobar si el script está corriendo como root
-  #if [ $(id -u) -ne 0 ]; then     # Sólo comprueba si es root
-  if [[ $EUID -ne 0 ]]; then       # Comprueba si es root o sudo
-    echo ""
-    echo -e "${cColorRojo}  Este script está preparado para ejecutarse con privilegios de administrador (como root o con sudo).${cFinColor}"
-    echo ""
-    exit
-  fi
-
-# Comprobar si el paquete curl está instalado. Si no lo está, instalarlo.
-  if [[ $(dpkg-query -s curl 2>/dev/null | grep installed) == "" ]]; then
-    echo ""
-    echo -e "${cColorRojo}  El paquete curl no está instalado. Iniciando su instalación...${cFinColor}"
-    echo ""
-    apt-get -y update && apt-get -y install curl
-    echo ""
-  fi
 
 # Determinar la versión de Debian
   if [ -f /etc/os-release ]; then             # Para systemd y freedesktop.org.
@@ -92,9 +74,9 @@
       cd ~/SoftInst/
       if [[ $(dpkg-query -s git 2>/dev/null | grep installed) == "" ]]; then
         echo ""
-        echo -e "${cColorRojo}  El paquete git no está instalado. Iniciando su instalación...${cFinColor}"
+        echo -e "${cColorRojo}    El paquete git no está instalado. Iniciando su instalación...${cFinColor}"
         echo ""
-        apt-get -y update && apt-get -y install git
+        sudo apt-get -y update && sudo apt-get -y install git
         echo ""
       fi
       git clone https://github.com/volatilityfoundation/volatility3.git
@@ -106,7 +88,7 @@
         echo ""
         echo -e "${cColorRojo}  El paquete python3-venv no está instalado. Iniciando su instalación...${cFinColor}"
         echo ""
-        apt-get -y update && apt-get -y install python3-venv
+        sudo apt-get -y update && sudo apt-get -y install python3-venv
         echo ""
       fi
       python3 -m venv volatility3
@@ -127,6 +109,13 @@
 
       # Desactivar el entorno virtual
         deactivate
+
+  # Notificar fin de ejecución del script
+    echo ""
+    echo "  El script ha finalizado. Los binarios se pueden encontrar en:"
+    echo ""
+    echo "    ~/bin/volatility3 y ~/bin/volatility3shell"
+    echo ""
 
   elif [ $cVerSO == "11" ]; then
 
@@ -201,9 +190,15 @@
                 mkdir -p ~/bin/
                 cp ~/SoftInst/volatility2/dist/vol ~/bin/volatility2
 
-
               # Desactivar el entorno virtual
                 deactivate
+
+              # Notificar fin de ejecución del script
+                echo ""
+                echo "  El script ha finalizado. El binario se pueden encontrar en:"
+                echo ""
+                echo "    ~/bin/volatility2"
+                echo ""
 
             ;;
 
@@ -253,6 +248,13 @@
 
               # Desactivar el entorno virtual
                 deactivate
+
+              # Notificar fin de ejecución del script
+                echo ""
+                echo "  El script ha finalizado. Los binarios se pueden encontrar en:"
+                echo ""
+                echo "    ~/bin/volatility3 y ~/bin/volatility3shell"
+                echo ""
 
             ;;
 
@@ -309,6 +311,13 @@
 
     # Desactivar el entorno virtual
       deactivate
+
+    # Notificar fin de ejecución del script
+      echo ""
+      echo "  El script ha finalizado. El binario se puede encontrar en:"
+      echo ""
+      echo "    ~/bin/volatility2"
+      echo ""
 
   elif [ $cVerSO == "9" ]; then
 
