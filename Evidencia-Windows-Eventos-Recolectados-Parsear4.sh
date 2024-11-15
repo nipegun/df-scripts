@@ -251,7 +251,7 @@ if [ $# -ne $cCantParamEsperados ]
             5)
 
               echo ""
-              echo "  Creando un único archivo con todos los eventos del usuario ordenados por fecha..."
+              echo "  Intentando crear un único archivo con todos los eventos del usuario ordenados por fecha..."
               echo ""
               vSIDvSIDDelUsuario="$1"
               vSIDDelUsuario="S-1-5-21-92896240-835188504-1963242017-1001"
@@ -279,7 +279,7 @@ if [ $# -ne $cCantParamEsperados ]
                       # Agregar la línea de cierre del vEvento
                         vEvento+=$'\n'"$line"
                       # Guardar el bloque en un archivo
-                        echo "$vEvento" > /Casos/Examen/Eventos/Parseados/$vNombreNuevaCarpeta/$vEvento_${vContador}.xml
+                        echo "$vEvento" > "$vCarpetaDelCaso"/Eventos/Parseados/$vNombreNuevaCarpeta/$vEvento_${vContador}.xml
                       # Incrementar el vContador y limpiar la variable del vEvento
                         vContador=$((vContador + 1))
                       vEvento=""
@@ -287,7 +287,7 @@ if [ $# -ne $cCantParamEsperados ]
                       # Agregar la línea al bloque de vEvento en curso
                         vEvento+=$'\n'"$line"
                     fi
-                  done < "/Casos/Examen/Eventos/Parseados/TodosLosEventosDelUsuario.xml"
+                  done < "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventosDelUsuario.xml
                 # Renombrar cada archivo con el valor del campo SystemTime
                   echo ""
                   echo "    Asignando el valor del campor SystemTime al nombre de cada archivo .xml único..."
