@@ -41,6 +41,6 @@ if [ $# -ne $cCantParamEsperados ]
     echo ""
     echo ""
     echo ""
-    mkdir -p $2/MFT/
-    cp $1/\$MFT $2/MFT/MFTOriginal
+    mkdir -p $2/Artefactos/MFT/Original/
+    cp $1/\$MFT $2/Artefactos/MFT/Original/
 fi
