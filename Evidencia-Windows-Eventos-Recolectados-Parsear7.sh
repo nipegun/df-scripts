@@ -221,7 +221,7 @@ if [ $# -ne $cCantParamEsperados ]
                     # Leer todo el contenido del archivo XML en memoria
                       vContenidoDelArchivo=$(cat "$vArchivoXML")
                     # Buscar todas las ocurrencias de <eventID> y procesarlas
-                      while [[ "$vContenidoDelArchivo" =~ "<EventID>([0-9]+)</EventID>" ]]; do
+                      while [[ "$vContenidoDelArchivo" =~ '<EventID>'([0-9]+)'</EventID>' ]]; do
                         vIDDelEvento="${BASH_REMATCH[1]}"
                         # Verificar si el event_id existe en el array
                           if [[ -n "${event_messages_en[$vIDDelEvento]}" ]]; then
@@ -321,14 +321,14 @@ if [ $# -ne $cCantParamEsperados ]
                       # Leer todo el contenido del archivo XML en memoria
                         vContenidoDelArchivo=$(cat "$vArchivoXML")
                       # Buscar todas las ocurrencias de <EventID> y procesarlas
-                        while [[ "$vContenidoDelArchivo" =~ "<EventID>([0-9]+)</EventID>" ]]; do
+                        while [[ "$vContenidoDelArchivo" =~ '<EventID>'([0-9]+)'</EventID>' ]]; do
                           vIdDelEvento="${BASH_REMATCH[1]}"
                           echo $vIdDelEvento
                           # Verificar si el event_id existe en el array
-                            if [[ -n "${event_messages_en[$vIdDelEvento]}" ]]; then
+                            if [[ -n "${aMensajesEng[$vIdDelEvento]}" ]]; then
                               # Generar las etiquetas nuevas
-                                vNuevaEtiquetaEng="<EventMessageEN>${event_messages_en[$vIdDelEvento]}</EventMessageEN>"
-                                vNuevaEtiquetaEsp="<EventMessageES>${event_messages_es[$vIdDelEvento]}</EventMessageES>"
+                                vNuevaEtiquetaEng="<EventMessageEN>${aMensajesEng[$vIdDelEvento]}</EventMessageEN>"
+                                vNuevaEtiquetaEsp="<EventMessageES>${aMensajesEsp[$vIdDelEvento]}</EventMessageES>"
                               # Insertar las etiquetas nuevas debajo de <eventID>
                                 vContenidoDelArchivo=${vContenidoDelArchivo//"<EventID>$vIdDelEvento</EventID>"/"<EventID>$vIdDelEvento</EventID>$vNuevaEtiquetaEng$vNuevaEtiquetaEsp"}
                             else
