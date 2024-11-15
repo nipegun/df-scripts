@@ -221,7 +221,7 @@ if [ $# -ne $cCantParamEsperados ]
                     # Leer todo el contenido del archivo XML en memoria
                       vContenidoDelArchivo=$(cat "$vArchivoXML")
                     # Buscar todas las ocurrencias de <eventID> y procesarlas
-                      while [[ "$vContenidoDelArchivo" =~ <EventID>([0-9]+)</EventID> ]]; do
+                      while [[ "$vContenidoDelArchivo" =~ "<EventID>([0-9]+)</EventID>" ]]; do
                         vIDDelEvento="${BASH_REMATCH[1]}"
                         # Verificar si el event_id existe en el array
                           if [[ -n "${event_messages_en[$vIDDelEvento]}" ]]; then
