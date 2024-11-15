@@ -9,10 +9,10 @@
 # Script de NiPeGun para montar todas las particiones de dentro de un archivo de imagen
 #
 # Ejecución remota:
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Imagen-Particiones-Todas-Desmontar.sh | sudo bash -s [RutaAlArchivoDeImagen]
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Imagen-Particiones-Desmontar-Todas.sh | sudo bash -s [RutaAlArchivoDeImagen]
 #
 # Bajar y editar directamente el archivo en nano
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Imagen-Particiones-Todas-Desmontar.sh | nano -
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Imagen-Particiones-Desmontar-Todas.sh | nano -
 # ----------
 
 # Obtener los dispositivos de loopback montados como sólo lectura
@@ -21,8 +21,13 @@
 # Desmontarlos
   while read -r vDispositivo; do
     if mount | grep -q "$vDispositivo"; then
-      echo "Desmontando $vDispositivo..."
+      echo ""
+      echo "  Desmontando $vDispositivo..."
+      echo ""
       sudo umount "$vDispositivo"
+      echo ""
+      echo "  Liberando $vDispositivo"
+      echo ""
       sudo losetup -d "$vDispositivo"
     else
       echo "$vDispositivo no está montado o no existe."
