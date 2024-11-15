@@ -9,19 +9,13 @@
 # Script de NiPeGun para instalar y configurar Volatility en Debian
 #
 # Ejecución remota con sudo:
-#   curl -sL x | sudo bash
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/SoftInst/ParaCLI/Volatility-Instalar.sh | sudo bash
 #
 # Ejecución remota como root:
-#   curl -sL x | sudo bash
-#
-# Ejecución remota sin caché:
-#   curl -sL -H 'Cache-Control: no-cache, no-store' x | bash
-#
-# Ejecución remota con parámetros:
-#   curl -sL x | bash -s Parámetro1 Parámetro2
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/SoftInst/ParaCLI/Volatility-Instalar.sh | bash
 #
 # Bajar y editar directamente el archivo en nano
-#   curl -sL x | nano -
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/SoftInst/ParaCLI/Volatility-Instalar.sh | nano -
 # ----------
 
 # Definir constantes de color
@@ -117,6 +111,9 @@
               echo ""
               echo "  Instalando versión 2.x..."
               echo ""
+              # Determinar enlace de dedcarga
+                # Determinar última versión
+                  vUltVers3=$(curl -sL )
 
             ;;
 
@@ -125,6 +122,53 @@
               echo ""
               echo "  Instalando versión 3.x..."
               echo ""
+              # Determinar enlace de dedcarga
+                # Determinar última versión
+                  vUltVers3=$(curl -sL https://github.com/volatilityfoundation/volatility3/releases/latest/ | sed 's-tag/-\n-g' | grep ^v | cut -d'"' -f1 | head -n1) && echo "  La última versión es la $vUltVers3"
+                # Determinar el enlace de esa versión
+                  vEnlaceV3=$(curl -sL https://github.com/volatilityfoundation/volatility3/releases/tag/$vUltVers3 | )
+                  echo $vEnlaceV3
+
+              # Comprobar si el paquete python3-venv está instalado. Si no lo está, instalarlo.
+                if [[ $(dpkg-query -s python3-venv 2>/dev/null | grep installed) == "" ]]; then
+                  echo ""
+                  echo -e "${cColorRojo}  El paquete python3-venv no está instalado. Iniciando su instalación...${cFinColor}"
+                  echo ""
+                  apt-get -y update && apt-get -y install python3-venv
+                  echo ""
+                fi
+
+              # Crear las carpetas para el Virtual Environment
+                mkdir -p ~/VEnvs/
+                cd ~/VEnvs/
+                # Comprobar si el paquete git está instalado. Si no lo está, instalarlo.
+                  if [[ $(dpkg-query -s git 2>/dev/null | grep installed) == "" ]]; then
+                    echo ""
+                    echo -e "${cColorRojo}  El paquete git no está instalado. Iniciando su instalación...${cFinColor}"
+                    echo ""
+                    apt-get -y update && apt-get -y install git
+                    echo ""
+                 fi
+                git clone https://github.com/volatilityfoundation/volatility3.git
+                python3 -m venv ~/VEnvs/volatility3
+                cd ~/VEnvs/volatility3
+                source ~/VEnvs/volatility3/bin/activate
+                pip install -r requirements-minimal.txt
+                pip install -r requirements-dev.txt
+                
+
+
+python3 -m venv volatility3
+source volatility3/bin/activate
+cd volatility3
+git clone https://github.com/volatilityfoundation/volatility3.git
+cd volatility3
+pip install -r requirements-minimal.txt
+pip install -r requirements-dev.txt
+pip install pyinstaller
+pyinstaller --onefile vol.py
+
+
 
             ;;
 
