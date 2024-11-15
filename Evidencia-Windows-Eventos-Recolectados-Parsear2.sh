@@ -189,7 +189,7 @@ if [ $# -ne $cCantParamEsperados ]
                 done < "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventos.xml
               # Renombrar cada archivo con el valor del campo SystemTime
                 echo ""
-                echo "    Renombrando cada archivo .xml creado con el valor del campo SystemTime..."
+                echo "    Renombrando cada archivo .xml con el valor su etiqueta SystemTime..."
                 echo ""
                 mkdir -p "$vCarpetaDelCaso"/Eventos/Parseados/EventosIndividualesOrdenadosPorFecha/
                 # Recorrer cada archivo XML en la carpeta
