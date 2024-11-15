@@ -56,7 +56,7 @@ if [ $# -ne $cCantParamEsperados ]
       echo ""
       mkdir -p "$vCarpetaDelCaso"/Eventos/Originales/
       rm -rf "$vCarpetaDelCaso"/Eventos/Originales/*
-      find "$vPuntoDeMontajePartWindows" -name "*.evtx" -exec cp {} "$vCarpetaDelCaso"/Eventos/Originales/ \;
+      find "$vPuntoDeMontajePartWindows" -name "*.evtx" -exec cp -v {} "$vCarpetaDelCaso"/Eventos/Originales/ \;
 
 fi
 
