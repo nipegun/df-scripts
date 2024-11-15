@@ -289,7 +289,7 @@ if [ $# -ne $cCantParamEsperados ]
                   done < "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventosDelUsuario.xml
                 # Renombrar cada archivo con el valor del campo SystemTime
                   echo ""
-                  echo "    Asignando el valor del campor SystemTime al nombre de cada archivo .xml único..."
+                  echo "    Renombrando cada archivo .xml con el valor su etiqueta SystemTime..."
                   echo ""
                   mkdir -p "$vCarpetaDelCaso"/Eventos/Parseados/EventosIndividualesDeUsuarioOrdenadosPorFecha/
                   # Recorrer cada archivo XML en la carpeta
@@ -302,7 +302,7 @@ if [ $# -ne $cCantParamEsperados ]
                   rm -f "$vCarpetaDelCaso"/Eventos/Parseados/EventosIndividualesDeUsuarioOrdenadosPorFecha/.xml
                 # Agregar los mensajes a los eventos
                   echo ""
-                  echo "    Agregando los mensajes de eventos a los archivos .xml..."
+                  echo "    Agregando los mensajes de evento a cada archivo .xml..."
                   echo ""
                   # Descargar el CSV con los eventos:
                     curl -sL https://raw.githubusercontent.com/nipegun/dicts/refs/heads/main/windows/eventos-en-es.csv -o /tmp/eventos-en-es.csv
@@ -316,25 +316,30 @@ if [ $# -ne $cCantParamEsperados ]
                     done < /tmp/eventos-en-es.csv
                   # Procesar cada archivo .xml
                     for vArchivoXML in "$vCarpetaDelCaso"/Eventos/Parseados/EventosIndividualesDeUsuarioOrdenadosPorFecha/*.xml; do
-                      # Volcar todo el contenido del archivo XML en una variable
-                        vContenidoDelArchivo=$(cat "$vArchivoXML")
-                      # Buscar todas las ocurrencias de <EventID> y procesarlas
-                        while [[ "$vContenidoDelArchivo" =~ \<EventID\>([0-9]+)\</EventID\> ]]; do 
-                          vIdDelEvento="${BASH_REMATCH[1]}"
-                          # Verificar si vIdDelEvento existe en el array
-                            if [[ -n "${aMensajesEng[$vIdDelEvento]}" ]]; then
-                              # Generar las etiquetas nuevas
-                                vNuevaEtiquetaEng="<EventMessageEN>${aMensajesEng[$vIdDelEvento]}</EventMessageEN>"
-                                vNuevaEtiquetaEsp="<EventMessageES>${aMensajesEsp[$vIdDelEvento]}</EventMessageES>"
-                              # Insertar las etiquetas nuevas debajo de <eventID>
-                                vContenidoDelArchivo=${vContenidoDelArchivo//"<EventID>$vIdDelEvento</EventID>"/"<EventID>$vIdDelEvento</EventID>$vNuevaEtiquetaEng$vNuevaEtiquetaEsp"}
-                            else
-                              echo "No se encontró el evento $vIdDelEvento en el CSV."
+                      # Crear un archivo temporal para el nuevo contenido
+                        vArchivoTemporal=$(mktemp)
+                      # Leer el archivo línea por línea
+                        while IFS= read -r vLinea; do
+                          echo "$vLinea" >> "$vArchivoTemporal"
+                          # Buscar la etiqueta <EventID>
+                            if [[ "$vLinea" =~ \<EventID\>([0-9]+)\</EventID\> ]]; then
+                              vIdDelEvento="${BASH_REMATCH[1]}"
+                              # Verificar si el vIdDelEvento existe en los arrays asociativos
+                                if [[ -n "${aMensajesEng[$vIdDelEvento]}" ]]; then
+                                  # Generar las etiquetas nuevas
+                                    vNuevaEtiquetaEng="<EventMessageEN>${aMensajesEng[$vIdDelEvento]}</EventMessageEN>"
+                                    vNuevaEtiquetaEsp="<EventMessageES>${aMensajesEsp[$vIdDelEvento]}</EventMessageES>"
+                                  # Añadir las nuevas etiquetas al archivo temporal
+                                    echo "    $vNuevaEtiquetaEng" >> "$vArchivoTemporal"
+                                    echo "    $vNuevaEtiquetaEsp" >> "$vArchivoTemporal"
+                                else
+                                  echo "  No se encontró el evento $vIdDelEvento en el CSV."
+                                fi
                             fi
-                        done
-                      # Escribir el contenido actualizado de vuelta al archivo
-                        echo "$vContenidoDelArchivo" > "$vArchivoXML"
-                  done
+                        done < "$vArchivoXML"
+                        # Reemplazar el archivo original con el contenido actualizado
+                          mv "$vArchivoTemporal" "$vArchivoXML"
+                    done
                 # Crear un nuevo archivo xml con todos los eventos
                   echo ""
                   echo "    Agrupando todos los archivos .xml únicos en un archivo unificado final..."
