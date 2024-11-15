@@ -96,8 +96,8 @@
       #menu=(dialog --timeout 5 --checklist "Marca las opciones que quieras instalar:" 22 96 16)
       menu=(dialog --checklist "Marca las opciones que quieras instalar:" 22 96 16)
         opciones=(
-          1 "Instalar version 2.x" off
-          2 "Instalar version 3" on
+          1 "Instalar version para python 2.x" off
+          2 "Instalar version para python 3.x" on
         )
       choices=$("${menu[@]}" "${opciones[@]}" 2>&1 >/dev/tty)
       #clear
@@ -111,9 +111,40 @@
               echo ""
               echo "  Instalando versión 2.x..."
               echo ""
-              # Determinar enlace de dedcarga
-                # Determinar última versión
-                  vUltVers3=$(curl -sL )
+              # Descargar el repo
+                mkdir -p ~/SoftInst/ 2> /dev/null
+                cd ~/SoftInst/
+                if [[ $(dpkg-query -s git 2>/dev/null | grep installed) == "" ]]; then
+                  echo ""
+                  echo -e "${cColorRojo}  El paquete git no está instalado. Iniciando su instalación...${cFinColor}"
+                  echo ""
+                  apt-get -y update && apt-get -y install git
+                  echo ""
+                fi
+                git clone https://github.com/volatilityfoundation/volatility.git
+
+              # Crear el ambiente virtual
+                mkdir -p ~/VEnvs/ 2> /dev/null
+                cd ~/VEnvs/
+                if [[ $(dpkg-query -s python3-venv 2>/dev/null | grep installed) == "" ]]; then
+                  echo ""
+                  echo -e "${cColorRojo}  El paquete python3-venv no está instalado. Iniciando su instalación...${cFinColor}"
+                  echo ""
+                  apt-get -y update && apt-get -y install python3-venv
+                  echo ""
+                fi
+                python3 -m venv volatility2
+                source ~/VEnvs/volatility2/bin/activate
+                pip install pyinstaller
+
+              # Compilar
+                mv ~/SoftInst/volatility/ ~/SoftInst/volatility2/
+                cd ~/SoftInst/volatility2/
+                pyinstaller --onefile --collect-all=volatility vol.py
+
+              # Mover el binario a la carpeta de binarios del usuario
+                mkdir -p ~/bin/
+                cp ~/SoftInst/volatility2/dist/vol      ~/bin/volatility2
 
             ;;
 
@@ -122,14 +153,22 @@
               echo ""
               echo "  Instalando versión 3.x..."
               echo ""
-              # Determinar enlace de dedcarga
-                # Determinar última versión
-                  vUltVers3=$(curl -sL https://github.com/volatilityfoundation/volatility3/releases/latest/ | sed 's-tag/-\n-g' | grep ^v | cut -d'"' -f1 | head -n1) && echo "  La última versión es la $vUltVers3"
-                # Determinar el enlace de esa versión
-                  vEnlaceV3=$(curl -sL https://github.com/volatilityfoundation/volatility3/releases/tag/$vUltVers3 | )
-                  echo $vEnlaceV3
 
-              # Comprobar si el paquete python3-venv está instalado. Si no lo está, instalarlo.
+              # Descargar el repo
+                mkdir -p ~/SoftInst/ 2> /dev/null
+                cd ~/SoftInst/
+                if [[ $(dpkg-query -s git 2>/dev/null | grep installed) == "" ]]; then
+                  echo ""
+                  echo -e "${cColorRojo}  El paquete git no está instalado. Iniciando su instalación...${cFinColor}"
+                  echo ""
+                  apt-get -y update && apt-get -y install git
+                  echo ""
+                fi
+                git clone https://github.com/volatilityfoundation/volatility3.git
+
+              # Crear el ambiente virtual
+                mkdir -p ~/VEnvs/ 2> /dev/null
+                cd ~/VEnvs/
                 if [[ $(dpkg-query -s python3-venv 2>/dev/null | grep installed) == "" ]]; then
                   echo ""
                   echo -e "${cColorRojo}  El paquete python3-venv no está instalado. Iniciando su instalación...${cFinColor}"
@@ -137,38 +176,21 @@
                   apt-get -y update && apt-get -y install python3-venv
                   echo ""
                 fi
-
-              # Crear las carpetas para el Virtual Environment
-                mkdir -p ~/VEnvs/
-                cd ~/VEnvs/
-                # Comprobar si el paquete git está instalado. Si no lo está, instalarlo.
-                  if [[ $(dpkg-query -s git 2>/dev/null | grep installed) == "" ]]; then
-                    echo ""
-                    echo -e "${cColorRojo}  El paquete git no está instalado. Iniciando su instalación...${cFinColor}"
-                    echo ""
-                    apt-get -y update && apt-get -y install git
-                    echo ""
-                 fi
-                git clone https://github.com/volatilityfoundation/volatility3.git
-                python3 -m venv ~/VEnvs/volatility3
-                cd ~/VEnvs/volatility3
+                python3 -m venv volatility3
                 source ~/VEnvs/volatility3/bin/activate
-                pip install -r requirements-minimal.txt
-                pip install -r requirements-dev.txt
-                
+                cd ~/SoftInst/volatility3/
+                pip install -r requirements.txt 
+                pip install -r requirements-dev.txt 
+                pip install pyinstaller
 
+              # Compilar  
+                pyinstaller --onefile --collect-all=volatility3 vol.py
+                pyinstaller --onefile --collect-all=volatility3 volshell.py
 
-python3 -m venv volatility3
-source volatility3/bin/activate
-cd volatility3
-git clone https://github.com/volatilityfoundation/volatility3.git
-cd volatility3
-pip install -r requirements-minimal.txt
-pip install -r requirements-dev.txt
-pip install pyinstaller
-pyinstaller --onefile vol.py
-
-
+              # Mover el binario a la carpeta de binarios del usuario
+                mkdir -p ~/bin/
+                cp ~/SoftInst/volatility3/dist/vol      ~/bin/volatility3
+                cp ~/SoftInst/volatility3/dist/volshell ~/bin/volatility3shell
 
             ;;
 
