@@ -83,6 +83,57 @@
     echo -e "${cColorAzulClaro}  Iniciando el script de instalación de Volatilty para Debian 12 (Bookworm)...${cFinColor}"
     echo ""
 
+    echo ""
+    echo "  Instalando versión 3.x..."
+    echo ""
+
+    # Descargar el repo
+      mkdir -p ~/SoftInst/ 2> /dev/null
+      cd ~/SoftInst/
+      if [[ $(dpkg-query -s git 2>/dev/null | grep installed) == "" ]]; then
+        echo ""
+        echo -e "${cColorRojo}  El paquete git no está instalado. Iniciando su instalación...${cFinColor}"
+        echo ""
+        apt-get -y update && apt-get -y install git
+        echo ""
+      fi
+      git clone https://github.com/volatilityfoundation/volatility3.git
+
+    # Crear el ambiente virtual
+      mkdir -p ~/VEnvs/ 2> /dev/null
+      cd ~/VEnvs/
+      if [[ $(dpkg-query -s python3-venv 2>/dev/null | grep installed) == "" ]]; then
+        echo ""
+        echo -e "${cColorRojo}  El paquete python3-venv no está instalado. Iniciando su instalación...${cFinColor}"
+        echo ""
+        apt-get -y update && apt-get -y install python3-venv
+        echo ""
+      fi
+      python3 -m venv volatility3
+      source ~/VEnvs/volatility3/bin/activate
+      cd ~/SoftInst/volatility3/
+      pip install -r requirements.txt 
+      pip install -r requirements-dev.txt 
+
+      # Compilar
+        pip install pyinstaller
+        pyinstaller --onefile --collect-all=volatility3 vol.py
+        pyinstaller --onefile --collect-all=volatility3 volshell.py
+
+      # Mover el binario a la carpeta de binarios del usuario
+        mkdir -p ~/bin/
+        cp ~/SoftInst/volatility3/dist/vol      ~/bin/volatility3
+        cp ~/SoftInst/volatility3/dist/volshell ~/bin/volatility3shell
+
+      # Desactivar el entorno virtual
+        deactivate
+
+  elif [ $cVerSO == "11" ]; then
+
+    echo ""
+    echo -e "${cColorAzulClaro}  Iniciando el script de instalación de Volatilty para Debian 11 (Bullseye)...${cFinColor}"
+    echo ""
+
     # Comprobar si el paquete dialog está instalado. Si no lo está, instalarlo.
       if [[ $(dpkg-query -s dialog 2>/dev/null | grep installed) == "" ]]; then
         echo ""
@@ -114,6 +165,7 @@
               # Descargar el repo
                 mkdir -p ~/SoftInst/ 2> /dev/null
                 cd ~/SoftInst/
+                rm -rf ~/SoftInst/*
                 if [[ $(dpkg-query -s git 2>/dev/null | grep installed) == "" ]]; then
                   echo ""
                   echo -e "${cColorRojo}  El paquete git no está instalado. Iniciando su instalación...${cFinColor}"
@@ -124,27 +176,34 @@
                 git clone https://github.com/volatilityfoundation/volatility.git
 
               # Crear el ambiente virtual
+                curl -sL https://bootstrap.pypa.io/pip/2.7/get-pip.py -o /tmp/get-pip.py
+                apt-get -y install python2
+                python2 /tmp/get-pip.py
+                python2 -m pip install virtualenv
                 mkdir -p ~/VEnvs/ 2> /dev/null
                 cd ~/VEnvs/
-                if [[ $(dpkg-query -s python3-venv 2>/dev/null | grep installed) == "" ]]; then
-                  echo ""
-                  echo -e "${cColorRojo}  El paquete python3-venv no está instalado. Iniciando su instalación...${cFinColor}"
-                  echo ""
-                  apt-get -y update && apt-get -y install python3-venv
-                  echo ""
-                fi
-                python3 -m venv volatility2
+                rm -rf ~/VEnvs/volatility2/*
+                python2 -m virtualenv volatility2
                 source ~/VEnvs/volatility2/bin/activate
-                pip install pyinstaller
+                pip2 install pyinstaller==3.6
 
               # Compilar
                 mv ~/SoftInst/volatility/ ~/SoftInst/volatility2/
                 cd ~/SoftInst/volatility2/
-                pyinstaller --onefile --collect-all=volatility vol.py
+                apt-get -y install python-dev
+                apt-get -y install upx
+                apt-get -y install binutils
+                # pyinstaller --onefile vol.py --hidden-import=modulo1
+                pyinstaller --onefile vol.py
+                  
 
               # Mover el binario a la carpeta de binarios del usuario
                 mkdir -p ~/bin/
-                cp ~/SoftInst/volatility2/dist/vol      ~/bin/volatility2
+                cp ~/SoftInst/volatility2/dist/vol ~/bin/volatility2
+
+
+              # Desactivar el entorno virtual
+                deactivate
 
             ;;
 
@@ -192,21 +251,14 @@
                 cp ~/SoftInst/volatility3/dist/vol      ~/bin/volatility3
                 cp ~/SoftInst/volatility3/dist/volshell ~/bin/volatility3shell
 
+              # Desactivar el entorno virtual
+                deactivate
+
             ;;
 
         esac
 
     done
-
-  elif [ $cVerSO == "11" ]; then
-
-    echo ""
-    echo -e "${cColorAzulClaro}  Iniciando el script de instalación de Volatilty para Debian 11 (Bullseye)...${cFinColor}"
-    echo ""
-
-    echo ""
-    echo -e "${cColorRojo}    Comandos para Debian 11 todavía no preparados. Prueba ejecutarlo en otra versión de Debian.${cFinColor}"
-    echo ""
 
   elif [ $cVerSO == "10" ]; then
 
@@ -215,8 +267,48 @@
     echo ""
 
     echo ""
-    echo -e "${cColorRojo}    Comandos para Debian 10 todavía no preparados. Prueba ejecutarlo en otra versión de Debian.${cFinColor}"
+    echo "  Instalando versión 2.x..."
     echo ""
+    # Descargar el repo
+      mkdir -p ~/SoftInst/ 2> /dev/null
+      cd ~/SoftInst/
+      rm -rf ~/SoftInst/*
+      if [[ $(dpkg-query -s git 2>/dev/null | grep installed) == "" ]]; then
+        echo ""
+        echo -e "${cColorRojo}  El paquete git no está instalado. Iniciando su instalación...${cFinColor}"
+        echo ""
+        apt-get -y update && apt-get -y install git
+        echo ""
+      fi
+      git clone https://github.com/volatilityfoundation/volatility.git
+
+    # Crear el ambiente virtual
+      curl -sL https://bootstrap.pypa.io/pip/2.7/get-pip.py -o /tmp/get-pip.py
+      apt-get -y install python2
+      python2 /tmp/get-pip.py
+      python2 -m pip install virtualenv
+      mkdir -p ~/VEnvs/ 2> /dev/null
+      cd ~/VEnvs/
+      rm -rf ~/VEnvs/volatility2/*
+      python2 -m virtualenv volatility2
+      source ~/VEnvs/volatility2/bin/activate
+      pip2 install pyinstaller==3.6
+
+    # Compilar
+      mv ~/SoftInst/volatility/ ~/SoftInst/volatility2/
+      cd ~/SoftInst/volatility2/
+      apt-get -y install python-dev
+      apt-get -y install upx
+      apt-get -y install binutils
+      # pyinstaller --onefile vol.py --hidden-import=modulo1
+      pyinstaller --onefile vol.py
+
+    # Mover el binario a la carpeta de binarios del usuario
+      mkdir -p ~/bin/
+      cp ~/SoftInst/volatility2/dist/vol ~/bin/volatility2
+
+    # Desactivar el entorno virtual
+      deactivate
 
   elif [ $cVerSO == "9" ]; then
 
