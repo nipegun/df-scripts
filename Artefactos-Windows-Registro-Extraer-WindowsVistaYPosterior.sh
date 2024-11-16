@@ -9,7 +9,7 @@
 # Script de NiPeGun para extraer los archivos de registro de una partición de Windows
 #
 # Ejecución remota con parámetros:
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Registro-Extraer-Completo-WindowsVistaYPosterior.sh | sudo bash -s Parámetro1 Parámetro2
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Registro-Extraer-Completo-WindowsVistaYPosterior.sh | sudo bash -s [PuntoDeMontajeDePartConWindows] [CarpetaDelCaso]    (Ambos sin barra final) 
 #
 # Bajar y editar directamente el archivo en nano
 #   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Registro-Extraer-Completo-WindowsVistaYPosterior.sh | nano -
@@ -33,18 +33,6 @@
     exit
   fi
 
-# Comprobar si el script de RegRipper existe. Si no, llamar al script de instalación de RegRipper
-  if [ ! -e "/usr/local/bin/rip.pl" ]; then
-    echo ""
-    echo -e "${cColorRojo}  No se ha encontrado el script en perl de RegRipper. Seguramente RegRipper no esté instalado.${cFinColor}"
-    echo ""
-    echo "  Puedes instalarlo con:"
-    echo ""
-    echo "    curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/main/SoftInst/ParaCLI/RegRipper-Instalar.sh | sudo bash"
-    echo ""
-    exit
-  fi
-
 # Definir la cantidad de argumentos esperados
   cCantParamEsperados=2
 
@@ -53,7 +41,7 @@ if [ $# -ne $cCantParamEsperados ]
   then
     echo ""
     echo -e "${cColorRojo}  Mal uso del script. El uso correcto sería: ${cFinColor}"
-    echo "    $0 [PuntoDeMontajeDePartConWindows] [CarpetaDondeExtraerElRegistro] (Ambos sin barra final)"
+    echo "    $0 [PuntoDeMontajeDePartConWindows] [CarpetaDelCaso] (Ambos sin barra final)"
     echo ""
     echo "  Ejemplo:"
     echo "    $0 'Hola' 'Mundo'"
@@ -64,91 +52,52 @@ if [ $# -ne $cCantParamEsperados ]
     echo ""
     echo ""
     # Definir fecha de ejecución del script
-      cFechaDeEjec=$(date +a%Ym%md%d@%T)
+      vFechaDelCaso=$(date +a%Ym%md%d@%T)
 
     # Definir variables
-      vPuntoDeMontaje="$1" # Debe ser una carpeta sin barra final
-      vCarpetaDeCasos="$2" # Debe ser una carpeta sin barra final
+      vPuntoDeMontajePartWindows="$1" # Debe ser una carpeta sin barra final
 
     # Determinar el caso actual y crear la carpeta
-      mkdir -p "$vCarpetaDeCasos"/Registro/ArchivosCrudos/
+      mkdir -p "$vCarpetaDeCasos"/Artefactos/Originales/Registro
 
     # Copiar archivos de registro
       echo ""
       echo "  Copiando SYSTEM..."
       echo ""
-      cp "$vPuntoDeMontaje"/Windows/System32/config/SYSTEM   "$vCarpetaDeCasos"/Registro/ArchivosCrudos/SYSTEM
+      cp "$vPuntoDeMontajePartWindows"/Windows/System32/config/SYSTEM   /Casos/$vFechaDelCaso/Artefactos/Originales/Registro/SYSTEM
       echo ""
       echo "  Copiando SAM..."
       echo ""
-      cp "$vPuntoDeMontaje"/Windows/System32/config/SAM      "$vCarpetaDeCasos"/Registro/ArchivosCrudos/SAM
+      cp "$vPuntoDeMontajePartWindows"/Windows/System32/config/SAM      /Casos/$vFechaDelCaso/Artefactos/Originales/Registro/SAM
       echo ""
       echo "  Copiando SECURITY..."
       echo ""
-      cp "$vPuntoDeMontaje"/Windows/System32/config/SECURITY "$vCarpetaDeCasos"/Registro/ArchivosCrudos/SECURITY
+      cp "$vPuntoDeMontajePartWindows"/Windows/System32/config/SECURITY /Casos/$vFechaDelCaso/Artefactos/Originales/Registro/SECURITY
       echo ""
       echo "  Copiando SOFTWARE..."
       echo ""
-      cp "$vPuntoDeMontaje"/Windows/System32/config/SOFTWARE "$vCarpetaDeCasos"/Registro/ArchivosCrudos/SOFTWARE
+      cp "$vPuntoDeMontajePartWindows"/Windows/System32/config/SOFTWARE /Casos/$vFechaDelCaso/Artefactos/Originales/Registro/SOFTWARE
       echo ""
       echo "  Copiando DEFAULT..."
       echo ""
-      cp "$vPuntoDeMontaje"/Windows/system32/config/DEFAULT  "$vCarpetaDeCasos"/Registro/ArchivosCrudos/DEFAULT
+      cp "$vPuntoDeMontajePartWindows"/Windows/system32/config/DEFAULT  /Casos/$vFechaDelCaso/Artefactos/Originales/Registro/DEFAULT
 
     # Copiar registro de usuarios
       echo ""
       echo "  Copiando archivos de registro de usuarios..."
       echo ""
-      find "$vPuntoDeMontaje/Users/" -mindepth 1 -maxdepth 1 -type d > /tmp/CarpetasDeUsuarios.txt
+      find "$vPuntoDeMontajePartWindows"/Users/ -mindepth 1 -maxdepth 1 -type d > /tmp/CarpetasDeUsuarios.txt
       while IFS= read -r linea; do
         vNomUsuario="${linea##*/}"
         echo ""
         echo "    Copiando NTUSER.DAT de $vNomUsuario..."
         echo ""
-        mkdir -p "$vCarpetaDeCasos"/Registro/ArchivosCrudos/Usuarios/"$vNomUsuario"
-        cp "$vPuntoDeMontaje"/"Users"/"$vNomUsuario"/NTUSER.DAT "$vCarpetaDeCasos"/Registro/ArchivosCrudos/Usuarios/"$vNomUsuario"/
-      done < "/tmp/CarpetasDeUsuarios.txt"
-
-
-    # Exportar registros
-      mkdir -p "$vCarpetaDeCasos"/Registro/ArchivosParseados/ 2> /dev/null
-      echo ""
-      echo "  RegRippeando SYSTEM..."
-      echo ""
-      /usr/local/bin/rip.pl -r "$vCarpetaDeCasos"/Registro/ArchivosCrudos/SYSTEM   -a > "$vCarpetaDeCasos"/Registro/ArchivosParseados/SYSTEM.txt
-      echo ""
-      echo "  RegRippeando SAM..."
-      echo ""
-      /usr/local/bin/rip.pl -r "$vCarpetaDeCasos"/Registro/ArchivosCrudos/SAM      -a > "$vCarpetaDeCasos"/Registro/ArchivosParseados/SAM.txt
-      echo ""
-      echo "  RegRippeando SECURITY..."
-      echo ""
-      /usr/local/bin/rip.pl -r "$vCarpetaDeCasos"/Registro/ArchivosCrudos/SECURITY -a > "$vCarpetaDeCasos"/Registro/ArchivosParseados/SECURITY.txt
-      echo ""
-      echo "  RegRippeando SOFTWARE..."
-      echo ""
-      /usr/local/bin/rip.pl -r "$vCarpetaDeCasos"/Registro/ArchivosCrudos/SOFTWARE -a > "$vCarpetaDeCasos"/Registro/ArchivosParseados/SOFTWARE.txt
-      echo ""
-      echo "  RegRippeando DEFAULT..."
-      echo ""
-      /usr/local/bin/rip.pl -r "$vCarpetaDeCasos"/Registro/ArchivosCrudos/DEFAULT  -a > "$vCarpetaDeCasos"/Registro/ArchivosParseados/DEFAULT.txt
-
-    # Exportar registro de usuarios
-      echo ""
-      echo "  RegRippeando archivos de registro de usuarios..."
-      echo ""
-      find "$vPuntoDeMontaje/Users/" -mindepth 1 -maxdepth 1 -type d > /tmp/CarpetasDeUsuarios.txt
-      while IFS= read -r linea; do
-        vNomUsuario="${linea##*/}"
-        echo ""
-        echo "    RegRippeando NTUSER.DAT de $vNomUsuario..."
-        echo ""
-        mkdir -p "$vCarpetaDeCasos"/Registro/ArchivosParseados/Usuarios/"$vNomUsuario" 2> /dev/null
-        /usr/local/bin/rip.pl -r "$vCarpetaDeCasos"/Registro/ArchivosCrudos/Usuarios/"$vNomUsuario"/NTUSER.DAT  -a > "$vCarpetaDeCasos"/Registro/ArchivosParseados/Usuarios/"$vNomUsuario"/NTUSER.DAT.txt
+        mkdir -p /Casos/$vFechaDelCaso/Artefactos/Originales/Registro/Usuarios/"$vNomUsuario"
+        cp "$vPuntoDeMontajePartWindows"/Users/"$vNomUsuario"/NTUSER.DAT /Casos/$vFechaDelCaso/Artefactos/Originales/Registro/Usuarios/"$vNomUsuario"/
       done < "/tmp/CarpetasDeUsuarios.txt"
 
     # Reparar permisos
-      chown 1000:1000 "$vCarpetaDeCasos"/Registro/ -R
+      chown 1000:1000 /Casos/$vFechaDelCaso/Artefactos/ -R
 
 fi
 
