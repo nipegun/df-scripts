@@ -9,10 +9,10 @@
 # Script de NiPeGun para analizar y exportar el archivo $MFT original a múltimples formatos
 #
 # Ejecución remota:
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Artefactos-Windows-Obtener-DeImagen.sh | sudo bash -s [RutaAlArchivoDeImagen]
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Artefactos-Windows-Extraer-DeImagen.sh | sudo bash -s [RutaAlArchivoDeImagen]
 #
 # Bajar y editar directamente el archivo en nano
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Artefactos-Windows-Obtener-DeImagen.sh | nano -
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Artefactos-Windows-Extraer-DeImagen.sh | nano -
 # ----------
 
 # Definir constantes de color
