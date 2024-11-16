@@ -76,8 +76,8 @@
     apt-get -y install git
     apt-get -y install libparse-win32registry-perl
     # Downloads RegRipper3.0 and moves file into /usr/local/src/regripper and "chmods" files in regripper directory to allow execution
-      rm -r /usr/local/src/regripper/ 2>/dev/null
-      rm -r /usr/share/regripper/plugins 2>/dev/null
+      rm -rf /usr/local/src/regripper/* 2>/dev/null
+      rm -rf /usr/share/regripper/*     2>/dev/null
     # Clonar repositorio
       cd /usr/local/src/
     # Comprobar si el paquete git está instalado. Si no lo está, instalarlo.
@@ -101,6 +101,7 @@
     # Crear archivo rip.pl.linux a partir del archivo rip.pl original
       #[ -f regripper/rip.pl ] && echo "rip.pl found!" || echo "rip.pl not found!"
       #[ -f regripper/rip.pl ] && cp regripper/rip.pl rip.pl.linux || exit
+      rm -f regripper/rip.pl.linux 2> /dev/null
       cp -f regripper/rip.pl regripper/rip.pl.linux
       sed -i '77i my \$plugindir \= \"\/usr\/share\/regripper\/plugins\/\"\;' /usr/local/src/regripper/rip.pl.linux 
       sed -i '/^#! c:[\]perl[\]bin[\]perl.exe/d'                              /usr/local/src/regripper/rip.pl.linux
@@ -109,6 +110,7 @@
     # Obtener el hash
       md5sum /usr/local/src/regripper/rip.pl.linux && echo "  El archivo rip.pl.linux ha sido creado correctamente!"
     # Copiar el archivo rip.pl.linux a /usr/local/bin/rip.pl
+      rm -f /usr/local/bin/rip.pl 2> /dev/null
       cp -f regripper/rip.pl.linux /usr/local/bin/rip.pl
       echo "  El archivo /usr/local/src/regripper/rip.pl.linux ha sido copiado a /usr/local/bin/rip.pl"
       echo "  RegRipper debe ejecutarse siempre desde /usr/local/bin/rip.pl"
