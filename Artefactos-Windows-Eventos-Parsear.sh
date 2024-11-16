@@ -6,13 +6,13 @@
 # No tienes que aceptar ningún tipo de términos de uso o licencia para utilizarlo o modificarlo porque va sin CopyLeft.
 
 # ----------
-# Script de NiPeGun para parsear los eventos recolectados de una partición de Windows
+# Script de NiPeGun para parsear los eventos .evtx que se encuentren en una carpeta dada
 #
 # Ejecución remota con parámetros:
-#   https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Artefactos-Windows-Eventos-Parsear.sh | sudo bash -s [CarpetaConEventosRecolectados] [CarpetaDondeGuardar]  (Ambas sin barra final)
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Artefactos-Windows-Eventos-Parsear.sh | sudo bash -s [CarpetaConEventosRecolectados] [CarpetaDondeGuardar]  (Ambas sin barra final)
 #
 # Bajar y editar directamente el archivo en nano
-#   https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Artefactos-Windows-Eventos-Parsear.sh | nano -
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Artefactos-Windows-Eventos-Parsear.sh | nano -
 # ----------
 
 # Definir constantes de color
