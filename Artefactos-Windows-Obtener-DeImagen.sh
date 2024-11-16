@@ -89,6 +89,8 @@ if [ $# -ne $cCantParamEsperados ]
               echo ""
               echo "  Extrayendo la MFT..."
               echo ""
+              # Determinar la partición de Windows
+                vPartWindows=2
               curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Artefactos-Windows-MFT-Extraer.sh | sudo bash -s "/Casos/$vFechaDelCaso/Imagen/Particiones/$vPartWindows" "/Casos/$vFechaDelCaso"
 
             ;;
