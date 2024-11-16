@@ -41,8 +41,8 @@ if [ $# -ne $cCantParamEsperados ]
     echo ""
     echo ""
     echo ""
-    vPuntoDeMontajePartWindows="$1"
-    vCarpetaDelCaso="$2"
+    vPuntoDeMontajePartWindows="$1" # Debe ser una carpeta sin barra final
+    vCarpetaDelCaso="$2"            # Debe ser una carpeta sin barra final
     mkdir -p "$vCarpetaDelCaso"/Artefactos/Originales/MFT/
     cp "$vPuntoDeMontajePartWindows"/\$MFT "$vCarpetaDelCaso"/Artefactos/Originales/MFT/
     # Reparar permisos
