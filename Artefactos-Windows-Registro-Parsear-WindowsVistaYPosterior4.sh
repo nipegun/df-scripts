@@ -88,7 +88,7 @@ if [ $# -ne $cCantParamEsperados ]
       echo ""
       echo "  RegRippeando archivos de registro de usuarios..."
       echo ""
-      find "$vCarpetaConArchivosDeRegistro"/Usuarios/ -mindepth 1 -maxdepth 1 -type d > /tmp/CarpetasDeUsuarios.txt
+      find "$vCarpetaConArchivosDeRegistro"/Usuarios -mindepth 1 -maxdepth 1 -type d > /tmp/CarpetasDeUsuarios.txt
       while IFS= read -r linea; do
         vNomUsuario="${linea##*/}"
         echo ""
