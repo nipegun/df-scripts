@@ -16,7 +16,7 @@
 # ----------
 
 # Definir fecha de ejecución del script
-  cFechaDeEjec=$(date +a%Ym%md%d)
+  cFechaDelCaso=$(date +a%Ym%md%d)
 
 # vTamAsigMinCluster
   vBytesPorSector=512
@@ -63,9 +63,9 @@
 
 # Crear la carpeta del caso y montar las particiones como sólo lectura
   for vIndice in "${!aNuevosOffsets[@]}"; do
-    mkdir -p /Casos/$cFechaDeEjec/Particiones/$((vIndice + 1))
+    mkdir -p /Casos/$cFechaDeEjec/Imagen/Particiones/$((vIndice + 1))
     vDispositivoLoopLibre=$(losetup -f)
     losetup -f -o ${aNuevosOffsets[vIndice]} $1 && echo "  Partición del offset ${aNuevosOffsets[vIndice]} asignada a $vDispositivoLoopLibre. "
-    mount -o ro,show_sys_files,streams_interface=windows $vDispositivoLoopLibre /Casos/$cFechaDeEjec/Particiones/$((vIndice + 1)) &&  echo "    $vDispositivoLoopLibre montado en /Casos/$cFechaDeEjec/Particiones/$((vIndice + 1))."
+    mount -o ro,show_sys_files,streams_interface=windows $vDispositivoLoopLibre /Casos/$cFechaDelCaso/Imagen/Particiones/$((vIndice + 1)) &&  echo "    $vDispositivoLoopLibre montado en /Casos/$cFechaDelCaso/Imagen/Particiones/$((vIndice + 1))."
   done
   echo ""
