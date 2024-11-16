@@ -40,6 +40,9 @@ if [ $# -ne $cCantParamEsperados ]
   else
     # Comprobar que exista analyzemft
       if [ ! -f /usr/bin/analyzemft ]; then
+        echo ""
+        echo -e "${cColorRojo}    El binario de analyzemft no está instalado. Instalando... ${cFinColor}"
+        echo ""
         curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/SoftInst/ParaCLI/analyzeMFT-Instalar.sh | bash
       fi
     vCarpetaConLaMFTOriginal="$1"
