@@ -154,92 +154,103 @@ if [ $# -ne $cCantParamEsperados ]
               echo ""
               echo "  Intentando crear un único archivo XML con todos los eventos ordenados por fecha..."
               echo ""
-              # Crear una carpeta para almacenar los archivos de vEventos
-                vNombreCarpetaDeEventosIndividuales="EventosIndividuales"
-                mkdir -p "$vCarpetaDondeGuardar"/$vNombreCarpetaDeEventosIndividuales/
-              # Contador de vEventos
-                vContador=1
-              # Variable para almacenar un vEvento temporalmente
-                vEvento=""
-              echo ""
-              echo "    Guardando cada evento en un archivo .xml único..."
-              echo ""
-              # Leer el archivo línea por línea
-                while IFS= read -r line; do
-                  if [[ "$line" == *"<Event>"* ]]; then
-                    # Iniciar un nuevo bloque de vEvento
-                      vEvento="$line"
-                  elif [[ "$line" == *"</Event>"* ]]; then
-                    # Agregar la línea de cierre del vEvento
-                      vEvento+=$'\n'"$line"
-                    # Guardar el bloque en un archivo
-                      echo "$vEvento" > "$vCarpetaDelCaso"/Parseados/Eventos/$vNombreCarpetaDeEventosIndividuales/$vEvento_${vContador}.xml
-                    # Incrementar el vContador y limpiar la variable del vEvento
-                      vContador=$((vContador + 1))
-                    vEvento=""
-                  else
-                    # Agregar la línea al bloque de vEvento en curso
-                      vEvento+=$'\n'"$line"
-                  fi
-                done < "$vCarpetaDelCaso"/Parseados/Eventos/TodosLosEventos.xml
-              # Renombrar cada archivo con el valor del campo SystemTime
+              #sed -i '1i\<root>' "$vCarpetaDondeGuardar"/TodosLosEventos.xml # Agrega la apertura de la etiqueta raiz en la primera linea
+              #echo '</root>' >>  "$vCarpetaDondeGuardar"/TodosLosEventos.xml # Agrega el cierre de la etiqueta raíz en una nueva linea al final del archivo
+              # Generar un archivo por cada evento dentro del xml
+                # Crear una carpeta para almacenar los archivos de vEventos
+                  mkdir -p "$vCarpetaDondeGuardar"/EventosIndividuales/
+                # Contador de vEventos
+                  vContador=1
+                # Variable para almacenar un vEvento temporalmente
+                  vEvento=""
                 echo ""
-                echo "    Renombrando cada archivo .xml con el valor su etiqueta SystemTime..."
+                echo "    Guardando cada evento en un archivo .xml único..."
                 echo ""
-                mkdir -p "$vCarpetaDelCaso"/Parseados/Eventos/EventosIndividualesOrdenadosPorFecha/
-                # Recorrer cada archivo XML en la carpeta
-                  for file in "$vCarpetaDelCaso"/Parseados/Eventos/EventosIndividuales/* ; do
-                    # Extraer el valor de SystemTime usando xmlstarlet
-                      system_time=$(xmlstarlet sel -t -v "//TimeCreated/@SystemTime" "$file" 2>/dev/null)
-                    # Renombrar el archivo
-                      cp "$file" "$vCarpetaDelCaso"/Parseados/Eventos/EventosIndividualesOrdenadosPorFecha/"${system_time}".xml
-                  done
-                rm -f "$vCarpetaDelCaso"/Parseados/Eventos/EventosIndividualesOrdenadosPorFecha/.xml
-
-              # Agregar los mensajes a los eventos
-                echo ""
-                echo "  Agregando los mensajes de eventos a los archivos .xml..."
-                echo ""
-                # Descargar el CSV con los eventos:
-                  curl -sL https://raw.githubusercontent.com/nipegun/dicts/refs/heads/main/windows/eventos-en-es.csv -o /tmp/eventos-en-es.csv
-                # Declarar arrays para guardar los mensajes
-                  declare -A aMensajesEng
-                  declare -A aMensajesEsp
-                # Popular los arrays
-                  while IFS=';' read -r campoIdDelEvento campoMensajeEng campoMensajeEsp; do
-                    aMensajesEng["$campoIdDelEvento"]="$campoMensajeEng"
-                    aMensajesEsp["$campoIdDelEvento"]="$campoMensajeEsp"
-                  done < /tmp/eventos-en-es.csv
-                # Procesar cada archivo .xml
-                  for vArchivoXML in "$vCarpetaDelCaso"/Parseados/Eventos/EventosIndividualesOrdenadosPorFecha/*.xml; do
-                    echo "  Procesando archivo: $vArchivoXML"
-                    # Leer todo el contenido del archivo XML en memoria
-                      vContenidoDelArchivo=$(cat "$vArchivoXML")
-                    # Buscar todas las ocurrencias de <eventID> y procesarlas
-                      while [[ "$vContenidoDelArchivo" =~ '<EventID>'([0-9]+)'</EventID>' ]]; do
-                        vIDDelEvento="${BASH_REMATCH[1]}"
-                        # Verificar si el event_id existe en el array
-                          if [[ -n "${event_messages_en[$vIDDelEvento]}" ]]; then
-                            # Generar las etiquetas nuevas
-                              vNuevaEtiquetaEng="<EventMessageEN>${event_messages_en[$vIDDelEvento]}</EventMessageEN>"
-                              vNuevaEtiquetaEsp="<EventMessageES>${event_messages_es[$vIDDelEvento]}</EventMessageES>"
-                            # Insertar las etiquetas nuevas debajo de <eventID>
-                              vContenidoDelArchivo=${vContenidoDelArchivo//"<EventID>$vIDDelEvento</EventID>"/"<EventID>$vIDDelEvento</EventID>$vNuevaEtiquetaEng$vNuevaEtiquetaEsp"}
-                          else
-                            echo "No se encontró el evento $vIDDelEvento en el CSV."
-                          fi
-                      done
-                    # Escribir el contenido actualizado de vuelta al archivo
-                      echo "$vContenidoDelArchivo" > "$vArchivoXML"
-                  done
-              # Crear un nuevo archivo xml con todos los eventos
-#                echo ""
-#                echo "    Agrupando todos los archivos creados en un único archivo final..."
-#                echo ""
-#                cat $(ls "$vCarpetaDelCaso"/Eventos/Parseados/EventosIndividualesOrdenadosPorFecha/* | sort) > "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventosOrdenadosPorFecha.xml
-#                sed -i -e 's-</Event>-</Event>\n-g' "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventosOrdenadosPorFecha.xml
-#                sed -i '1i\<Events>' "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventosOrdenadosPorFecha.xml # Agrega la apertura de la etiqueta raiz en la primera linea
-#                echo '</Events>' >>  "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventosOrdenadosPorFecha.xml # Agrega el cierre de la etiqueta raíz en una nueva linea al final del archivo
+                # Leer el archivo línea por línea
+                  while IFS= read -r line; do
+                    if [[ "$line" == *"<Event>"* ]]; then
+                      # Iniciar un nuevo bloque de vEvento
+                        vEvento="$line"
+                    elif [[ "$line" == *"</Event>"* ]]; then
+                      # Agregar la línea de cierre del vEvento
+                        vEvento+=$'\n'"$line"
+                      # Guardar el bloque en un archivo
+                        echo "$vEvento" > "$vCarpetaDondeGuardar"/EventosIndividuales/$vEvento_${vContador}.xml
+                      # Incrementar el vContador y limpiar la variable del vEvento
+                        vContador=$((vContador + 1))
+                      vEvento=""
+                    else
+                      # Agregar la línea al bloque de vEvento en curso
+                        vEvento+=$'\n'"$line"
+                    fi
+                  done < "$vCarpetaDondeGuardar"/TodosLosEventos.xml
+                # Renombrar cada archivo con el valor del campo SystemTime
+                  echo ""
+                  echo "    Renombrando cada archivo .xml con el valor su etiqueta SystemTime..."
+                  echo ""
+                  mkdir -p "$vCarpetaDondeGuardar"/EventosIndividualesOrdenadosPorFecha/
+                  # Recorrer cada archivo XML en la carpeta
+                    for file in "$vCarpetaDondeGuardar"/EventosIndividuales/* ; do
+                      # Extraer el valor de SystemTime usando xmlstarlet
+                        system_time=$(xmlstarlet sel -t -v "//TimeCreated/@SystemTime" "$file" 2>/dev/null)
+                      # Renombrar el archivo
+                        cp "$file" "$vCarpetaDondeGuardar"/EventosIndividualesOrdenadosPorFecha/"${system_time}".xml
+                    done
+                  rm -f "$vCarpetaDondeGuardar"/EventosIndividualesOrdenadosPorFecha/.xml
+                # Agregar los mensajes a los eventos
+                  echo ""
+                  echo "    Agregando los mensajes de evento a cada archivo .xml..."
+                  echo ""
+                  # Descargar el CSV con los eventos:
+                    curl -sL https://raw.githubusercontent.com/nipegun/dicts/refs/heads/main/windows/eventos-en-es.csv -o /tmp/eventos-en-es.csv
+                  # Declarar arrays para guardar los mensajes
+                    declare -A aMensajesEng
+                    declare -A aMensajesEsp
+                  # Popular los arrays
+                    while IFS=';' read -r campoIdDelEvento campoMensajeEng campoMensajeEsp; do
+                      aMensajesEng["$campoIdDelEvento"]="$campoMensajeEng"
+                      aMensajesEsp["$campoIdDelEvento"]="$campoMensajeEsp"
+                    done < /tmp/eventos-en-es.csv
+                  # Procesar cada archivo .xml
+                    for vArchivoXML in "$vCarpetaDondeGuardar"/EventosIndividualesOrdenadosPorFecha/*.xml; do
+                      # Crear un archivo temporal para el nuevo contenido
+                        vArchivoTemporal=$(mktemp)
+                      # Leer el archivo línea por línea
+                        while IFS= read -r vLinea; do
+                          echo "$vLinea" >> "$vArchivoTemporal"
+                          # Buscar la etiqueta <EventID>
+                            if [[ "$vLinea" =~ \<EventID\>([0-9]+)\</EventID\> ]]; then
+                              vIdDelEvento="${BASH_REMATCH[1]}"
+                              # Verificar si el vIdDelEvento existe en los arrays asociativos
+                                if [[ -n "${aMensajesEng[$vIdDelEvento]}" ]]; then
+                                  # Generar las etiquetas nuevas
+                                    vNuevaEtiquetaEng="<EventMessageEN>${aMensajesEng[$vIdDelEvento]}</EventMessageEN>"
+                                    vNuevaEtiquetaEsp="<EventMessageES>${aMensajesEsp[$vIdDelEvento]}</EventMessageES>"
+                                  # Añadir las nuevas etiquetas al archivo temporal
+                                    echo "    $vNuevaEtiquetaEng" >> "$vArchivoTemporal"
+                                    echo "    $vNuevaEtiquetaEsp" >> "$vArchivoTemporal"
+                                else
+                                  echo "  No se encontró el evento $vIdDelEvento en el CSV."
+                                fi
+                            fi
+                        done < "$vArchivoXML"
+                        # Reemplazar el archivo original con el contenido actualizado
+                          mv "$vArchivoTemporal" "$vArchivoXML"
+                    done
+                # Crear un nuevo archivo xml con todos los eventos
+                  echo ""
+                  echo "    Agrupando todos los archivos .xml únicos en un archivo unificado final..."
+                  echo ""
+                  cat $(ls "$vCarpetaDondeGuardar"/EventosIndividualesOrdenadosPorFecha/* | sort) > "$vCarpetaDondeGuardar"/TodosLosEventosOrdenadosPorFecha.xml
+                  sed -i -e 's-</Event>-</Event>\n-g' "$vCarpetaDondeGuardar"/TodosLosEventosOrdenadosPorFecha.xml
+                  sed -i '1i\<Events>' "$vCarpetaDondeGuardar"/TodosLosEventosOrdenadosPorFecha.xml # Agrega la apertura de la etiqueta raiz en la primera linea
+                  echo '</Events>' >>  "$vCarpetaDondeGuardar"/TodosLosEventosOrdenadosPorFecha.xml # Agrega el cierre de la etiqueta raíz en una nueva linea al final del archivo
+                # Notificar el nombre del archivo
+                  echo ""
+                  echo "    El archivo con todos los eventos juntos, ordenado por fecha es:"
+                  echo ""
+                  echo "      "$vCarpetaDondeGuardar"/TodosLosEventosOrdenadosPorFecha.xml"
+                  echo ""
 
             ;;
 
@@ -250,6 +261,14 @@ if [ $# -ne $cCantParamEsperados ]
               echo ""
               vSIDvSIDDelUsuario="$1"
               vSIDDelUsuario="S-1-5-21-92896240-835188504-1963242017-1001"
+              # Comprobar si el paquete libxml2-utils está instalado. Si no lo está, instalarlo.
+                if [[ $(dpkg-query -s libxml2-utils 2>/dev/null | grep installed) == "" ]]; then
+                  echo ""
+                  echo -e "${cColorRojo}  El paquete libxml2-utils no está instalado. Iniciando su instalación...${cFinColor}"
+                  echo ""
+                  apt-get -y update && apt-get -y install libxml2-utils
+                  echo ""
+                fi
               xmllint --xpath '//*[Data[@Name="SubjectUserSid" and text()='"'$vSIDDelUsuario'"']]/parent::*' "$vCarpetaDondeGuardar"/OriginalesEnXML/*  > "$vCarpetaDondeGuardar"/TodosLosEventosDelUsuario.xml 2> /dev/null
               xmllint --xpath '//*[Security[@UserID='"'$vSIDDelUsuario'"']]/parent::*'                       "$vCarpetaDondeGuardar"/OriginalesEnXML/* >> "$vCarpetaDondeGuardar"/TodosLosEventosDelUsuario.xml 2> /dev/null
               sed -i '1i\<root>' "$vCarpetaDondeGuardar"/TodosLosEventosDelUsuario.xml # Agrega la apertura de la etiqueta raiz en la primera linea
