@@ -56,31 +56,32 @@ if [ $# -ne $cCantParamEsperados ]
 
     # Definir variables
       vPuntoDeMontajePartWindows="$1" # Debe ser una carpeta sin barra final
+      vCarpetaDelCaso="$2"
 
     # Determinar el caso actual y crear la carpeta
-      mkdir -p "$vCarpetaDeCasos"/Artefactos/Originales/Registro
+      mkdir -p "$vCarpetaDelCaso"/Artefactos/Originales/Registro
 
     # Copiar archivos de registro
       echo ""
       echo "  Copiando SYSTEM..."
       echo ""
-      cp "$vPuntoDeMontajePartWindows"/Windows/System32/config/SYSTEM   /Casos/$vFechaDelCaso/Artefactos/Originales/Registro/SYSTEM
+      cp "$vPuntoDeMontajePartWindows"/Windows/System32/config/SYSTEM   "$vCarpetaDelCaso"/Artefactos/Originales/Registro/SYSTEM
       echo ""
       echo "  Copiando SAM..."
       echo ""
-      cp "$vPuntoDeMontajePartWindows"/Windows/System32/config/SAM      /Casos/$vFechaDelCaso/Artefactos/Originales/Registro/SAM
+      cp "$vPuntoDeMontajePartWindows"/Windows/System32/config/SAM      "$vCarpetaDelCaso"/Artefactos/Originales/Registro/SAM
       echo ""
       echo "  Copiando SECURITY..."
       echo ""
-      cp "$vPuntoDeMontajePartWindows"/Windows/System32/config/SECURITY /Casos/$vFechaDelCaso/Artefactos/Originales/Registro/SECURITY
+      cp "$vPuntoDeMontajePartWindows"/Windows/System32/config/SECURITY "$vCarpetaDelCaso"/Artefactos/Originales/Registro/SECURITY
       echo ""
       echo "  Copiando SOFTWARE..."
       echo ""
-      cp "$vPuntoDeMontajePartWindows"/Windows/System32/config/SOFTWARE /Casos/$vFechaDelCaso/Artefactos/Originales/Registro/SOFTWARE
+      cp "$vPuntoDeMontajePartWindows"/Windows/System32/config/SOFTWARE "$vCarpetaDelCaso"/Artefactos/Originales/Registro/SOFTWARE
       echo ""
       echo "  Copiando DEFAULT..."
       echo ""
-      cp "$vPuntoDeMontajePartWindows"/Windows/system32/config/DEFAULT  /Casos/$vFechaDelCaso/Artefactos/Originales/Registro/DEFAULT
+      cp "$vPuntoDeMontajePartWindows"/Windows/system32/config/DEFAULT  "$vCarpetaDelCaso"/Artefactos/Originales/Registro/DEFAULT
 
     # Copiar registro de usuarios
       echo ""
@@ -92,12 +93,12 @@ if [ $# -ne $cCantParamEsperados ]
         echo ""
         echo "    Copiando NTUSER.DAT de $vNomUsuario..."
         echo ""
-        mkdir -p /Casos/$vFechaDelCaso/Artefactos/Originales/Registro/Usuarios/"$vNomUsuario"
-        cp "$vPuntoDeMontajePartWindows"/Users/"$vNomUsuario"/NTUSER.DAT /Casos/$vFechaDelCaso/Artefactos/Originales/Registro/Usuarios/"$vNomUsuario"/
+        mkdir -p "$vCarpetaDelCaso"/Artefactos/Originales/Registro/Usuarios/"$vNomUsuario"
+        cp "$vPuntoDeMontajePartWindows"/Users/"$vNomUsuario"/NTUSER.DAT "$vCarpetaDelCaso"/Artefactos/Originales/Registro/Usuarios/"$vNomUsuario"/
       done < "/tmp/CarpetasDeUsuarios.txt"
 
     # Reparar permisos
-      chown 1000:1000 /Casos/$vFechaDelCaso/Artefactos/ -R
+      chown 1000:1000 "$vCarpetaDelCaso"/Artefactos/ -R
 
 fi
 
