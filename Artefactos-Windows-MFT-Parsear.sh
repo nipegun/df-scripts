@@ -6,10 +6,10 @@
 # No tienes que aceptar ningún tipo de términos de uso o licencia para utilizarlo o modificarlo porque va sin CopyLeft.
 
 # ----------
-# Script de NiPeGun para analizar y exportar el archivo $MFT original a múltimples formatos
+# Script de NiPeGun para parsearel archivo $MFT original a múltimples formatos
 #
 # Ejecución remota:
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Artefactos-Windows-MFT-Parsear.sh | sudo bash -s [UbicacionDelArchivoMFTOriginalExtraido] [CarpetaDondeGuardarLasExportaciones]
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Artefactos-Windows-MFT-Parsear.sh | sudo bash -s [CarpetaConLaMFTOriginal] [CarpetaDondeGuardarLosParseos]
 #
 # Bajar y editar directamente el archivo en nano
 #   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Artefactos-Windows-MFT-Parsear.sh | nano -
@@ -31,56 +31,62 @@ if [ $# -ne $cCantParamEsperados ]
   then
     echo ""
     echo -e "${cColorRojo}  Mal uso del script. El uso correcto sería: ${cFinColor}"
-    echo "    $0 [UbicacionDelArchivoMFTOriginalExtraido] [CarpetaDondeGuardarLasExportaciones]"
+    echo "    $0  [CarpetaConLaMFTOriginal] [CarpetaDondeGuardarLosParseos]"
     echo ""
     echo "  Ejemplo:"
     echo "    $0 '/Casos/2/MFT/\$MFT' '/Casos/2/MFT'"
     echo ""
     exit
   else
+    # Comprobar que exista analyzemft
+      if [ ! -f /usr/bin/analyzemft ]; then
+        curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/SoftInst/ParaCLI/analyzeMFT-Instalar.sh | bash
+      fi
+    vCarpetaConLaMFTOriginal="$1"
+    vCarpetaDondeGuardar="$2"
     echo ""
     echo "  Intentando exportar la MFT a formato CSV..."
     echo ""
-    analyzemft -f "$1" -o "$2"/MFT.csv --csv      # Exportar como CSV (default)
+    analyzemft -f "$vCarpetaConLaMFTOriginal"/\$MFT -o "$ vCarpetaDondeGuardar"/MFT.csv --csv      # Exportar como CSV (default)
 
     echo ""
     echo "  Intentando exportar la MFT a formato JSON..."
     echo ""
-    analyzemft -f "$1" -o "$2"/MFT.json --json     # Exportar como JSON
+    analyzemft -f "$vCarpetaConLaMFTOriginal"/\$MFT -o "$ vCarpetaDondeGuardar"/MFT.json --json     # Exportar como JSON
     
     echo ""
     echo "  Intentando exportar la MFT a formato XML..."
     echo ""
-    analyzemft -f "$1" -o "$2"/MFT.xml --xml      # Exportar como XML
+    analyzemft -f "$vCarpetaConLaMFTOriginal"/\$MFT -o "$ vCarpetaDondeGuardar"/MFT.xml --xml      # Exportar como XML
     
     echo ""
     echo "  Intentando exportar la MFT a formato Excel..."
     echo ""
-    analyzemft -f "$1" -o "$2"/MFT.xls --excel    # Exportar como Excel
+    analyzemft -f "$vCarpetaConLaMFTOriginal"/\$MFT -o "$ vCarpetaDondeGuardar"/MFT.xls --excel    # Exportar como Excel
     
     echo ""
     echo "  Intentando exportar la MFT a formato Body para mactime..."
     echo ""
-    analyzemft -f "$1" -o "$2"/MFT-BodyMactime --body     # Exportar como body file (for mactime)
+    analyzemft -f "$vCarpetaConLaMFTOriginal"/\$MFT -o "$ vCarpetaDondeGuardar"/MFT-BodyMactime --body     # Exportar como body file (for mactime)
 
     echo ""
     echo "  Intentando exportar la MFT a formato TSK timeline..."
     echo ""
-    analyzemft -f "$1" -o "$2"/MFT-TSKTimeLine --timeline # Exportar como TSK timeline
+    analyzemft -f "$vCarpetaConLaMFTOriginal"/\$MFT -o "$ vCarpetaDondeGuardar"/MFT-TSKTimeLine --timeline # Exportar como TSK timeline
 
     echo ""
     echo "  Exportando la MFT a formato log2timeline CSV..."
     echo ""
-    analyzemft -f "$1" -o "$2"/MFT-log2timeline.l2t --l2t      # Exportar como log2timeline CSV
+    analyzemft -f "$vCarpetaConLaMFTOriginal"/\$MFT -o "$ vCarpetaDondeGuardar"/MFT-log2timeline.l2t --l2t      # Exportar como log2timeline CSV
 
     echo ""
     echo "  Intentando exportar la MFT a formato SQLite..."
     echo ""
-    analyzemft -f "$1" -o "$2"/MFT-SQLite --sqlite   # Exportar como SQLite database
+    analyzemft -f "$vCarpetaConLaMFTOriginal"/\$MFT -o "$ vCarpetaDondeGuardar"/MFT-SQLite --sqlite   # Exportar como SQLite database
 
     echo ""
     echo "  Intentando exportar la MFT a formato TSK Body..."
     echo ""
-    analyzemft -f "$1" -o "$2"/MFT-TSKbody --tsk      # Exportar como TSK bodyfile format
+    analyzemft -f "$vCarpetaConLaMFTOriginal"/\$MFT -o "$ vCarpetaDondeGuardar"/MFT-TSKbody --tsk      # Exportar como TSK bodyfile format
 
 fi
