@@ -43,7 +43,7 @@ if [ $# -ne $cCantParamEsperados ]
         echo ""
         echo -e "${cColorRojo}    El binario de analyzemft no está instalado. Instalando... ${cFinColor}"
         echo ""
-        curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/SoftInst/ParaCLI/analyzeMFT-Instalar.sh | bash
+        curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/SoftInst/ParaCLI/analyzeMFT-Instalar1.sh | bash
       fi
     vCarpetaConLaMFTOriginal="$1"
     vCarpetaDondeGuardar="$2"
