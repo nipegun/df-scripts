@@ -100,7 +100,7 @@ if [ $# -ne $cCantParamEsperados ]
               echo ""
               echo "  Extrayendo el registro..."
               echo ""
-              curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Artefactos-Windows-Registro-Extraer.sh | sudo bash -s "/Casos/$vFechaDelCaso/Imagen/Particiones/$vPartWindows" "/Casos/$vFechaDelCaso"
+              curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Artefactos-Windows-Registro-Extraer-WindowsVistaYPosterior.sh | sudo bash -s "/Casos/$vFechaDelCaso/Imagen/Particiones/$vPartWindows" "/Casos/$vFechaDelCaso"
 
             ;;
 
