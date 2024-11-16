@@ -22,14 +22,14 @@
   while read -r vDispositivo; do
     if mount | grep -q "$vDispositivo"; then
       echo ""
-      echo "  Desmontando $vDispositivo..."
+      echo "    Desmontando $vDispositivo..."
       echo ""
       sudo umount "$vDispositivo"
       echo ""
-      echo "  Liberando $vDispositivo"
+      echo "    Liberando $vDispositivo"
       echo ""
       sudo losetup -d "$vDispositivo"
     else
-      echo "$vDispositivo no está montado o no existe."
+      echo "    $vDispositivo no está montado o no existe."
     fi
   done <<< "$vLoopsMontadosComoReadOnly"
