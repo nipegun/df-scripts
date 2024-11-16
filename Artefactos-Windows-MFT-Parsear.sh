@@ -6,7 +6,7 @@
 # No tienes que aceptar ningún tipo de términos de uso o licencia para utilizarlo o modificarlo porque va sin CopyLeft.
 
 # ----------
-# Script de NiPeGun para parsearel archivo $MFT original a múltimples formatos
+# Script de NiPeGun para parsear el archivo $MFT original a múltimples formatos
 #
 # Ejecución remota:
 #   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Artefactos-Windows-MFT-Parsear.sh | sudo bash -s [CarpetaConLaMFTOriginal] [CarpetaDondeGuardarLosParseos]
