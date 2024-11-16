@@ -41,10 +41,10 @@ if [ $# -ne $cCantParamEsperados ]
   then
     echo ""
     echo -e "${cColorRojo}  Mal uso del script. El uso correcto sería: ${cFinColor}"
-    echo "    $0 [PuntoDeMontajeDePartConWindows] [CarpetaDelCaso] (Ambos sin barra final)"
+    echo "    $0 [PuntoDeMontajeDeLaPartDeWindows] [CarpetaDelCaso]  (Ambos sin barra final)"
     echo ""
     echo "  Ejemplo:"
-    echo "    $0 'Hola' 'Mundo'"
+    echo "    $0 '/mnt/DiscoWindows' '/Casos/002'"
     echo ""
     exit
   else
@@ -56,7 +56,7 @@ if [ $# -ne $cCantParamEsperados ]
 
     # Definir variables
       vPuntoDeMontajePartWindows="$1" # Debe ser una carpeta sin barra final
-      vCarpetaDelCaso="$2"
+      vCarpetaDelCaso="$2"            # Debe ser una carpeta sin barra final
 
     # Determinar el caso actual y crear la carpeta
       mkdir -p "$vCarpetaDelCaso"/Artefactos/Originales/Registro
