@@ -9,7 +9,7 @@
 # Script de NiPeGun para extraer los archivos de registro de una partición de Windows
 #
 # Ejecución remota con parámetros:
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Registro-Extraer-Completo-WindowsVistaYPosterior.sh | sudo bash -s Parámetro1 Parámetro2
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Registro-Extraer-Completo-WindowsVistaYPosterior.sh | sudo bash -s [CarpetaConArchivosDeRegistro] [CarpetaDondeGuardar] (Ambos sin barra final)
 #
 # Bajar y editar directamente el archivo en nano
 #   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Registro-Extraer-Completo-WindowsVistaYPosterior.sh | nano -
@@ -53,7 +53,7 @@ if [ $# -ne $cCantParamEsperados ]
   then
     echo ""
     echo -e "${cColorRojo}  Mal uso del script. El uso correcto sería: ${cFinColor}"
-    echo "    $0 [vCarpetaConArchivosDeRegistro] [vCarpetaDondeGuardar] (Ambos sin barra final)"
+    echo "    $0 [CarpetaConArchivosDeRegistro] [CarpetaDondeGuardar] (Ambos sin barra final)"
     echo ""
     echo "  Ejemplo:"
     echo "    $0 'Hola' 'Mundo'"
