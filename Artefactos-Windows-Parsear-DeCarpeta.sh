@@ -9,7 +9,7 @@
 # Script de NiPeGun para analizar y exportar el archivo $MFT original a múltimples formatos
 #
 # Ejecución remota:
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Artefactos-Windows-Obtener-DeImagen.sh | sudo bash -s /Ruta/Al/Archivo/De/Imagen/De/Evidencia
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Artefactos-Windows-Obtener-DeImagen.sh | sudo bash -s [RutaALaCarpetaDeArtefactosOriginales] (Sin barra final)
 #
 # Bajar y editar directamente el archivo en nano
 #   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Artefactos-Windows-Obtener-DeImagen.sh | nano -
@@ -31,10 +31,10 @@ if [ $# -ne $cCantParamEsperados ]
   then
     echo ""
     echo -e "${cColorRojo}  Mal uso del script. El uso correcto sería: ${cFinColor}"
-    echo "    $0 [RutaAlArchivoDeImagen]"
+    echo "    $0 [RutaALaCarpetaDeArtefactosOriginales] (Sin barra final)"
     echo ""
     echo "  Ejemplo:"
-    echo "    $0 '/Casos/imagen.dd'"
+    echo "    $0 '/Casos/a2024m05d23/Artefactos/Originales'"
     echo ""
     exit
   else
@@ -71,7 +71,12 @@ if [ $# -ne $cCantParamEsperados ]
               echo ""
               echo "  Comprobando que existe la carpeta con los eventos extraídos.."
               echo ""
-
+              if [ ! -d "$1"]; then
+                echo ""
+                echo "    La carpeta no existe. Abortando script..."
+                echo ""
+                exit
+              fi
 
             ;;
 
