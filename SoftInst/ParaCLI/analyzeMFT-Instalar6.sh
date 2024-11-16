@@ -135,7 +135,7 @@
       pyinstaller --onefile analyzeMFT.py
 
     # Copiar el binario a /usr/bin
-      sudo cp -f ~/SoftInst/analyzeMFT/analyzeMFT-$vUltVers/dist/analyzemft /usr/bin/
+      sudo cp -f ~/SoftInst/analyzeMFT/analyzeMFT-$vUltVers/dist/analyzeMFT /usr/bin/
 
     # Desactivar el entorno virtual
       deactivate
@@ -143,7 +143,7 @@
     # Notificar fin de ejecución del script
       echo ""
       echo "  analyzeMFT se ha descargado, compilado e instalado."
-      echo "    Puedes encontrar el binario en /usr/bin/analyzemft."  
+      echo "    Puedes encontrar el binario en /usr/bin/analyzeMFT."  
       echo ""
   
   elif [ $cVerSO == "11" ]; then
