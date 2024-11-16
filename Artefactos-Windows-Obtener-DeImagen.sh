@@ -38,7 +38,7 @@ if [ $# -ne $cCantParamEsperados ]
     echo ""
     exit
   else
-    vFechaDeEjec=$(date +a%Ym%md%d)
+    vFechaDelCaso=$(date +a%Ym%md%d)
     # Comprobar si el paquete dialog está instalado. Si no lo está, instalarlo.
       if [[ $(dpkg-query -s dialog 2>/dev/null | grep installed) == "" ]]; then
         echo ""
@@ -49,13 +49,16 @@ if [ $# -ne $cCantParamEsperados ]
       fi
 
     # Crear el menú
-      menu=(dialog --checklist "Marca las opciones que quieras instalar:" 22 62 16)
+      menu=(dialog --checklist "Marca las opciones que quieras instalar:" 22 80 16)
         opciones=(
-          1 "Montar todas las particiones en modo lectura" on
-          2 "  Extraer y parsear el registro"              on
-          3 "  Extraer y parsear la MFT"                   off
-          4 "  Recolectar eventos originales"              on
-          5 "    Parsear eventos originales"               on
+          1 "Desmontar todas las particiones loopback montadas como sólo lectura"  on
+          2 "Montar todas las particiones de la imagen en modo lectura"            on
+          3 "  Extraer la MFT"                                                     on
+          4 "  Extraer el registro"                                                on
+          5 "  Extraer los eventos"                                                on
+          6 "  Extraer x"                                                          on
+          7 "  Extraer x"                                                          on
+          8 "  Extraer x"                                                          on
         )
       choices=$("${menu[@]}" "${opciones[@]}" 2>&1 >/dev/tty)
 
@@ -66,53 +69,69 @@ if [ $# -ne $cCantParamEsperados ]
             1)
 
               echo ""
-              echo "  Montando todas las particiones en modo lectura..."
+              echo "  Desmontando todas las particiones loopback montadas previamente como sólo lectura.."
               echo ""
-              curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Imagen-Particiones-Montar-SoloLectura.sh | sudo bash -s $1
+              curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Imagen-Particiones-Desmontar-Todas.sh | sudo bash
 
             ;;
 
             2)
 
               echo ""
-              echo "  Extrayendo y parseando el registro..."
+              echo "  Montando todas las particiones en modo lectura..."
               echo ""
-              # Instalar RegRipper (Sólo se ejecuta en Debian)
-                curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/SoftInst/ParaCLI/RegRipper-Instalar.sh | sudo bash
-              # Ejecutar RegRipper
-                curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Registro-Extraer-Completo-WindowsVistaYPosterior.sh | sudo bash -s /Casos/"$vNombreCaso"/Imagen/Particiones/2 /Casos/"$vNombreCaso"/Artefactos
+              curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Imagen-Particiones-Montar-SoloLectura.sh | sudo bash -s $1
 
             ;;
 
             3)
 
               echo ""
-              echo "  Extrayendo y parseando la MFT..."
+              echo "  Extrayendo la MFT..."
               echo ""
-              # Extraer MFT
-                curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/MFT-Extraer-Original.sh | sudo bash -s /Casos/"$vNombreCaso"/Imagen/Particiones/2 /Casos/"$vNombreCaso"/Artefactos
-             # Instalar analyzeMFT
-               curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/SoftInst/ParaCLI/analyzeMFT-Instalar.sh | sudo bash
-             # Ejecutar analyzemft sobre la evidencia
-               curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/MFT-AnalizarYExportar.sh | sudo bash -s /Casos/"$vNombreCaso"/Artefactos/MFT/MFTOriginal /Casos/"$vNombreCaso"/Artefactos/MFT/
+              curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Artefactos-Windows-MFT-Extraer.sh | sudo bash -s "/Casos/$vFechaDelCaso/Imagen/Particiones/$vPartWindows" "/Casos/$vFechaDelCaso"
 
             ;;
 
             4)
 
               echo ""
-              echo "  Recolectando eventos originales..."
+              echo "  Extrayendo el registro..."
               echo ""
-              curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Evidencia-Windows-Eventos-Originales-Recolectar.sh | sudo bash -s /Casos/"$vNombreCaso"/Imagen/Particiones/2 /Casos/"$vNombreCaso"/Artefactos/Windows
+              curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Artefactos-Windows-Registro-Extraer.sh | sudo bash -s "/Casos/$vFechaDelCaso/Imagen/Particiones/$vPartWindows" "/Casos/$vFechaDelCaso"
 
             ;;
 
             5)
 
               echo ""
-              echo "  Parseando eventos recolectados..."
+              echo "  Extrayendo los eventos..."
               echo ""
-              curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Evidencia-Windows-Eventos-Recolectados-Parsear.sh | sudo bash -s /Casos/"$vNombreCaso"/Artefactos/Eventos/Originales/ /Casos/"$vNombreCaso"/Artefactos/Windows
+              curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Artefactos-Windows-Eventos-Extraer.sh | sudo bash -s "/Casos/$vFechaDelCaso/Imagen/Particiones/$vPartWindows" "/Casos/$vFechaDelCaso"
+
+            ;;
+
+            6)
+
+              echo ""
+              echo "  Extrayendo x..."
+              echo ""
+
+            ;;
+
+            7)
+
+              echo ""
+              echo "  Extrayendo x..."
+              echo ""
+
+            ;;
+
+            8)
+
+              echo ""
+              echo "  Extrayendo x..."
+              echo ""
 
             ;;
 
