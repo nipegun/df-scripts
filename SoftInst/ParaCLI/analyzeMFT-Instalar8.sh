@@ -61,58 +61,77 @@
     echo ""
     echo -e "${cColorAzulClaro}  Iniciando el script de instalación de analyzeMFT para Debian 12 (Bookworm)...${cFinColor}"
     echo ""
-
-    # Comprobar si el paquete curl está instalado. Si no lo está, instalarlo.
-      if [[ $(dpkg-query -s curl 2>/dev/null | grep installed) == "" ]]; then
-        echo ""
-        echo -e "${cColorRojo}    El paquete curl no está instalado. Iniciando su instalación...${cFinColor}"
-        echo ""
-        sudo apt-get -y update && sudo apt-get -y install curl
-        echo ""
-      fi
-    vUltVers=$(curl -sL https://github.com/rowingdude/analyzeMFT/releases/latest/ | sed 's|/tag/|\n|g' | grep ^v[0-9] | head -n1 | cut -d'"' -f1 | cut -d'v' -f2)
+    # Determinar la última versión de AnalyzeMFT
+      # Comprobar si el paquete curl está instalado. Si no lo está, instalarlo.
+        if [[ $(dpkg-query -s curl 2>/dev/null | grep installed) == "" ]]; then
+          echo ""
+          echo -e "${cColorRojo}    El paquete curl no está instalado. Iniciando su instalación...${cFinColor}"
+          echo ""
+          sudo apt-get -y update && sudo apt-get -y install curl
+          echo ""
+        fi
+      vUltVers=$(curl -sL https://github.com/rowingdude/analyzeMFT/releases/latest/ | sed 's|/tag/|\n|g' | grep ^v[0-9] | head -n1 | cut -d'"' -f1 | cut -d'v' -f2)
+      echo ""
+      echo "    La última versión de analyzemft disponible para instalar es la $vUltVers"
+      echo ""
     rm -rf ~/SoftInst/analyzeMFT/*  2> /dev/null
     mkdir -p ~/SoftInst/analyzeMFT/ 2> /dev/null
-    curl -L https://github.com/rowingdude/analyzeMFT/archive/refs/tags/v$vUltVers.tar.gz -o ~/SoftInst/analyzeMFT/analyzeMFT.tar.gz
-    tar -xzf ~/SoftInst/analyzeMFT/analyzeMFT.tar.gz -C ~/SoftInst/analyzeMFT/
-    #mv ~/SoftInst/analyzeMFT/analyzeMFT-$vUltVers/* ~/SoftInst/analyzeMFT/
-    #rm -rf ~/SoftInst/analyzeMFT/analyzeMFT-$vUltVers/
-    #rm -f  ~/SoftInst/analyzeMFT/analyzeMFT.tar.gz
-    chmod 755 ~/SoftInst/analyzeMFT/analyzeMFT-$vUltVers/
-    cd ~/SoftInst/analyzeMFT/analyzeMFT-$vUltVers/
-    # Comprobar si el paquete python3 está instalado. Si no lo está, instalarlo.
-      if [[ $(dpkg-query -s python3 2>/dev/null | grep installed) == "" ]]; then
-        echo ""
-        echo -e "${cColorRojo}  El paquete python3 no está instalado. Iniciando su instalación...${cFinColor}"
-        echo ""
-        sudo apt-get -y update && sudo apt-get -y install python3
-        echo ""
-      fi
-    # Comprobar si el paquete python3-venv está instalado. Si no lo está, instalarlo.
-      if [[ $(dpkg-query -s python3-venv 2>/dev/null | grep installed) == "" ]]; then
-        echo ""
-        echo -e "${cColorRojo}  El paquete python3-venv no está instalado. Iniciando su instalación...${cFinColor}"
-        echo ""
-        sudo apt-get -y update && sudo apt-get -y install python3-venv
-        echo ""
-      fi
-    mkdir ~/PythonVirtualEnvironments/ 2> /dev/null
-    cd ~/PythonVirtualEnvironments/
-    python3 -m venv analyzemft
-    source analyzemft/bin/activate
-    # Comprobar si el paquete python3-pip está instalado. Si no lo está, instalarlo.
-      if [[ $(dpkg-query -s python3-pip 2>/dev/null | grep installed) == "" ]]; then
-        echo ""
-        echo -e "${cColorRojo}  El paquete python3-pip no está instalado. Iniciando su instalación...${cFinColor}"
-        echo ""
-        sudo apt-get -y update && sudo apt-get -y install python3-pip
-        echo ""
-      fi
-    pip install .
+    # Decargar
+      echo ""
+      echo "    Descargando ..."
+      echo ""
+      curl -L https://github.com/rowingdude/analyzeMFT/archive/refs/tags/v$vUltVers.tar.gz -o ~/SoftInst/analyzeMFT/analyzeMFT.tar.gz
+    # Descomprimir
+      echo ""
+      echo "    Descomprimiendo..."
+      echo ""
+      tar -xzf ~/SoftInst/analyzeMFT/analyzeMFT.tar.gz -C ~/SoftInst/analyzeMFT/
+      #mv ~/SoftInst/analyzeMFT/analyzeMFT-$vUltVers/* ~/SoftInst/analyzeMFT/
+      #rm -rf ~/SoftInst/analyzeMFT/analyzeMFT-$vUltVers/
+      #rm -f  ~/SoftInst/analyzeMFT/analyzeMFT.tar.gz
+      chmod 755 ~/SoftInst/analyzeMFT/analyzeMFT-$vUltVers/
+    # Crear el virtual environment
+      echo ""
+      echo "    Creando el virtual environment de python..."
+      echo ""
+      mkdir ~/PythonVirtualEnvironments/ 2> /dev/null
+      cd ~/PythonVirtualEnvironments/
+      # Comprobar si el paquete python3 está instalado. Si no lo está, instalarlo.
+        if [[ $(dpkg-query -s python3 2>/dev/null | grep installed) == "" ]]; then
+          echo ""
+          echo -e "${cColorRojo}  El paquete python3 no está instalado. Iniciando su instalación...${cFinColor}"
+          echo ""
+          sudo apt-get -y update && sudo apt-get -y install python3
+          echo ""
+        fi
+      # Comprobar si el paquete python3-venv está instalado. Si no lo está, instalarlo.
+        if [[ $(dpkg-query -s python3-venv 2>/dev/null | grep installed) == "" ]]; then
+          echo ""
+          echo -e "${cColorRojo}  El paquete python3-venv no está instalado. Iniciando su instalación...${cFinColor}"
+          echo ""
+          sudo apt-get -y update && sudo apt-get -y install python3-venv
+          echo ""
+        fi
+      python3 -m venv analyzemft
+      source analyzemft/bin/activate
 
     # Compilar el script
+      cd ~/SoftInst/analyzeMFT/analyzeMFT-$vUltVers/
+      # Comprobar si el paquete python3-pip está instalado. Si no lo está, instalarlo.
+        if [[ $(dpkg-query -s python3-pip 2>/dev/null | grep installed) == "" ]]; then
+          echo ""
+          echo -e "${cColorRojo}  El paquete python3-pip no está instalado. Iniciando su instalación...${cFinColor}"
+          echo ""
+          sudo apt-get -y update && sudo apt-get -y install python3-pip
+          echo ""
+        fi
+      pip install .
       pip install pyinstaller
-      pyinstaller --onefile ~/SoftInst/analyzeMFT/analyzeMFT-$vUltVers/analyzemft/bin/analyzemft
+
+      echo ""
+      echo "    Compilando el script"
+      echo ""
+      pyinstaller --onefile analyzemft
 
     # Copiar el binario a /usr/bin
       sudo cp -f ~/SoftInst/analyzeMFT/analyzeMFT-$vUltVers/dist/analyzemft /usr/bin/
