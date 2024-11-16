@@ -9,10 +9,10 @@
 # Script de NiPeGun para copiar los eventos de una partición de Windows y parsearlos a xml
 #
 # Ejecución remota con parámetros:
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Evidencia-Windows-Eventos-Originales-Recolectar.sh | sudo bash -s [PuntoDeMontajePartWindows] [CarpetaDelCaso]
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Artefactos-Windows-Eventos-Extraer.sh | sudo bash -s [PuntoDeMontajePartWindows] [CarpetaDelCaso]  (Ambos sin barra final)
 #
 # Bajar y editar directamente el archivo en nano
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Evidencia-Windows-Eventos-Originales-Recolectar.sh | nano -
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Artefactos-Windows-Eventos-Extraer.sh | nano -
 # ----------
 
 # Definir constantes de color
@@ -40,7 +40,7 @@ if [ $# -ne $cCantParamEsperados ]
   then
     echo ""
     echo -e "${cColorRojo}  Mal uso del script. El uso correcto sería: ${cFinColor}"
-    echo "    $0 [PuntoDeMontajePartWindows] [CarpetaDelCaso]"
+    echo "    $0 [PuntoDeMontajePartWindows] [CarpetaDelCaso] (Ambos sin barra final)"
     echo ""
     echo "  Ejemplo:"
     echo "    $0 '/mnt/Windows/' '/Casos/2/Particiones/'"
@@ -54,9 +54,9 @@ if [ $# -ne $cCantParamEsperados ]
       echo ""
       echo "    Copiando todos los eventos .evtx de la partición de Windows a la carpeta del caso..."
       echo ""
-      mkdir -p "$vCarpetaDelCaso"/Eventos/Originales/
-      rm -rf "$vCarpetaDelCaso"/Eventos/Originales/*
-      find "$vPuntoDeMontajePartWindows" -name "*.evtx" -exec cp -v {} "$vCarpetaDelCaso"/Eventos/Originales/ \;
+      mkdir -p "$vCarpetaDelCaso"/Artefactos/Eventos/Originales/
+      rm -rf "$vCarpetaDelCaso"/Artefactos/Eventos/Originales/*
+      find "$vPuntoDeMontajePartWindows" -name "*.evtx" -exec cp -v {} "$vCarpetaDelCaso"/Artefactos/Eventos/Originales/ \;
 
 fi
 
