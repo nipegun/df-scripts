@@ -81,7 +81,7 @@ if [ $# -ne $cCantParamEsperados ]
       echo ""
       echo "  Copiando DEFAULT..."
       echo ""
-      cp "$vPuntoDeMontajePartWindows"/Windows/system32/config/DEFAULT  "$vCarpetaDelCaso"/Artefactos/Originales/Registro/DEFAULT
+      cp "$vPuntoDeMontajePartWindows"/Windows/System32/config/DEFAULT  "$vCarpetaDelCaso"/Artefactos/Originales/Registro/DEFAULT
 
     # Copiar registro de usuarios
       echo ""
