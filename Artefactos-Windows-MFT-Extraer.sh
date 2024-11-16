@@ -9,7 +9,7 @@
 # Script de NiPeGun para montar todas las particiones de dentro de un archivo de imagen
 #
 # Ejecución remota:
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Artefactos-Windows-MFT-Extraer.sh | sudo bash -s [PuntoDeMontajeDeLaPartNTFS] [CarpetaDeExtracción]
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Artefactos-Windows-MFT-Extraer.sh | sudo bash -s [PuntoDeMontajeDeLaPartNTFS] [CarpetaDelCaso]
 #
 # Bajar y editar directamente el archivo en nano
 #   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Artefactos-Windows-MFT-Extraer.sh  | nano -
@@ -31,16 +31,16 @@ if [ $# -ne $cCantParamEsperados ]
   then
     echo ""
     echo -e "${cColorRojo}  Mal uso del script. El uso correcto sería: ${cFinColor}"
-    echo "    $0 [PuntoDeMontajeDeLaPartNTFS] [CarpetaDeExtracción]"
+    echo "    $0 [PuntoDeMontajeDeLaPartNTFS] [CarpetaDelCaso]"
     echo ""
     echo "  Ejemplo:"
-    echo "    $0 '/mnt/DiscoWindows/' '/Casos/002/'"
+    echo "    $0 '/mnt/DiscoWindows' '/Casos/002'"
     echo ""
     exit
   else
     echo ""
     echo ""
     echo ""
-    mkdir -p $2/Artefactos/MFT/Original/
-    cp $1/\$MFT $2/Artefactos/MFT/Original/
+    mkdir -p $2/Artefactos/Originales/MFT/
+    cp $1/\$MFT $2/Artefactos/Originales/MFT/
 fi
