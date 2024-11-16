@@ -43,4 +43,7 @@ if [ $# -ne $cCantParamEsperados ]
     echo ""
     mkdir -p $2/Artefactos/Originales/MFT/
     cp $1/\$MFT $2/Artefactos/Originales/MFT/
+    # Reparar permisos
+      chown 1000:1000 $2/Artefactos/ -R
+
 fi
