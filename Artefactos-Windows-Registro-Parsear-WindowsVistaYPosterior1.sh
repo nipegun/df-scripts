@@ -33,18 +33,6 @@
     exit
   fi
 
-# Comprobar si el script de RegRipper existe. Si no, llamar al script de instalación de RegRipper
-  if [ ! -e "/usr/local/bin/rip.pl" ]; then
-    echo ""
-    echo -e "${cColorRojo}  No se ha encontrado el script en perl de RegRipper. Seguramente RegRipper no esté instalado.${cFinColor}"
-    echo ""
-    echo "  Puedes instalarlo con:"
-    echo ""
-    echo "    curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/main/SoftInst/ParaCLI/RegRipper-Instalar.sh | sudo bash"
-    echo ""
-    exit
-  fi
-
 # Definir la cantidad de argumentos esperados
   cCantParamEsperados=2
 
@@ -63,17 +51,22 @@ if [ $# -ne $cCantParamEsperados ]
     echo ""
     echo ""
     echo ""
-    # Definir fecha de ejecución del script
-      cFechaDeEjec=$(date +a%Ym%md%d@%T)
-
     # Definir variables
       vCarpetaConArchivosDeRegistro="$1" # Debe ser una carpeta sin barra final
       vCarpetaDondeGuardar="$2" # Debe ser una carpeta sin barra final
-    # Determinar el caso actual y crear la carpeta
-      mkdir -p "$vCarpetaDeCasos"/
-
     # Exportar registros
-      mkdir -p "$vCarpetaDeCasos"/Registro/ArchivosParseados/ 2> /dev/null
+      mkdir -p $vCarpetaDondeGuardar 2> /dev/null
+      # Comprobar si el script de RegRipper existe. Si no, llamar al script de instalación de RegRipper
+        if [ ! -e "/usr/local/bin/rip.pl" ]; then
+          echo ""
+          echo -e "${cColorRojo}  No se ha encontrado el script en perl de RegRipper. Seguramente RegRipper no esté instalado.${cFinColor}"
+          echo ""
+          echo "  Puedes instalarlo con:"
+          echo ""
+          echo "    curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/main/SoftInst/ParaCLI/RegRipper-Instalar.sh | sudo bash"
+          echo ""
+          exit
+        fi
       echo ""
       echo "  RegRippeando SYSTEM..."
       echo ""
