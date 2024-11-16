@@ -59,13 +59,9 @@ if [ $# -ne $cCantParamEsperados ]
       # Comprobar si el script de RegRipper existe. Si no, llamar al script de instalación de RegRipper
         if [ ! -e "/usr/local/bin/rip.pl" ]; then
           echo ""
-          echo -e "${cColorRojo}  No se ha encontrado el script en perl de RegRipper. Seguramente RegRipper no esté instalado.${cFinColor}"
+          echo -e "${cColorRojo}  No se ha encontrado el script en perl de RegRipper. Procediendo con su instalación.${cFinColor}"
+          curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/SoftInst/ParaCLI/RegRipper-Instalar.sh | sudo bash
           echo ""
-          echo "  Puedes instalarlo con:"
-          echo ""
-          echo "    curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/main/SoftInst/ParaCLI/RegRipper-Instalar.sh | sudo bash"
-          echo ""
-          exit
         fi
       echo ""
       echo "  RegRippeando SYSTEM..."
