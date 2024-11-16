@@ -58,5 +58,8 @@ if [ $# -ne $cCantParamEsperados ]
       rm -rf "$vCarpetaDelCaso"/Artefactos/Originales/Eventos/*
       find "$vPuntoDeMontajePartWindows" -name "*.evtx" -exec cp -v {} "$vCarpetaDelCaso"/Artefactos/Originales/Eventos/ \;
 
+    # Reparar permisos
+      chown 1000:1000 "$vCarpetaDelCaso"/Artefactos/ -R
+
 fi
 
