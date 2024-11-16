@@ -9,10 +9,10 @@
 # Script de NiPeGun para montar todas las particiones de dentro de un archivo de imagen
 #
 # Ejecución remota:
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/MFT-Extraer-Original.sh | sudo bash -s [PuntoDeMontajeDeLaPartNTFS] [CarpetaDeExtracción]
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Artefactos-Windows-MFT-Obtener.sh | sudo bash -s [PuntoDeMontajeDeLaPartNTFS] [CarpetaDeExtracción]
 #
 # Bajar y editar directamente el archivo en nano
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/MFT-Extraer-Original.sh  | nano -
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Artefactos-Windows-MFT-Obtener.sh  | nano -
 # ----------
 
 # Definir constantes de color
