@@ -9,7 +9,7 @@
 # Script de NiPeGun para montar todas las particiones de dentro de un archivo de imagen
 #
 # Ejecución remota:
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Artefactos-Windows-MFT-Extraer.sh | sudo bash -s [PuntoDeMontajeDeLaPartNTFS] [CarpetaDelCaso]
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Artefactos-Windows-MFT-Extraer.sh | sudo bash -s [PuntoDeMontajeDeLaPartDeWindows] [CarpetaDelCaso]  (Ambos sin barra final)
 #
 # Bajar y editar directamente el archivo en nano
 #   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Artefactos-Windows-MFT-Extraer.sh  | nano -
@@ -31,7 +31,7 @@ if [ $# -ne $cCantParamEsperados ]
   then
     echo ""
     echo -e "${cColorRojo}  Mal uso del script. El uso correcto sería: ${cFinColor}"
-    echo "    $0 [PuntoDeMontajeDeLaPartNTFS] [CarpetaDelCaso]"
+    echo "    $0 [PuntoDeMontajeDeLaPartDeWindows] [CarpetaDelCaso]  (Ambos sin barra final)"
     echo ""
     echo "  Ejemplo:"
     echo "    $0 '/mnt/DiscoWindows' '/Casos/002'"
@@ -41,9 +41,11 @@ if [ $# -ne $cCantParamEsperados ]
     echo ""
     echo ""
     echo ""
-    mkdir -p $2/Artefactos/Originales/MFT/
-    cp $1/\$MFT $2/Artefactos/Originales/MFT/
+    vPuntoDeMontajePartWindows="$1"
+    vCarpetaDelCaso="$2"
+    mkdir -p "$vCarpetaDelCaso"/Artefactos/Originales/MFT/
+    cp "$vPuntoDeMontajePartWindows"/\$MFT "$vCarpetaDelCaso"/Artefactos/Originales/MFT/
     # Reparar permisos
-      chown 1000:1000 $2/Artefactos/ -R
+      chown 1000:1000 "$vCarpetaDelCaso"/Artefactos/ -R
 
 fi
