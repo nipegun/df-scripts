@@ -94,6 +94,6 @@ if [ $# -ne $cCantParamEsperados ]
     analyzeMFT -f "$vCarpetaConLaMFTOriginal"/\$MFT -o "$vCarpetaDondeGuardar"/MFT-TSKbody --tsk      # Exportar como TSK bodyfile format
 
     # Reparar permisos
-      chown 1000:1000 "$vCarpetaDelCaso"/Artefactos/ -R
+      chown 1000:1000 "$vCarpetaDondeGuardar"/Artefactos -R
 
 fi
