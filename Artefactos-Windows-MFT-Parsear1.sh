@@ -47,7 +47,7 @@ if [ $# -ne $cCantParamEsperados ]
       fi
     vCarpetaConLaMFTOriginal="$1"
     vCarpetaDondeGuardar="$2"
-    mkdir "$vCarpetaDondeGuardar"
+    mkdir -p "$vCarpetaDondeGuardar"
     echo ""
     echo "  Intentando exportar la MFT a formato CSV..."
     echo ""
