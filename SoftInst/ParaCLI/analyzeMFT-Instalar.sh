@@ -24,24 +24,6 @@
     #echo "$(tput setaf 1)Mensaje en color rojo. $(tput sgr 0)"
   cFinColor='\033[0m'
 
-# Comprobar si el script está corriendo como root
-  #if [ $(id -u) -ne 0 ]; then     # Sólo comprueba si es root
-  if [[ $EUID -ne 0 ]]; then       # Comprueba si es root o sudo
-    echo ""
-    echo -e "${cColorRojo}  Este script está preparado para ejecutarse con privilegios de administrador (como root o con sudo).${cFinColor}"
-    echo ""
-    exit
-  fi
-
-# Comprobar si el paquete curl está instalado. Si no lo está, instalarlo.
-  if [[ $(dpkg-query -s curl 2>/dev/null | grep installed) == "" ]]; then
-    echo ""
-    echo -e "${cColorRojo}  El paquete curl no está instalado. Iniciando su instalación...${cFinColor}"
-    echo ""
-    apt-get -y update && apt-get -y install curl
-    echo ""
-  fi
-
 # Determinar la versión de Debian
   if [ -f /etc/os-release ]; then             # Para systemd y freedesktop.org.
     . /etc/os-release
@@ -83,27 +65,27 @@
     # Comprobar si el paquete curl está instalado. Si no lo está, instalarlo.
       if [[ $(dpkg-query -s curl 2>/dev/null | grep installed) == "" ]]; then
         echo ""
-        echo -e "${cColorRojo}  El paquete curl no está instalado. Iniciando su instalación...${cFinColor}"
+        echo -e "${cColorRojo}    El paquete curl no está instalado. Iniciando su instalación...${cFinColor}"
         echo ""
-        apt-get -y update && apt-get -y install curl
+        sudo apt-get -y update && sudo apt-get -y install curl
         echo ""
       fi
     vUltVers=$(curl -sL https://github.com/rowingdude/analyzeMFT/releases/latest/ | sed 's|/tag/|\n|g' | grep ^v[0-9] | head -n1 | cut -d'"' -f1 | cut -d'v' -f2)
-    rm -rf /root/SoftInst/analyzeMFT/*  2> /dev/null
-    mkdir -p /root/SoftInst/analyzeMFT/ 2> /dev/null
-    curl -L https://github.com/rowingdude/analyzeMFT/archive/refs/tags/v$vUltVers.tar.gz -o /root/SoftInst/analyzeMFT/analyzeMFT.tar.gz
-    tar -xzf /root/SoftInst/analyzeMFT/analyzeMFT.tar.gz -C /root/SoftInst/analyzeMFT/
-    #mv /root/SoftInst/analyzeMFT/analyzeMFT-$vUltVers/* /root/SoftInst/analyzeMFT/
-    #rm -rf /root/SoftInst/analyzeMFT/analyzeMFT-$vUltVers/
-    #rm -f  /root/SoftInst/analyzeMFT/analyzeMFT.tar.gz
-    chmod 755 /root/SoftInst/analyzeMFT/analyzeMFT-$vUltVers/
-    cd /root/SoftInst/analyzeMFT/analyzeMFT-$vUltVers/
+    rm -rf ~/SoftInst/analyzeMFT/*  2> /dev/null
+    mkdir -p ~/SoftInst/analyzeMFT/ 2> /dev/null
+    curl -L https://github.com/rowingdude/analyzeMFT/archive/refs/tags/v$vUltVers.tar.gz -o ~/SoftInst/analyzeMFT/analyzeMFT.tar.gz
+    tar -xzf ~/SoftInst/analyzeMFT/analyzeMFT.tar.gz -C ~/SoftInst/analyzeMFT/
+    #mv ~/SoftInst/analyzeMFT/analyzeMFT-$vUltVers/* ~/SoftInst/analyzeMFT/
+    #rm -rf ~/SoftInst/analyzeMFT/analyzeMFT-$vUltVers/
+    #rm -f  ~/SoftInst/analyzeMFT/analyzeMFT.tar.gz
+    chmod 755 ~/SoftInst/analyzeMFT/analyzeMFT-$vUltVers/
+    cd ~/SoftInst/analyzeMFT/analyzeMFT-$vUltVers/
     # Comprobar si el paquete python3 está instalado. Si no lo está, instalarlo.
       if [[ $(dpkg-query -s python3 2>/dev/null | grep installed) == "" ]]; then
         echo ""
         echo -e "${cColorRojo}  El paquete python3 no está instalado. Iniciando su instalación...${cFinColor}"
         echo ""
-        apt-get -y update && apt-get -y install python3
+        sudo apt-get -y update && sudo apt-get -y install python3
         echo ""
       fi
     # Comprobar si el paquete python3-venv está instalado. Si no lo está, instalarlo.
@@ -111,9 +93,11 @@
         echo ""
         echo -e "${cColorRojo}  El paquete python3-venv no está instalado. Iniciando su instalación...${cFinColor}"
         echo ""
-        apt-get -y update && apt-get -y install python3-venv
+        sudo apt-get -y update && sudo apt-get -y install python3-venv
         echo ""
       fi
+    mkdir ~/PythonVirtualEnvironments/ 2> /dev/null
+    cd ~/PythonVirtualEnvironments/
     python3 -m venv analyzemft
     source analyzemft/bin/activate
     # Comprobar si el paquete python3-pip está instalado. Si no lo está, instalarlo.
@@ -121,17 +105,17 @@
         echo ""
         echo -e "${cColorRojo}  El paquete python3-pip no está instalado. Iniciando su instalación...${cFinColor}"
         echo ""
-        apt-get -y update && apt-get -y install python3-pip
+        sudo apt-get -y update && sudo apt-get -y install python3-pip
         echo ""
       fi
     pip install .
 
     # Compilar el script
       pip install pyinstaller
-      pyinstaller --onefile /root/SoftInst/analyzeMFT/analyzeMFT-$vUltVers/analyzemft/bin/analyzemft
+      pyinstaller --onefile ~/SoftInst/analyzeMFT/analyzeMFT-$vUltVers/analyzemft/bin/analyzemft
 
     # Copiar el binario a /usr/bin
-      cp -r /root/SoftInst/analyzeMFT/analyzeMFT-$vUltVers/dist/analyzemft /usr/bin/
+      sudo cp -f ~/SoftInst/analyzeMFT/analyzeMFT-$vUltVers/dist/analyzemft /usr/bin/
 
     # Desactivar el entorno virtual
       deactivate
