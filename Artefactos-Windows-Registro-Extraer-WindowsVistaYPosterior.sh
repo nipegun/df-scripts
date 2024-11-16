@@ -96,6 +96,8 @@ if [ $# -ne $cCantParamEsperados ]
         mkdir -p "$vCarpetaDelCaso"/Artefactos/Originales/Registro/Usuarios/"$vNomUsuario"
         cp "$vPuntoDeMontajePartWindows"/Users/"$vNomUsuario"/NTUSER.DAT "$vCarpetaDelCaso"/Artefactos/Originales/Registro/Usuarios/"$vNomUsuario"/
       done < "/tmp/CarpetasDeUsuarios.txt"
+      # Eliminar carpetas vacias
+        find "$vCarpetaDelCaso"/Artefactos/Originales/Registro/Usuarios/ -type d -empty -delete
 
     # Reparar permisos
       chown 1000:1000 "$vCarpetaDelCaso"/Artefactos/ -R
