@@ -96,6 +96,7 @@
       echo ""
       mkdir ~/PythonVirtualEnvironments/ 2> /dev/null
       cd ~/PythonVirtualEnvironments/
+      rm -rf ~/PythonVirtualEnvironments/analyzemft
       # Comprobar si el paquete python3 está instalado. Si no lo está, instalarlo.
         if [[ $(dpkg-query -s python3 2>/dev/null | grep installed) == "" ]]; then
           echo ""
