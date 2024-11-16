@@ -95,7 +95,7 @@ if [ $# -ne $cCantParamEsperados ]
         echo "    RegRippeando NTUSER.DAT de $vNomUsuario..."
         echo ""
         mkdir -p "$vCarpetaDondeGuardar"/Usuarios/"$vNomUsuario" 2> /dev/null
-        /usr/local/bin/rip.pl -r "$vCarpetaDondeGuardar"/Usuarios/"$vNomUsuario"/NTUSER.DAT  -a > "$vCarpetaDondeGuardar"/Usuarios/"$vNomUsuario"/NTUSER.DAT.txt
+        /usr/local/bin/rip.pl -r "$vCarpetaConArchivosDeRegistro"/Usuarios/"$vNomUsuario"/NTUSER.DAT  -a > "$vCarpetaDondeGuardar"/Usuarios/"$vNomUsuario"/NTUSER.DAT.txt
       done < "/tmp/CarpetasDeUsuarios.txt"
 
     # Reparar permisos
