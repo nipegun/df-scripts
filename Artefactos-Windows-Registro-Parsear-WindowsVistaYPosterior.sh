@@ -53,7 +53,7 @@ if [ $# -ne $cCantParamEsperados ]
     echo ""
     # Definir variables
       vCarpetaConArchivosDeRegistro="$1" # Debe ser una carpeta sin barra final
-      vCarpetaDondeGuardar="$2" # Debe ser una carpeta sin barra final
+      vCarpetaDondeGuardar="$2"          # Debe ser una carpeta sin barra final
     # Exportar registros
       mkdir -p "$vCarpetaDondeGuardar" 2> /dev/null
       # Comprobar si el script de RegRipper existe. Si no, llamar al script de instalación de RegRipper
