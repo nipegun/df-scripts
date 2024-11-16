@@ -9,10 +9,10 @@
 # Script de NiPeGun para extraer los archivos de registro de una partición de Windows
 #
 # Ejecución remota con parámetros:
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Registro-Extraer-Completo-WindowsVistaYPosterior.sh | sudo bash -s [CarpetaConArchivosDeRegistro] [CarpetaDondeGuardar] (Ambos sin barra final)
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Artefactos-Windows-Registro-Parsear-WindowsVistaYPosterior.sh | sudo bash -s [CarpetaConArchivosDeRegistro] [CarpetaDondeGuardar] (Ambos sin barra final)
 #
 # Bajar y editar directamente el archivo en nano
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Registro-Extraer-Completo-WindowsVistaYPosterior.sh | nano -
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Artefactos-Windows-Registro-Parsear-WindowsVistaYPosterior.sh | nano -
 # ----------
 
 # Definir constantes de color
