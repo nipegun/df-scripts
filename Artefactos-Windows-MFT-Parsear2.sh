@@ -39,7 +39,7 @@ if [ $# -ne $cCantParamEsperados ]
     exit
   else
     # Comprobar que exista analyzemft
-      if [ ! -f /usr/bin/analyzemft ]; then
+      if [ ! -f /usr/bin/analyzeMFT ]; then
         echo ""
         echo -e "${cColorRojo}    El binario de analyzemft no está instalado. Instalando... ${cFinColor}"
         echo ""
@@ -51,46 +51,46 @@ if [ $# -ne $cCantParamEsperados ]
     echo ""
     echo "  Intentando exportar la MFT a formato CSV..."
     echo ""
-    analyzemft -f "$vCarpetaConLaMFTOriginal"/\$MFT -o "$ vCarpetaDondeGuardar"/MFT.csv --csv      # Exportar como CSV (default)
+    analyzeMFT -f "$vCarpetaConLaMFTOriginal"/\$MFT -o "$ vCarpetaDondeGuardar"/MFT.csv --csv      # Exportar como CSV (default)
 
     echo ""
     echo "  Intentando exportar la MFT a formato JSON..."
     echo ""
-    analyzemft -f "$vCarpetaConLaMFTOriginal"/\$MFT -o "$ vCarpetaDondeGuardar"/MFT.json --json     # Exportar como JSON
+    analyzeMFT -f "$vCarpetaConLaMFTOriginal"/\$MFT -o "$ vCarpetaDondeGuardar"/MFT.json --json     # Exportar como JSON
     
     echo ""
     echo "  Intentando exportar la MFT a formato XML..."
     echo ""
-    analyzemft -f "$vCarpetaConLaMFTOriginal"/\$MFT -o "$ vCarpetaDondeGuardar"/MFT.xml --xml      # Exportar como XML
+    analyzeMFT -f "$vCarpetaConLaMFTOriginal"/\$MFT -o "$ vCarpetaDondeGuardar"/MFT.xml --xml      # Exportar como XML
     
     echo ""
     echo "  Intentando exportar la MFT a formato Excel..."
     echo ""
-    analyzemft -f "$vCarpetaConLaMFTOriginal"/\$MFT -o "$ vCarpetaDondeGuardar"/MFT.xls --excel    # Exportar como Excel
+    analyzeMFT -f "$vCarpetaConLaMFTOriginal"/\$MFT -o "$ vCarpetaDondeGuardar"/MFT.xls --excel    # Exportar como Excel
     
     echo ""
     echo "  Intentando exportar la MFT a formato Body para mactime..."
     echo ""
-    analyzemft -f "$vCarpetaConLaMFTOriginal"/\$MFT -o "$ vCarpetaDondeGuardar"/MFT-BodyMactime --body     # Exportar como body file (for mactime)
+    analyzeMFT -f "$vCarpetaConLaMFTOriginal"/\$MFT -o "$ vCarpetaDondeGuardar"/MFT-BodyMactime --body     # Exportar como body file (for mactime)
 
     echo ""
     echo "  Intentando exportar la MFT a formato TSK timeline..."
     echo ""
-    analyzemft -f "$vCarpetaConLaMFTOriginal"/\$MFT -o "$ vCarpetaDondeGuardar"/MFT-TSKTimeLine --timeline # Exportar como TSK timeline
+    analyzeMFT -f "$vCarpetaConLaMFTOriginal"/\$MFT -o "$ vCarpetaDondeGuardar"/MFT-TSKTimeLine --timeline # Exportar como TSK timeline
 
     echo ""
     echo "  Exportando la MFT a formato log2timeline CSV..."
     echo ""
-    analyzemft -f "$vCarpetaConLaMFTOriginal"/\$MFT -o "$ vCarpetaDondeGuardar"/MFT-log2timeline.l2t --l2t      # Exportar como log2timeline CSV
+    analyzeMFT -f "$vCarpetaConLaMFTOriginal"/\$MFT -o "$ vCarpetaDondeGuardar"/MFT-log2timeline.l2t --l2t      # Exportar como log2timeline CSV
 
     echo ""
     echo "  Intentando exportar la MFT a formato SQLite..."
     echo ""
-    analyzemft -f "$vCarpetaConLaMFTOriginal"/\$MFT -o "$ vCarpetaDondeGuardar"/MFT-SQLite --sqlite   # Exportar como SQLite database
+    analyzeMFT -f "$vCarpetaConLaMFTOriginal"/\$MFT -o "$ vCarpetaDondeGuardar"/MFT-SQLite --sqlite   # Exportar como SQLite database
 
     echo ""
     echo "  Intentando exportar la MFT a formato TSK Body..."
     echo ""
-    analyzemft -f "$vCarpetaConLaMFTOriginal"/\$MFT -o "$ vCarpetaDondeGuardar"/MFT-TSKbody --tsk      # Exportar como TSK bodyfile format
+    analyzeMFT -f "$vCarpetaConLaMFTOriginal"/\$MFT -o "$ vCarpetaDondeGuardar"/MFT-TSKbody --tsk      # Exportar como TSK bodyfile format
 
 fi
