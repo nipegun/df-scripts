@@ -54,9 +54,9 @@ if [ $# -ne $cCantParamEsperados ]
       echo ""
       echo "    Copiando todos los eventos .evtx de la partición de Windows a la carpeta del caso..."
       echo ""
-      mkdir -p "$vCarpetaDelCaso"/Artefactos/Eventos/Originales/
-      rm -rf "$vCarpetaDelCaso"/Artefactos/Eventos/Originales/*
-      find "$vPuntoDeMontajePartWindows" -name "*.evtx" -exec cp -v {} "$vCarpetaDelCaso"/Artefactos/Eventos/Originales/ \;
+      mkdir -p "$vCarpetaDelCaso"/Artefactos/Originales/Eventos/
+      rm -rf "$vCarpetaDelCaso"/Artefactos/Originales/Eventos/*
+      find "$vPuntoDeMontajePartWindows" -name "*.evtx" -exec cp -v {} "$vCarpetaDelCaso"/Artefactos/Originales/Eventos/ \;
 
 fi
 
