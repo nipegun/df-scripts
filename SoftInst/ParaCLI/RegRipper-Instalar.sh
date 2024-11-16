@@ -71,51 +71,59 @@
     echo ""
 
     echo ""
+    echo "    Instalando dependencias..."
     apt-get -y update
     apt-get -y install apt
     apt-get -y install git
     apt-get -y install libparse-win32registry-perl
-    # Downloads RegRipper3.0 and moves file into /usr/local/src/regripper and "chmods" files in regripper directory to allow execution
-      rm -rf /usr/local/src/regripper/* 2>/dev/null
-      rm -rf /usr/share/regripper/*     2>/dev/null
+
     # Clonar repositorio
+      echo ""
+      echo "    Clonando repositorio..."
+      echo ""
       cd /usr/local/src/
-    # Comprobar si el paquete git está instalado. Si no lo está, instalarlo.
-      if [[ $(dpkg-query -s git 2>/dev/null | grep installed) == "" ]]; then
-        echo ""
-        echo -e "${cColorRojo}  El paquete git no está instalado. Iniciando su instalación...${cFinColor}"
-        echo ""
-        apt-get -y update && apt-get -y install git
-        echo ""
-      fi
+      rm -rf /usr/local/src/regripper -v
+      # Comprobar si el paquete git está instalado. Si no lo está, instalarlo.
+        if [[ $(dpkg-query -s git 2>/dev/null | grep installed) == "" ]]; then
+          echo ""
+          echo -e "${cColorRojo}  El paquete git no está instalado. Iniciando su instalación...${cFinColor}"
+          echo ""
+          apt-get -y update && apt-get -y install git
+          echo ""
+        fi
       git clone https://github.com/keydet89/RegRipper3.0.git
       mv RegRipper3.0 regripper
     #
+      rm -rf /usr/share/regripper -v
       mkdir /usr/share/regripper
       ln -s  /usr/local/src/regripper/plugins /usr/share/regripper/plugins 2>/dev/nul
       chmod 755 regripper/*
     # Copiar módulos de perl específicos para RegRipper
-      cp regripper/File.pm /usr/share/perl5/Parse/Win32Registry/WinNT/File.pm
-      cp regripper/Key.pm  /usr/share/perl5/Parse/Win32Registry/WinNT/Key.pm
-      cp regripper/Base.pm /usr/share/perl5/Parse/Win32Registry/Base.pm
+      echo ""
+      echo "    Copiando módulos..."
+      echo ""
+      cp -v regripper/File.pm /usr/share/perl5/Parse/Win32Registry/WinNT/File.pm
+      cp -v regripper/Key.pm  /usr/share/perl5/Parse/Win32Registry/WinNT/Key.pm
+      cp -v regripper/Base.pm /usr/share/perl5/Parse/Win32Registry/Base.pm
     # Crear archivo rip.pl.linux a partir del archivo rip.pl original
       #[ -f regripper/rip.pl ] && echo "rip.pl found!" || echo "rip.pl not found!"
       #[ -f regripper/rip.pl ] && cp regripper/rip.pl rip.pl.linux || exit
-      rm -f regripper/rip.pl.linux 2> /dev/null
-      cp -f regripper/rip.pl regripper/rip.pl.linux
-      sed -i '77i my \$plugindir \= \"\/usr\/share\/regripper\/plugins\/\"\;' /usr/local/src/regripper/rip.pl.linux 
+      rm -v -f regripper/rip.pl.linux
+      cp -v -f regripper/rip.pl /usr/local/src/regripper/rip.pl.linux
+      sed -i '77i my \$plugindir \= \"\/usr\/share\/regripper\/plugins\/\"\;' /usr/local/src/regripper/rip.pl.linux
       sed -i '/^#! c:[\]perl[\]bin[\]perl.exe/d'                              /usr/local/src/regripper/rip.pl.linux
       vUbicPerl=$(which perl) && sed -i "1i #\!$vUbicPerl"                    /usr/local/src/regripper/rip.pl.linux
       sed -i '2i use lib qw(/usr/lib/perl5/);'                                /usr/local/src/regripper/rip.pl.linux
     # Obtener el hash
       md5sum /usr/local/src/regripper/rip.pl.linux && echo "  El archivo rip.pl.linux ha sido creado correctamente!"
     # Copiar el archivo rip.pl.linux a /usr/local/bin/rip.pl
-      rm -f /usr/local/bin/rip.pl 2> /dev/null
-      cp -f regripper/rip.pl.linux /usr/local/bin/rip.pl
+      rm -v -f /usr/local/bin/rip.pl
+      cp -v -f regripper/rip.pl.linux /usr/local/bin/rip.pl
       echo "  El archivo /usr/local/src/regripper/rip.pl.linux ha sido copiado a /usr/local/bin/rip.pl"
       echo "  RegRipper debe ejecutarse siempre desde /usr/local/bin/rip.pl"
       #sed -i -e '1s|^#!.*|#!/usr/bin/perl|' /usr/local/bin/rip.pl
       #echo "  El archivo rip.pl de RegRipper ha sido cambiado. El archivo original está ubicado en /usr/local/src/regripper/rip.pl."
+      chmod +x /usr/local/bin/rip.pl
       echo ""
 
   elif [ $cVerSO == "11" ]; then
