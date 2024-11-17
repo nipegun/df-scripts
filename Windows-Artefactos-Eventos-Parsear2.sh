@@ -164,7 +164,7 @@ if [ $# -ne $cCantParamEsperados ]
                 # Variable para almacenar un vEvento temporalmente
                   vEvento=""
                 echo ""
-                echo "    Guardando cada evento en un archivo .xml único..."
+                echo "    Guardando primero cada evento en un archivo .xml único..."
                 echo ""
                 # Leer el archivo línea por línea
                   while IFS= read -r line; do
@@ -190,8 +190,16 @@ if [ $# -ne $cCantParamEsperados ]
                   echo ""
                   mkdir -p "$vCarpetaDondeGuardar"/EventosIndividualesOrdenadosPorFecha/
                   # Recorrer cada archivo XML en la carpeta
-                    for file in "$vCarpetaDondeGuardar/EventosIndividuales/*" ; do
+                    for file in "$vCarpetaDondeGuardar"/EventosIndividuales/*.xml ; do
                       # Extraer el valor de SystemTime usando xmlstarlet
+                        # Comprobar si el paquete xmlstarlet está instalado. Si no lo está, instalarlo.
+                          if [[ $(dpkg-query -s xmlstarlet 2>/dev/null | grep installed) == "" ]]; then
+                            echo ""
+                            echo -e "${cColorRojo}    El paquete xmlstarlet no está instalado. Iniciando su instalación...${cFinColor}"
+                            echo ""
+                            apt-get -y update && apt-get -y install xmlstarlet
+                            echo ""
+                          fi
                         system_time=$(xmlstarlet sel -t -v "//TimeCreated/@SystemTime" "$file" 2>/dev/null)
                       # Renombrar el archivo
                         cp "$file" "$vCarpetaDondeGuardar"/EventosIndividualesOrdenadosPorFecha/"${system_time}".xml
@@ -312,6 +320,14 @@ if [ $# -ne $cCantParamEsperados ]
                   # Recorrer cada archivo XML en la carpeta
                     for file in "$vCarpetaDondeGuardar"/EventosIndividualesDeUsuario/* ; do
                       # Extraer el valor de SystemTime usando xmlstarlet
+                        # Comprobar si el paquete xmlstarlet está instalado. Si no lo está, instalarlo.
+                          if [[ $(dpkg-query -s xmlstarlet 2>/dev/null | grep installed) == "" ]]; then
+                            echo ""
+                            echo -e "${cColorRojo}    El paquete xmlstarlet no está instalado. Iniciando su instalación...${cFinColor}"
+                            echo ""
+                            apt-get -y update && apt-get -y install xmlstarlet
+                            echo ""
+                          fi
                         system_time=$(xmlstarlet sel -t -v "//TimeCreated/@SystemTime" "$file" 2>/dev/null)
                       # Renombrar el archivo
                         cp "$file" "$vCarpetaDondeGuardar"/EventosIndividualesDeUsuarioOrdenadosPorFecha/"${system_time}".xml
