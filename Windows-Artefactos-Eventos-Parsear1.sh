@@ -190,7 +190,7 @@ if [ $# -ne $cCantParamEsperados ]
                   echo ""
                   mkdir -p "$vCarpetaDondeGuardar"/EventosIndividualesOrdenadosPorFecha/
                   # Recorrer cada archivo XML en la carpeta
-                    for file in "$vCarpetaDondeGuardar"/EventosIndividuales/* ; do
+                    for file in "$vCarpetaDondeGuardar/EventosIndividuales/*" ; do
                       # Extraer el valor de SystemTime usando xmlstarlet
                         system_time=$(xmlstarlet sel -t -v "//TimeCreated/@SystemTime" "$file" 2>/dev/null)
                       # Renombrar el archivo
@@ -212,7 +212,7 @@ if [ $# -ne $cCantParamEsperados ]
                       aMensajesEsp["$campoIdDelEvento"]="$campoMensajeEsp"
                     done < /tmp/eventos-en-es.csv
                   # Procesar cada archivo .xml
-                    for vArchivoXML in "$vCarpetaDondeGuardar"/EventosIndividualesOrdenadosPorFecha/*.xml; do
+                    for vArchivoXML in "$vCarpetaDondeGuardar/EventosIndividualesOrdenadosPorFecha/"*.xml; do
                       # Crear un archivo temporal para el nuevo contenido
                         vArchivoTemporal=$(mktemp)
                       # Leer el archivo línea por línea
