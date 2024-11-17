@@ -54,11 +54,11 @@ if [ $# -ne $cCantParamEsperados ]
           1 "Comprobar que existe la carpeta "  on
           2 "  Parsear la MFT"                  on
           3 "  Parsear el registro"             on
-          4 "  Parsear los eventos"             off
-          5 "  Parsear x"                       on
-          6 "  Parsear x"                       on
-          7 "  Parsear x"                       on
-          8 "  Parsear x"                       on
+          4 "  Parsear los eventos"             on
+          5 "  Parsear x"                       off
+          6 "  Parsear x"                       off
+          7 "  Parsear x"                       off
+          8 "  Parsear x"                       off
         )
       choices=$("${menu[@]}" "${opciones[@]}" 2>&1 >/dev/tty)
 
@@ -85,51 +85,41 @@ if [ $# -ne $cCantParamEsperados ]
               echo ""
               echo "  Parseando la MFT..."
               echo ""
-
+              curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Artefactos-Windows-MFT-Parsear.sh | sudo bash -s /Casos/$vFechaDeEjec/Artefactos/Originales/MFT /Casos/$vFechaDeEjec/Artefactos/Parseados/MFT
 
             ;;
 
             3)
 
               echo ""
-              echo "  Extrayendo y parseando el registro..."
+              echo "  Parseando el registro..."
               echo ""
-              # Instalar RegRipper (Sólo se ejecuta en Debian)
-                curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/SoftInst/ParaCLI/RegRipper-Instalar.sh | sudo bash
-              # Ejecutar RegRipper
-                curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Registro-Extraer-Completo-WindowsVistaYPosterior.sh | sudo bash -s /Casos/"$vNombreCaso"/Imagen/Particiones/2 /Casos/"$vNombreCaso"/Artefactos
+              curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Artefactos-Windows-Registro-Parsear.sh | sudo bash -s /Casos/$vFechaDeEjec/Artefactos/Originales/Registro /Casos/$vFechaDeEjec/Artefactos/Parseados/Registro
 
             ;;
 
             4)
 
               echo ""
-              echo "  Extrayendo y parseando la MFT..."
+              echo "  Parseando los eventos..."
               echo ""
-              # Extraer MFT
-                curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/MFT-Extraer-Original.sh | sudo bash -s /Casos/"$vNombreCaso"/Imagen/Particiones/2 /Casos/"$vNombreCaso"/Artefactos
-             # Instalar analyzeMFT
-               curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/SoftInst/ParaCLI/analyzeMFT-Instalar.sh | sudo bash
-             # Ejecutar analyzemft sobre la evidencia
-               curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/MFT-AnalizarYExportar.sh | sudo bash -s /Casos/"$vNombreCaso"/Artefactos/MFT/MFTOriginal /Casos/"$vNombreCaso"/Artefactos/MFT/
+              curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Artefactos-Windows-Eventos-Parsear.sh | sudo bash -s /Casos/$vFechaDeEjec/Artefactos/Originales/Eventos /Casos/$vFechaDeEjec/Artefactos/Parseados/Eventos
 
             ;;
 
             5)
 
               echo ""
-              echo "  Recolectando eventos originales..."
+              echo "  Parseando x..."
               echo ""
-              curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Evidencia-Windows-Eventos-Originales-Recolectar.sh | sudo bash -s /Casos/"$vNombreCaso"/Imagen/Particiones/2 /Casos/"$vNombreCaso"/Artefactos/Windows
 
             ;;
 
             6)
 
               echo ""
-              echo "  Parseando eventos recolectados..."
+              echo "  Parseando x..."
               echo ""
-              curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Evidencia-Windows-Eventos-Recolectados-Parsear.sh | sudo bash -s /Casos/"$vNombreCaso"/Artefactos/Eventos/Originales/ /Casos/"$vNombreCaso"/Artefactos/Windows
 
             ;;
 
