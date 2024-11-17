@@ -132,7 +132,7 @@
       echo ""
       echo "    Compilando el script"
       echo ""
-      pyinstaller --onefile analyzeMFT.py
+      pyinstaller --onefile --collect-all=analyzeMFT analyzeMFT.py
 
     # Copiar el binario a /usr/bin
       sudo cp -f ~/SoftInst/analyzeMFT/analyzeMFT-$vUltVers/dist/analyzeMFT /usr/bin/
