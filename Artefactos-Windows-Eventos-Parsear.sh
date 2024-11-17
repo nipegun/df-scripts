@@ -241,7 +241,10 @@ if [ $# -ne $cCantParamEsperados ]
                   echo ""
                   echo "    Agrupando todos los archivos .xml únicos en un archivo unificado final..."
                   echo ""
-                  cat $(ls "$vCarpetaDondeGuardar"/EventosIndividualesOrdenadosPorFecha/* | sort) > "$vCarpetaDondeGuardar"/TodosLosEventosOrdenadosPorFecha.xml
+                  # Este cat da error de memoria
+                    #cat $(ls "$vCarpetaDondeGuardar"/EventosIndividualesOrdenadosPorFecha/* | sort) > "$vCarpetaDondeGuardar"/TodosLosEventosOrdenadosPorFecha.xml
+                  # Probando con car directo
+                    cat "$vCarpetaDondeGuardar"/EventosIndividualesOrdenadosPorFecha/20* > "$vCarpetaDondeGuardar"/TodosLosEventosOrdenadosPorFecha.xml
                   sed -i -e 's-</Event>-</Event>\n-g' "$vCarpetaDondeGuardar"/TodosLosEventosOrdenadosPorFecha.xml
                   sed -i '1i\<Events>' "$vCarpetaDondeGuardar"/TodosLosEventosOrdenadosPorFecha.xml # Agrega la apertura de la etiqueta raiz en la primera linea
                   echo '</Events>' >>  "$vCarpetaDondeGuardar"/TodosLosEventosOrdenadosPorFecha.xml # Agrega el cierre de la etiqueta raíz en una nueva linea al final del archivo
