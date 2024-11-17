@@ -9,7 +9,7 @@
 # Script de NiPeGun para analizar y exportar el archivo $MFT original a múltimples formatos
 #
 # Ejecución remota:
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Artefactos-Windows-Obtener-DeImagen.sh | sudo bash -s [RutaALaCarpetaDeArtefactosOriginales] (Sin barra final)
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Artefactos-Windows-Obtener-DeImagen.sh | sudo bash
 #
 # Bajar y editar directamente el archivo en nano
 #   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Artefactos-Windows-Obtener-DeImagen.sh | nano -
@@ -24,43 +24,30 @@
     #echo "$(tput setaf 1)Mensaje en color rojo. $(tput sgr 0)"
   cFinColor='\033[0m'
 
-# Definir la cantidad de argumentos esperados
-  cCantParamEsperados=1
+# Definir fecha de ejecución del script para saber la carpeta del caso
+  vFechaDeEjec=$(date +a%Ym%md%d)
 
-if [ $# -ne $cCantParamEsperados ]
-  then
-    echo ""
-    echo -e "${cColorRojo}  Mal uso del script. El uso correcto sería: ${cFinColor}"
-    echo "    $0 [RutaALaCarpetaDeArtefactosOriginales] (Sin barra final)"
-    echo ""
-    echo "  Ejemplo:"
-    echo "    $0 '/Casos/a2024m05d23/Artefactos/Originales'"
-    echo ""
-    exit
-  else
-    vFechaDeEjec=$(date +a%Ym%md%d)
-    # Comprobar si el paquete dialog está instalado. Si no lo está, instalarlo.
-      if [[ $(dpkg-query -s dialog 2>/dev/null | grep installed) == "" ]]; then
-        echo ""
-        echo -e "${cColorRojo}  El paquete dialog no está instalado. Iniciando su instalación...${cFinColor}"
-        echo ""
-        apt-get -y update && apt-get -y install dialog
-        echo ""
-      fi
-
-    # Crear el menú
-      menu=(dialog --checklist "Marca las opciones que quieras instalar:" 22 72 16)
-        opciones=(
-          1 "Comprobar que existe la carpeta "  on
-          2 "  Parsear la MFT"                  on
-          3 "  Parsear el registro"             on
-          4 "  Parsear los eventos"             on
-          5 "  Parsear x"                       off
-          6 "  Parsear x"                       off
-          7 "  Parsear x"                       off
-          8 "  Parsear x"                       off
-        )
-      choices=$("${menu[@]}" "${opciones[@]}" 2>&1 >/dev/tty)
+# Crear el menú
+  # Comprobar si el paquete dialog está instalado. Si no lo está, instalarlo.
+    if [[ $(dpkg-query -s dialog 2>/dev/null | grep installed) == "" ]]; then
+      echo ""
+      echo -e "${cColorRojo}  El paquete dialog no está instalado. Iniciando su instalación...${cFinColor}"
+      echo ""
+      apt-get -y update && apt-get -y install dialog
+      echo ""
+    fi
+  menu=(dialog --checklist "Marca las opciones que quieras instalar:" 22 72 16)
+    opciones=(
+      1 "Comprobar que existe la carpeta "  on
+      2 "  Parsear la MFT"                  on
+      3 "  Parsear el registro"             on
+      4 "  Parsear los eventos"             on
+      5 "  Parsear x"                       off
+      6 "  Parsear x"                       off
+      7 "  Parsear x"                       off
+      8 "  Parsear x"                       off
+    )
+    choices=$("${menu[@]}" "${opciones[@]}" 2>&1 >/dev/tty)
 
       for choice in $choices
         do
@@ -123,8 +110,7 @@ if [ $# -ne $cCantParamEsperados ]
 
             ;;
 
-        esac
+          esac
 
-    done
+      done
 
-fi
