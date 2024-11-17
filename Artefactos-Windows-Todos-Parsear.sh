@@ -81,7 +81,7 @@
               echo ""
               echo "  Parseando el registro..."
               echo ""
-              curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Artefactos-Windows-Registro-Parsear.sh | sudo bash -s /Casos/$vFechaDeEjec/Artefactos/Originales/Registro /Casos/$vFechaDeEjec/Artefactos/Parseados/Registro
+              curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Artefactos-Windows-Registro-Parsear-WindowsVistaYPosterior.sh | sudo bash -s /Casos/$vFechaDeEjec/Artefactos/Originales/Registro /Casos/$vFechaDeEjec/Artefactos/Parseados/Registro
 
             ;;
 
