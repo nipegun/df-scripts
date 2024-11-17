@@ -9,10 +9,10 @@
 # Script de NiPeGun para montar todas las particiones de dentro de un archivo de imagen
 #
 # Ejecución remota:
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Imagen-Particiones-Montar-SoloLectura.sh | sudo bash -s [RutaAlArchivoDeImagen]
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Imagen-Particiones-Todas-Montar-SoloLectura.sh | sudo bash -s [RutaAlArchivoDeImagen]
 #
 # Bajar y editar directamente el archivo en nano
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Imagen-Particiones-Montar-SoloLectura.sh | nano -
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Imagen-Particiones-Todas-Montar-SoloLectura.sh | nano -
 # ----------
 
 # Definir fecha de ejecución del script
