@@ -9,10 +9,10 @@
 # Script de NiPeGun para analizar y exportar el archivo $MFT original a múltimples formatos
 #
 # Ejecución remota:
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Artefactos-Windows-Todos-Parsear.sh | sudo bash
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Windows-Artefactos-Todos-Parsear.sh | sudo bash
 #
 # Bajar y editar directamente el archivo en nano
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Artefactos-Windows-Todos-Parsear.sh | nano -
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Windows-Artefactos-Todos-Parsear.sh | nano -
 # ----------
 
 # Definir constantes de color
