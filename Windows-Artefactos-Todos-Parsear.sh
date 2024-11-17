@@ -72,7 +72,7 @@
               echo ""
               echo "  Parseando la MFT..."
               echo ""
-              curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Artefactos-Windows-MFT-Parsear.sh | sudo bash -s /Casos/$vFechaDeEjec/Artefactos/Originales/MFT /Casos/$vFechaDeEjec/Artefactos/Parseados/MFT
+              curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Windows-Artefactos-MFT-Parsear.sh | sudo bash -s /Casos/$vFechaDeEjec/Artefactos/Originales/MFT /Casos/$vFechaDeEjec/Artefactos/Parseados/MFT
 
             ;;
 
@@ -81,7 +81,7 @@
               echo ""
               echo "  Parseando el registro..."
               echo ""
-              curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Artefactos-Windows-Registro-Parsear-WindowsVistaYPosterior.sh | sudo bash -s /Casos/$vFechaDeEjec/Artefactos/Originales/Registro /Casos/$vFechaDeEjec/Artefactos/Parseados/Registro
+              curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Windows-Artefactos-Registro-Parsear-WindowsVistaYPosterior.sh | sudo bash -s /Casos/$vFechaDeEjec/Artefactos/Originales/Registro /Casos/$vFechaDeEjec/Artefactos/Parseados/Registro
 
             ;;
 
@@ -90,7 +90,7 @@
               echo ""
               echo "  Parseando los eventos..."
               echo ""
-              curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Artefactos-Windows-Eventos-Parsear.sh | sudo bash -s /Casos/$vFechaDeEjec/Artefactos/Originales/Eventos /Casos/$vFechaDeEjec/Artefactos/Parseados/Eventos
+              curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Windows-Artefactos-Eventos-Parsear.sh | sudo bash -s /Casos/$vFechaDeEjec/Artefactos/Originales/Eventos /Casos/$vFechaDeEjec/Artefactos/Parseados/Eventos
 
             ;;
 
