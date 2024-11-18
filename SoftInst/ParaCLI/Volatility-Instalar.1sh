@@ -70,8 +70,8 @@
     echo ""
 
     # Descargar el repo
-      mkdir -p ~/SoftInst/ 2> /dev/null
-      cd ~/SoftInst/
+      mkdir -p ~/scripts/python/ 2> /dev/null
+      cd ~/scripts/python/
       if [[ $(dpkg-query -s git 2>/dev/null | grep installed) == "" ]]; then
         echo ""
         echo -e "${cColorRojo}    El paquete git no está instalado. Iniciando su instalación...${cFinColor}"
@@ -94,7 +94,7 @@
       fi
       python3 -m venv volatility3
       source ~/PythonVirtualEnvironments/volatility3/bin/activate
-      cd ~/SoftInst/volatility3/
+      cd ~/scripts/python/volatility3/
       pip install -r requirements.txt 
       pip install -r requirements-dev.txt 
 
@@ -105,8 +105,8 @@
 
       # Mover el binario a la carpeta de binarios del usuario
         mkdir -p ~/bin/
-        cp ~/SoftInst/volatility3/dist/vol      ~/bin/volatility3
-        cp ~/SoftInst/volatility3/dist/volshell ~/bin/volatility3shell
+        cp ~/scripts/python/volatility3/dist/vol      ~/bin/volatility3
+        cp ~/scripts/python/volatility3/dist/volshell ~/bin/volatility3shell
 
       # Desactivar el entorno virtual
         deactivate
@@ -157,9 +157,9 @@
               echo "  Instalando versión 2.x..."
               echo ""
               # Descargar el repo
-                mkdir -p ~/SoftInst/ 2> /dev/null
-                cd ~/SoftInst/
-                rm -rf ~/SoftInst/*
+                mkdir -p ~/scripts/python/ 2> /dev/null
+                cd ~/scripts/python/
+                rm -rf ~/scripts/python/*
                 if [[ $(dpkg-query -s git 2>/dev/null | grep installed) == "" ]]; then
                   echo ""
                   echo -e "${cColorRojo}  El paquete git no está instalado. Iniciando su instalación...${cFinColor}"
@@ -200,15 +200,15 @@
                 pip2 install pyinstaller==3.6
 
               # Compilar
-                mv ~/SoftInst/volatility/ ~/SoftInst/volatility2/
-                cd ~/SoftInst/volatility2/
+                mv ~/scripts/python/volatility/ ~/scripts/python/volatility2/
+                cd ~/scripts/python/volatility2/
                 # pyinstaller --onefile vol.py --hidden-import=modulo1
                 pyinstaller --onefile vol.py
                   
 
               # Mover el binario a la carpeta de binarios del usuario
                 mkdir -p ~/bin/
-                cp ~/SoftInst/volatility2/dist/vol ~/bin/volatility2
+                cp ~/scripts/python/volatility2/dist/vol ~/bin/volatility2
 
               # Desactivar el entorno virtual
                 deactivate
@@ -233,8 +233,8 @@
               echo ""
 
               # Descargar el repo
-                mkdir -p ~/SoftInst/ 2> /dev/null
-                cd ~/SoftInst/
+                mkdir -p ~/scripts/python/ 2> /dev/null
+                cd ~/scripts/python/
                 if [[ $(dpkg-query -s git 2>/dev/null | grep installed) == "" ]]; then
                   echo ""
                   echo -e "${cColorRojo}  El paquete git no está instalado. Iniciando su instalación...${cFinColor}"
@@ -256,7 +256,7 @@
                 fi
                 python3 -m venv volatility3
                 source ~/VEnvs/volatility3/bin/activate
-                cd ~/SoftInst/volatility3/
+                cd ~/scripts/python/volatility3/
                 pip install -r requirements.txt 
                 pip install -r requirements-dev.txt 
                 pip install pyinstaller
@@ -267,8 +267,8 @@
 
               # Mover el binario a la carpeta de binarios del usuario
                 mkdir -p ~/bin/
-                cp ~/SoftInst/volatility3/dist/vol      ~/bin/volatility3
-                cp ~/SoftInst/volatility3/dist/volshell ~/bin/volatility3shell
+                cp ~/scripts/python/volatility3/dist/vol      ~/bin/volatility3
+                cp ~/scripts/python/volatility3/dist/volshell ~/bin/volatility3shell
 
               # Desactivar el entorno virtual
                 deactivate
@@ -300,9 +300,9 @@
     echo "  Instalando versión 2.x..."
     echo ""
     # Descargar el repo
-      mkdir -p ~/SoftInst/ 2> /dev/null
-      cd ~/SoftInst/
-      rm -rf ~/SoftInst/*
+      mkdir -p ~/scripts/python/ 2> /dev/null
+      cd ~/scripts/python/
+      rm -rf ~/scripts/python/*
       if [[ $(dpkg-query -s git 2>/dev/null | grep installed) == "" ]]; then
         echo ""
         echo -e "${cColorRojo}  El paquete git no está instalado. Iniciando su instalación...${cFinColor}"
@@ -325,8 +325,8 @@
       pip2 install pyinstaller==3.6
 
     # Compilar
-      mv ~/SoftInst/volatility/ ~/SoftInst/volatility2/
-      cd ~/SoftInst/volatility2/
+      mv ~/scripts/python/volatility/ ~/scripts/python/volatility2/
+      cd ~/scripts/python/volatility2/
       apt-get -y install python-dev
       apt-get -y install upx
       apt-get -y install binutils
@@ -335,7 +335,7 @@
 
     # Mover el binario a la carpeta de binarios del usuario
       mkdir -p ~/bin/
-      cp ~/SoftInst/volatility2/dist/vol ~/bin/volatility2
+      cp ~/scripts/python/volatility2/dist/vol ~/bin/volatility2
 
     # Desactivar el entorno virtual
       deactivate
