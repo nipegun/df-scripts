@@ -84,7 +84,7 @@
     # Crear el ambiente virtual
       mkdir -p ~/PythonVirtualEnvironments/ 2> /dev/null
       cd ~/PythonVirtualEnvironments/
-      rm -rf ~/PythonVirtualEnvironments/*
+      rm -rf ~/PythonVirtualEnvironments/volatility3
       if [[ $(dpkg-query -s python3-venv 2>/dev/null | grep installed) == "" ]]; then
         echo ""
         echo -e "${cColorRojo}  El paquete python3-venv no está instalado. Iniciando su instalación...${cFinColor}"
