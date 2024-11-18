@@ -424,7 +424,7 @@ if [ $# -ne $cCantParamEsperados ]
                 ~/bin/plaso-psort "$vCarpetaDondeGuardar"/TimeLineDeEventos.plaso -o dynamic -w "$vCarpetaDondeGuardar"/TimeLineDeEventos.txt
               else
                 echo ""
-                echo -e "${cColorRojo}    El binario ~/bin/plaso-psort no existe. Abortando.${cFinColor}"
+                echo -e "${cColorRojo}      El binario ~/bin/plaso-psort no existe. Abortando.${cFinColor}"
                 echo ""
               fi
               
@@ -440,7 +440,7 @@ if [ $# -ne $cCantParamEsperados ]
                 ~/bin/plaso-psort "$vCarpetaDondeGuardar"/TimeLineDeEventos.plaso -o json -w "$vCarpetaDondeGuardar"/TimeLineDeEventos.json
               else
                 echo ""
-                echo -e "${cColorRojo}    El binario ~/bin/plaso-psort no existe. Abortando.${cFinColor}"
+                echo -e "${cColorRojo}      El binario ~/bin/plaso-psort no existe. Abortando.${cFinColor}"
                 echo ""
               fi
 
@@ -455,7 +455,7 @@ if [ $# -ne $cCantParamEsperados ]
                 ~/bin/plaso-psort "$vCarpetaDondeGuardar"/TimeLineDeEventos.plaso -o json_line -w "$vCarpetaDondeGuardar"/TimeLineDeEventos.json_line 
               else
                 echo ""
-                echo -e "${cColorRojo}    El binario ~/bin/plaso-psort no existe. Abortando.${cFinColor}"
+                echo -e "${cColorRojo}      El binario ~/bin/plaso-psort no existe. Abortando.${cFinColor}"
                 echo ""
               fi
 
@@ -470,7 +470,7 @@ if [ $# -ne $cCantParamEsperados ]
                 ~/bin/plaso-psort "$vCarpetaDondeGuardar"/TimeLineDeEventos.plaso -o l2tcsv -w "$vCarpetaDondeGuardar"/TimeLineDeEventos.l2tcsv
               else
                 echo ""
-                echo -e "${cColorRojo}    El binario ~/bin/plaso-psort no existe. Abortando.${cFinColor}"
+                echo -e "${cColorRojo}      El binario ~/bin/plaso-psort no existe. Abortando.${cFinColor}"
                 echo ""
               fi
 
@@ -485,7 +485,7 @@ if [ $# -ne $cCantParamEsperados ]
                 ~/bin/plaso-psort "$vCarpetaDondeGuardar"/TimeLineDeEventos.plaso -o l2ttln -w "$vCarpetaDondeGuardar"/TimeLineDeEventos.l2ttln
               else
                 echo ""
-                echo -e "${cColorRojo}    El binario ~/bin/plaso-psort no existe. Abortando.${cFinColor}"
+                echo -e "${cColorRojo}      El binario ~/bin/plaso-psort no existe. Abortando.${cFinColor}"
                 echo ""
               fi
 
@@ -500,7 +500,7 @@ if [ $# -ne $cCantParamEsperados ]
                 ~/bin/plaso-psort "$vCarpetaDondeGuardar"/TimeLineDeEventos.plaso -o rawpy -w "$vCarpetaDondeGuardar"/TimeLineDeEventos.rawpy
               else
                 echo ""
-                echo -e "${cColorRojo}    El binario ~/bin/plaso-psort no existe. Abortando.${cFinColor}"
+                echo -e "${cColorRojo}      El binario ~/bin/plaso-psort no existe. Abortando.${cFinColor}"
                 echo ""
               fi
 
@@ -515,7 +515,7 @@ if [ $# -ne $cCantParamEsperados ]
                 ~/bin/plaso-psort "$vCarpetaDondeGuardar"/TimeLineDeEventos.plaso -o tln -w "$vCarpetaDondeGuardar"/TimeLineDeEventos.tln
               else
                 echo ""
-                echo -e "${cColorRojo}    El binario ~/bin/plaso-psort no existe. Abortando.${cFinColor}"
+                echo -e "${cColorRojo}      El binario ~/bin/plaso-psort no existe. Abortando.${cFinColor}"
                 echo ""
               fi
 
@@ -530,7 +530,7 @@ if [ $# -ne $cCantParamEsperados ]
                 ~/bin/plaso-psort "$vCarpetaDondeGuardar"/TimeLineDeEventos.plaso -o xlsx -w "$vCarpetaDondeGuardar"/TimeLineDeEventos.xlsx
               else
                 echo ""
-                echo -e "${cColorRojo}    El binario ~/bin/plaso-psort no existe. Abortando.${cFinColor}"
+                echo -e "${cColorRojo}      El binario ~/bin/plaso-psort no existe. Abortando.${cFinColor}"
                 echo ""
               fi
 
