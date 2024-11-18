@@ -65,6 +65,16 @@ if [ $# -ne $cCantParamEsperados ]
           3 "Unificando en un único archivo todos los archivos XML parseados" on
           4 "  Crear un único archivo con todos los eventos ordenados por fecha" off
           5 "  Crear un único archivo con todos los eventos del usuario ordenados por fecha" on
+          6 "Convertir los eventos a formato plaso" on
+          7 "  Parsear el plaso al formato dynamic"   off
+          8 "  Parsear el plaso al formato json"      off
+          9 "  Parsear el plaso al formato json_line" off
+         10 "  Parsear el plaso al formato l2tcsv"    off
+         11 "  Parsear el plaso al formato l2ttln"    off
+         12 "  Parsear el plaso al formato rawpy"     off
+         13 "  Parsear el plaso al formato tln"       off
+         14 "  Parsear el plaso al formato xlsx"      off
+         15 "  Otros..."                              off
         )
       choices=$("${menu[@]}" "${opciones[@]}" 2>&1 >/dev/tty)
 
@@ -387,6 +397,162 @@ if [ $# -ne $cCantParamEsperados ]
                   echo ""
                   echo "      "$vCarpetaDondeGuardar"/TodosLosEventosDelUsuarioOrdenadosPorFecha.xml"
                   echo ""
+
+            ;;
+
+            6)
+
+              echo ""
+              echo "  Convirtiendo los eventos al formato plaso..."
+              echo ""
+              if [ -f ~/bin/plaso-log2timeline ]; then
+                ~/bin/plaso-log2timeline $vCarpetaDelCaso/Eventos/Originales/ --storage-file "$vCarpetaDondeGuardar"/TimeLineDeEventos.plaso
+              else
+                echo ""
+                echo -e "${cColorRojo}    El binario ~/bin/plaso-log2timeline no existe. Abortando.${cFinColor}"
+                echo ""
+              fi
+
+            ;;
+
+            7)
+
+              echo ""
+              echo "    Parseando el plaso a formato dynamic..."
+              echo ""
+              if [ -f ~/bin/plaso-psort ]; then
+                ~/bin/plaso-psort "$vCarpetaDondeGuardar"/TimeLineDeEventos.plaso -o dynamic -w "$vCarpetaDondeGuardar"/TimeLineDeEventos.txt
+              else
+                echo ""
+                echo -e "${cColorRojo}    El binario ~/bin/plaso-psort no existe. Abortando.${cFinColor}"
+                echo ""
+              fi
+              
+
+            ;;
+
+            8)
+
+              echo ""
+              echo "    Parseando el plaso a formato json..."
+              echo ""
+              if [ -f ~/bin/plaso-psort ]; then
+                ~/bin/plaso-psort "$vCarpetaDondeGuardar"/TimeLineDeEventos.plaso -o json -w "$vCarpetaDondeGuardar"/TimeLineDeEventos.json
+              else
+                echo ""
+                echo -e "${cColorRojo}    El binario ~/bin/plaso-psort no existe. Abortando.${cFinColor}"
+                echo ""
+              fi
+
+            ;;
+
+            9)
+
+              echo ""
+              echo "    Parseando el plaso a formato json_line..."
+              echo ""
+              if [ -f ~/bin/plaso-psort ]; then
+                ~/bin/plaso-psort "$vCarpetaDondeGuardar"/TimeLineDeEventos.plaso -o json_line -w "$vCarpetaDondeGuardar"/TimeLineDeEventos.json_line 
+              else
+                echo ""
+                echo -e "${cColorRojo}    El binario ~/bin/plaso-psort no existe. Abortando.${cFinColor}"
+                echo ""
+              fi
+
+            ;;
+
+           10)
+
+              echo ""
+              echo "    Parseando el plaso a formato l2tcsv..."
+              echo ""
+              if [ -f ~/bin/plaso-psort ]; then
+                ~/bin/plaso-psort "$vCarpetaDondeGuardar"/TimeLineDeEventos.plaso -o l2tcsv -w "$vCarpetaDondeGuardar"/TimeLineDeEventos.l2tcsv
+              else
+                echo ""
+                echo -e "${cColorRojo}    El binario ~/bin/plaso-psort no existe. Abortando.${cFinColor}"
+                echo ""
+              fi
+
+            ;;
+
+           11)
+
+              echo ""
+              echo "    Parseando el plaso a formato l2ttln..."
+              echo ""
+              if [ -f ~/bin/plaso-psort ]; then
+                ~/bin/plaso-psort "$vCarpetaDondeGuardar"/TimeLineDeEventos.plaso -o l2ttln -w "$vCarpetaDondeGuardar"/TimeLineDeEventos.l2ttln
+              else
+                echo ""
+                echo -e "${cColorRojo}    El binario ~/bin/plaso-psort no existe. Abortando.${cFinColor}"
+                echo ""
+              fi
+
+            ;;
+
+           12)
+
+              echo ""
+              echo "    Parseando el plaso a formato rawpy..."
+              echo ""
+              if [ -f ~/bin/plaso-psort ]; then
+                ~/bin/plaso-psort "$vCarpetaDondeGuardar"/TimeLineDeEventos.plaso -o rawpy -w "$vCarpetaDondeGuardar"/TimeLineDeEventos.rawpy
+              else
+                echo ""
+                echo -e "${cColorRojo}    El binario ~/bin/plaso-psort no existe. Abortando.${cFinColor}"
+                echo ""
+              fi
+
+            ;;
+
+           13)
+
+              echo ""
+              echo "    Parseando el plaso a formato tln..."
+              echo ""
+              if [ -f ~/bin/plaso-psort ]; then
+                ~/bin/plaso-psort "$vCarpetaDondeGuardar"/TimeLineDeEventos.plaso -o tln -w "$vCarpetaDondeGuardar"/TimeLineDeEventos.tln
+              else
+                echo ""
+                echo -e "${cColorRojo}    El binario ~/bin/plaso-psort no existe. Abortando.${cFinColor}"
+                echo ""
+              fi
+
+            ;;
+
+           14)
+
+              echo ""
+              echo "    Parseando el plaso a formato xlsx..."
+              echo ""
+              if [ -f ~/bin/plaso-psort ]; then
+                ~/bin/plaso-psort "$vCarpetaDondeGuardar"/TimeLineDeEventos.plaso -o xlsx -w "$vCarpetaDondeGuardar"/TimeLineDeEventos.xlsx
+              else
+                echo ""
+                echo -e "${cColorRojo}    El binario ~/bin/plaso-psort no existe. Abortando.${cFinColor}"
+                echo ""
+              fi
+
+            ;;
+
+           15)
+
+              echo ""
+              echo "    Otros..."
+              echo ""
+
+              # Pasar todo el TimeLine de eventos, de json a xml
+                # cat "$vCarpetaDelCaso"/Eventos/Parseados/TimeLineEventos.json | jq | grep xml_string | sed 's-"xml_string": "--g' | sed 's/\\n/\n/g' | sed '/^"/d' | sed 's-xmlns=\"http://schemas.microsoft.com/win/2004/08/events/event\"--g' > "$vCarpetaDelCaso"/Eventos/Parseados/TimeLineCompleto.xml
+
+              # Exportando actividad del usuario específico desde el archivo .json
+                #  echo ""
+                #  echo "  Exportando actividad específica del usuario ..."
+                #  echo ""
+                #  vSIDDelUsuario="S-1-5-21-92896240-835188504-1963242017-1001"
+                #  cat '/Casos/Examen/Eventos/Parseados/TimeLineEventos.json' | sed 's-/Casos/Examen/Eventos/Originales/--g'  | jq '.[] | select(.user_sid == "'"$vSIDDelUsuario"'")' > $vCarpetaDelCaso/Eventos/Parseados/TimeLineUsuario.json
+
+              #     cat /Casos/Examen/Eventos/Parseados/TimeLineEventos.txt | sed 's-/Casos/Examen/Eventos/Originales/--g' | grep S-1-5-21 > $vCarpetaDelCaso/Eventos/Parseados/TimeLineUsuario.txt
 
             ;;
 
