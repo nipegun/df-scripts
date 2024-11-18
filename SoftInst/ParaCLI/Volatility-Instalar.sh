@@ -82,8 +82,8 @@
       git clone https://github.com/volatilityfoundation/volatility3.git
 
     # Crear el ambiente virtual
-      mkdir -p ~/VEnvs/ 2> /dev/null
-      cd ~/VEnvs/
+      mkdir -p~/PythonVirtualEnvironments/ 2> /dev/null
+      cd ~/PythonVirtualEnvironments/
       if [[ $(dpkg-query -s python3-venv 2>/dev/null | grep installed) == "" ]]; then
         echo ""
         echo -e "${cColorRojo}  El paquete python3-venv no está instalado. Iniciando su instalación...${cFinColor}"
@@ -92,7 +92,7 @@
         echo ""
       fi
       python3 -m venv volatility3
-      source ~/VEnvs/volatility3/bin/activate
+      source ~/PythonVirtualEnvironments/volatility3/bin/activate
       cd ~/SoftInst/volatility3/
       pip install -r requirements.txt 
       pip install -r requirements-dev.txt 
