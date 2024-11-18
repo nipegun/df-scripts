@@ -74,29 +74,29 @@
       echo ""
       echo "    La última versión de analyzemft disponible para instalar es la $vUltVers"
       echo ""
-    rm -rf ~/SoftInst/analyzeMFT/*  2> /dev/null
-    mkdir -p ~/SoftInst/analyzeMFT/ 2> /dev/null
+    rm -rf ~/scripts/python/analyzeMFT/*  2> /dev/null
+    mkdir -p ~/scripts/python/ 2> /dev/null
     # Decargar
       echo ""
       echo "    Descargando ..."
       echo ""
-      curl -L https://github.com/rowingdude/analyzeMFT/archive/refs/tags/v$vUltVers.tar.gz -o ~/SoftInst/analyzeMFT/analyzeMFT.tar.gz
+      curl -L https://github.com/rowingdude/analyzeMFT/archive/refs/tags/v$vUltVers.tar.gz -o /tmp/analyzeMFT.tar.gz
     # Descomprimir
       echo ""
       echo "    Descomprimiendo..."
       echo ""
-      tar -xzf ~/SoftInst/analyzeMFT/analyzeMFT.tar.gz -C ~/SoftInst/analyzeMFT/
-      #mv ~/SoftInst/analyzeMFT/analyzeMFT-$vUltVers/* ~/SoftInst/analyzeMFT/
-      #rm -rf ~/SoftInst/analyzeMFT/analyzeMFT-$vUltVers/
-      #rm -f  ~/SoftInst/analyzeMFT/analyzeMFT.tar.gz
-      chmod 755 ~/SoftInst/analyzeMFT/analyzeMFT-$vUltVers/
+      tar -xzf /tmp/analyzeMFT.tar.gz -C ~/scripts/python/
+      #mv ~/scripts/python/analyzeMFT/analyzeMFT-$vUltVers/* ~/scripts/python/analyzeMFT/
+      #rm -rf ~/scripts/python/analyzeMFT/analyzeMFT-$vUltVers/
+      #rm -f  ~/scripts/python/analyzeMFT/analyzeMFT.tar.gz
+      chmod 755 ~/scripts/python/analyzeMFT-$vUltVers/
+      mv ~/scripts/python/analyzeMFT-$vUltVers/ ~/scripts/python/analyzeMFT/
     # Crear el virtual environment
       echo ""
       echo "    Creando el virtual environment de python..."
       echo ""
       mkdir ~/PythonVirtualEnvironments/ 2> /dev/null
-      cd ~/PythonVirtualEnvironments/
-      rm -rf ~/PythonVirtualEnvironments/analyzemft
+      rm -rf ~/PythonVirtualEnvironments/analyzeMFT/*
       # Comprobar si el paquete python3 está instalado. Si no lo está, instalarlo.
         if [[ $(dpkg-query -s python3 2>/dev/null | grep installed) == "" ]]; then
           echo ""
@@ -113,11 +113,10 @@
           sudo apt-get -y update && sudo apt-get -y install python3-venv
           echo ""
         fi
-      python3 -m venv analyzemft
-      source analyzemft/bin/activate
-
-    # Compilar el script
-      cd ~/SoftInst/analyzeMFT/analyzeMFT-$vUltVers/
+      cd ~/PythonVirtualEnvironments/
+      python3 -m venv analyzeMFT
+      source analyzeMFT/bin/activate
+      cd ~/scripts/python/analyzeMFT/
       # Comprobar si el paquete python3-pip está instalado. Si no lo está, instalarlo.
         if [[ $(dpkg-query -s python3-pip 2>/dev/null | grep installed) == "" ]]; then
           echo ""
@@ -129,21 +128,30 @@
       pip install .
       pip install pyinstaller
 
+    # Compilar el script
       echo ""
       echo "    Compilando el script"
       echo ""
       pyinstaller --onefile --collect-all=analyzeMFT analyzeMFT.py
 
     # Copiar el binario a /usr/bin
-      sudo cp -f ~/SoftInst/analyzeMFT/analyzeMFT-$vUltVers/dist/analyzeMFT /usr/bin/
+      mkdir ~/bin/
+      cp -f ~/scripts/python/analyzeMFT/dist/analyzeMFT ~/bin/
 
     # Desactivar el entorno virtual
       deactivate
 
     # Notificar fin de ejecución del script
       echo ""
-      echo "  analyzeMFT se ha descargado, compilado e instalado."
-      echo "    Puedes encontrar el binario en /usr/bin/analyzeMFT."  
+      echo "  El script ha finalizado. analyzeMFT se ha descargado, compilado e instalado."
+      echo ""
+      echo "    Puedes encontrar el binario en ~/bin/analyzeMFT"
+      echo ""
+      echo "  El binario debe ser usado con precaución. Es mejor correr el script directamente con python, de la siguiente manera:"
+      echo ""
+      echo "    source ~/PythonVirtualEnvironments/analyzeMFT/bin/activate"
+      echo "    python3 ~/scripts/python/analyzeMFT/analyzeMFT.py [Argumentos]"
+      echo "    deactivate"
       echo ""
   
   elif [ $cVerSO == "11" ]; then
