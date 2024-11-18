@@ -76,7 +76,7 @@
       echo ""
     # Decargar
       echo ""
-      echo "    Descargando ..."
+      echo "    Descargando..."
       echo ""
       curl -L https://github.com/rowingdude/analyzeMFT/archive/refs/tags/v$vUltVers.tar.gz -o /tmp/analyzeMFT.tar.gz
     # Descomprimir
@@ -130,7 +130,7 @@
 
     # Compilar el script
       echo ""
-      echo "    Compilando el script"
+      echo "    Compilando el script..."
       echo ""
       pyinstaller --onefile --collect-all=analyzeMFT analyzeMFT.py
 
