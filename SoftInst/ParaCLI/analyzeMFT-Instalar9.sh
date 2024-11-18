@@ -74,8 +74,6 @@
       echo ""
       echo "    La última versión de analyzemft disponible para instalar es la $vUltVers"
       echo ""
-    rm -rf ~/scripts/python/analyzeMFT/*  2> /dev/null
-    mkdir -p ~/scripts/python/ 2> /dev/null
     # Decargar
       echo ""
       echo "    Descargando ..."
@@ -85,18 +83,20 @@
       echo ""
       echo "    Descomprimiendo..."
       echo ""
+      mkdir -p ~/scripts/python/ 2> /dev/null
       tar -xzf /tmp/analyzeMFT.tar.gz -C ~/scripts/python/
       #mv ~/scripts/python/analyzeMFT/analyzeMFT-$vUltVers/* ~/scripts/python/analyzeMFT/
       #rm -rf ~/scripts/python/analyzeMFT/analyzeMFT-$vUltVers/
       #rm -f  ~/scripts/python/analyzeMFT/analyzeMFT.tar.gz
       chmod 755 ~/scripts/python/analyzeMFT-$vUltVers/
+      rm -rf ~/scripts/python/analyzeMFT/  2> /dev/null
       mv ~/scripts/python/analyzeMFT-$vUltVers/ ~/scripts/python/analyzeMFT/
     # Crear el virtual environment
       echo ""
       echo "    Creando el virtual environment de python..."
       echo ""
       mkdir ~/PythonVirtualEnvironments/ 2> /dev/null
-      rm -rf ~/PythonVirtualEnvironments/analyzeMFT/*
+      rm -rf ~/PythonVirtualEnvironments/analyzeMFT/
       # Comprobar si el paquete python3 está instalado. Si no lo está, instalarlo.
         if [[ $(dpkg-query -s python3 2>/dev/null | grep installed) == "" ]]; then
           echo ""
@@ -115,7 +115,7 @@
         fi
       cd ~/PythonVirtualEnvironments/
       python3 -m venv analyzeMFT
-      source analyzeMFT/bin/activate
+      source ~/PythonVirtualEnvironments/analyzeMFT/bin/activate
       cd ~/scripts/python/analyzeMFT/
       # Comprobar si el paquete python3-pip está instalado. Si no lo está, instalarlo.
         if [[ $(dpkg-query -s python3-pip 2>/dev/null | grep installed) == "" ]]; then
