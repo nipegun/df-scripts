@@ -117,6 +117,10 @@
     echo ""
     echo "    ~/bin/volatility3 y ~/bin/volatility3shell"
     echo ""
+    echo "  También es posible ejecutar volatility3 directamente desde python (sin compilar), ejecutando:"
+    echo ""
+    echo "    python3 vol.py ..."
+    echo ""
 
   elif [ $cVerSO == "11" ]; then
 
@@ -200,6 +204,10 @@
                 echo ""
                 echo "    ~/bin/volatility2"
                 echo ""
+                echo "  También es posible ejecutar volatility3 directamente desde python (sin compilar), ejecutando:"
+                echo ""
+                echo "    python2.7 vol.py ..."
+                echo ""
 
             ;;
 
@@ -255,6 +263,10 @@
                 echo "  El script ha finalizado. Los binarios se pueden encontrar en:"
                 echo ""
                 echo "    ~/bin/volatility3 y ~/bin/volatility3shell"
+                echo ""
+                echo "  También es posible ejecutar volatility3 directamente desde python (sin compilar), ejecutando:"
+                echo ""
+                echo "    python3 vol.py ..."
                 echo ""
 
             ;;
@@ -318,6 +330,10 @@
       echo "  El script ha finalizado. El binario se puede encontrar en:"
       echo ""
       echo "    ~/bin/volatility2"
+      echo ""
+      echo "  También es posible ejecutar volatility3 directamente desde python (sin compilar), ejecutando:"
+      echo ""
+      echo "    python2.7 vol.py ..."
       echo ""
 
   elif [ $cVerSO == "9" ]; then
