@@ -124,7 +124,7 @@
       echo "  Los binarios deben ser ejecutados con precaución. Es mejor correr los scripts directamente con python, de la siguiente manera:"
       echo ""
       echo "    source ~/PythonVirtualEnvironments/volatility3/bin/activate"
-      echo "    python3 ~/scripts/python/volatility3/vol.py ..."
+      echo "    python3 ~/scripts/python/volatility3/vol.py [Argumentos]"
       echo "    deactivate"
       echo ""
 
@@ -228,7 +228,7 @@
                 echo "  El binario debe ser usado con precaución. Es mejor correr el script directamente con python, de la siguiente manera:"
                 echo ""
                 echo "    source ~/PythonVirtualEnvironments/volatility2/bin/activate"
-                echo "    python2.7 ~/scripts/python/volatility2/vol.py ..."
+                echo "    python2.7 ~/scripts/python/volatility2/vol.py [Argumentos]"
                 echo "    deactivate"
                 echo ""
 
@@ -294,7 +294,7 @@
                 echo "  Los binarios deben ser ejecutados con precaución. Es mejor correr los scripts directamente con python, de la siguiente manera:"
                 echo ""
                 echo "    source ~/PythonVirtualEnvironments/volatility3/bin/activate"
-                echo "    python3 ~/scripts/python/volatility3/vol.py ..."
+                echo "    python3 ~/scripts/python/volatility3/vol.py [Argumentos]"
                 echo "    deactivate"
                 echo ""
 
@@ -363,7 +363,7 @@
       echo "  El binario debe ser usado con precaución. Es mejor correr el script directamente con python, de la siguiente manera:"
       echo ""
       echo "    source ~/PythonVirtualEnvironments/volatility2/bin/activate"
-      echo "    python2.7 ~/scripts/python/volatility2/vol.py ..."
+      echo "    python2.7 ~/scripts/python/volatility2/vol.py [Argumentos]"
       echo "    deactivate"
       echo ""
 
