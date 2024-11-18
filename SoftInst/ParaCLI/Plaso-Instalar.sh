@@ -199,15 +199,15 @@
       echo "    Copiando los binarios a la carpeta ~/bin/"
       echo ""
       mkdir -p ~/bin/
-      cp ~/PythonVirtualEnvironments/plaso/bin/dist/image_export ~/bin/plaso-image_export
-      cp ~/PythonVirtualEnvironments/plaso/bin/dist/log2timeline ~/bin/plaso-log2timeline
-      cp ~/PythonVirtualEnvironments/plaso/bin/dist/normalizer   ~/bin/plaso-normalizer
-      cp ~/PythonVirtualEnvironments/plaso/bin/dist/psort        ~/bin/plaso-psort
-      cp ~/PythonVirtualEnvironments/plaso/bin/dist/psteal       ~/bin/plaso-psteal
-      cp ~/PythonVirtualEnvironments/plaso/bin/dist/pinfo        ~/bin/plaso-pinfo
-      cp ~/PythonVirtualEnvironments/plaso/bin/dist/stats        ~/bin/plaso-stats
-      cp ~/PythonVirtualEnvironments/plaso/bin/dist/validator    ~/bin/plaso-validator
-      cp ~/PythonVirtualEnvironments/plaso/bin/dist/xattr        ~/bin/plaso-xattr
+      cp -v ~/PythonVirtualEnvironments/plaso/bin/dist/image_export ~/bin/plaso-image_export
+      cp -v ~/PythonVirtualEnvironments/plaso/bin/dist/log2timeline ~/bin/plaso-log2timeline
+      cp -v ~/PythonVirtualEnvironments/plaso/bin/dist/normalizer   ~/bin/plaso-normalizer
+      cp -v ~/PythonVirtualEnvironments/plaso/bin/dist/psort        ~/bin/plaso-psort
+      cp -v ~/PythonVirtualEnvironments/plaso/bin/dist/psteal       ~/bin/plaso-psteal
+      cp -v ~/PythonVirtualEnvironments/plaso/bin/dist/pinfo        ~/bin/plaso-pinfo
+      cp -v ~/PythonVirtualEnvironments/plaso/bin/dist/stats        ~/bin/plaso-stats
+      cp -v ~/PythonVirtualEnvironments/plaso/bin/dist/validator    ~/bin/plaso-validator
+      cp -v ~/PythonVirtualEnvironments/plaso/bin/dist/xattr        ~/bin/plaso-xattr
 
     # Desactivar el entorno virtual
       echo ""
