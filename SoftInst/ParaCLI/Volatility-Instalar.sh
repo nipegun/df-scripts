@@ -95,6 +95,14 @@
       python3 -m venv volatility3
       source ~/PythonVirtualEnvironments/volatility3/bin/activate
       cd ~/scripts/python/volatility3/
+      # Comprobar si el paquete python3-pip está instalado. Si no lo está, instalarlo.
+        if [[ $(dpkg-query -s python3-pip 2>/dev/null | grep installed) == "" ]]; then
+          echo ""
+          echo -e "${cColorRojo}  El paquete python3-pip no está instalado. Iniciando su instalación...${cFinColor}"
+          echo ""
+          sudo apt-get -y update && sudo apt-get -y install python3-pip
+          echo ""
+        fi
       pip install -r requirements.txt 
       pip install -r requirements-dev.txt 
 
@@ -265,6 +273,14 @@
                 python3 -m venv volatility3
                 source ~/VEnvs/volatility3/bin/activate
                 cd ~/scripts/python/volatility3/
+                # Comprobar si el paquete python3-pip está instalado. Si no lo está, instalarlo.
+                  if [[ $(dpkg-query -s python3-pip 2>/dev/null | grep installed) == "" ]]; then
+                    echo ""
+                    echo -e "${cColorRojo}  El paquete python3-pip no está instalado. Iniciando su instalación...${cFinColor}"
+                    echo ""
+                    sudo apt-get -y update && sudo apt-get -y install python3-pip
+                    echo ""
+                  fi
                 pip install -r requirements.txt 
                 pip install -r requirements-dev.txt 
                 pip install pyinstaller
