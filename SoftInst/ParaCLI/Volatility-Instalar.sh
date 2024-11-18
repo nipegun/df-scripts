@@ -82,7 +82,7 @@
       git clone https://github.com/volatilityfoundation/volatility3.git
 
     # Crear el ambiente virtual
-      mkdir -p~/PythonVirtualEnvironments/ 2> /dev/null
+      mkdir -p ~/PythonVirtualEnvironments/ 2> /dev/null
       cd ~/PythonVirtualEnvironments/
       if [[ $(dpkg-query -s python3-venv 2>/dev/null | grep installed) == "" ]]; then
         echo ""
