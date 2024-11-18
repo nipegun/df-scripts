@@ -111,16 +111,22 @@
       # Desactivar el entorno virtual
         deactivate
 
-  # Notificar fin de ejecución del script
-    echo ""
-    echo "  El script ha finalizado. Los binarios se pueden encontrar en:"
-    echo ""
-    echo "    ~/bin/volatility3 y ~/bin/volatility3shell"
-    echo ""
-    echo "  También es posible ejecutar volatility3 directamente desde python (sin compilar), ejecutando:"
-    echo ""
-    echo "    python3 vol.py ..."
-    echo ""
+    # Notificar fin de ejecución del script
+      echo ""
+      echo "  El script ha finalizado. Los scripts compilados se han copiado a:"
+      echo ""
+      echo "    ~/bin/volatility3"
+      echo ""
+      echo "      y"
+      echo ""
+      echo "    ~/bin/volatility3shell"
+      echo ""
+      echo "  Los binarios deben ser ejecutados con precaución. Es mejor correr los scripts directamente con python, de la siguiente manera:"
+      echo ""
+      echo "    source ~/PythonVirtualEnvironments/volatility2/bin/activate"
+      echo "    python3 ~/scripts/python/volatility3/vol.py ..."
+      echo "    deactivate"
+      echo ""
 
   elif [ $cVerSO == "11" ]; then
 
@@ -215,13 +221,15 @@
 
               # Notificar fin de ejecución del script
                 echo ""
-                echo "  El script ha finalizado. El binario se pueden encontrar en:"
+                echo "  El script ha finalizado. El script compilado se ha copiado a:"
                 echo ""
                 echo "    ~/bin/volatility2"
                 echo ""
-                echo "  También es posible ejecutar volatility3 directamente desde python (sin compilar), ejecutando:"
+                echo "  El binario debe ser usado con precaución. Es mejor correr el script directamente con python, de la siguiente manera:"
                 echo ""
-                echo "    python2.7 vol.py ..."
+                echo "    source ~/PythonVirtualEnvironments/volatility2/bin/activate"
+                echo "    python2.7 ~/scripts/python/volatility2/vol.py ..."
+                echo "    deactivate"
                 echo ""
 
             ;;
@@ -275,13 +283,19 @@
 
               # Notificar fin de ejecución del script
                 echo ""
-                echo "  El script ha finalizado. Los binarios se pueden encontrar en:"
+                echo "  El script ha finalizado. Los scripts compilados se han copiado a:"
                 echo ""
-                echo "    ~/bin/volatility3 y ~/bin/volatility3shell"
+                echo "    ~/bin/volatility3"
                 echo ""
-                echo "  También es posible ejecutar volatility3 directamente desde python (sin compilar), ejecutando:"
+                echo "      y"
                 echo ""
-                echo "    python3 vol.py ..."
+                echo "    ~/bin/volatility3shell"
+                echo ""
+                echo "  Los binarios deben ser ejecutados con precaución. Es mejor correr los scripts directamente con python, de la siguiente manera:"
+                echo ""
+                echo "    source ~/PythonVirtualEnvironments/volatility2/bin/activate"
+                echo "    python3 ~/scripts/python/volatility3/vol.py ..."
+                echo "    deactivate"
                 echo ""
 
             ;;
@@ -342,13 +356,15 @@
 
     # Notificar fin de ejecución del script
       echo ""
-      echo "  El script ha finalizado. El binario se puede encontrar en:"
+      echo "  El script ha finalizado. El script compilado se ha copiado a:"
       echo ""
       echo "    ~/bin/volatility2"
       echo ""
-      echo "  También es posible ejecutar volatility3 directamente desde python (sin compilar), ejecutando:"
+      echo "  El binario debe ser usado con precaución. Es mejor correr el script directamente con python, de la siguiente manera:"
       echo ""
-      echo "    python2.7 vol.py ..."
+      echo "    source ~/PythonVirtualEnvironments/volatility2/bin/activate"
+      echo "    python2.7 ~/scripts/python/volatility2/vol.py ..."
+      echo "    deactivate"
       echo ""
 
   elif [ $cVerSO == "9" ]; then
