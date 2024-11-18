@@ -169,24 +169,39 @@
                 fi
                 git clone https://github.com/volatilityfoundation/volatility.git
 
+              # Instalar dependencias
+                sudo apt-get -y update
+                sudo apt-get -y install build-essential
+                sudo apt-get -y install git
+                sudo apt-get -y install libdistorm3-dev
+                sudo apt-get -y install yara
+                sudo apt-get -y install libraw1394-11
+                sudo apt-get -y install libcapstone-dev
+                sudo apt-get -y install capstone-tool
+                sudo apt-get -y install tzdata
+                sudo apt-get -y install python2
+                sudo apt-get -y install python2.7-dev
+                sudo apt-get -y install libpython2-dev
+                sudo apt-get -y install curl
+                sudo apt-get -y install python-dev
+                sudo apt-get -y install upx
+                sudo apt-get -y install binutils
+
               # Crear el ambiente virtual
                 curl -sL https://bootstrap.pypa.io/pip/2.7/get-pip.py -o /tmp/get-pip.py
                 apt-get -y install python2
                 python2 /tmp/get-pip.py
                 python2 -m pip install virtualenv
-                mkdir -p ~/VEnvs/ 2> /dev/null
-                cd ~/VEnvs/
-                rm -rf ~/VEnvs/volatility2/*
+                mkdir -p ~/PythonVirtualEnvironments/ 2> /dev/null
+                cd ~/PythonVirtualEnvironments/
+                rm -rf ~/PythonVirtualEnvironments/volatility2/*
                 python2 -m virtualenv volatility2
-                source ~/VEnvs/volatility2/bin/activate
+                source ~/PythonVirtualEnvironments/volatility2/bin/activate
                 pip2 install pyinstaller==3.6
 
               # Compilar
                 mv ~/SoftInst/volatility/ ~/SoftInst/volatility2/
                 cd ~/SoftInst/volatility2/
-                apt-get -y install python-dev
-                apt-get -y install upx
-                apt-get -y install binutils
                 # pyinstaller --onefile vol.py --hidden-import=modulo1
                 pyinstaller --onefile vol.py
                   
@@ -302,11 +317,11 @@
       apt-get -y install python2
       python2 /tmp/get-pip.py
       python2 -m pip install virtualenv
-      mkdir -p ~/VEnvs/ 2> /dev/null
-      cd ~/VEnvs/
-      rm -rf ~/VEnvs/volatility2/*
+      mkdir -p ~/PythonVirtualEnvironments/ 2> /dev/null
+      cd ~/PythonVirtualEnvironments/
+      rm -rf ~/PythonVirtualEnvironments/volatility2/*
       python2 -m virtualenv volatility2
-      source ~/VEnvs/volatility2/bin/activate
+      source ~/PythonVirtualEnvironments/volatility2/bin/activate
       pip2 install pyinstaller==3.6
 
     # Compilar
