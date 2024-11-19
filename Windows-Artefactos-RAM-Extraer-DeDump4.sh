@@ -44,61 +44,61 @@ if [ $# -ne $cCantParamEsperados ]
       echo ""
       echo "  Extrayendo información del sistema operativo..."
       echo ""
-      ~/PythonVirtualEnvironments/volatility2/bin/activate
-      vol.py -f "$cRutaAlArchivoDeDump" windows.info
+      ~/PythonVirtualEnvironments/volatility3/bin/activate
+      ~/scripts/python/volatility3/vol.py -f "$cRutaAlArchivoDeDump" windows.info
     # Procesos
       echo ""
       echo "  Extrayendo información de procesos"
       echo ""
-      vol.py -f "$cRutaAlArchivoDeDump" windows.pslist
-      vol.py -f "$cRutaAlArchivoDeDump" windows.psscan
-      vol.py -f "$cRutaAlArchivoDeDump" windows.pstree
+      ~/scripts/python/volatility3/vol.py -f "$cRutaAlArchivoDeDump" windows.pslist
+      ~/scripts/python/volatility3/vol.py -f "$cRutaAlArchivoDeDump" windows.psscan
+      ~/scripts/python/volatility3/vol.py -f "$cRutaAlArchivoDeDump" windows.pstree
     # ProcDump (Dumpea .exes y DLLs asociadas)
-      vol.py -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.dumpfiles ‑‑pid "<PID>" 
+      ~/scripts/python/volatility3/vol.py -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.dumpfiles ‑‑pid "<PID>" 
     # MemDump
-      vol.py -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.memmap ‑‑dump ‑‑pid "<PID>"
+      ~/scripts/python/volatility3/vol.py -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.memmap ‑‑dump ‑‑pid "<PID>"
 
     # Handles (Dumpea PID, process, offset, handlevalue, type, grantedaccess, name)
-      vol.py -f "$cRutaAlArchivoDeDump" windows.handles ‑‑pid "<PID>"
+      ~/scripts/python/volatility3/vol.py -f "$cRutaAlArchivoDeDump" windows.handles ‑‑pid "<PID>"
 
     # DLLs (PID, process, base, size, name, path, loadtime, file output)
-      vol.py -f "$cRutaAlArchivoDeDump" windows.dlllist ‑‑pid "<PID>"
+      ~/scripts/python/volatility3/vol.py -f "$cRutaAlArchivoDeDump" windows.dlllist ‑‑pid "<PID>"
 
     # CMDLine (PID, process name, args)
-      vol.py -f "$cRutaAlArchivoDeDump" windows.cmdline
+      ~/scripts/python/volatility3/vol.py -f "$cRutaAlArchivoDeDump" windows.cmdline
 
     # Red
-      vol.py -f "$cRutaAlArchivoDeDump" windows.netscan
-      vol.py -f "$cRutaAlArchivoDeDump" windows.netstat
+      ~/scripts/python/volatility3/vol.py -f "$cRutaAlArchivoDeDump" windows.netscan
+      ~/scripts/python/volatility3/vol.py -f "$cRutaAlArchivoDeDump" windows.netstat
 
 # Registro
 
   # HiveList
-    vol.py -f "$cRutaAlArchivoDeDump" windows.registry.hivescan
-    vol.py -f "$cRutaAlArchivoDeDump" windows.registry.hivelist
+      ~/scripts/python/volatility3/vol.py -f "$cRutaAlArchivoDeDump" windows.registry.hivescan
+      ~/scripts/python/volatility3/vol.py -f "$cRutaAlArchivoDeDump" windows.registry.hivelist
 
   # Registry printkey
-    vol.py -f "$cRutaAlArchivoDeDump" windows.registry.printkey
-    vol.py -f "$cRutaAlArchivoDeDump" windows.registry.printkey ‑‑key "Software\Microsoft\Windows\CurrentVersion"
+      ~/scripts/python/volatility3/vol.py -f "$cRutaAlArchivoDeDump" windows.registry.printkey
+      ~/scripts/python/volatility3/vol.py -f "$cRutaAlArchivoDeDump" windows.registry.printkey ‑‑key "Software\Microsoft\Windows\CurrentVersion"
 
 # Archivos
 
   # FileScan
-    vol.py -f "$cRutaAlArchivoDeDump" windows.filescan
+      ~/scripts/python/volatility3/vol.py -f "$cRutaAlArchivoDeDump" windows.filescan
 
   # FileDump
-    vol.py -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.dumpfiles
-    vol.py -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.dumpfiles ‑‑virtaddr "<offset>"
-    vol.py -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.dumpfiles ‑‑physaddr "<offset>"
+      ~/scripts/python/volatility3/vol.py -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.dumpfiles
+      ~/scripts/python/volatility3/vol.py -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.dumpfiles ‑‑virtaddr "<offset>"
+      ~/scripts/python/volatility3/vol.py -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.dumpfiles ‑‑physaddr "<offset>"
 
 # Misceláneo
 
   # MalFind (Dumpea PID, process name, process start, protection, commit charge, privatememory, file output, hexdump disassembly)
-    vol.py -f "$cRutaAlArchivoDeDump" windows.malfind
+      ~/scripts/python/volatility3/vol.py -f "$cRutaAlArchivoDeDump" windows.malfind
 
   # Yarascan
-    vol.py -f "$cRutaAlArchivoDeDump" windows.vadyarascan ‑‑yara-rules "<string>"
-    vol.py -f "$cRutaAlArchivoDeDump" windows.vadyarascan ‑‑yara-file "/path/to/file.yar"
-    vol.py -f "$cRutaAlArchivoDeDump" yarascan.yarascan   ‑‑yara-file "/path/to/file.yar"
+      ~/scripts/python/volatility3/vol.py -f "$cRutaAlArchivoDeDump" windows.vadyarascan ‑‑yara-rules "<string>"
+      ~/scripts/python/volatility3/vol.py -f "$cRutaAlArchivoDeDump" windows.vadyarascan ‑‑yara-file "/path/to/file.yar"
+      ~/scripts/python/volatility3/vol.py -f "$cRutaAlArchivoDeDump" yarascan.yarascan   ‑‑yara-file "/path/to/file.yar"
 
 fi
