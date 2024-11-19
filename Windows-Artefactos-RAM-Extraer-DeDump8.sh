@@ -55,9 +55,9 @@ if [ $# -ne $cCantParamEsperados ]
       echo ""
       echo "  Extrayendo información de procesos"
       echo ""
-      ~/scripts/python/volatility3/vol.py -f "$cRutaAlArchivoDeDump" windows.pslist | sort -n > "$cCarpetaDondeGuardar"/windows.pslist.txt
-      ~/scripts/python/volatility3/vol.py -f "$cRutaAlArchivoDeDump" windows.psscan | sort -n > "$cCarpetaDondeGuardar"/windows.psscan.txt
-      ~/scripts/python/volatility3/vol.py -f "$cRutaAlArchivoDeDump" windows.pstree | sort -n > "$cCarpetaDondeGuardar"/windows.pstree.txt
+      ~/scripts/python/volatility3/vol.py -f "$cRutaAlArchivoDeDump" windows.pslist | sort -n | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.pslist.txt
+      ~/scripts/python/volatility3/vol.py -f "$cRutaAlArchivoDeDump" windows.psscan | sort -n | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.psscan.txt
+      ~/scripts/python/volatility3/vol.py -f "$cRutaAlArchivoDeDump" windows.pstree | sort -n | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.pstree.txt
     # ProcDump (Dumpea .exes y DLLs asociadas)
       ~/scripts/python/volatility3/vol.py -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.dumpfiles ‑‑pid "<PID>" 
     # MemDump
