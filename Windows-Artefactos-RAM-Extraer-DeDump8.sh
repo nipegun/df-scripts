@@ -200,7 +200,7 @@ fi
       cd ~/ArtefactosRAM/MemoryLayer/
       ~/scripts/python/volatility3/vol.py -f "$cRutaAlArchivoDeDump" layerwriter
       cd .. 
-      ~/scripts/python/volatility3/vol.py -f "$cRutaAlArchivoDeDump" timeliner                       > "$cCarpetaDondeGuardar"/timeliner
-      ~/scripts/python/volatility3/vol.py -f "$cRutaAlArchivoDeDump" vmscan                          > "$cCarpetaDondeGuardar"/vmscan.Vmscan
+      ~/scripts/python/volatility3/vol.py -f "$cRutaAlArchivoDeDump" timeliner                       > "$cCarpetaDondeGuardar"/timeliner.txt
+      ~/scripts/python/volatility3/vol.py -f "$cRutaAlArchivoDeDump" vmscan                          > "$cCarpetaDondeGuardar"/vmscan.txt
       ~/scripts/python/volatility3/vol.py -f "$cRutaAlArchivoDeDump" yarascan                        > "$cCarpetaDondeGuardar"/yarascan.YaraScan
 
