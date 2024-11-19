@@ -97,7 +97,7 @@ if [ $# -ne $cCantParamEsperados ]
     vol.py -f "$cRutaAlArchivoDeDump" windows.malfind
 
   # Yarascan
-    vol.py -f "$cRutaAlArchivoDeDump" windows.vadyarascan ‑‑yara-rules <string>
+    vol.py -f "$cRutaAlArchivoDeDump" windows.vadyarascan ‑‑yara-rules "<string>"
     vol.py -f "$cRutaAlArchivoDeDump" windows.vadyarascan ‑‑yara-file "/path/to/file.yar"
     vol.py -f "$cRutaAlArchivoDeDump" yarascan.yarascan   ‑‑yara-file "/path/to/file.yar"
 
