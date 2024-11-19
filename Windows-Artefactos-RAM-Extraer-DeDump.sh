@@ -8,17 +8,8 @@
 # ----------
 # Script de NiPeGun para parsear datos extraidos de la RAM de Windows en Debian
 #
-# Ejecución remota con sudo:
-#   curl -sL x | sudo bash
-#
-# Ejecución remota como root:
-#   curl -sL x | bash
-#
-# Ejecución remota sin caché:
-#   curl -sL -H 'Cache-Control: no-cache, no-store' x | bash
-#
 # Ejecución remota con parámetros:
-#   curl -sL x | bash -s Parámetro1 Parámetro2
+#   curl -sL x | sudo bash -s [RutaAlArchivoConDump]
 #
 # Bajar y editar directamente el archivo en nano
 #   curl -sL x | nano -
