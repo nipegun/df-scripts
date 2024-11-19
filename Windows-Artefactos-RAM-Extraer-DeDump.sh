@@ -9,10 +9,10 @@
 # Script de NiPeGun para parsear datos extraidos de la RAM de Windows en Debian
 #
 # Ejecución remota con parámetros:
-#   curl -sL x | sudo bash -s [RutaAlArchivoConDump]
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Windows-Artefactos-RAM-Extraer-DeDump.sh | sudo bash -s [RutaAlArchivoConDump]
 #
 # Bajar y editar directamente el archivo en nano
-#   curl -sL x | nano -
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Windows-Artefactos-RAM-Extraer-DeDump.sh | nano -
 # ----------
 
 # Definir constantes de color
