@@ -40,6 +40,8 @@ if [ $# -ne $cCantParamEsperados ]
   else
     # Crear constante para archivo de dump
       cRutaAlArchivoDeDump="$2"
+      
+      source ~/PythonVirtualEnvironments/volatility3/bin/activate
     # Información del sistema operativo
       echo ""
       echo "  Extrayendo información del sistema operativo..."
@@ -100,5 +102,8 @@ if [ $# -ne $cCantParamEsperados ]
       ~/scripts/python/volatility3/vol.py -f "$cRutaAlArchivoDeDump" windows.vadyarascan ‑‑yara-rules "<string>"
       ~/scripts/python/volatility3/vol.py -f "$cRutaAlArchivoDeDump" windows.vadyarascan ‑‑yara-file "/path/to/file.yar"
       ~/scripts/python/volatility3/vol.py -f "$cRutaAlArchivoDeDump" yarascan.yarascan   ‑‑yara-file "/path/to/file.yar"
+
+  # Desactivar el entorno virtual
+    deactivate
 
 fi
