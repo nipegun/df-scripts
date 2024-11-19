@@ -54,9 +54,9 @@ if [ $# -ne $cCantParamEsperados ]
       vol.py -f "$cRutaAlArchivoDeDump" windows.psscan
       vol.py -f "$cRutaAlArchivoDeDump" windows.pstree
     # ProcDump (Dumpea .exes y DLLs asociadas)
-      vol.py -f "$cRutaAlArchivoDeDump" -o “/path/to/dir” windows.dumpfiles ‑‑pid <PID> 
+      vol.py -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.dumpfiles ‑‑pid <PID> 
     # MemDump
-      vol.py -f "$cRutaAlArchivoDeDump" -o “/path/to/dir” windows.memmap ‑‑dump ‑‑pid <PID>
+      vol.py -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.memmap ‑‑dump ‑‑pid <PID>
 
     # Handles (Dumpea PID, process, offset, handlevalue, type, grantedaccess, name)
       vol.py -f "$cRutaAlArchivoDeDump" windows.handles ‑‑pid <PID>
@@ -79,7 +79,7 @@ if [ $# -ne $cCantParamEsperados ]
 
   # Registry printkey
     vol.py -f "$cRutaAlArchivoDeDump" windows.registry.printkey
-    vol.py -f "$cRutaAlArchivoDeDump" windows.registry.printkey ‑‑key “Software\Microsoft\Windows\CurrentVersion”
+    vol.py -f "$cRutaAlArchivoDeDump" windows.registry.printkey ‑‑key "Software\Microsoft\Windows\CurrentVersion"
 
 # Archivos
 
@@ -87,9 +87,9 @@ if [ $# -ne $cCantParamEsperados ]
     vol.py -f "$cRutaAlArchivoDeDump" windows.filescan
 
   # FileDump
-    vol.py -f "$cRutaAlArchivoDeDump" -o “/path/to/dir” windows.dumpfiles
-    vol.py -f "$cRutaAlArchivoDeDump" -o “/path/to/dir” windows.dumpfiles ‑‑virtaddr <offset>
-    vol.py -f "$cRutaAlArchivoDeDump" -o “/path/to/dir” windows.dumpfiles ‑‑physaddr <offset>
+    vol.py -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.dumpfiles
+    vol.py -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.dumpfiles ‑‑virtaddr <offset>
+    vol.py -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.dumpfiles ‑‑physaddr <offset>
 
 # Misceláneo
 
@@ -98,8 +98,7 @@ if [ $# -ne $cCantParamEsperados ]
 
   # Yarascan
     vol.py -f "$cRutaAlArchivoDeDump" windows.vadyarascan ‑‑yara-rules <string>
-    vol.py -f "$cRutaAlArchivoDeDump" windows.vadyarascan ‑‑yara-file “/path/to/file.yar”
-    vol.py -f "$cRutaAlArchivoDeDump" yarascan.yarascan   ‑‑yara-file “/path/to/file.yar”
-
+    vol.py -f "$cRutaAlArchivoDeDump" windows.vadyarascan ‑‑yara-file "/path/to/file.yar"
+    vol.py -f "$cRutaAlArchivoDeDump" yarascan.yarascan   ‑‑yara-file "/path/to/file.yar"
 
 fi
