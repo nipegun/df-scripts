@@ -54,15 +54,15 @@ if [ $# -ne $cCantParamEsperados ]
       vol.py -f "$cRutaAlArchivoDeDump" windows.psscan
       vol.py -f "$cRutaAlArchivoDeDump" windows.pstree
     # ProcDump (Dumpea .exes y DLLs asociadas)
-      vol.py -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.dumpfiles ‑‑pid <PID> 
+      vol.py -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.dumpfiles ‑‑pid "<PID>" 
     # MemDump
-      vol.py -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.memmap ‑‑dump ‑‑pid <PID>
+      vol.py -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.memmap ‑‑dump ‑‑pid "<PID>"
 
     # Handles (Dumpea PID, process, offset, handlevalue, type, grantedaccess, name)
-      vol.py -f "$cRutaAlArchivoDeDump" windows.handles ‑‑pid <PID>
+      vol.py -f "$cRutaAlArchivoDeDump" windows.handles ‑‑pid "<PID>"
 
     # DLLs (PID, process, base, size, name, path, loadtime, file output)
-      vol.py -f "$cRutaAlArchivoDeDump" windows.dlllist ‑‑pid <PID>
+      vol.py -f "$cRutaAlArchivoDeDump" windows.dlllist ‑‑pid "<PID>"
 
     # CMDLine (PID, process name, args)
       vol.py -f "$cRutaAlArchivoDeDump" windows.cmdline
@@ -88,8 +88,8 @@ if [ $# -ne $cCantParamEsperados ]
 
   # FileDump
     vol.py -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.dumpfiles
-    vol.py -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.dumpfiles ‑‑virtaddr <offset>
-    vol.py -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.dumpfiles ‑‑physaddr <offset>
+    vol.py -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.dumpfiles ‑‑virtaddr "<offset>"
+    vol.py -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.dumpfiles ‑‑physaddr "<offset>"
 
 # Misceláneo
 
