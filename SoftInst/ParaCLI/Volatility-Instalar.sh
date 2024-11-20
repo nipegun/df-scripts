@@ -112,7 +112,7 @@ git clone https://github.com/volatilityfoundation/volatility.git
 ~/scripts/python/volatility/volatility
 pip install pyinstaller==3.6
                   
-
+virtualenv -p /usr/bin/python2.7 volatility2
               # Mover el binario a la carpeta de binarios del usuario
                 mkdir -p ~/bin/
                 cp ~/scripts/python/volatility2/dist/vol ~/bin/volatility2
