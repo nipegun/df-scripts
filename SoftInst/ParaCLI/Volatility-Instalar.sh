@@ -228,7 +228,7 @@ virtualenv -p /usr/bin/python2.7 volatility2
         echo ""
         echo -e "${cColorRojo}  El paquete dialog no está instalado. Iniciando su instalación...${cFinColor}"
         echo ""
-        apt-get -y update && apt-get -y install dialog
+        sudo apt-get -y update && sudo apt-get -y install dialog
         echo ""
       fi
 
