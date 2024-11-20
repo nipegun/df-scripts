@@ -125,10 +125,13 @@ fi
       ~/scripts/python/volatility3/vol.py -f "$cRutaAlArchivoDeDump" windows.driverirp               > "$cCarpetaDondeGuardar"/windows.driverirp.txt
       ~/scripts/python/volatility3/vol.py -f "$cRutaAlArchivoDeDump" windows.drivermodule            > "$cCarpetaDondeGuardar"/windows.drivermodule.txt
       ~/scripts/python/volatility3/vol.py -f "$cRutaAlArchivoDeDump" windows.driverscan              > "$cCarpetaDondeGuardar"/windows.driverscan.txt
+
       mkdir -p ~/ArtefactosRAM/Archivos
       cd ~/ArtefactosRAM/Archivos/
       ~/scripts/python/volatility3/vol.py -f "$cRutaAlArchivoDeDump" windows.dumpfiles
-      cd .. 
+      cd ..
+      dd if=file.None.0xfffffa8000d06e10.dat of=img.png bs=1 skip=0
+
       ~/scripts/python/volatility3/vol.py -f "$cRutaAlArchivoDeDump" windows.envars                  > "$cCarpetaDondeGuardar"/windows.envars.txt
       ~/scripts/python/volatility3/vol.py -f "$cRutaAlArchivoDeDump" windows.filescan                > "$cCarpetaDondeGuardar"/windows.filescan.txt
       ~/scripts/python/volatility3/vol.py -f "$cRutaAlArchivoDeDump" windows.getservicesids          > "$cCarpetaDondeGuardar"/windows.getservicesids.txt
