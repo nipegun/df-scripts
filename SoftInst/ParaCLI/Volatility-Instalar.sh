@@ -133,7 +133,7 @@
       echo "  Los binarios deben ser ejecutados con precaución. Es mejor correr los scripts directamente con python, de la siguiente manera:"
       echo ""
       echo "    source ~/PythonVirtualEnvironments/volatility3/bin/activate"
-      echo "    python3 ~/scripts/python/volatility3/vol.py [Argumentos]"
+      echo "    ~/scripts/python/volatility3/vol.py [Argumentos]"
       echo "    deactivate"
       echo ""
 
