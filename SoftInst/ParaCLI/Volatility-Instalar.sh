@@ -95,6 +95,7 @@
               echo ""
               echo "  Instalando versión 2.x..."
               echo ""
+
 python2.7 -m ensurepip   --default-pip --user
 python2.7 -m pip install --upgrade pip --user 
 python2.7 -m pip install virtualenv --user 
