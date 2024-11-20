@@ -128,7 +128,9 @@ fi
 
       mkdir -p ~/ArtefactosRAM/Archivos
       cd ~/ArtefactosRAM/Archivos/
-      ~/scripts/python/volatility3/vol.py -f "$cRutaAlArchivoDeDump" windows.dumpfiles
+      ~/scripts/python/volatility3/vol.py -f "$cRutaAlArchivoDeDump" windows.dumpfiles --filter \.exe$
+      ~/scripts/python/volatility3/vol.py -f "$cRutaAlArchivoDeDump" windows.dumpfiles --filter \.exe$
+      ~/scripts/python/volatility3/vol.py -f "$cRutaAlArchivoDeDump" windows.dumpfiles --filter \.exe\$
       cd ..
       dd if=file.None.0xfffffa8000d06e10.dat of=img.png bs=1 skip=0
 
