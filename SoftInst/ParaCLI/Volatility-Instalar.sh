@@ -11,6 +11,78 @@ echo 'export PATH=/home/username/.local/bin:$PATH' >> ~/.bashrc
 volshell launches an interactive shell for Volatility 3. Allows you to run commands and explore memory images interactively.
 volshell -f <path_to_memory_image> (Opens a specific memory image file in the Volatility 3 shell for analysis.)
 
+Additional useful commands:
+
+    volshell
+    Launches an interactive shell for Volatility 3.
+    Allows you to run commands and explore memory images interactively.
+    volshell -f <path_to_memory_image>
+    Opens a specific memory image file in the Volatility 3 shell for analysis.
+    volshell -h
+    Displays help information for the volshell command, including available options.
+
+Core Commands
+
+    imageinfo
+    Retrieves basic information about the memory image.
+    Provides details such as profile, operating system version, and architecture.
+    pslist
+    Lists all running processes extracted from the memory image.
+    Shows process identifiers (PIDs), parent process IDs (PPIDs), session IDs, and other process details.
+    pstree
+    Displays processes in a tree-like hierarchical structure.
+    Shows parent-child relationships between processes.
+    psscan
+    Scans for and lists processes that may not be visible in the standard process lists (pslist).
+    Useful for finding hidden or terminated processes.
+    dlllist
+    Lists loaded DLLs (Dynamic Link Libraries) for each process.
+    Shows memory addresses, base addresses, and path to the DLL files.
+    handles
+    Lists open handles for each process.
+    Includes file handles, registry key handles, and other types of handles.
+    netscan
+    Scans for network artifacts such as sockets and connections.
+    Provides details about established network connections.
+    filescan
+    Scans for and lists file-related artifacts extracted from memory.
+    Includes file handles, file mappings, and other file-related structures.
+
+Advanced Analysis Commands
+
+    malfind
+    Identifies potential injected code or malicious artifacts within memory regions.
+    Useful for detecting malware presence in memory.
+    vadinfo
+    Displays information about Virtual Address Descriptors (VADs) and memory mappings.
+    Helps in analyzing memory regions and memory allocation patterns.
+    modscan
+    Scans for loaded kernel modules within the memory image.
+    Lists information about loaded drivers and kernel modules.
+    driverirp
+    Analyzes IRP (I/O Request Packet) structures for loaded drivers.
+    Useful for investigating driver behavior and I/O operations.
+
+Plugin Management
+
+    plugin_list
+    Lists all available plugins in the Volatility 3 framework.
+    Shows plugin names and descriptions.
+    plugin_load <plugin_name>
+    Loads a specific plugin into the Volatility 3 environment.
+    Enables additional analysis capabilities provided by the plugin.
+
+Additional Utilities
+
+    apihooks
+    Detects API hooking techniques used by malware within memory.
+    Identifies hooked functions and their addresses.
+    dumpfiles
+    Extracts and saves files found within memory, such as executables or documents.
+    Enables forensic analysis of extracted files.
+
+
+
 # Pongo a disposición pública este script bajo el término de "software de dominio público".
 # Puedes hacer lo que quieras con él porque es libre de verdad; no libre con condiciones como las licencias GNU y otras patrañas similares.
 # Si se te llena la boca hablando de libertad entonces hazlo realmente libre.
