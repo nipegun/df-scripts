@@ -65,6 +65,23 @@
     echo -e "${cColorAzulClaro}  Iniciando el script de instalación de Volatilty para Debian 12 (Bookworm)...${cFinColor}"
     echo ""
 
+
+python2.7 -m ensurepip   --default-pip --user
+python2.7 -m pip install --upgrade pip --user 
+python2.7 -m pip install virtualenv --user 
+/usr/local/bin/virtualenv -p /usr/local/bin/python2.7 volatility2
+source ~/PythonVirtualEnvironments/volatility2/bin/activate
+pip install distorm3
+pip install pycrypto
+pip install yara-python
+
+
+mkdir -p ~/scripts/python/
+cd ~/scripts/python/
+git clone https://github.com/volatilityfoundation/volatility.git
+~/scripts/python/volatility/volatility
+pip install pyinstaller==3.6
+
     echo ""
     echo "  Instalando versión 3.x..."
     echo ""
