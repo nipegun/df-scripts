@@ -104,6 +104,7 @@ source ~/PythonVirtualEnvironments/volatility2/bin/activate
 pip install distorm3
 pip install pycrypto
 pip install yara-python
+python2.7 setup.py install
 
 
 mkdir -p ~/scripts/python/
