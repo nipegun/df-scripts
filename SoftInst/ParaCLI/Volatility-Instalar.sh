@@ -275,9 +275,9 @@ virtualenv -p /usr/bin/python2.7 volatility2
               sudo ln -s /usr/local/lib/python2.7/dist-packages/usr/lib/libyara.so /usr/lib/libyara.so
               python2 -m pip install -U git+https://github.com/volatilityfoundation/volatility.git
               echo 'export PATH=/home/nipegun/.local/bin:$PATH' >> ~/.bashrc
-              ~/.bashrc
               echo ""
-              echo "  Volatility2 instalado. Para usarlo, simplemente ejecuta vol.py."
+              echo "  Volatility2 instalado. Cierra la sesión de terminal, vuélvela a abrir y, para usarlo, simplemente ejecuta:"
+              echo "    vol.py -f [ArchivoDump] [Script]"
               echo ""
 
               # Preparando el ambiente para compilarlo
@@ -324,7 +324,7 @@ virtualenv -p /usr/bin/python2.7 volatility2
                 echo ""
                 echo "  El binario debe ser usado con precaución. Es mejor correr directamente el script, como se indicó arriba:"
                 echo ""
-                echo "    Simplemente ejecutando vol.py"
+                echo "    Simplemente ejecutando vol.py. Pero recuerda, primero debes cerrar la sesión de terminal y volverla a abrir."
                 echo ""
 
             ;;
