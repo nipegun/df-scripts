@@ -79,6 +79,7 @@
         sudo apt-get -y update && sudo apt-get -y install git
         echo ""
       fi
+      rm -rf ~/scripts/python/volatility3/
       git clone https://github.com/volatilityfoundation/volatility3.git
 
     # Crear el ambiente virtual
