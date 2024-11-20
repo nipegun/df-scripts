@@ -65,7 +65,38 @@
     echo -e "${cColorAzulClaro}  Iniciando el script de instalación de Volatilty para Debian 12 (Bookworm)...${cFinColor}"
     echo ""
 
+    echo ""
+    echo -e "${cColorAzulClaro}  Iniciando el script de instalación de Volatilty para Debian 11 (Bullseye)...${cFinColor}"
+    echo ""
 
+    # Comprobar si el paquete dialog está instalado. Si no lo está, instalarlo.
+      if [[ $(dpkg-query -s dialog 2>/dev/null | grep installed) == "" ]]; then
+        echo ""
+        echo -e "${cColorRojo}  El paquete dialog no está instalado. Iniciando su instalación...${cFinColor}"
+        echo ""
+        apt-get -y update && apt-get -y install dialog
+        echo ""
+      fi
+
+    # Crear el menú
+      #menu=(dialog --timeout 5 --checklist "Marca las opciones que quieras instalar:" 22 96 16)
+      menu=(dialog --checklist "Marca las opciones que quieras instalar:" 22 96 16)
+        opciones=(
+          1 "Instalar version para python 2.x" off
+          2 "Instalar version para python 3.x" on
+        )
+      choices=$("${menu[@]}" "${opciones[@]}" 2>&1 >/dev/tty)
+      #clear
+
+      for choice in $choices
+        do
+          case $choice in
+
+            1)
+
+              echo ""
+              echo "  Instalando versión 2.x..."
+              echo ""
 python2.7 -m ensurepip   --default-pip --user
 python2.7 -m pip install --upgrade pip --user 
 python2.7 -m pip install virtualenv --user 
@@ -81,78 +112,109 @@ cd ~/scripts/python/
 git clone https://github.com/volatilityfoundation/volatility.git
 ~/scripts/python/volatility/volatility
 pip install pyinstaller==3.6
+                  
 
-    echo ""
-    echo "  Instalando versión 3.x..."
-    echo ""
+              # Mover el binario a la carpeta de binarios del usuario
+                mkdir -p ~/bin/
+                cp ~/scripts/python/volatility2/dist/vol ~/bin/volatility2
 
-    # Descargar el repo
-      mkdir -p ~/scripts/python/ 2> /dev/null
-      cd ~/scripts/python/
-      if [[ $(dpkg-query -s git 2>/dev/null | grep installed) == "" ]]; then
-        echo ""
-        echo -e "${cColorRojo}    El paquete git no está instalado. Iniciando su instalación...${cFinColor}"
-        echo ""
-        sudo apt-get -y update && sudo apt-get -y install git
-        echo ""
-      fi
-      rm -rf ~/scripts/python/volatility3/
-      git clone https://github.com/volatilityfoundation/volatility3.git
+              # Desactivar el entorno virtual
+                deactivate
 
-    # Crear el ambiente virtual
-      mkdir -p ~/PythonVirtualEnvironments/ 2> /dev/null
-      cd ~/PythonVirtualEnvironments/
-      rm -rf ~/PythonVirtualEnvironments/volatility3
-      if [[ $(dpkg-query -s python3-venv 2>/dev/null | grep installed) == "" ]]; then
-        echo ""
-        echo -e "${cColorRojo}  El paquete python3-venv no está instalado. Iniciando su instalación...${cFinColor}"
-        echo ""
-        sudo apt-get -y update && sudo apt-get -y install python3-venv
-        echo ""
-      fi
-      python3 -m venv volatility3
-      source ~/PythonVirtualEnvironments/volatility3/bin/activate
-      cd ~/scripts/python/volatility3/
-      # Comprobar si el paquete python3-pip está instalado. Si no lo está, instalarlo.
-        if [[ $(dpkg-query -s python3-pip 2>/dev/null | grep installed) == "" ]]; then
-          echo ""
-          echo -e "${cColorRojo}  El paquete python3-pip no está instalado. Iniciando su instalación...${cFinColor}"
-          echo ""
-          sudo apt-get -y update && sudo apt-get -y install python3-pip
-          echo ""
-        fi
-      pip install -r requirements.txt 
-      pip install -r requirements-dev.txt 
+              # Notificar fin de ejecución del script
+                echo ""
+                echo "  El script ha finalizado. El script compilado se ha copiado a:"
+                echo ""
+                echo "    ~/bin/volatility2"
+                echo ""
+                echo "  El binario debe ser usado con precaución. Es mejor correr el script directamente con python, de la siguiente manera:"
+                echo ""
+                echo "    source ~/PythonVirtualEnvironments/volatility2/bin/activate"
+                echo "    python2.7 ~/scripts/python/volatility2/vol.py [Argumentos]"
+                echo "    deactivate"
+                echo ""
 
-      # Compilar
-        pip install pyinstaller
-        pyinstaller --onefile --collect-all=volatility3 vol.py
-        pyinstaller --onefile --collect-all=volatility3 volshell.py
+            ;;
 
-      # Mover el binario a la carpeta de binarios del usuario
-        mkdir -p ~/bin/
-        cp ~/scripts/python/volatility3/dist/vol      ~/bin/volatility3
-        cp ~/scripts/python/volatility3/dist/volshell ~/bin/volatility3shell
+            2)
 
-      # Desactivar el entorno virtual
-        deactivate
+              echo ""
+              echo "  Instalando versión 3.x..."
+              echo ""
 
-    # Notificar fin de ejecución del script
-      echo ""
-      echo "  El script ha finalizado. Los scripts compilados se han copiado a:"
-      echo ""
-      echo "    ~/bin/volatility3"
-      echo ""
-      echo "      y"
-      echo ""
-      echo "    ~/bin/volatility3shell"
-      echo ""
-      echo "  Los binarios deben ser ejecutados con precaución. Es mejor correr los scripts directamente con python, de la siguiente manera:"
-      echo ""
-      echo "    source ~/PythonVirtualEnvironments/volatility3/bin/activate"
-      echo "    ~/scripts/python/volatility3/vol.py [Argumentos]"
-      echo "    deactivate"
-      echo ""
+              # Descargar el repo
+                mkdir -p ~/scripts/python/ 2> /dev/null
+                cd ~/scripts/python/
+                if [[ $(dpkg-query -s git 2>/dev/null | grep installed) == "" ]]; then
+                  echo ""
+                  echo -e "${cColorRojo}    El paquete git no está instalado. Iniciando su instalación...${cFinColor}"
+                  echo ""
+                  sudo apt-get -y update && sudo apt-get -y install git
+                  echo ""
+                fi
+                rm -rf ~/scripts/python/volatility3/
+                git clone https://github.com/volatilityfoundation/volatility3.git
+
+              # Crear el ambiente virtual
+                mkdir -p ~/PythonVirtualEnvironments/ 2> /dev/null
+                cd ~/PythonVirtualEnvironments/
+                rm -rf ~/PythonVirtualEnvironments/volatility3
+                if [[ $(dpkg-query -s python3-venv 2>/dev/null | grep installed) == "" ]]; then
+                  echo ""
+                  echo -e "${cColorRojo}  El paquete python3-venv no está instalado. Iniciando su instalación...${cFinColor}"
+                  echo ""
+                  sudo apt-get -y update && sudo apt-get -y install python3-venv
+                  echo ""
+                fi
+                python3 -m venv volatility3
+                source ~/PythonVirtualEnvironments/volatility3/bin/activate
+                cd ~/scripts/python/volatility3/
+                # Comprobar si el paquete python3-pip está instalado. Si no lo está, instalarlo.
+                  if [[ $(dpkg-query -s python3-pip 2>/dev/null | grep installed) == "" ]]; then
+                    echo ""
+                    echo -e "${cColorRojo}  El paquete python3-pip no está instalado. Iniciando su instalación...${cFinColor}"
+                    echo ""
+                    sudo apt-get -y update && sudo apt-get -y install python3-pip
+                    echo ""
+                  fi
+                pip install -r requirements.txt 
+                pip install -r requirements-dev.txt 
+
+              # Compilar
+                pip install pyinstaller
+                pyinstaller --onefile --collect-all=volatility3 vol.py
+                pyinstaller --onefile --collect-all=volatility3 volshell.py
+
+              # Mover el binario a la carpeta de binarios del usuario
+                mkdir -p ~/bin/
+                cp ~/scripts/python/volatility3/dist/vol      ~/bin/volatility3
+                cp ~/scripts/python/volatility3/dist/volshell ~/bin/volatility3shell
+
+              # Desactivar el entorno virtual
+                deactivate
+
+              # Notificar fin de ejecución del script
+                echo ""
+                echo "  El script ha finalizado. Los scripts compilados se han copiado a:"
+                echo ""
+                echo "    ~/bin/volatility3"
+                echo ""
+                echo "      y"
+                echo ""
+                echo "    ~/bin/volatility3shell"
+                echo ""
+                echo "  Los binarios deben ser ejecutados con precaución. Es mejor correr los scripts directamente con python, de la siguiente manera:"
+                echo ""
+                echo "    source ~/PythonVirtualEnvironments/volatility3/bin/activate"
+                echo "    ~/scripts/python/volatility3/vol.py [Argumentos]"
+                echo "    deactivate"
+                echo ""
+
+            ;;
+
+        esac
+
+    done
 
   elif [ $cVerSO == "11" ]; then
 
