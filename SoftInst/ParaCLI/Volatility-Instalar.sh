@@ -65,10 +65,6 @@
     echo -e "${cColorAzulClaro}  Iniciando el script de instalación de Volatilty para Debian 12 (Bookworm)...${cFinColor}"
     echo ""
 
-    echo ""
-    echo -e "${cColorAzulClaro}  Iniciando el script de instalación de Volatilty para Debian 11 (Bullseye)...${cFinColor}"
-    echo ""
-
     # Crear el menú
       # Comprobar si el paquete dialog está instalado. Si no lo está, instalarlo.
         if [[ $(dpkg-query -s dialog 2>/dev/null | grep installed) == "" ]]; then
@@ -101,9 +97,14 @@ python2.7 -m pip install --upgrade pip --user
 python2.7 -m pip install virtualenv --user 
 /usr/local/bin/virtualenv -p /usr/local/bin/python2.7 volatility2
 source ~/PythonVirtualEnvironments/volatility2/bin/activate
+python2 -m pip install -U distorm3 yara pycrypto pillow openpyxl ujson pytz ipython capstone
+
+
+
 pip install distorm3
 pip install pycrypto
 pip install yara-python
+
 python2.7 setup.py install
 
 
@@ -250,51 +251,59 @@ virtualenv -p /usr/bin/python2.7 volatility2
               echo ""
               echo "  Instalando versión 2.x..."
               echo ""
-              # Descargar el repo
-                mkdir -p ~/scripts/python/ 2> /dev/null
-                cd ~/scripts/python/
-                rm -rf ~/scripts/python/*
-                if [[ $(dpkg-query -s git 2>/dev/null | grep installed) == "" ]]; then
-                  echo ""
-                  echo -e "${cColorRojo}  El paquete git no está instalado. Iniciando su instalación...${cFinColor}"
-                  echo ""
-                  apt-get -y update && apt-get -y install git
-                  echo ""
-                fi
-                git clone https://github.com/volatilityfoundation/volatility.git
 
-              # Instalar dependencias
-                sudo apt-get -y update
-                sudo apt-get -y install build-essential
-                sudo apt-get -y install git
-                sudo apt-get -y install libdistorm3-dev
-                sudo apt-get -y install yara
-                sudo apt-get -y install libraw1394-11
-                sudo apt-get -y install libcapstone-dev
-                sudo apt-get -y install capstone-tool
-                sudo apt-get -y install tzdata
-                sudo apt-get -y install python2
-                sudo apt-get -y install python2.7-dev
-                sudo apt-get -y install libpython2-dev
-                sudo apt-get -y install curl
-                sudo apt-get -y install python-dev
+              # Instalar paquetes necesarios
+                sudo apt install -y build-essential
+                sudo apt install -y git
+                sudo apt install -y libdistorm3-dev
+                sudo apt install -y yara
+                sudo apt install -y libraw1394-11
+                sudo apt install -y libcapstone-dev
+                sudo apt install -y capstone-tool
+                sudo apt install -y tzdata
+                sudo apt install -y python2
+                sudo apt install -y python2.7-dev
+                sudo apt install -y libpython2-dev
                 sudo apt-get -y install upx
                 sudo apt-get -y install binutils
+                sudo apt-get -y install curl
+              curl https://bootstrap.pypa.io/pip/2.7/get-pip.py --output get-pip.py
+              sudo python2 get-pip.py
+              sudo python2 -m pip install -U setuptools wheel
+              python2 -m pip install -U distorm3 yara pycrypto pillow openpyxl ujson pytz ipython capstone
+              sudo python2 -m pip install yara
+              sudo ln -s /usr/local/lib/python2.7/dist-packages/usr/lib/libyara.so /usr/lib/libyara.so
+              python2 -m pip install -U git+https://github.com/volatilityfoundation/volatility.git
+              echo 'export PATH=/home/nipegun/.local/bin:$PATH' >> ~/.bashrc
+              ~/.bashrc
+              echo ""
+              echo "  Volatility2 instalado. Para usarlo, simplemente ejecuta vol.py."
+              echo ""
 
-              # Crear el ambiente virtual
-                curl -sL https://bootstrap.pypa.io/pip/2.7/get-pip.py -o /tmp/get-pip.py
-                apt-get -y install python2
-                python2 /tmp/get-pip.py
+              # Preparando el ambiente para compilarlo
                 python2 -m pip install virtualenv
                 mkdir -p ~/PythonVirtualEnvironments/ 2> /dev/null
                 cd ~/PythonVirtualEnvironments/
-                rm -rf ~/PythonVirtualEnvironments/volatility2/*
+                rm -rf ~/PythonVirtualEnvironments/volatility/*
                 python2 -m virtualenv volatility2
                 source ~/PythonVirtualEnvironments/volatility2/bin/activate
                 pip2 install pyinstaller==3.6
 
+                # Descargar el repo
+                  mkdir -p ~/scripts/python/ 2> /dev/null
+                  cd ~/scripts/python/
+                  rm -rf ~/scripts/python/volatility/
+                  if [[ $(dpkg-query -s git 2>/dev/null | grep installed) == "" ]]; then
+                    echo ""
+                    echo -e "${cColorRojo}  El paquete git no está instalado. Iniciando su instalación...${cFinColor}"
+                    echo ""
+                    apt-get -y update && apt-get -y install git
+                    echo ""
+                  fi
+                  git clone https://github.com/volatilityfoundation/volatility.git
+                  mv ~/scripts/python/volatility/ ~/scripts/python/volatility2/
+
               # Compilar
-                mv ~/scripts/python/volatility/ ~/scripts/python/volatility2/
                 cd ~/scripts/python/volatility2/
                 # pyinstaller --onefile vol.py --hidden-import=modulo1
                 pyinstaller --onefile vol.py
@@ -313,11 +322,9 @@ virtualenv -p /usr/bin/python2.7 volatility2
                 echo ""
                 echo "    ~/bin/volatility2"
                 echo ""
-                echo "  El binario debe ser usado con precaución. Es mejor correr el script directamente con python, de la siguiente manera:"
+                echo "  El binario debe ser usado con precaución. Es mejor correr directamente el script, como se indicó arriba:"
                 echo ""
-                echo "    source ~/PythonVirtualEnvironments/volatility2/bin/activate"
-                echo "    python2.7 ~/scripts/python/volatility2/vol.py [Argumentos]"
-                echo "    deactivate"
+                echo "    Simplemente ejecutando vol.py"
                 echo ""
 
             ;;
