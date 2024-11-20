@@ -8,6 +8,8 @@ python3 -m pip install -U distorm3 yara pycrypto pillow openpyxl ujson pytz ipyt
 python3 -m pip install -U git+https://github.com/volatilityfoundation/volatility3.git
 echo 'export PATH=/home/username/.local/bin:$PATH' >> ~/.bashrc
 
+volshell launches an interactive shell for Volatility 3. Allows you to run commands and explore memory images interactively.
+volshell -f <path_to_memory_image> (Opens a specific memory image file in the Volatility 3 shell for analysis.)
 
 # Pongo a disposición pública este script bajo el término de "software de dominio público".
 # Puedes hacer lo que quieras con él porque es libre de verdad; no libre con condiciones como las licencias GNU y otras patrañas similares.
