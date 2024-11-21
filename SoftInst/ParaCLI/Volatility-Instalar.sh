@@ -2,20 +2,30 @@
 
 
 para el 3 (Hacer lo mismo que volatility 2 para debian 11)
-sudo apt install -y build-essential git libdistorm3-dev yara libraw1394-11 libcapstone-dev capstone-tool tzdata
-sudo apt install -y python3 python3-dev libpython3-dev python3-pip python3-setuptools python3-wheel
-sudo apt install -y python3-distorm3 python3-yara
-python3-pycrypto
-
-sudo apt install -y python3-pytz
-
+sudo apt install -y build-essential
+sudo apt install -y git
+sudo apt install -y libdistorm3-dev
+sudo apt install -y yara
+sudo apt install -y libraw1394-11
+sudo apt install -y libcapstone-dev
+sudo apt install -y capstone-tool tzdata
+sudo apt install -y python3 python3-dev
+sudo apt install -y libpython3-dev
+sudo apt install -y python3-pip
+sudo apt install -y python3-setuptools
+sudo apt install -y python3-wheel
+sudo apt install -y python3-distorm3
+sudo apt install -y python3-yara
 sudo apt install -y python3-pillow
 sudo apt install -y python3-openpyxl
 sudo apt install -y python3-ujson
 sudo apt install -y python3-ipython
 sudo apt install -y python3-capstone
 
-python3 -m pip install -U distorm3 yara pycrypto pillow openpyxl ujson pytz ipython capstone
+sudo apt install -y python3-pycrypto
+sudo apt install -y python3-pytz
+
+python3 -m pip install -U pycrypto pytz
 python3 -m pip install -U git+https://github.com/volatilityfoundation/volatility3.git
 echo 'export PATH=/home/username/.local/bin:$PATH' >> ~/.bashrc
 
