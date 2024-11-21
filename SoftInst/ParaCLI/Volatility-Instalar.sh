@@ -2,31 +2,55 @@
 
 
 para el 3 (Hacer lo mismo que volatility 2 para debian 11)
-sudo apt install -y build-essential
-sudo apt install -y git
-sudo apt install -y libdistorm3-dev
-sudo apt install -y yara
-sudo apt install -y libraw1394-11
-sudo apt install -y libcapstone-dev
-sudo apt install -y capstone-tool tzdata
-sudo apt install -y python3 python3-dev
-sudo apt install -y libpython3-dev
-sudo apt install -y python3-pip
-sudo apt install -y python3-setuptools
-sudo apt install -y python3-wheel
-sudo apt install -y python3-distorm3
-sudo apt install -y python3-yara
-sudo apt install -y python3-pillow
-sudo apt install -y python3-openpyxl
-sudo apt install -y python3-ujson
-sudo apt install -y python3-ipython
-sudo apt install -y python3-capstone
+# Instalar paquetes necesarios
+  sudo apt install -y build-essential
+  sudo apt install -y git
+  sudo apt install -y libdistorm3-dev
+  sudo apt install -y yara
+  sudo apt install -y libraw1394-11
+  sudo apt install -y libcapstone-dev
+  sudo apt install -y capstone-tool tzdata
+  sudo apt install -y python3 python3-dev
+  sudo apt install -y libpython3-dev
+  sudo apt install -y python3-pip
+  sudo apt install -y python3-setuptools
+  sudo apt install -y python3-wheel
+  sudo apt install -y python3-distorm3
+  sudo apt install -y python3-yara
+  sudo apt install -y python3-pillow
+  sudo apt install -y python3-openpyxl
+  sudo apt install -y python3-ujson
+  sudo apt install -y python3-ipython
+  sudo apt install -y python3-capstone
+  sudo apt install -y python3-pycryptodome          # Anterior pycrypto
+  sudo apt install -y python3-pytz-deprecation-shim # Anterior python3-pytz
+  # python3 -m pip install -U pycrypto pytz
 
-sudo apt install -y python3-pycrypto
-sudo apt install -y python3-pytz
+# Clonar repositorio
+  mkdir -p ~/scripts/python/ 2> /dev/null
+  cd ~/scripts/python/
+  if [[ $(dpkg-query -s git 2>/dev/null | grep installed) == "" ]]; then
+    echo ""
+    echo -e "${cColorRojo}    El paquete git no está instalado. Iniciando su instalación...${cFinColor}"
+    echo ""
+    sudo apt-get -y update && sudo apt-get -y install git
+    echo ""
+  fi
+  rm -rf ~/scripts/python/volatility3/
+  git clone https://github.com/volatilityfoundation/volatility3.git
 
-python3 -m pip install -U pycrypto pytz
+# Instalar
+  sudo python3 ~/scripts/python/volatility3/setup.py install
+
+
+
+
 python3 -m pip install -U git+https://github.com/volatilityfoundation/volatility3.git
+
+sudo python3 setup.py install
+
+
+
 echo 'export PATH=/home/username/.local/bin:$PATH' >> ~/.bashrc
 
 volshell launches an interactive shell for Volatility 3. Allows you to run commands and explore memory images interactively.
