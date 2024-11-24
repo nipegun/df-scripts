@@ -1,133 +1,5 @@
 #!/bin/bash
 
-
-para el 3 (Hacer lo mismo que volatility 2 para debian 11)
-# Instalar paquetes necesarios
-  sudo apt install -y build-essential
-  sudo apt install -y git
-  sudo apt install -y libdistorm3-dev
-  sudo apt install -y yara
-  sudo apt install -y libraw1394-11
-  sudo apt install -y libcapstone-dev
-  sudo apt install -y capstone-tool tzdata
-  sudo apt install -y python3 python3-dev
-  sudo apt install -y libpython3-dev
-  sudo apt install -y python3-pip
-  sudo apt install -y python3-setuptools
-  sudo apt install -y python3-wheel
-  sudo apt install -y python3-distorm3
-  sudo apt install -y python3-yara
-  sudo apt install -y python3-pillow
-  sudo apt install -y python3-openpyxl
-  sudo apt install -y python3-ujson
-  sudo apt install -y python3-ipython
-  sudo apt install -y python3-capstone
-  sudo apt install -y python3-pycryptodome          # Anterior pycrypto
-  sudo apt install -y python3-pytz-deprecation-shim # Anterior python3-pytz
-  # python3 -m pip install -U pycrypto pytz
-
-# Clonar repositorio
-  mkdir -p ~/scripts/python/ 2> /dev/null
-  cd ~/scripts/python/
-  if [[ $(dpkg-query -s git 2>/dev/null | grep installed) == "" ]]; then
-    echo ""
-    echo -e "${cColorRojo}    El paquete git no está instalado. Iniciando su instalación...${cFinColor}"
-    echo ""
-    sudo apt-get -y update && sudo apt-get -y install git
-    echo ""
-  fi
-  rm -rf ~/scripts/python/volatility3/
-  git clone https://github.com/volatilityfoundation/volatility3.git
-
-# Instalar
-  sudo python3 ~/scripts/python/volatility3/setup.py install
-
-
-
-
-python3 -m pip install -U git+https://github.com/volatilityfoundation/volatility3.git
-
-sudo python3 setup.py install
-
-
-
-echo 'export PATH=/home/username/.local/bin:$PATH' >> ~/.bashrc
-
-volshell launches an interactive shell for Volatility 3. Allows you to run commands and explore memory images interactively.
-volshell -f <path_to_memory_image> (Opens a specific memory image file in the Volatility 3 shell for analysis.)
-
-Additional useful commands:
-
-    volshell
-    Launches an interactive shell for Volatility 3.
-    Allows you to run commands and explore memory images interactively.
-    volshell -f <path_to_memory_image>
-    Opens a specific memory image file in the Volatility 3 shell for analysis.
-    volshell -h
-    Displays help information for the volshell command, including available options.
-
-Core Commands
-
-    imageinfo
-    Retrieves basic information about the memory image.
-    Provides details such as profile, operating system version, and architecture.
-    pslist
-    Lists all running processes extracted from the memory image.
-    Shows process identifiers (PIDs), parent process IDs (PPIDs), session IDs, and other process details.
-    pstree
-    Displays processes in a tree-like hierarchical structure.
-    Shows parent-child relationships between processes.
-    psscan
-    Scans for and lists processes that may not be visible in the standard process lists (pslist).
-    Useful for finding hidden or terminated processes.
-    dlllist
-    Lists loaded DLLs (Dynamic Link Libraries) for each process.
-    Shows memory addresses, base addresses, and path to the DLL files.
-    handles
-    Lists open handles for each process.
-    Includes file handles, registry key handles, and other types of handles.
-    netscan
-    Scans for network artifacts such as sockets and connections.
-    Provides details about established network connections.
-    filescan
-    Scans for and lists file-related artifacts extracted from memory.
-    Includes file handles, file mappings, and other file-related structures.
-
-Advanced Analysis Commands
-
-    malfind
-    Identifies potential injected code or malicious artifacts within memory regions.
-    Useful for detecting malware presence in memory.
-    vadinfo
-    Displays information about Virtual Address Descriptors (VADs) and memory mappings.
-    Helps in analyzing memory regions and memory allocation patterns.
-    modscan
-    Scans for loaded kernel modules within the memory image.
-    Lists information about loaded drivers and kernel modules.
-    driverirp
-    Analyzes IRP (I/O Request Packet) structures for loaded drivers.
-    Useful for investigating driver behavior and I/O operations.
-
-Plugin Management
-
-    plugin_list
-    Lists all available plugins in the Volatility 3 framework.
-    Shows plugin names and descriptions.
-    plugin_load <plugin_name>
-    Loads a specific plugin into the Volatility 3 environment.
-    Enables additional analysis capabilities provided by the plugin.
-
-Additional Utilities
-
-    apihooks
-    Detects API hooking techniques used by malware within memory.
-    Identifies hooked functions and their addresses.
-    dumpfiles
-    Extracts and saves files found within memory, such as executables or documents.
-    Enables forensic analysis of extracted files.
-
-
-
 # Pongo a disposición pública este script bajo el término de "software de dominio público".
 # Puedes hacer lo que quieras con él porque es libre de verdad; no libre con condiciones como las licencias GNU y otras patrañas similares.
 # Si se te llena la boca hablando de libertad entonces hazlo realmente libre.
@@ -208,7 +80,6 @@ Additional Utilities
           2 "Instalar version para python 3.x" on
         )
       choices=$("${menu[@]}" "${opciones[@]}" 2>&1 >/dev/tty)
-      #clear
 
       for choice in $choices
         do
@@ -220,29 +91,27 @@ Additional Utilities
               echo "  Instalando versión 2.x..."
               echo ""
 
-python2.7 -m ensurepip   --default-pip --user
-python2.7 -m pip install --upgrade pip --user 
-python2.7 -m pip install virtualenv --user 
-/usr/local/bin/virtualenv -p /usr/local/bin/python2.7 volatility2
-source ~/PythonVirtualEnvironments/volatility2/bin/activate
-python2 -m pip install -U distorm3 yara pycrypto pillow openpyxl ujson pytz ipython capstone
+              python2.7 -m ensurepip   --default-pip --user
+              python2.7 -m pip install --upgrade pip --user 
+              python2.7 -m pip install virtualenv --user 
+              /usr/local/bin/virtualenv -p /usr/local/bin/python2.7 volatility2
+              source ~/PythonVirtualEnvironments/volatility2/bin/activate
+              python2 -m pip install -U distorm3 yara pycrypto pillow openpyxl ujson pytz ipython capstone yara-python
 
 
+              mkdir -p ~/scripts/python/
+              cd ~/scripts/python/
+              rm -rf ~/scripts/python/volatility/
+              rm -rf ~/scripts/python/volatility2/
+              git clone https://github.com/volatilityfoundation/volatility.git
+              mv ~/scripts/python/volatility/ ~/scripts/python/volatilit2/
+              virtualenv -p /usr/bin/python2.7 volatility2
 
-pip install distorm3
-pip install pycrypto
-pip install yara-python
+              pip install pyinstaller==3.6
+              python2.7 ~/scripts/python/volatility/setup.py install
+              
+              
 
-python2.7 setup.py install
-
-
-mkdir -p ~/scripts/python/
-cd ~/scripts/python/
-git clone https://github.com/volatilityfoundation/volatility.git
-~/scripts/python/volatility/volatility
-pip install pyinstaller==3.6
-                  
-virtualenv -p /usr/bin/python2.7 volatility2
               # Mover el binario a la carpeta de binarios del usuario
                 mkdir -p ~/bin/
                 cp ~/scripts/python/volatility2/dist/vol ~/bin/volatility2
@@ -271,7 +140,31 @@ virtualenv -p /usr/bin/python2.7 volatility2
               echo "  Instalando versión 3.x..."
               echo ""
 
-              # Descargar el repo
+              # Instalar paquetes necesarios
+                sudo apt install -y build-essential
+                sudo apt install -y git
+                sudo apt install -y libraw1394-11
+                sudo apt install -y libcapstone-dev
+                sudo apt install -y capstone-tool
+                sudo apt install -y tzdata
+                sudo apt install -y python3
+                sudo apt install -y python3-dev
+                sudo apt install -y libpython3-dev
+                sudo apt install -y python3-pip
+                sudo apt install -y python3-setuptools
+                sudo apt install -y python3-wheel
+                sudo apt install -y python3-distorm3
+                sudo apt install -y python3-yara
+                sudo apt install -y python3-pillow
+                sudo apt install -y python3-openpyxl
+                sudo apt install -y python3-ujson
+                sudo apt install -y python3-ipython
+                sudo apt install -y python3-capstone
+                sudo apt install -y python3-pycryptodome          # Anterior pycrypto
+                sudo apt install -y python3-pytz-deprecation-shim # Anterior python3-pytz
+                # python3 -m pip install -U pycrypto pytz
+
+              # Clonar repositorio
                 mkdir -p ~/scripts/python/ 2> /dev/null
                 cd ~/scripts/python/
                 if [[ $(dpkg-query -s git 2>/dev/null | grep installed) == "" ]]; then
@@ -298,6 +191,9 @@ virtualenv -p /usr/bin/python2.7 volatility2
                 python3 -m venv volatility3
                 source ~/PythonVirtualEnvironments/volatility3/bin/activate
                 cd ~/scripts/python/volatility3/
+
+
+              # Compilar
                 # Comprobar si el paquete python3-pip está instalado. Si no lo está, instalarlo.
                   if [[ $(dpkg-query -s python3-pip 2>/dev/null | grep installed) == "" ]]; then
                     echo ""
@@ -306,10 +202,6 @@ virtualenv -p /usr/bin/python2.7 volatility2
                     sudo apt-get -y update && sudo apt-get -y install python3-pip
                     echo ""
                   fi
-                pip install -r requirements.txt 
-                pip install -r requirements-dev.txt 
-
-              # Compilar
                 pip install pyinstaller
                 pyinstaller --onefile --collect-all=volatility3 vol.py
                 pyinstaller --onefile --collect-all=volatility3 volshell.py
@@ -334,9 +226,14 @@ virtualenv -p /usr/bin/python2.7 volatility2
                 echo ""
                 echo "  Los binarios deben ser ejecutados con precaución. Es mejor correr los scripts directamente con python, de la siguiente manera:"
                 echo ""
-                echo "    source ~/PythonVirtualEnvironments/volatility3/bin/activate"
                 echo "    ~/scripts/python/volatility3/vol.py [Argumentos]"
-                echo "    deactivate"
+                echo ""
+                echo ""
+                echo "    O, si se quiere ejecutar dentro del entorno virtual:"
+                echo ""
+                echo "      source ~/PythonVirtualEnvironments/volatility3/bin/activate"
+                echo "      ~/scripts/python/volatility3/vol.py [Argumentos]"
+                echo "      deactivate"
                 echo ""
 
             ;;
@@ -381,17 +278,17 @@ virtualenv -p /usr/bin/python2.7 volatility2
               echo ""
 
               # Instalar paquetes necesarios
-                sudo apt install -y build-essential
-                sudo apt install -y git
-                sudo apt install -y libdistorm3-dev
-                sudo apt install -y yara
-                sudo apt install -y libraw1394-11
-                sudo apt install -y libcapstone-dev
-                sudo apt install -y capstone-tool
-                sudo apt install -y tzdata
-                sudo apt install -y python2
-                sudo apt install -y python2.7-dev
-                sudo apt install -y libpython2-dev
+                sudo apt-get -y install build-essential
+                sudo apt-get -y install git
+                sudo apt-get -y install libdistorm3-dev
+                sudo apt-get -y install yara
+                sudo apt-get -y install libraw1394-11
+                sudo apt-get -y install libcapstone-dev
+                sudo apt-get -y install capstone-tool
+                sudo apt-get -y install tzdata
+                sudo apt-get -y install python2
+                sudo apt-get -y install python2.7-dev
+                sudo apt-get -y install libpython2-dev
                 sudo apt-get -y install upx
                 sudo apt-get -y install binutils
                 sudo apt-get -y install curl
@@ -524,9 +421,13 @@ virtualenv -p /usr/bin/python2.7 volatility2
                 echo ""
                 echo "  Los binarios deben ser ejecutados con precaución. Es mejor correr los scripts directamente con python, de la siguiente manera:"
                 echo ""
-                echo "    source ~/PythonVirtualEnvironments/volatility3/bin/activate"
-                echo "    python3 ~/scripts/python/volatility3/vol.py [Argumentos]"
-                echo "    deactivate"
+                echo "    ~/scripts/python/volatility3/vol.py [Argumentos]"
+                echo ""
+                echo "    O, si se quiere ejecutar dentro del entorno virtual:"
+                echo ""
+                echo "      source ~/PythonVirtualEnvironments/volatility3/bin/activate"
+                echo "      ~/scripts/python/volatility3/vol.py [Argumentos]"
+                echo "      deactivate"
                 echo ""
 
             ;;
