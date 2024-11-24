@@ -91,27 +91,37 @@
               echo "  Instalando versión 2.x..."
               echo ""
 
-              python2.7 -m ensurepip   --default-pip --user
-              python2.7 -m pip install --upgrade pip --user 
-              python2.7 -m pip install virtualenv --user 
-              /usr/local/bin/virtualenv -p /usr/local/bin/python2.7 volatility2
-              source ~/PythonVirtualEnvironments/volatility2/bin/activate
-              python2 -m pip install -U distorm3 yara pycrypto pillow openpyxl ujson pytz ipython capstone yara-python
+              # Instalar python 2.7
+                curl -sL https://raw.githubusercontent.com/nipegun/d-scripts/refs/heads/master/SoftInst/ParaCLI/Python-Instalar.sh | sudo bash
 
+              # Descargar el repo
+                mkdir -p ~/scripts/python/
+                cd ~/scripts/python/
+                rm -rf ~/scripts/python/volatility/
+                rm -rf ~/scripts/python/volatility2/
+                git clone https://github.com/volatilityfoundation/volatility.git
+                mv ~/scripts/python/volatility ~/scripts/python/volatility2
 
-              mkdir -p ~/scripts/python/
-              cd ~/scripts/python/
-              rm -rf ~/scripts/python/volatility/
-              rm -rf ~/scripts/python/volatility2/
-              git clone https://github.com/volatilityfoundation/volatility.git
-              mv ~/scripts/python/volatility/ ~/scripts/python/volatilit2/
-              virtualenv -p /usr/bin/python2.7 volatility2
-
-              pip install pyinstaller==3.6
-              python2.7 ~/scripts/python/volatility/setup.py install
+              # x
+                python2 -m ensurepip   --default-pip --user
+                python2 -m pip install --upgrade pip --user
+                python2 -m pip install virtualenv --user
+                rm -rf ~/PythonVirtualEnvironments/volatility2/
+                cd ~/PythonVirtualEnvironments/
+                /usr/local/bin/virtualenv -p /usr/local/bin/python2.7 volatility2
+                source ~/PythonVirtualEnvironments/volatility2/bin/activate
+                python2 -m pip install -U distorm3 yara pycrypto pillow openpyxl ujson pytz ipython capstone yara-python setuptools wheel
+                python2 -m pip install -U pyinstaller==3.6
+                #python2.7 ~/scripts/python/volatility2/setup.py install
+                sudo ln -s /usr/local/lib/python2.7/dist-packages/usr/lib/libyara.so /usr/lib/libyara.so
+                sudo ln -s /usr/local/lib/python2.7/dist-packages/usr/lib/libyara.so /usr/local/lib/libyara.so
+                python2 -m pip install -U git+https://github.com/volatilityfoundation/volatility.git
+                echo 'export PATH=/home/nipegun/.local/bin:$PATH' >> ~/.bashrc
+                echo ""
+                echo "  Volatility2 instalado. Cierra la sesión de terminal, vuélvela a abrir y, para usarlo, simplemente ejecuta:"
+                echo "    vol.py -f [ArchivoDump] [Script]"
+                echo ""
               
-              
-
               # Mover el binario a la carpeta de binarios del usuario
                 mkdir -p ~/bin/
                 cp ~/scripts/python/volatility2/dist/vol ~/bin/volatility2
@@ -295,7 +305,7 @@
               curl https://bootstrap.pypa.io/pip/2.7/get-pip.py --output get-pip.py
               sudo python2 get-pip.py
               sudo python2 -m pip install -U setuptools wheel
-              python2 -m pip install -U distorm3 yara pycrypto pillow openpyxl ujson pytz ipython capstone
+              python2 -m pip install -U distorm3 yara pycrypto pillow openpyxl ujson pytz ipython capstone yara-python
               sudo python2 -m pip install yara
               sudo ln -s /usr/local/lib/python2.7/dist-packages/usr/lib/libyara.so /usr/lib/libyara.so
               python2 -m pip install -U git+https://github.com/volatilityfoundation/volatility.git
