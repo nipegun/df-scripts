@@ -79,7 +79,7 @@
           1 "Instalar version para python 2.x en el bin de usuario"        off
           2 "Instalar version para python 2.x descargando el repo"         off
           3 "Instalar version para python 2.x creando un entorno virtual"  off
-          4 "Instalar version para python 3.x"                             on
+          4 "Instalar version para python 3.x"                             off
         )
       choices=$("${menu[@]}" "${opciones[@]}" 2>&1 >/dev/tty)
 
