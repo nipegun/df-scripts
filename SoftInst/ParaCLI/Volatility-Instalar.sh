@@ -76,8 +76,10 @@
         fi
       menu=(dialog --checklist "Marca las opciones que quieras instalar:" 22 96 16)
         opciones=(
-          1 "Instalar version para python 2.x" off
-          2 "Instalar version para python 3.x" on
+          1 "Instalar version para python 2.x en el bin de usuario"        off
+          2 "Instalar version para python 2.x descargando el repo"         off
+          3 "Instalar version para python 2.x creando un entorno virtual"  off
+          4 "Instalar version para python 3.x"                             on
         )
       choices=$("${menu[@]}" "${opciones[@]}" 2>&1 >/dev/tty)
 
@@ -88,27 +90,21 @@
             1)
 
               echo ""
-              echo "  Instalando versión 2.x..."
+              echo "  Instalando versión 2.x en bin de usuario..."
               echo ""
 
-              # Instalar python 2.7
-                curl -sL https://raw.githubusercontent.com/nipegun/d-scripts/refs/heads/master/SoftInst/ParaCLI/Python-Instalar.sh | sudo bash
-
-              # Descargar el repo
-                mkdir -p ~/scripts/python/
-                cd ~/scripts/python/
-                rm -rf ~/scripts/python/volatility/
-                rm -rf ~/scripts/python/volatility2/
-                # Comprobar si el paquete git está instalado. Si no lo está, instalarlo.
-                  if [[ $(dpkg-query -s git 2>/dev/null | grep installed) == "" ]]; then
-                    echo ""
-                    echo -e "${cColorRojo}  El paquete git no está instalado. Iniciando su instalación...${cFinColor}"
-                    echo ""
-                    sudo apt-get -y update && sudo apt-get -y install git
-                    echo ""
-                  fi
-                git clone https://github.com/volatilityfoundation/volatility.git
-                mv ~/scripts/python/volatility ~/scripts/python/volatility2
+              # Comprobar si python 2.7 está instalado y, si no lo está, instalarlo
+                if [ ! -f /usr/local/bin/python2.7 ]; then
+                  # Comprobar si el paquete git está instalado. Si no lo está, instalarlo.
+                    if [[ $(dpkg-query -s git 2>/dev/null | grep installed) == "" ]]; then
+                      echo ""
+                      echo -e "${cColorRojo}  El paquete git no está instalado. Iniciando su instalación...${cFinColor}"
+                      echo ""
+                      sudo apt-get -y update && sudo apt-get -y install git
+                      echo ""
+                    fi
+                  curl -sL https://raw.githubusercontent.com/nipegun/d-scripts/refs/heads/master/SoftInst/ParaCLI/Python-Instalar.sh | sudo bash
+                fi
 
               # x
                 /usr/local/bin/python2.7 -m ensurepip --default-pip --user
@@ -127,11 +123,69 @@
                 /usr/local/bin/python2.7 -m pip install -U yara-python --user
                 /usr/local/bin/python2.7 -m pip install -U pyinstaller==3.6 --user
                 /usr/local/bin/python2.7 -m pip install -U git+https://github.com/volatilityfoundation/volatility.git --user
+                echo 'export PATH=/home/volatility2/.local/bin:$PATH' >> ~/.bashrc
 
+            ;;
+
+            2)
+
+              echo ""
+              echo "  Instalando versión 2.x descargando el repo..."
+              echo ""
+
+              # Comprobar si python 2.7 está instalado y, si no lo está, instalarlo
+                if [ ! -f /usr/local/bin/python2.7 ]; then
+                  # Comprobar si el paquete git está instalado. Si no lo está, instalarlo.
+                    if [[ $(dpkg-query -s git 2>/dev/null | grep installed) == "" ]]; then
+                      echo ""
+                      echo -e "${cColorRojo}  El paquete git no está instalado. Iniciando su instalación...${cFinColor}"
+                      echo ""
+                      sudo apt-get -y update && sudo apt-get -y install git
+                      echo ""
+                    fi
+                  curl -sL https://raw.githubusercontent.com/nipegun/d-scripts/refs/heads/master/SoftInst/ParaCLI/Python-Instalar.sh | sudo bash
+                fi
+
+              # Descargar el repo
+                mkdir -p ~/scripts/python/
+                cd ~/scripts/python/
+                rm -rf ~/scripts/python/volatility/
+                rm -rf ~/scripts/python/volatility2/
+                # Comprobar si el paquete git está instalado. Si no lo está, instalarlo.
+                  if [[ $(dpkg-query -s git 2>/dev/null | grep installed) == "" ]]; then
+                    echo ""
+                    echo -e "${cColorRojo}  El paquete git no está instalado. Iniciando su instalación...${cFinColor}"
+                    echo ""
+                    sudo apt-get -y update && sudo apt-get -y install git
+                    echo ""
+                  fi
+                git clone https://github.com/volatilityfoundation/volatility.git
+                mv ~/scripts/python/volatility ~/scripts/python/volatility2
+
+            ;;
+
+            3)
+
+              echo ""
+              echo "  Instalando versión 2.x creando un entorno virtual..."
+              echo ""
+
+              # Comprobar si python 2.7 está instalado y, si no lo está, instalarlo
+                if [ ! -f /usr/local/bin/python2.7 ]; then
+                  # Comprobar si el paquete git está instalado. Si no lo está, instalarlo.
+                    if [[ $(dpkg-query -s git 2>/dev/null | grep installed) == "" ]]; then
+                      echo ""
+                      echo -e "${cColorRojo}  El paquete git no está instalado. Iniciando su instalación...${cFinColor}"
+                      echo ""
+                      sudo apt-get -y update && sudo apt-get -y install git
+                      echo ""
+                    fi
+                  curl -sL https://raw.githubusercontent.com/nipegun/d-scripts/refs/heads/master/SoftInst/ParaCLI/Python-Instalar.sh | sudo bash
+                fi
 
               #  
                 rm -rf ~/PythonVirtualEnvironments/volatility2/
-                mkdir -p cd ~/PythonVirtualEnvironments/
+                mkdir -p ~/PythonVirtualEnvironments/
                 cd ~/PythonVirtualEnvironments/
                 #/usr/local/bin/virtualenv -p /usr/local/bin/python2.7 volatility2
                 ~/.local/bin/virtualenv -p /usr/local/bin/python2.7 volatility2
@@ -171,7 +225,7 @@
 
             ;;
 
-            2)
+            4)
 
               echo ""
               echo "  Instalando versión 3.x..."
