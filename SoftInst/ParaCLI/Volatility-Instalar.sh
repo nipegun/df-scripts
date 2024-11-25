@@ -125,6 +125,23 @@
                 /usr/local/bin/python2.7 -m pip install -U git+https://github.com/volatilityfoundation/volatility.git --user
                 echo 'export PATH=/home/volatility2/.local/bin:$PATH' >> ~/.bashrc
 
+              # vol.py -f '/home/nipegun/Escritorio/Forense/Casos/RAM/Challenge.raw' imageinfo | grep uggested | cut -d':' -f2 | sed 's-,--g' | sed "s- -\n-" | sed 's- -|-g'
+                mkdir -p /tmp/volatility2/
+                # Guardar todos los perfiles en un archivo
+                  vol.py --info | grep "A Profile" | cut -d' ' -f1 > /tmp/volatility2/Volatility2-TodosLosPerfiles.txt
+                # Guardar los perfiles sugeridos en un archivo
+                  vol.py -f $1 imageinfo | grep uggested | cut -d':' -f2 | sed 's-,--g' | sed "s- -\n-" | sed 's- -|-g' | sed 's/|/\n/g' | sed 's-  --g' | sed 's- --g' | sed '/^$/d' > /tmp/Volatility2-PerfilesSugeridos.txt
+                # Guardar todos los plugins en un archivo
+                  vol.py -h | sed "s-\t-|-g" | grep "^||" | sed 's-|--g' | cut -d' ' -f1 > /tmp/volatility2/Volatility2-Plugins.txt
+
+                while IFS= read -r vPerfil; do
+                  echo "  Aplicando todos los plugins del perfil $vPerfil..."
+                  while IFS= read -r vPlugin; do
+                    echo "    Aplicando el plugin $vPlugin..."
+                    vol.py -f '/home/nipegun/Escritorio/Forense/Casos/RAM/Challenge.raw' --profile=$vPerfil $vPlugin > /tmp/volatility2/Volatility2-"$vPerfil"-"$vPlugin".txt
+                  done < /tmp/volatility2/Volatility2-Plugins.txt
+                done <   /tmp/volatility2/Volatility2-PerfilesSugeridos.txt
+
             ;;
 
             2)
