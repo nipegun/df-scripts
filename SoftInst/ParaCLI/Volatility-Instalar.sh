@@ -71,7 +71,7 @@
           echo ""
           echo -e "${cColorRojo}  El paquete dialog no está instalado. Iniciando su instalación...${cFinColor}"
           echo ""
-          apt-get -y update && apt-get -y install dialog
+          sudo apt-get -y update && sudo apt-get -y install dialog
           echo ""
         fi
       menu=(dialog --checklist "Marca las opciones que quieras instalar:" 22 96 16)
@@ -99,19 +99,46 @@
                 cd ~/scripts/python/
                 rm -rf ~/scripts/python/volatility/
                 rm -rf ~/scripts/python/volatility2/
+                # Comprobar si el paquete git está instalado. Si no lo está, instalarlo.
+                  if [[ $(dpkg-query -s git 2>/dev/null | grep installed) == "" ]]; then
+                    echo ""
+                    echo -e "${cColorRojo}  El paquete git no está instalado. Iniciando su instalación...${cFinColor}"
+                    echo ""
+                    sudo apt-get -y update && sudo apt-get -y install git
+                    echo ""
+                  fi
                 git clone https://github.com/volatilityfoundation/volatility.git
                 mv ~/scripts/python/volatility ~/scripts/python/volatility2
 
               # x
-                python2 -m ensurepip   --default-pip --user
-                python2 -m pip install --upgrade pip --user
-                python2 -m pip install virtualenv --user
+                /usr/local/bin/python2.7 -m ensurepip --default-pip --user
+                /usr/local/bin/python2.7 -m pip install -U pip --user
+                /usr/local/bin/python2.7 -m pip install -U wheel --user
+                /usr/local/bin/python2.7 -m pip install -U virtualenv --user
+                /usr/local/bin/python2.7 -m pip install -U setuptools --user
+                /usr/local/bin/python2.7 -m pip install -U distorm3 --user
+                /usr/local/bin/python2.7 -m pip install -U pycrypto --user
+                /usr/local/bin/python2.7 -m pip install -U pillow --user
+                /usr/local/bin/python2.7 -m pip install -U openpyxl --user
+                /usr/local/bin/python2.7 -m pip install -U ujson --user
+                /usr/local/bin/python2.7 -m pip install -U pytz --user
+                /usr/local/bin/python2.7 -m pip install -U ipython --user
+                /usr/local/bin/python2.7 -m pip install -U capstone --user
+                /usr/local/bin/python2.7 -m pip install -U yara-python --user
+                /usr/local/bin/python2.7 -m pip install -U pyinstaller==3.6 --user
+                /usr/local/bin/python2.7 -m pip install -U git+https://github.com/volatilityfoundation/volatility.git --user
+
+
+              #  
                 rm -rf ~/PythonVirtualEnvironments/volatility2/
+                mkdir -p cd ~/PythonVirtualEnvironments/
                 cd ~/PythonVirtualEnvironments/
-                /usr/local/bin/virtualenv -p /usr/local/bin/python2.7 volatility2
+                #/usr/local/bin/virtualenv -p /usr/local/bin/python2.7 volatility2
+                ~/.local/bin/virtualenv -p /usr/local/bin/python2.7 volatility2
                 source ~/PythonVirtualEnvironments/volatility2/bin/activate
-                python2 -m pip install -U distorm3 yara pycrypto pillow openpyxl ujson pytz ipython capstone yara-python setuptools wheel
-                python2 -m pip install -U pyinstaller==3.6
+                
+                /usr/local/bin/python2.7 -m pip install -U distorm3 pycrypto pillow openpyxl ujson pytz ipython capstone yara-python setuptools wheel
+                /usr/local/bin/python2.7 -m pip install -U pyinstaller==3.6
                 #python2.7 ~/scripts/python/volatility2/setup.py install
                 sudo ln -s /usr/local/lib/python2.7/dist-packages/usr/lib/libyara.so /usr/lib/libyara.so
                 sudo ln -s /usr/local/lib/python2.7/dist-packages/usr/lib/libyara.so /usr/local/lib/libyara.so
