@@ -43,6 +43,8 @@ if [ $# -ne $cCantParamEsperados ]
       cCarpetaDondeGuardar="$2"
       mkdir -p "$cCarpetaDondeGuardar"
 
+
+
     # Entrar en el entorno virtual
       python3 -m venv ~/PythonVirtualEnvironments/volatility3
       source ~/PythonVirtualEnvironments/volatility3/bin/activate
