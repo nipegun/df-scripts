@@ -8,20 +8,11 @@
 # ----------
 # Script de NiPeGun para instalar y configurar Spiderfoot en Debian
 #
-# Ejecución remota con sudo:
-#   curl -sL x | sudo bash
-#
-# Ejecución remota como root:
-#   curl -sL x | bash
-#
-# Ejecución remota sin caché:
-#   curl -sL -H 'Cache-Control: no-cache, no-store' x | bash
-#
-# Ejecución remota con parámetros:
-#   curl -sL x | bash -s Parámetro1 Parámetro2
+# Ejecución remota :
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/SoftInst/ParaCLI/Spiderfoot-Instalar.sh | bash (No debería ejecutarse con sudo. Aunque luego pida permisos sudo)
 #
 # Bajar y editar directamente el archivo en nano
-#   curl -sL x | nano -
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/SoftInst/ParaCLI/Spiderfoot-Instalar.sh | nano -
 # ----------
 
 # Definir constantes de color
@@ -40,15 +31,6 @@
     echo -e "${cColorRojo}  Este script está preparado para ejecutarse con privilegios de administrador (como root o con sudo).${cFinColor}"
     echo ""
     exit
-  fi
-
-# Comprobar si el paquete curl está instalado. Si no lo está, instalarlo.
-  if [[ $(dpkg-query -s curl 2>/dev/null | grep installed) == "" ]]; then
-    echo ""
-    echo -e "${cColorRojo}  El paquete curl no está instalado. Iniciando su instalación...${cFinColor}"
-    echo ""
-    apt-get -y update && apt-get -y install curl
-    echo ""
   fi
 
 # Determinar la versión de Debian
@@ -89,9 +71,60 @@
     echo -e "${cColorAzulClaro}  Iniciando el script de instalación de Spiderfoot para Debian 12 (Bookworm)...${cFinColor}"
     echo ""
 
-    echo ""
-    echo -e "${cColorRojo}    Comandos para Debian 12 todavía no preparados. Prueba ejecutarlo en otra versión de Debian.${cFinColor}"
-    echo ""
+    # Crear el virtual environment
+      mkdir -p ~/PythonVirtualEnvironments/
+      cd ~/PythonVirtualEnvironments/
+      # Comprobar si el paquete python3-venv está instalado. Si no lo está, instalarlo.
+        if [[ $(dpkg-query -s python3-venv 2>/dev/null | grep installed) == "" ]]; then
+          echo ""
+          echo -e "${cColorRojo}  El paquete python3-venv no está instalado. Iniciando su instalación...${cFinColor}"
+          echo ""
+          sudo apt-get -y update && sudo apt-get -y install python3-venv
+          echo ""
+        fi
+      python3 -m venv Spiderfoot
+      source ~/PythonVirtualEnvironments/Spiderfoot/bin/activate
+
+    # Clonar el repo
+      cd ~/PythonVirtualEnvironments/Spiderfoot/
+      # Comprobar si el paquete git está instalado. Si no lo está, instalarlo.
+        if [[ $(dpkg-query -s git 2>/dev/null | grep installed) == "" ]]; then
+          echo ""
+          echo -e "${cColorRojo}  El paquete git no está instalado. Iniciando su instalación...${cFinColor}"
+          echo ""
+          sudo apt-get -y update && sudo apt-get -y install git
+          echo ""
+        fi
+      git clone https://github.com/smicallef/spiderfoot.git
+      mv spiderfoot code
+      cd code
+      # Comprobar si el paquete python3-pip está instalado. Si no lo está, instalarlo.
+        if [[ $(dpkg-query -s python3-pip 2>/dev/null | grep installed) == "" ]]; then
+          echo ""
+          echo -e "${cColorRojo}  El paquete python3-pip no está instalado. Iniciando su instalación...${cFinColor}"
+          echo ""
+          sudo apt-get -y update && sudo apt-get -y install python3-pip
+          echo ""
+        fi
+      pip3 install -r requirements.txt
+
+    # Desactivar el virtual environment
+      deactivate
+
+    # Crear el script de ejecución
+      mkdir -p ~/scripts/
+      echo '#!/bin/bash'                                                                  > ~/scripts/spiderfoot-iniciar.sh
+      echo "source ~/PythonVirtualEnvironments/Spiderfoot/bin/activate"                  >> ~/scripts/spiderfoot-iniciar.sh
+      echo "python3 ~/PythonVirtualEnvironments/Spiderfoot/code/sf.py -l 127.0.0.1:5001" >> ~/scripts/spiderfoot-iniciar.sh
+      echo "deactivate"                                                                  >> ~/scripts/spiderfoot-iniciar.sh
+      chmod +x                                                                              ~/scripts/spiderfoot-iniciar.sh
+
+    # Notificar fin de ejecución del script
+      echo ""
+      echo "  Ejecución del script, finalizada.  Para ejecutar spiderfoot:"
+      echo ""
+      echo "    ~/scripts/spiderfoot-iniciar.sh"
+      echo ""
 
   elif [ $cVerSO == "11" ]; then
 
