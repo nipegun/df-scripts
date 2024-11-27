@@ -77,12 +77,12 @@
       menu=(dialog --checklist "Marca las opciones que quieras instalar:" 22 96 16)
         opciones=(
           1 "Clonar el repo de volatility3 para python 3.x" on
-          2 "  Instalar /home/$USER/.local/bin/"            off
+          2 "  Instalar en /home/$USER/.local/bin/"         off
           3 "    Agregar /home/$USER/.local/bin/ al path"   off
           4 "  Crear el entorno virtual de python"          on
           5 "    Compilar y guardar en /home/$USER/bin/"    on
           6 "Clonar el repo de volatility2 para python 2.x" on
-          7 "  Instalar /home/$USER/.local/bin/"            off
+          7 "  Instalar en /home/$USER/.local/bin/"         off
           8 "    Agregar /home/$USER/.local/bin/ al path"   off
           9 "  Crear el entorno virtual de python"          on
          10 "    Compilar y guardar en /home/$USER/bin/"    on
