@@ -74,8 +74,8 @@
       menu=(dialog --checklist "Marca como quieres instalar la herramienta:" 22 70 16)
         opciones=(
           1 "Clonar el repo de analyzeMFT"                on
-          2 "  Crear el entorno virtual de python"        on
-          3 "    Compilar y guardar en /home/$USER/bin/"  on
+          2 "  Crear el entorno virtual de python"        off
+          3 "    Compilar y guardar en /home/$USER/bin/"  off
           4 "  Instalar en /home/$USER/.local/bin/"       on
           5 "    Agregar /home/$USER/.local/bin/ al path" off
 
