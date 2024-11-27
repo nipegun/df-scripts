@@ -119,15 +119,15 @@
 
               # Notificar fin de ejecución del script
                 echo ""
-                echo "    La instalación ha finalizado. Para ejecutar analyzeMFT:"
+                echo -e "${cColorVerde}    La instalación ha finalizado. Para ejecutar analyzeMFT:${cFinColor}"
                 echo ""
-                echo "      Si al instalar has marcado 'Agregar ~/.local/bin/ al path' simplemente ejecuta:"
+                echo -e "${cColorVerde}      Si al instalar has marcado 'Agregar ~/.local/bin/ al path' simplemente ejecuta:${cFinColor}"
                 echo ""
-                echo "        analyzemft [Parámetros]"
+                echo -e "${cColorVerde}        analyzemft [Parámetros]${cFinColor}"
                 echo ""
-                echo "      Si al instalar NO has marcado 'Agregar ~/.local/bin/ al path', ejecuta:"
+                echo -e "${cColorVerde}      Si al instalar NO has marcado 'Agregar ~/.local/bin/ al path', ejecuta:${cFinColor}"
                 echo ""
-                echo "       ~/.local/bin/analyzemft [Parámetros]"
+                echo -e "${cColorVerde}       ~/.local/bin/analyzemft [Parámetros]${cFinColor}"
                 echo ""
 
             ;;
