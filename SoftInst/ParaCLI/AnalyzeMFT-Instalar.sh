@@ -74,9 +74,9 @@
       menu=(dialog --timeout 10 --checklist "Marca como quieres instalar la herramienta:" 22 70 16)
         opciones=(
           1 "Clonar repo e Instalar en /home/$USER/.local/bin/" on
-          2 "  Agregar /home/$USER/.local/bin/ al path" off
-          3 "Instalar creando un entorno virtual"       off
-          4 "Instalar version para python 3.x"          off
+          2 "  Agregar /home/$USER/.local/bin/ al path"         off
+          3 "Clonar repo e instalar a nivel de sistema"         off
+          4 "Otro tipo de instalación"                          off
         )
       choices=$("${menu[@]}" "${opciones[@]}" 2>&1 >/dev/tty)
 
@@ -144,29 +144,8 @@
             3)
 
               echo ""
-              echo "  Instalando creando un entorno virtual..."
+              echo "  Clonando repo e instalando a nivel de sistema..."
               echo ""
-                python3 -m pip
-      pip3 install -r requirements.txt
-      pip3 install -r requirements-dev.txt
-
-              # x
-                /usr/local/bin/python3 -m ensurepip --default-pip --user
-                /usr/local/bin/python2.7 -m pip install -U pip --user
-                /usr/local/bin/python2.7 -m pip install -U wheel --user
-                /usr/local/bin/python2.7 -m pip install -U virtualenv --user
-                /usr/local/bin/python2.7 -m pip install -U setuptools --user
-                /usr/local/bin/python2.7 -m pip install -U distorm3 --user
-                /usr/local/bin/python2.7 -m pip install -U pycrypto --user
-                /usr/local/bin/python2.7 -m pip install -U pillow --user
-                /usr/local/bin/python2.7 -m pip install -U openpyxl --user
-                /usr/local/bin/python2.7 -m pip install -U ujson --user
-                /usr/local/bin/python2.7 -m pip install -U pytz --user
-                /usr/local/bin/python2.7 -m pip install -U ipython --user
-                /usr/local/bin/python2.7 -m pip install -U capstone --user
-                /usr/local/bin/python2.7 -m pip install -U yara-python --user
-                /usr/local/bin/python2.7 -m pip install -U pyinstaller==3.6 --user
-                /usr/local/bin/python2.7 -m pip install -U git+https://github.com/rowingdude/analyzeMFT.git --user
 
             ;;
 
@@ -175,164 +154,163 @@
               echo ""
               echo "  Instalando otro tipo de instalación..."
               echo ""
-  sudo apt-get -y update
-    sudo apt-get -y install python3-pip
-    sudo apt-get -y install python3-venv
-    sudo apt-get -y install python3-wheel
-    sudo apt-get -y install python3-setuptools
+
+              sudo apt-get -y update
+              sudo apt-get -y install python3-pip
+              sudo apt-get -y install python3-venv
+              sudo apt-get -y install python3-wheel
+              sudo apt-get -y install python3-setuptools
 
 
-    # Crear el virtual environment
-      mkdir -p ~/PythonVirtualEnvironments/
-      cd ~/PythonVirtualEnvironments/
-      rm -rf ~/PythonVirtualEnvironments/AnalyzeMFT/
-      # Comprobar si el paquete python3-venv está instalado. Si no lo está, instalarlo.
-        if [[ $(dpkg-query -s python3-venv 2>/dev/null | grep installed) == "" ]]; then
-          echo ""
-          echo -e "${cColorRojo}  El paquete python3-venv no está instalado. Iniciando su instalación...${cFinColor}"
-          echo ""
-          sudo apt-get -y update && sudo apt-get -y install python3-venv
-          echo ""
-        fi
-      python3 -m venv AnalyzeMFT
-      source ~/PythonVirtualEnvironments/AnalyzeMFT/bin/activate
+              # Crear el virtual environment
+              mkdir -p ~/PythonVirtualEnvironments/
+              cd ~/PythonVirtualEnvironments/
+              rm -rf ~/PythonVirtualEnvironments/AnalyzeMFT/
+              # Comprobar si el paquete python3-venv está instalado. Si no lo está, instalarlo.
+              if [[ $(dpkg-query -s python3-venv 2>/dev/null | grep installed) == "" ]]; then
+              echo ""
+              echo -e "${cColorRojo}  El paquete python3-venv no está instalado. Iniciando su instalación...${cFinColor}"
+              echo ""
+              sudo apt-get -y update && sudo apt-get -y install python3-venv
+              echo ""
+              fi
+              python3 -m venv AnalyzeMFT
+              source ~/PythonVirtualEnvironments/AnalyzeMFT/bin/activate
 
-    # Clonar el repo
-      cd ~/PythonVirtualEnvironments/AnalyzeMFT/
-      # Comprobar si el paquete git está instalado. Si no lo está, instalarlo.
-        if [[ $(dpkg-query -s git 2>/dev/null | grep installed) == "" ]]; then
-          echo ""
-          echo -e "${cColorRojo}  El paquete git no está instalado. Iniciando su instalación...${cFinColor}"
-          echo ""
-          sudo apt-get -y update && sudo apt-get -y install git
-          echo ""
-        fi
-      git clone https://github.com/rowingdude/analyzeMFT.git
-      mv analyzeMFT code
-      cd code
-      # Comprobar si el paquete python3-pip está instalado. Si no lo está, instalarlo.
-        if [[ $(dpkg-query -s python3-pip 2>/dev/null | grep installed) == "" ]]; then
-          echo ""
-          echo -e "${cColorRojo}  El paquete python3-pip no está instalado. Iniciando su instalación...${cFinColor}"
-          echo ""
-          sudo apt-get -y update && sudo apt-get -y install python3-pip
-          echo ""
-        fi
-      pip3 install -r requirements.txt
-      pip3 install -r requirements-dev.txt
+              # Clonar el repo
+              cd ~/PythonVirtualEnvironments/AnalyzeMFT/
+              # Comprobar si el paquete git está instalado. Si no lo está, instalarlo.
+              if [[ $(dpkg-query -s git 2>/dev/null | grep installed) == "" ]]; then
+              echo ""
+              echo -e "${cColorRojo}  El paquete git no está instalado. Iniciando su instalación...${cFinColor}"
+              echo ""
+              sudo apt-get -y update && sudo apt-get -y install git
+              echo ""
+              fi
+              git clone https://github.com/rowingdude/analyzeMFT.git
+              mv analyzeMFT code
+              cd code
+              # Comprobar si el paquete python3-pip está instalado. Si no lo está, instalarlo.
+              if [[ $(dpkg-query -s python3-pip 2>/dev/null | grep installed) == "" ]]; then
+              echo ""
+              echo -e "${cColorRojo}  El paquete python3-pip no está instalado. Iniciando su instalación...${cFinColor}"
+              echo ""
+              sudo apt-get -y update && sudo apt-get -y install python3-pip
+              echo ""
+              fi
+              pip3 install -r requirements.txt
+              pip3 install -r requirements-dev.txt
 
-    # Desactivar el virtual environment
-      deactivate
+              # Desactivar el virtual environment
+              deactivate
 
-    # Crear el script de ejecución
-      mkdir -p ~/scripts/
-      echo '#!/bin/bash'                                                           > ~/scripts/analyzemft.sh
-      echo "source ~/PythonVirtualEnvironments/AnalyzeMFT/bin/activate"           >> ~/scripts/analyzemft.sh
-      echo 'python3 ~/PythonVirtualEnvironments/AnalyzeMFT/code/analyzeMFT.py $1' >> ~/scripts/analyzemft.sh
-      echo "deactivate"                                                           >> ~/scripts/analyzemft.sh
-      chmod +x                                                                       ~/scripts/analyzemft.sh
+              # Crear el script de ejecución
+              mkdir -p ~/scripts/
+              echo '#!/bin/bash'                                                           > ~/scripts/analyzemft.sh
+              echo "source ~/PythonVirtualEnvironments/AnalyzeMFT/bin/activate"           >> ~/scripts/analyzemft.sh
+              echo 'python3 ~/PythonVirtualEnvironments/AnalyzeMFT/code/analyzeMFT.py $1' >> ~/scripts/analyzemft.sh
+              echo "deactivate"                                                           >> ~/scripts/analyzemft.sh
+              chmod +x                                                                       ~/scripts/analyzemft.sh
 
-    # Notificar fin de ejecución del script
-      echo ""
-      echo "  Ejecución del script, finalizada.  Para ejecutar spiderfoot:"
-      echo ""
-      echo "    ~/scripts/spiderfoot-iniciar.sh"
-      echo ""
+              # Notificar fin de ejecución del script
+              echo ""
+              echo "  Ejecución del script, finalizada.  Para ejecutar spiderfoot:"
+              echo ""
+              echo "    ~/scripts/spiderfoot-iniciar.sh"
+              echo ""
 
+              # Determinar la última versión de AnalyzeMFT
+              # Comprobar si el paquete curl está instalado. Si no lo está, instalarlo.
+              if [[ $(dpkg-query -s curl 2>/dev/null | grep installed) == "" ]]; then
+              echo ""
+              echo -e "${cColorRojo}    El paquete curl no está instalado. Iniciando su instalación...${cFinColor}"
+              echo ""
+              sudo apt-get -y update && sudo apt-get -y install curl
+              echo ""
+              fi
+              vUltVers=$(curl -sL https://github.com/rowingdude/analyzeMFT/releases/latest/ | sed 's|/tag/|\n|g' | grep ^v[0-9] | head -n1 | cut -d'"' -f1 | cut -d'v' -f2)
+              echo ""
+              echo "    La última versión de analyzemft disponible para instalar es la $vUltVers"
+              echo ""
+              # Decargar
+              echo ""
+              echo "    Descargando..."
+              echo ""
+              curl -L https://github.com/rowingdude/analyzeMFT/archive/refs/tags/v$vUltVers.tar.gz -o /tmp/analyzeMFT.tar.gz
+              # Descomprimir
+              echo ""
+              echo "    Descomprimiendo..."
+              echo ""
+              mkdir -p ~/scripts/python/ 2> /dev/null
+              tar -xzf /tmp/analyzeMFT.tar.gz -C ~/scripts/python/
+              #mv ~/scripts/python/analyzeMFT/analyzeMFT-$vUltVers/* ~/scripts/python/analyzeMFT/
+              #rm -rf ~/scripts/python/analyzeMFT/analyzeMFT-$vUltVers/
+              #rm -f  ~/scripts/python/analyzeMFT/analyzeMFT.tar.gz
+              chmod 755 ~/scripts/python/analyzeMFT-$vUltVers/
+              rm -rf ~/scripts/python/analyzeMFT/  2> /dev/null
+              mv ~/scripts/python/analyzeMFT-$vUltVers/ ~/scripts/python/analyzeMFT/
+              # Crear el virtual environment
+              echo ""
+              echo "    Creando el virtual environment de python..."
+              echo ""
+              mkdir ~/PythonVirtualEnvironments/ 2> /dev/null
+              rm -rf ~/PythonVirtualEnvironments/analyzeMFT/
+              # Comprobar si el paquete python3 está instalado. Si no lo está, instalarlo.
+              if [[ $(dpkg-query -s python3 2>/dev/null | grep installed) == "" ]]; then
+              echo ""
+              echo -e "${cColorRojo}  El paquete python3 no está instalado. Iniciando su instalación...${cFinColor}"
+              echo ""
+              sudo apt-get -y update && sudo apt-get -y install python3
+              echo ""
+              fi
+              # Comprobar si el paquete python3-venv está instalado. Si no lo está, instalarlo.
+              if [[ $(dpkg-query -s python3-venv 2>/dev/null | grep installed) == "" ]]; then
+              echo ""
+              echo -e "${cColorRojo}  El paquete python3-venv no está instalado. Iniciando su instalación...${cFinColor}"
+              echo ""
+              sudo apt-get -y update && sudo apt-get -y install python3-venv
+              echo ""
+              fi
+              cd ~/PythonVirtualEnvironments/
+              python3 -m venv analyzeMFT
+              source ~/PythonVirtualEnvironments/analyzeMFT/bin/activate
+              cd ~/scripts/python/analyzeMFT/
+              # Comprobar si el paquete python3-pip está instalado. Si no lo está, instalarlo.
+              if [[ $(dpkg-query -s python3-pip 2>/dev/null | grep installed) == "" ]]; then
+              echo ""
+              echo -e "${cColorRojo}  El paquete python3-pip no está instalado. Iniciando su instalación...${cFinColor}"
+              echo ""
+              sudo apt-get -y update && sudo apt-get -y install python3-pip
+              echo ""
+              fi
+              pip install .
+              pip install pyinstaller
 
+              # Compilar el script
+              echo ""
+              echo "    Compilando el script..."
+              echo ""
+              pyinstaller --onefile --collect-all=analyzeMFT analyzeMFT.py
 
-    # Determinar la última versión de AnalyzeMFT
-      # Comprobar si el paquete curl está instalado. Si no lo está, instalarlo.
-        if [[ $(dpkg-query -s curl 2>/dev/null | grep installed) == "" ]]; then
-          echo ""
-          echo -e "${cColorRojo}    El paquete curl no está instalado. Iniciando su instalación...${cFinColor}"
-          echo ""
-          sudo apt-get -y update && sudo apt-get -y install curl
-          echo ""
-        fi
-      vUltVers=$(curl -sL https://github.com/rowingdude/analyzeMFT/releases/latest/ | sed 's|/tag/|\n|g' | grep ^v[0-9] | head -n1 | cut -d'"' -f1 | cut -d'v' -f2)
-      echo ""
-      echo "    La última versión de analyzemft disponible para instalar es la $vUltVers"
-      echo ""
-    # Decargar
-      echo ""
-      echo "    Descargando..."
-      echo ""
-      curl -L https://github.com/rowingdude/analyzeMFT/archive/refs/tags/v$vUltVers.tar.gz -o /tmp/analyzeMFT.tar.gz
-    # Descomprimir
-      echo ""
-      echo "    Descomprimiendo..."
-      echo ""
-      mkdir -p ~/scripts/python/ 2> /dev/null
-      tar -xzf /tmp/analyzeMFT.tar.gz -C ~/scripts/python/
-      #mv ~/scripts/python/analyzeMFT/analyzeMFT-$vUltVers/* ~/scripts/python/analyzeMFT/
-      #rm -rf ~/scripts/python/analyzeMFT/analyzeMFT-$vUltVers/
-      #rm -f  ~/scripts/python/analyzeMFT/analyzeMFT.tar.gz
-      chmod 755 ~/scripts/python/analyzeMFT-$vUltVers/
-      rm -rf ~/scripts/python/analyzeMFT/  2> /dev/null
-      mv ~/scripts/python/analyzeMFT-$vUltVers/ ~/scripts/python/analyzeMFT/
-    # Crear el virtual environment
-      echo ""
-      echo "    Creando el virtual environment de python..."
-      echo ""
-      mkdir ~/PythonVirtualEnvironments/ 2> /dev/null
-      rm -rf ~/PythonVirtualEnvironments/analyzeMFT/
-      # Comprobar si el paquete python3 está instalado. Si no lo está, instalarlo.
-        if [[ $(dpkg-query -s python3 2>/dev/null | grep installed) == "" ]]; then
-          echo ""
-          echo -e "${cColorRojo}  El paquete python3 no está instalado. Iniciando su instalación...${cFinColor}"
-          echo ""
-          sudo apt-get -y update && sudo apt-get -y install python3
-          echo ""
-        fi
-      # Comprobar si el paquete python3-venv está instalado. Si no lo está, instalarlo.
-        if [[ $(dpkg-query -s python3-venv 2>/dev/null | grep installed) == "" ]]; then
-          echo ""
-          echo -e "${cColorRojo}  El paquete python3-venv no está instalado. Iniciando su instalación...${cFinColor}"
-          echo ""
-          sudo apt-get -y update && sudo apt-get -y install python3-venv
-          echo ""
-        fi
-      cd ~/PythonVirtualEnvironments/
-      python3 -m venv analyzeMFT
-      source ~/PythonVirtualEnvironments/analyzeMFT/bin/activate
-      cd ~/scripts/python/analyzeMFT/
-      # Comprobar si el paquete python3-pip está instalado. Si no lo está, instalarlo.
-        if [[ $(dpkg-query -s python3-pip 2>/dev/null | grep installed) == "" ]]; then
-          echo ""
-          echo -e "${cColorRojo}  El paquete python3-pip no está instalado. Iniciando su instalación...${cFinColor}"
-          echo ""
-          sudo apt-get -y update && sudo apt-get -y install python3-pip
-          echo ""
-        fi
-      pip install .
-      pip install pyinstaller
+              # Copiar el binario a /usr/bin
+              mkdir ~/bin/
+              cp -f ~/scripts/python/analyzeMFT/dist/analyzeMFT ~/bin/
 
-    # Compilar el script
-      echo ""
-      echo "    Compilando el script..."
-      echo ""
-      pyinstaller --onefile --collect-all=analyzeMFT analyzeMFT.py
+              # Desactivar el entorno virtual
+              deactivate
 
-    # Copiar el binario a /usr/bin
-      mkdir ~/bin/
-      cp -f ~/scripts/python/analyzeMFT/dist/analyzeMFT ~/bin/
-
-    # Desactivar el entorno virtual
-      deactivate
-
-    # Notificar fin de ejecución del script
-      echo ""
-      echo "  El script ha finalizado. analyzeMFT se ha descargado, compilado e instalado."
-      echo ""
-      echo "    Puedes encontrar el binario en ~/bin/analyzeMFT"
-      echo ""
-      echo "  El binario debe ser usado con precaución. Es mejor correr el script directamente con python, de la siguiente manera:"
-      echo ""
-      echo "    source ~/PythonVirtualEnvironments/analyzeMFT/bin/activate"
-      echo "    python3 ~/scripts/python/analyzeMFT/analyzeMFT.py [Argumentos]"
-      echo "    deactivate"
-      echo ""
+              # Notificar fin de ejecución del script
+              echo ""
+              echo "  El script ha finalizado. analyzeMFT se ha descargado, compilado e instalado."
+              echo ""
+              echo "    Puedes encontrar el binario en ~/bin/analyzeMFT"
+              echo ""
+              echo "  El binario debe ser usado con precaución. Es mejor correr el script directamente con python, de la siguiente manera:"
+              echo ""
+              echo "    source ~/PythonVirtualEnvironments/analyzeMFT/bin/activate"
+              echo "    python3 ~/scripts/python/analyzeMFT/analyzeMFT.py [Argumentos]"
+              echo "    deactivate"
+              echo ""
 
             ;;
 
