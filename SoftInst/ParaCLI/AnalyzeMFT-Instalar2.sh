@@ -71,12 +71,12 @@
           sudo apt-get -y update && sudo apt-get -y install dialog
           echo ""
         fi
-      menu=(dialog --timeout 10 --checklist "Marca como quieres instalar la herramientar:" 22 80 16)
+      menu=(dialog --timeout 10 --checklist "Marca como quieres instalar la herramienta:" 22 70 16)
         opciones=(
-          1 "Instalar en ~/.local/bin/"                on
-          2 "  Agregar /home/$USER/.local/bin al path" off
-          3 "Instalar creando un entorno virtual"      off
-          4 "Instalar version para python 3.x"         off
+          1 "Instalar en /home/$USER/.local/bin/"       on
+          2 "  Agregar /home/$USER/.local/bin/ al path" off
+          3 "Instalar creando un entorno virtual"       off
+          4 "Instalar version para python 3.x"          off
         )
       choices=$("${menu[@]}" "${opciones[@]}" 2>&1 >/dev/tty)
 
