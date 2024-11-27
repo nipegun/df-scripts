@@ -73,10 +73,11 @@
         fi
       menu=(dialog --timeout 10 --checklist "Marca como quieres instalar la herramienta:" 22 70 16)
         opciones=(
-          1 "Clonar repo e Instalar en /home/$USER/.local/bin/" on
-          2 "  Agregar /home/$USER/.local/bin/ al path"         off
-          3 "Clonar repo e instalar a nivel de sistema"         off
-          4 "Otro tipo de instalación"                          off
+          1 "Clonar el repo de analyzeMFT"                on
+          2 "  Instalar en /home/$USER/.local/bin/"       off
+          3 "    Agregar /home/$USER/.local/bin/ al path" off
+          4 "  Crear el entorno virtual de python"        on
+          5 "    Compilar y guardar en /home/$USER/bin/"  on
         )
       choices=$("${menu[@]}" "${opciones[@]}" 2>&1 >/dev/tty)
 
@@ -87,7 +88,7 @@
             1)
 
               echo ""
-              echo "  Clonando repo e instalando en  /home/$USER/.local/bin/..."
+              echo "  Clonando el repo..."
               echo ""
 
               # Clonar el repo
@@ -104,18 +105,25 @@
                   fi
                 git clone https://github.com/rowingdude/analyzeMFT.git
 
-              # Instalar
-                # Comprobar si el paquete python3-setuptools está instalado. Si no lo está, instalarlo.
-                  if [[ $(dpkg-query -s python3-setuptools 2>/dev/null | grep installed) == "" ]]; then
-                    echo ""
-                    echo -e "${cColorRojo}  El paquete python3-setuptools no está instalado. Iniciando su instalación...${cFinColor}"
-                    echo ""
-                    sudo apt-get -y update && sudo apt-get -y install python3-setuptools
-                    echo ""
-                  fi
-                cd ~/repos/python/analyzeMFT/
-                python3 setup.py install --user
-                cd ~
+            ;;
+
+            2)
+
+              echo ""
+              echo "  Instalando en /home/$USER/.local/bin/..."
+              echo ""
+
+              # Comprobar si el paquete python3-setuptools está instalado. Si no lo está, instalarlo.
+                if [[ $(dpkg-query -s python3-setuptools 2>/dev/null | grep installed) == "" ]]; then
+                  echo ""
+                  echo -e "${cColorRojo}  El paquete python3-setuptools no está instalado. Iniciando su instalación...${cFinColor}"
+                  echo ""
+                  sudo apt-get -y update && sudo apt-get -y install python3-setuptools
+                  echo ""
+                fi
+              cd ~/repos/python/analyzeMFT/
+              python3 setup.py install --user
+              cd ~
 
               # Notificar fin de ejecución del script
                 echo ""
@@ -132,7 +140,7 @@
 
             ;;
 
-            2)
+            3)
 
               echo ""
               echo "  Agregando /home/$USER/.local/bin al path..."
@@ -141,18 +149,33 @@
 
             ;;
 
-            3)
-
-              echo ""
-              echo "  Clonando repo e instalando a nivel de sistema..."
-              echo ""
-
-            ;;
-
             4)
 
               echo ""
-              echo "  Instalando otro tipo de instalación..."
+              echo "  Creando el entorno virtual de python..."
+              echo ""
+
+              cd ~/repos/python/analyzeMFT/
+              # Comprobar si el paquete python3-venv está instalado. Si no lo está, instalarlo.
+                if [[ $(dpkg-query -s python3-venv 2>/dev/null | grep installed) == "" ]]; then
+                  echo ""
+                  echo -e "${cColorRojo}  El paquete python3-venv no está instalado. Iniciando su instalación...${cFinColor}"
+                  echo ""
+                  sudo apt-get -y update && sudo apt-get -y install python3-venv
+                  echo ""
+                fi
+              python3 -m venv venv
+            # Entrar al entorno virtual
+              source ~/repos/python/analyzeMFT/venv/bin/activate
+            # Salir del entorno virtual
+              deactivate
+
+            ;;
+
+            5)
+
+              echo ""
+              echo "  Compilar y guardar en /home/$USER/bin/..."
               echo ""
 
               sudo apt-get -y update
@@ -162,42 +185,14 @@
               sudo apt-get -y install python3-setuptools
 
 
-              # Crear el virtual environment
-              mkdir -p ~/PythonVirtualEnvironments/
-              cd ~/PythonVirtualEnvironments/
-              rm -rf ~/PythonVirtualEnvironments/AnalyzeMFT/
-              # Comprobar si el paquete python3-venv está instalado. Si no lo está, instalarlo.
-              if [[ $(dpkg-query -s python3-venv 2>/dev/null | grep installed) == "" ]]; then
-              echo ""
-              echo -e "${cColorRojo}  El paquete python3-venv no está instalado. Iniciando su instalación...${cFinColor}"
-              echo ""
-              sudo apt-get -y update && sudo apt-get -y install python3-venv
-              echo ""
-              fi
-              python3 -m venv AnalyzeMFT
-              source ~/PythonVirtualEnvironments/AnalyzeMFT/bin/activate
-
-              # Clonar el repo
-              cd ~/PythonVirtualEnvironments/AnalyzeMFT/
-              # Comprobar si el paquete git está instalado. Si no lo está, instalarlo.
-              if [[ $(dpkg-query -s git 2>/dev/null | grep installed) == "" ]]; then
-              echo ""
-              echo -e "${cColorRojo}  El paquete git no está instalado. Iniciando su instalación...${cFinColor}"
-              echo ""
-              sudo apt-get -y update && sudo apt-get -y install git
-              echo ""
-              fi
-              git clone https://github.com/rowingdude/analyzeMFT.git
-              mv analyzeMFT code
-              cd code
               # Comprobar si el paquete python3-pip está instalado. Si no lo está, instalarlo.
-              if [[ $(dpkg-query -s python3-pip 2>/dev/null | grep installed) == "" ]]; then
-              echo ""
-              echo -e "${cColorRojo}  El paquete python3-pip no está instalado. Iniciando su instalación...${cFinColor}"
-              echo ""
-              sudo apt-get -y update && sudo apt-get -y install python3-pip
-              echo ""
-              fi
+                if [[ $(dpkg-query -s python3-pip 2>/dev/null | grep installed) == "" ]]; then
+                  echo ""
+                  echo -e "${cColorRojo}  El paquete python3-pip no está instalado. Iniciando su instalación...${cFinColor}"
+                  echo ""
+                  sudo apt-get -y update && sudo apt-get -y install python3-pip
+                  echo ""
+                fi
               pip3 install -r requirements.txt
               pip3 install -r requirements-dev.txt
 
