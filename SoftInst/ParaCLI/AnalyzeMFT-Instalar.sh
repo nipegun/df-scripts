@@ -121,7 +121,7 @@
                 echo ""
                 echo -e "${cColorVerde}    La instalación ha finalizado. Para ejecutar analyzeMFT:${cFinColor}"
                 echo ""
-                echo -e "${cColorVerde}      Si al instalar has marcado 'Agregar /home/$USER/.local/bin/ al path' simplemente ejecuta:${cFinColor}"
+                echo -e "${cColorVerde}      Si al instalar has marcado 'Agregar /home/$USER/.local/bin/ al path', simplemente ejecuta:${cFinColor}"
                 echo ""
                 echo -e "${cColorVerde}        analyzemft [Parámetros]${cFinColor}"
                 echo ""
