@@ -73,7 +73,7 @@
         fi
       menu=(dialog --timeout 10 --checklist "Marca como quieres instalar la herramienta:" 22 70 16)
         opciones=(
-          1 "Instalar en /home/$USER/.local/bin/"       on
+          1 "Clonar repo e Instalar en /home/$USER/.local/bin/" on
           2 "  Agregar /home/$USER/.local/bin/ al path" off
           3 "Instalar creando un entorno virtual"       off
           4 "Instalar version para python 3.x"          off
@@ -87,7 +87,7 @@
             1)
 
               echo ""
-              echo "  Instalando en el bin de usuario..."
+              echo "  Clonando repo e instalando en  /home/$USER/.local/bin/..."
               echo ""
 
               # Clonar el repo
