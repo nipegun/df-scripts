@@ -74,9 +74,9 @@
       menu=(dialog --timeout 10 --checklist "Marca como quieres instalar la herramienta:" 22 70 16)
         opciones=(
           1 "Clonar repo e Instalar en /home/$USER/.local/bin/" on
-          2 "  Agregar /home/$USER/.local/bin/ al path" off
-          3 "Instalar creando un entorno virtual"       off
-          4 "Instalar version para python 3.x"          off
+          2 "  Agregar /home/$USER/.local/bin/ al path"         off
+          3 "Clonar repo e instalar a nivel de sistema"         off
+          4 "Otro tipo de instalación"                          off
         )
       choices=$("${menu[@]}" "${opciones[@]}" 2>&1 >/dev/tty)
 
@@ -146,15 +146,16 @@
             2)
 
               echo ""
-              echo "  Instalando descargando el repo..."
+              echo "  Agregando /home/$USER/.local/bin al path..."
               echo ""
+              echo 'export PATH=/home/'"$USER"'/.local/bin:$PATH' >> ~/.bashrc
 
             ;;
 
             3)
 
               echo ""
-              echo "  Instalando creando un entorno virtual..."
+              echo "  Clonando repo e instalando a nivel de sistema..."
               echo ""
 
 
@@ -165,158 +166,159 @@
               echo ""
               echo "  Instalando otro tipo de instalación..."
               echo ""
-    # Instalar paquetes necesarios
-      echo ""
-      echo "    Instalando paquetes necesarios..."
-      echo ""
-      sudo apt-get -y update
-      sudo apt-get -y install python3-pip
-      sudo apt-get -y install python3-setuptools
-      sudo apt-get -y install python3-dev
-      sudo apt-get -y install python3-venv
-      sudo apt-get -y install build-essential
-      sudo apt-get -y install liblzma-dev
 
-    # Preparar el entorno virtual de python
-      echo ""
-      echo "    Preparando el entorno virtual de python..."
-      echo ""
-      mkdir -p ~/PythonVirtualEnvironments/ 2> /dev/null
-      cd ~/PythonVirtualEnvironments/
-      rm -rf ~/PythonVirtualEnvironments/plaso/
-      python3 -m venv plaso
+              # Instalar paquetes necesarios
+              echo ""
+              echo "    Instalando paquetes necesarios..."
+              echo ""
+              sudo apt-get -y update
+              sudo apt-get -y install python3-pip
+              sudo apt-get -y install python3-setuptools
+              sudo apt-get -y install python3-dev
+              sudo apt-get -y install python3-venv
+              sudo apt-get -y install build-essential
+              sudo apt-get -y install liblzma-dev
 
-    # Ingresar en el entorno virtual e instalar plaso
-      echo ""
-      echo "    Ingresando en el entorno virtual e instalando plaso..."
-      echo ""
-      source ~/PythonVirtualEnvironments/plaso/bin/activate
-      pip3 install plaso
+              # Preparar el entorno virtual de python
+              echo ""
+              echo "    Preparando el entorno virtual de python..."
+              echo ""
+              mkdir -p ~/PythonVirtualEnvironments/ 2> /dev/null
+              cd ~/PythonVirtualEnvironments/
+              rm -rf ~/PythonVirtualEnvironments/plaso/
+              python3 -m venv plaso
 
-    # Compilar los scripts
-      echo ""
-      echo "    Compilando los scripts..."
-      echo ""
-      pip install pyinstaller
-      cd ~/PythonVirtualEnvironments/plaso/bin/
-      echo ""
-      echo "      Intentando compilar image_export..."
-      echo ""
-      pyinstaller --onefile image_export \
-        --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_core_location.yaml:plaso/parsers" \
-        --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_mdns.yaml:plaso/parsers" \
-        --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_open_directory.yaml:plaso/parsers" \
-        --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/windows_nt.yaml:plaso/parsers" \
-        --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/preprocessors/time_zone_information.yaml:plaso/preprocessors" \
-        --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/preprocessors/mounted_devices.yaml:plaso/preprocessors"
-      echo ""
-      echo "      Intentando compilar log2timeline..."
-      echo ""
-      pyinstaller --onefile log2timeline \
-        --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_core_location.yaml:plaso/parsers" \
-        --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_mdns.yaml:plaso/parsers" \
-        --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_open_directory.yaml:plaso/parsers" \
-        --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/windows_nt.yaml:plaso/parsers" \
-        --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/preprocessors/time_zone_information.yaml:plaso/preprocessors" \
-        --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/preprocessors/mounted_devices.yaml:plaso/preprocessors"
-      echo ""
-      echo "      Intentando compilar normalizer..."
-      echo ""
-      pyinstaller --onefile normalizer \
-        --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_core_location.yaml:plaso/parsers" \
-        --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_mdns.yaml:plaso/parsers" \
-        --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_open_directory.yaml:plaso/parsers" \
-        --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/windows_nt.yaml:plaso/parsers" \
-        --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/preprocessors/time_zone_information.yaml:plaso/preprocessors" \
-        --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/preprocessors/mounted_devices.yaml:plaso/preprocessors"
-      echo ""
-      echo "      Intentando compilar psort..."
-      echo ""
-      vRutaALibPythonSO=$(find /usr/lib/python* -name "libpython3.11.so" 2>/dev/null)
-      pyinstaller --onefile psort \
-        --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_core_location.yaml:plaso/parsers" \
-        --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_mdns.yaml:plaso/parsers" \
-        --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_open_directory.yaml:plaso/parsers" \
-        --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/windows_nt.yaml:plaso/parsers" \
-        --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/preprocessors/time_zone_information.yaml:plaso/preprocessors" \
-        --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/preprocessors/mounted_devices.yaml:plaso/preprocessors" \
-        --add-binary "$vRutaALibPythonSO:."
-      echo ""
-      echo "      Intentando compilar psteal..."
-      echo ""
-      vRutaALibPythonSO=$(find /usr/lib/ -name "libpython3.11.so.1.0" 2>/dev/null)
-      pyinstaller --onefile psteal \
-        --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_core_location.yaml:plaso/parsers" \
-        --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_mdns.yaml:plaso/parsers" \
-        --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_open_directory.yaml:plaso/parsers" \
-        --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/windows_nt.yaml:plaso/parsers" \
-        --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/preprocessors/time_zone_information.yaml:plaso/preprocessors" \
-        --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/preprocessors/mounted_devices.yaml:plaso/preprocessors" \
-        --add-binary "$vRutaALibPythonSO:."
-      echo ""
-      echo "      Intentando compilar pinfo..."
-      echo ""
-      vRutaALibPythonSO=$(find /usr/lib/ -name "libpython3.11.so.1.0" 2>/dev/null)
-      pyinstaller --onefile pinfo \
-        --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_core_location.yaml:plaso/parsers" \
-        --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_mdns.yaml:plaso/parsers" \
-        --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_open_directory.yaml:plaso/parsers" \
-        --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/windows_nt.yaml:plaso/parsers" \
-        --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/preprocessors/time_zone_information.yaml:plaso/preprocessors" \
-        --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/preprocessors/mounted_devices.yaml:plaso/preprocessors" \
-        --add-binary "$vRutaALibPythonSO:."
-      echo ""
-      echo "      Intentando compilar stats..."
-      echo ""
-      pyinstaller --onefile stats \
-        --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_core_location.yaml:plaso/parsers" \
-        --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_mdns.yaml:plaso/parsers" \
-        --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_open_directory.yaml:plaso/parsers" \
-        --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/windows_nt.yaml:plaso/parsers" \
-        --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/preprocessors/time_zone_information.yaml:plaso/preprocessors" \
-        --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/preprocessors/mounted_devices.yaml:plaso/preprocessors"
-      echo ""
-      echo "      Intentando compilar validator..."
-      echo ""
-      pyinstaller --onefile validator \
-        --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_core_location.yaml:plaso/parsers" \
-        --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_mdns.yaml:plaso/parsers" \
-        --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_open_directory.yaml:plaso/parsers" \
-        --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/windows_nt.yaml:plaso/parsers" \
-        --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/preprocessors/time_zone_information.yaml:plaso/preprocessors" \
-        --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/preprocessors/mounted_devices.yaml:plaso/preprocessors"
-      echo ""
-      echo "      Intentando compilar xattr..."
-      echo ""
-      pyinstaller --onefile xattr \
-        --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_core_location.yaml:plaso/parsers" \
-        --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_mdns.yaml:plaso/parsers" \
-        --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_open_directory.yaml:plaso/parsers" \
-        --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/windows_nt.yaml:plaso/parsers" \
-        --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/preprocessors/time_zone_information.yaml:plaso/preprocessors" \
-        --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/preprocessors/mounted_devices.yaml:plaso/preprocessors" \
-        --hidden-import=_cffi_backend
+              # Ingresar en el entorno virtual e instalar plaso
+              echo ""
+              echo "    Ingresando en el entorno virtual e instalando plaso..."
+              echo ""
+              source ~/PythonVirtualEnvironments/plaso/bin/activate
+              pip3 install plaso
 
-    # Copiar los binarios compilados a la carpeta de binarios del usuario
-      echo ""
-      echo "    Copiando los binarios a la carpeta ~/bin/"
-      echo ""
-      mkdir -p ~/bin/
-      cp -v ~/PythonVirtualEnvironments/plaso/bin/dist/image_export ~/bin/plaso-image_export
-      cp -v ~/PythonVirtualEnvironments/plaso/bin/dist/log2timeline ~/bin/plaso-log2timeline
-      cp -v ~/PythonVirtualEnvironments/plaso/bin/dist/normalizer   ~/bin/plaso-normalizer
-      cp -v ~/PythonVirtualEnvironments/plaso/bin/dist/psort        ~/bin/plaso-psort
-      cp -v ~/PythonVirtualEnvironments/plaso/bin/dist/psteal       ~/bin/plaso-psteal
-      cp -v ~/PythonVirtualEnvironments/plaso/bin/dist/pinfo        ~/bin/plaso-pinfo
-      cp -v ~/PythonVirtualEnvironments/plaso/bin/dist/stats        ~/bin/plaso-stats
-      cp -v ~/PythonVirtualEnvironments/plaso/bin/dist/validator    ~/bin/plaso-validator
-      cp -v ~/PythonVirtualEnvironments/plaso/bin/dist/xattr        ~/bin/plaso-xattr
+              # Compilar los scripts
+              echo ""
+              echo "    Compilando los scripts..."
+              echo ""
+              pip install pyinstaller
+              cd ~/PythonVirtualEnvironments/plaso/bin/
+              echo ""
+              echo "      Intentando compilar image_export..."
+              echo ""
+              pyinstaller --onefile image_export \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_core_location.yaml:plaso/parsers" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_mdns.yaml:plaso/parsers" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_open_directory.yaml:plaso/parsers" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/windows_nt.yaml:plaso/parsers" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/preprocessors/time_zone_information.yaml:plaso/preprocessors" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/preprocessors/mounted_devices.yaml:plaso/preprocessors"
+              echo ""
+              echo "      Intentando compilar log2timeline..."
+              echo ""
+              pyinstaller --onefile log2timeline \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_core_location.yaml:plaso/parsers" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_mdns.yaml:plaso/parsers" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_open_directory.yaml:plaso/parsers" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/windows_nt.yaml:plaso/parsers" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/preprocessors/time_zone_information.yaml:plaso/preprocessors" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/preprocessors/mounted_devices.yaml:plaso/preprocessors"
+              echo ""
+              echo "      Intentando compilar normalizer..."
+              echo ""
+              pyinstaller --onefile normalizer \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_core_location.yaml:plaso/parsers" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_mdns.yaml:plaso/parsers" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_open_directory.yaml:plaso/parsers" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/windows_nt.yaml:plaso/parsers" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/preprocessors/time_zone_information.yaml:plaso/preprocessors" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/preprocessors/mounted_devices.yaml:plaso/preprocessors"
+              echo ""
+              echo "      Intentando compilar psort..."
+              echo ""
+              vRutaALibPythonSO=$(find /usr/lib/python* -name "libpython3.11.so" 2>/dev/null)
+              pyinstaller --onefile psort \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_core_location.yaml:plaso/parsers" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_mdns.yaml:plaso/parsers" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_open_directory.yaml:plaso/parsers" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/windows_nt.yaml:plaso/parsers" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/preprocessors/time_zone_information.yaml:plaso/preprocessors" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/preprocessors/mounted_devices.yaml:plaso/preprocessors" \
+              --add-binary "$vRutaALibPythonSO:."
+              echo ""
+              echo "      Intentando compilar psteal..."
+              echo ""
+              vRutaALibPythonSO=$(find /usr/lib/ -name "libpython3.11.so.1.0" 2>/dev/null)
+              pyinstaller --onefile psteal \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_core_location.yaml:plaso/parsers" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_mdns.yaml:plaso/parsers" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_open_directory.yaml:plaso/parsers" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/windows_nt.yaml:plaso/parsers" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/preprocessors/time_zone_information.yaml:plaso/preprocessors" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/preprocessors/mounted_devices.yaml:plaso/preprocessors" \
+              --add-binary "$vRutaALibPythonSO:."
+              echo ""
+              echo "      Intentando compilar pinfo..."
+              echo ""
+              vRutaALibPythonSO=$(find /usr/lib/ -name "libpython3.11.so.1.0" 2>/dev/null)
+              pyinstaller --onefile pinfo \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_core_location.yaml:plaso/parsers" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_mdns.yaml:plaso/parsers" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_open_directory.yaml:plaso/parsers" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/windows_nt.yaml:plaso/parsers" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/preprocessors/time_zone_information.yaml:plaso/preprocessors" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/preprocessors/mounted_devices.yaml:plaso/preprocessors" \
+              --add-binary "$vRutaALibPythonSO:."
+              echo ""
+              echo "      Intentando compilar stats..."
+              echo ""
+              pyinstaller --onefile stats \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_core_location.yaml:plaso/parsers" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_mdns.yaml:plaso/parsers" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_open_directory.yaml:plaso/parsers" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/windows_nt.yaml:plaso/parsers" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/preprocessors/time_zone_information.yaml:plaso/preprocessors" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/preprocessors/mounted_devices.yaml:plaso/preprocessors"
+              echo ""
+              echo "      Intentando compilar validator..."
+              echo ""
+              pyinstaller --onefile validator \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_core_location.yaml:plaso/parsers" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_mdns.yaml:plaso/parsers" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_open_directory.yaml:plaso/parsers" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/windows_nt.yaml:plaso/parsers" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/preprocessors/time_zone_information.yaml:plaso/preprocessors" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/preprocessors/mounted_devices.yaml:plaso/preprocessors"
+              echo ""
+              echo "      Intentando compilar xattr..."
+              echo ""
+              pyinstaller --onefile xattr \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_core_location.yaml:plaso/parsers" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_mdns.yaml:plaso/parsers" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_open_directory.yaml:plaso/parsers" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/windows_nt.yaml:plaso/parsers" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/preprocessors/time_zone_information.yaml:plaso/preprocessors" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/preprocessors/mounted_devices.yaml:plaso/preprocessors" \
+              --hidden-import=_cffi_backend
 
-    # Desactivar el entorno virtual
-      echo ""
-      echo "    Desactivando el entorno virtual..."
-      echo ""
-      deactivate
+              # Copiar los binarios compilados a la carpeta de binarios del usuario
+              echo ""
+              echo "    Copiando los binarios a la carpeta ~/bin/"
+              echo ""
+              mkdir -p ~/bin/
+              cp -v ~/PythonVirtualEnvironments/plaso/bin/dist/image_export ~/bin/plaso-image_export
+              cp -v ~/PythonVirtualEnvironments/plaso/bin/dist/log2timeline ~/bin/plaso-log2timeline
+              cp -v ~/PythonVirtualEnvironments/plaso/bin/dist/normalizer   ~/bin/plaso-normalizer
+              cp -v ~/PythonVirtualEnvironments/plaso/bin/dist/psort        ~/bin/plaso-psort
+              cp -v ~/PythonVirtualEnvironments/plaso/bin/dist/psteal       ~/bin/plaso-psteal
+              cp -v ~/PythonVirtualEnvironments/plaso/bin/dist/pinfo        ~/bin/plaso-pinfo
+              cp -v ~/PythonVirtualEnvironments/plaso/bin/dist/stats        ~/bin/plaso-stats
+              cp -v ~/PythonVirtualEnvironments/plaso/bin/dist/validator    ~/bin/plaso-validator
+              cp -v ~/PythonVirtualEnvironments/plaso/bin/dist/xattr        ~/bin/plaso-xattr
+
+              # Desactivar el entorno virtual
+              echo ""
+              echo "    Desactivando el entorno virtual..."
+              echo ""
+              deactivate
 
             ;;
 
