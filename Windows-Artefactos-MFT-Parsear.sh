@@ -52,6 +52,11 @@ if [ $# -ne $cCantParamEsperados ]
     echo "  Intentando exportar la MFT a formato CSV..."
     echo ""
     analyzeMFT -f "$vCarpetaConLaMFTOriginal"/\$MFT -o "$vCarpetaDondeGuardar"/MFT.csv --csv      # Exportar como CSV (default)
+    echo ""
+    echo "    Archivo .csv exportado. Puedes abrirlo directamente con libreoffice ejecutando en la terminal:"
+    echo ""
+    echo "      libreoffice --calc --infilter='CSV:44' "$vCarpetaDondeGuardar"/MFT.csv"
+    echo ""
 
     echo ""
     echo "  Intentando exportar la MFT a formato JSON..."
