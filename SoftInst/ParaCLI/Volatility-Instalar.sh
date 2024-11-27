@@ -77,10 +77,9 @@
       menu=(dialog --checklist "Marca las opciones que quieras instalar:" 22 96 16)
         opciones=(
           1 "Clonar el repo de volatility3 para python 3.x" on
-          2 "  Instalar en /home/$USER/.local/bin/"         off
-          3 "    Agregar /home/$USER/.local/bin/ al path"   off
-          4 "  Crear el entorno virtual de python"          on
-          5 "    Compilar y guardar en /home/$USER/bin/"    on
+          2 "  Crear el entorno virtual de python"          on
+          3 "    Instalar dentro del entorno virtual"       on
+          4 "    Compilar y guardar en /home/$USER/bin/"    on
           6 "Clonar el repo de volatility2 para python 2.x" on
           7 "  Instalar en /home/$USER/.local/bin/"         off
           8 "    Agregar /home/$USER/.local/bin/ al path"   off
@@ -117,10 +116,31 @@
             2)
 
               echo ""
-              echo "  Instalando en /home/$USER/.local/bin..."
+              echo "  Creando el entorno virtual de python..."
               echo ""
 
-             # Instalar
+              cd ~/repos/python/volatility3/
+              # Comprobar si el paquete python3-venv está instalado. Si no lo está, instalarlo.
+                if [[ $(dpkg-query -s python3-venv 2>/dev/null | grep installed) == "" ]]; then
+                  echo ""
+                  echo -e "${cColorRojo}  El paquete python3-venv no está instalado. Iniciando su instalación...${cFinColor}"
+                  echo ""
+                  sudo apt-get -y update && sudo apt-get -y install python3-venv
+                  echo ""
+                fi
+              python3 -m venv venv
+
+            ;;
+
+            3)
+
+              echo ""
+              echo "    Instalando dentro del entorno virtual..."
+              echo ""
+
+              # Entrar en el entorno virtual
+                source ~/repos/python/volatility3/venv/bin/activate
+                cd ~/repos/python/volatility3/
                 # Comprobar si el paquete python3-pip está instalado. Si no lo está, instalarlo.
                   if [[ $(dpkg-query -s python3-pip 2>/dev/null | grep installed) == "" ]]; then
                     echo ""
@@ -129,56 +149,18 @@
                     sudo apt-get -y update && sudo apt-get -y install python3-pip
                     echo ""
                   fi
-                python3 -m pip install -e .[dev]
-
-              # Salir del entorno virtual
+                python3 -m pip install .
+              # Salir del entorno virtual  
                 deactivate
 
-              # Notificar fin de ejecución del script
+              # Notificar fin de la sección
                 echo ""
-                echo -e "${cColorVerde}    La instalación ha finalizado. Para ejecutar analyzeMFT:${cFinColor}"
+                echo "  Volatility3 se ha instalado dentro del entorno virtual. Para ejecutarlo:"
                 echo ""
-                echo -e "${cColorVerde}      Si al instalar has marcado 'Agregar /home/$USER/.local/bin/ al path', simplemente ejecuta:${cFinColor}"
+                echo "    source ~/repos/python/volatility3/venv/bin/activate"
+                echo "    vol [parametros]"
+                echo "    deactivate"
                 echo ""
-                echo -e "${cColorVerde}        analyzemft [Parámetros]${cFinColor}"
-                echo ""
-                echo -e "${cColorVerde}      Si al instalar NO has marcado 'Agregar /home/$USER/.local/bin/ al path', ejecuta:${cFinColor}"
-                echo ""
-                echo -e "${cColorVerde}       ~/.local/bin/analyzemft [Parámetros]${cFinColor}"
-                echo ""
-
-            ;;
-
-            3)
-
-              echo ""
-              echo "  Agregando /home/$USER/.local/bin al path..."
-              echo ""
-              echo 'export PATH=/home/'"$USER"'/.local/bin:$PATH' >> ~/.bashrc
-
-            ;;
-
-            4)
-
-              echo ""
-              echo "  Creando el entorno virtual de python..."
-              echo ""
-
-              # Crear el entorno virtual
-                cd ~/repos/python/volatility3/
-                # Comprobar si el paquete python3-venv está instalado. Si no lo está, instalarlo.
-                  if [[ $(dpkg-query -s python3-venv 2>/dev/null | grep installed) == "" ]]; then
-                    echo ""
-                    echo -e "${cColorRojo}  El paquete python3-venv no está instalado. Iniciando su instalación...${cFinColor}"
-                    echo ""
-                    sudo apt-get -y update && sudo apt-get -y install python3-venv
-                    echo ""
-                  fi
-                python3 -m venv venv
-              # Entrar al entorno virtual
-                source ~/repos/python/volatility3/venv/bin/activate
-              # Salir del entorno virtual
-                deactivate
 
             ;;
 
@@ -212,7 +194,7 @@
                 sudo apt install -y python3-pytz-deprecation-shim # Anterior python3-pytz
                 # python3 -m pip install -U pycrypto pytz
 
-              # Entrar en el ambiente virtual
+              # Entrar en el entorno virtual
                 source ~/repos/python/volatility3/venv/bin/activate
                 cd ~/repos/python/volatility3/
 
@@ -226,6 +208,7 @@
                     echo ""
                   fi
                 python3 -m pip install pyinstaller
+                
                 pyinstaller --onefile --collect-all=volatility3 vol.py
                 pyinstaller --onefile --collect-all=volatility3 volshell.py
 
