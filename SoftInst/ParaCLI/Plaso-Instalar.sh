@@ -62,6 +62,109 @@
     echo -e "${cColorAzulClaro}  Iniciando el script de instalación de Plaso para Debian 12 (Bookworm)...${cFinColor}"
     echo ""
 
+    # Crear el menú
+      # Comprobar si el paquete dialog está instalado. Si no lo está, instalarlo.
+        if [[ $(dpkg-query -s dialog 2>/dev/null | grep installed) == "" ]]; then
+          echo ""
+          echo -e "${cColorRojo}  El paquete dialog no está instalado. Iniciando su instalación...${cFinColor}"
+          echo ""
+          sudo apt-get -y update && sudo apt-get -y install dialog
+          echo ""
+        fi
+      menu=(dialog --timeout 10 --checklist "Marca como quieres instalar la herramienta:" 22 70 16)
+        opciones=(
+          1 "Clonar repo e Instalar en /home/$USER/.local/bin/" on
+          2 "  Agregar /home/$USER/.local/bin/ al path" off
+          3 "Instalar creando un entorno virtual"       off
+          4 "Instalar version para python 3.x"          off
+        )
+      choices=$("${menu[@]}" "${opciones[@]}" 2>&1 >/dev/tty)
+
+      for choice in $choices
+        do
+          case $choice in
+
+            1)
+
+              echo ""
+              echo "  Clonando repo e instalando en  /home/$USER/.local/bin/..."
+              echo ""
+
+              # Clonar el repo
+                mkdir -p ~/repos/python/
+                cd ~/repos/python/
+                rm -rf ~/repos/python/plaso/
+                # Comprobar si el paquete git está instalado. Si no lo está, instalarlo.
+                  if [[ $(dpkg-query -s git 2>/dev/null | grep installed) == "" ]]; then
+                    echo ""
+                    echo -e "${cColorRojo}  El paquete git no está instalado. Iniciando su instalación...${cFinColor}"
+                    echo ""
+                    sudo apt-get -y update && sudo apt-get -y install git
+                    echo ""
+                  fi
+                git clone https://github.com/log2timeline/plaso.git
+
+              # Instalar
+                # Comprobar si el paquete python3-setuptools está instalado. Si no lo está, instalarlo.
+                  if [[ $(dpkg-query -s python3-setuptools 2>/dev/null | grep installed) == "" ]]; then
+                    echo ""
+                    echo -e "${cColorRojo}  El paquete python3-setuptools no está instalado. Iniciando su instalación...${cFinColor}"
+                    echo ""
+                    sudo apt-get -y update && sudo apt-get -y install python3-setuptools
+                    echo ""
+                  fi
+                cd ~/repos/python/plaso/
+                python3 setup.py install --user
+                cd ~
+
+              # Notificar fin de ejecución del script
+                echo ""
+                echo -e "${cColorVerde}    La instalación ha finalizado. Para ejecutar analyzeMFT:${cFinColor}"
+                echo ""
+                echo -e "${cColorVerde}      Si al instalar has marcado 'Agregar /home/$USER/.local/bin/ al path', simplemente ejecuta:${cFinColor}"
+                echo ""
+                echo -e "${cColorVerde}        image_export [Parámetros]${cFinColor}"
+                echo -e "${cColorVerde}        log2timeline [Parámetros]${cFinColor}"
+                echo -e "${cColorVerde}        pinfo [Parámetros]${cFinColor}"
+                echo -e "${cColorVerde}        psort [Parámetros]${cFinColor}"
+                echo -e "${cColorVerde}        psteal [Parámetros]${cFinColor}"
+                echo -e "${cColorVerde}        xattr [Parámetros]${cFinColor}"
+                echo ""
+                echo -e "${cColorVerde}      Si al instalar NO has marcado 'Agregar /home/$USER/.local/bin/ al path', ejecuta:${cFinColor}"
+                echo ""
+                echo -e "${cColorVerde}       ~/.local/bin/image_export [Parámetros]${cFinColor}"
+                echo -e "${cColorVerde}       ~/.local/bin/log2timeline [Parámetros]${cFinColor}"
+                echo -e "${cColorVerde}       ~/.local/bin/pinfo [Parámetros]${cFinColor}"
+                echo -e "${cColorVerde}       ~/.local/bin/psort [Parámetros]${cFinColor}"
+                echo -e "${cColorVerde}       ~/.local/bin/psteal [Parámetros]${cFinColor}"
+                echo -e "${cColorVerde}       ~/.local/bin/xattr [Parámetros]${cFinColor}"
+                echo ""
+
+
+            ;;
+
+            2)
+
+              echo ""
+              echo "  Instalando descargando el repo..."
+              echo ""
+
+            ;;
+
+            3)
+
+              echo ""
+              echo "  Instalando creando un entorno virtual..."
+              echo ""
+
+
+            ;;
+
+            4)
+
+              echo ""
+              echo "  Instalando otro tipo de instalación..."
+              echo ""
     # Instalar paquetes necesarios
       echo ""
       echo "    Instalando paquetes necesarios..."
@@ -214,6 +317,13 @@
       echo "    Desactivando el entorno virtual..."
       echo ""
       deactivate
+
+            ;;
+
+        esac
+
+    done
+
 
   elif [ $cVerSO == "11" ]; then
 
