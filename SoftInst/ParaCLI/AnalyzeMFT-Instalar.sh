@@ -71,7 +71,7 @@
           sudo apt-get -y update && sudo apt-get -y install dialog
           echo ""
         fi
-      menu=(dialog --timeout 10 --checklist "Marca como quieres instalar la herramienta:" 22 70 16)
+      menu=(dialog --checklist "Marca como quieres instalar la herramienta:" 22 70 16)
         opciones=(
           1 "Clonar el repo de analyzeMFT"                on
           2 "  Crear el entorno virtual de python"        on
@@ -224,8 +224,6 @@
 
     done
 
-  
-  
   elif [ $cVerSO == "11" ]; then
 
     echo ""
