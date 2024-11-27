@@ -71,12 +71,12 @@
           sudo apt-get -y update && sudo apt-get -y install dialog
           echo ""
         fi
-      menu=(dialog --checklist "Marca las opciones que quieras instalar:" 22 96 16)
+      menu=(dialog --timeout 10 --checklist "Marca como quieres instalar la herramientar:" 22 80 16)
         opciones=(
-          1 "Instalar en el bin de usuario"       on
-          2 "Instalar descargando el repo"         off
-          3 "Instalar creando un entorno virtual"  off
-          4 "Instalar version para python 3.x"     off
+          1 "Instalar en ~/.local/bin/"                on
+          2 "  Agregar /home/$USER/.local/bin al path" off
+          3 "Instalar creando un entorno virtual"      off
+          4 "Instalar version para python 3.x"         off
         )
       choices=$("${menu[@]}" "${opciones[@]}" 2>&1 >/dev/tty)
 
@@ -115,20 +115,37 @@
                   fi
                 cd ~/repos/python/analyzeMFT/
                 python3 setup.py install --user
-                echo 'export PATH=/home/'"$USER"'/.local/bin:$PATH' >> ~/.bashrc
                 cd ~
 
+              # Notificar fin de ejecución del script
+                echo ""
+                echo "    La instalación ha finalizado. Para ejecutar analyzeMFT:"
+                echo ""
+                echo "      Si al instalar has marcado 'Agregar ~/.local/bin/ al path' simplemente ejecuta:"
+                echo ""
+                echo "        analyzemft [Parámetros]"
+                echo ""
+                echo "      Si al instalar NO has marcado 'Agregar ~/.local/bin/ al path', ejecuta:"
+                echo ""
+                echo "       ~/.local/bin/analyzemft [Parámetros]"
+                echo ""
 
             ;;
 
             2)
 
               echo ""
-              echo "  Instalando descargando el repo..."
+              echo "  Agregando /home/$USER/.local/bin al path..."
               echo ""
+              echo 'export PATH=/home/'"$USER"'/.local/bin:$PATH' >> ~/.bashrc
 
+            ;;
 
+            3)
 
+              echo ""
+              echo "  Instalando creando un entorno virtual..."
+              echo ""
                 python3 -m pip
       pip3 install -r requirements.txt
       pip3 install -r requirements-dev.txt
@@ -150,15 +167,6 @@
                 /usr/local/bin/python2.7 -m pip install -U yara-python --user
                 /usr/local/bin/python2.7 -m pip install -U pyinstaller==3.6 --user
                 /usr/local/bin/python2.7 -m pip install -U git+https://github.com/rowingdude/analyzeMFT.git --user
-
-            ;;
-
-            3)
-
-              echo ""
-              echo "  Instalando creando un entorno virtual..."
-              echo ""
-
 
             ;;
 
