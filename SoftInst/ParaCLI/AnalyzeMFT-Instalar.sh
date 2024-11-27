@@ -74,10 +74,11 @@
       menu=(dialog --timeout 10 --checklist "Marca como quieres instalar la herramienta:" 22 70 16)
         opciones=(
           1 "Clonar el repo de analyzeMFT"                on
-          2 "  Instalar en /home/$USER/.local/bin/"       on
-          3 "    Agregar /home/$USER/.local/bin/ al path" off
-          4 "  Crear el entorno virtual de python"        on
-          5 "    Compilar y guardar en /home/$USER/bin/"  off
+          2 "  Crear el entorno virtual de python"        on
+          3 "    Compilar y guardar en /home/$USER/bin/"  on
+          4 "  Instalar en /home/$USER/.local/bin/"       on
+          5 "    Agregar /home/$USER/.local/bin/ al path" off
+
         )
       choices=$("${menu[@]}" "${opciones[@]}" 2>&1 >/dev/tty)
 
@@ -110,49 +111,7 @@
             2)
 
               echo ""
-              echo "  Instalando en /home/$USER/.local/bin/..."
-              echo ""
-
-              # Comprobar si el paquete python3-setuptools está instalado. Si no lo está, instalarlo.
-                if [[ $(dpkg-query -s python3-setuptools 2>/dev/null | grep installed) == "" ]]; then
-                  echo ""
-                  echo -e "${cColorRojo}  El paquete python3-setuptools no está instalado. Iniciando su instalación...${cFinColor}"
-                  echo ""
-                  sudo apt-get -y update && sudo apt-get -y install python3-setuptools
-                  echo ""
-                fi
-              cd ~/repos/python/analyzeMFT/
-              python3 setup.py install --user
-              cd ~
-
-              # Notificar fin de ejecución del script
-                echo ""
-                echo -e "${cColorVerde}    Para ejecutar analyzeMFT instalado en /home/$USER/.local/bin/:${cFinColor}"
-                echo ""
-                echo -e "${cColorVerde}      Si al instalar has marcado 'Agregar /home/$USER/.local/bin/ al path', simplemente ejecuta:${cFinColor}"
-                echo ""
-                echo -e "${cColorVerde}        analyzemft [Parámetros]${cFinColor}"
-                echo ""
-                echo -e "${cColorVerde}      Si al instalar NO has marcado 'Agregar /home/$USER/.local/bin/ al path', ejecuta:${cFinColor}"
-                echo ""
-                echo -e "${cColorVerde}       ~/.local/bin/analyzemft [Parámetros]${cFinColor}"
-                echo ""
-
-            ;;
-
-            3)
-
-              echo ""
-              echo "  Agregando /home/$USER/.local/bin al path..."
-              echo ""
-              echo 'export PATH=/home/'"$USER"'/.local/bin:$PATH' >> ~/.bashrc
-
-            ;;
-
-            4)
-
-              echo ""
-              echo "  Creando el entorno virtual de python..."
+              echo "    Creando el entorno virtual de python..."
               echo ""
 
               cd ~/repos/python/analyzeMFT/
@@ -175,10 +134,10 @@
 
             ;;
 
-            5)
+            3)
 
               echo ""
-              echo "  Compilando y guardando en /home/$USER/bin/..."
+              echo "      Compilando y guardando en /home/$USER/bin/..."
               echo ""
 
               sudo apt-get -y update
@@ -216,6 +175,48 @@
                 echo "    python3 ~/scripts/python/analyzeMFT/analyzeMFT.py [Argumentos]"
                 echo "    deactivate"
                 echo ""
+
+            ;;
+
+            4)
+
+              echo ""
+              echo "  Instalando en /home/$USER/.local/bin/..."
+              echo ""
+
+              # Comprobar si el paquete python3-setuptools está instalado. Si no lo está, instalarlo.
+                if [[ $(dpkg-query -s python3-setuptools 2>/dev/null | grep installed) == "" ]]; then
+                  echo ""
+                  echo -e "${cColorRojo}  El paquete python3-setuptools no está instalado. Iniciando su instalación...${cFinColor}"
+                  echo ""
+                  sudo apt-get -y update && sudo apt-get -y install python3-setuptools
+                  echo ""
+                fi
+              cd ~/repos/python/analyzeMFT/
+              python3 setup.py install --user
+              cd ~
+
+              # Notificar fin de ejecución del script
+                echo ""
+                echo -e "${cColorVerde}    Para ejecutar analyzeMFT instalado en /home/$USER/.local/bin/:${cFinColor}"
+                echo ""
+                echo -e "${cColorVerde}      Si al instalar has marcado 'Agregar /home/$USER/.local/bin/ al path', simplemente ejecuta:${cFinColor}"
+                echo ""
+                echo -e "${cColorVerde}        analyzemft [Parámetros]${cFinColor}"
+                echo ""
+                echo -e "${cColorVerde}      Si al instalar NO has marcado 'Agregar /home/$USER/.local/bin/ al path', ejecuta:${cFinColor}"
+                echo ""
+                echo -e "${cColorVerde}       ~/.local/bin/analyzemft [Parámetros]${cFinColor}"
+                echo ""
+
+            ;;
+
+            5)
+
+              echo ""
+              echo "  Agregando /home/$USER/.local/bin al path..."
+              echo ""
+              echo 'export PATH=/home/'"$USER"'/.local/bin:$PATH' >> ~/.bashrc
 
             ;;
 
