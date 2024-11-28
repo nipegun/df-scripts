@@ -1,4 +1,3 @@
-browser-history: pip install browser-history
 #!/bin/bash
 
 # Pongo a disposición pública este script bajo el término de "software de dominio público".
@@ -74,7 +73,7 @@ browser-history: pip install browser-history
         fi
       menu=(dialog --checklist "Marca como quieres instalar la herramienta:" 22 70 16)
         opciones=(
-          1 "Clonar el repo de analyzeMFT"                                    on
+          1 "Clonar el repo de browser-history"                               on
           2 "  Crear el entorno virtual de python"                            on
           3 "    Compilar e instalar en /home/$USER/bin/"                     off
           4 "  Instalar en /home/$USER/.local/bin/"                           off
@@ -97,7 +96,7 @@ browser-history: pip install browser-history
               # Clonar el repo
                 mkdir -p ~/repos/python/
                 cd ~/repos/python/
-                rm -rf ~/repos/python/analyzeMFT/
+                rm -rf ~/repos/python/browser-history/
                 # Comprobar si el paquete git está instalado. Si no lo está, instalarlo.
                   if [[ $(dpkg-query -s git 2>/dev/null | grep installed) == "" ]]; then
                     echo ""
@@ -106,7 +105,7 @@ browser-history: pip install browser-history
                     sudo apt-get -y update && sudo apt-get -y install git
                     echo ""
                   fi
-                git clone https://github.com/rowingdude/analyzeMFT.git
+                git clone https://github.com/browser-history/browser-history.git
 
             ;;
 
@@ -116,7 +115,7 @@ browser-history: pip install browser-history
               echo "    Creando el entorno virtual de python..."
               echo ""
 
-              cd ~/repos/python/analyzeMFT/
+              cd ~/repos/python/browser-history/
               # Comprobar si el paquete python3-venv está instalado. Si no lo está, instalarlo.
                 if [[ $(dpkg-query -s python3-venv 2>/dev/null | grep installed) == "" ]]; then
                   echo ""
@@ -127,20 +126,18 @@ browser-history: pip install browser-history
                 fi
               python3 -m venv venv
               # Entrar al entorno virtual
-                source ~/repos/python/analyzeMFT/venv/bin/activate
+                source ~/repos/python/browser-history/venv/bin/activate
               # Instalar requerimientos
-                python3 -m pip install -r requirements.txt
-                python3 -m pip install -r requirements-dev.txt
                 python3 -m pip install .
               # Salir del entorno virtual
                 deactivate
               # Notificar fin de instalación en el entorno virtual
                 echo ""
-                echo -e "${cColorVerde}    Entorno virtual preparado. analyzeMFT se puede ejecutar desde el venv de la siguiente forma:${cFinColor}"
+                echo -e "${cColorVerde}    Entorno virtual preparado. browser-history se puede ejecutar desde el venv de la siguiente forma:${cFinColor}"
                 echo ""
-                echo -e "${cColorVerde}      source ~/repos/python/analyzeMFT/venv/bin/activate${cFinColor}"
+                echo -e "${cColorVerde}      source ~/repos/python/browser-history/venv/bin/activate${cFinColor}"
                 echo ""
-                echo -e "${cColorVerde}        analyzemft [Parámetros]${cFinColor}"
+                echo -e "${cColorVerde}        browser-history [Parámetros]${cFinColor}"
                 echo ""
                 echo -e "${cColorVerde}      deactivate${cFinColor}"
                 echo ""
@@ -160,32 +157,32 @@ browser-history: pip install browser-history
               sudo apt-get -y install python3-setuptools
 
               # Entrar al entorno virtual
-                source ~/repos/python/analyzeMFT/venv/bin/activate
-                cd ~/repos/python/analyzeMFT/
+                source ~/repos/python/browser-history/venv/bin/activate
+                cd ~/repos/python/browser-history/
 
               # Instalar el instalador
                 python3 -m pip install pyinstaller
 
               # Compilar
-                pyinstaller --onefile --collect-all=analyzeMFT analyzeMFT.py
+                pyinstaller --onefile --collect-all=browser-history browser-history.py
 
               # Copiar el binario a /usr/bin
                 mkdir ~/bin/
-                cp -f ~/repos/python/analyzeMFT/dist/analyzeMFT ~/bin/
+                cp -f ~/repos/python/browser-history/dist/browser-history ~/bin/
 
               # Desactivar el entorno virtual
                 deactivate
 
               # Notificar fin de ejecución del script
                 echo ""
-                echo "  El script ha finalizado. analyzeMFT se ha descargado, compilado e instalado."
+                echo "  El script ha finalizado. browser-history se ha descargado, compilado e instalado."
                 echo ""
-                echo "    Puedes encontrar el binario en ~/bin/analyzeMFT"
+                echo "    Puedes encontrar el binario en ~/bin/browser-history"
                 echo ""
                 echo "  El binario debe ser usado con precaución. Es mejor correr el script directamente con python, de la siguiente manera:"
                 echo ""
-                echo "    source ~/PythonVirtualEnvironments/analyzeMFT/bin/activate"
-                echo "    python3 ~/scripts/python/analyzeMFT/analyzeMFT.py [Argumentos]"
+                echo "    source ~/scripts/python/browser-history/venv/bin/activate"
+                echo "    python3 ~/scripts/python/browser-history/browser-history.py [Argumentos]"
                 echo "    deactivate"
                 echo ""
 
@@ -205,21 +202,21 @@ browser-history: pip install browser-history
                   sudo apt-get -y update && sudo apt-get -y install python3-setuptools
                   echo ""
                 fi
-              cd ~/repos/python/analyzeMFT/
+              cd ~/repos/python/browser-history/
               python3 setup.py install --user
               cd ~
 
               # Notificar fin de ejecución del script
                 echo ""
-                echo -e "${cColorVerde}    Para ejecutar analyzeMFT instalado en /home/$USER/.local/bin/:${cFinColor}"
+                echo -e "${cColorVerde}    Para ejecutar browser-history instalado en /home/$USER/.local/bin/:${cFinColor}"
                 echo ""
                 echo -e "${cColorVerde}      Si al instalar has marcado 'Agregar /home/$USER/.local/bin/ al path', simplemente ejecuta:${cFinColor}"
                 echo ""
-                echo -e "${cColorVerde}        analyzemft [Parámetros]${cFinColor}"
+                echo -e "${cColorVerde}        browser-history [Parámetros]${cFinColor}"
                 echo ""
                 echo -e "${cColorVerde}      Si al instalar NO has marcado 'Agregar /home/$USER/.local/bin/ al path', ejecuta:${cFinColor}"
                 echo ""
-                echo -e "${cColorVerde}       ~/.local/bin/analyzemft [Parámetros]${cFinColor}"
+                echo -e "${cColorVerde}       ~/.local/bin/browser-history [Parámetros]${cFinColor}"
                 echo ""
 
             ;;
@@ -257,22 +254,22 @@ browser-history: pip install browser-history
                 echo ""
                 mkdir -p /tmp/PythonVirtualEnvironments/ 2> /dev/null
                 cd /tmp/PythonVirtualEnvironments/
-                rm -rf /tmp/PythonVirtualEnvironments/analyzeMFT/
-                python3 -m venv analyzeMFT
+                rm -rf /tmp/PythonVirtualEnvironments/browser-history/
+                python3 -m venv browser-history
 
               # Ingresar en el entorno virtual e instalar plaso
                 echo ""
                 echo "    Ingresando en el entorno virtual e instalando plaso..."
                 echo ""
-                source /tmp/PythonVirtualEnvironments/analyzeMFT/bin/activate
+                source /tmp/PythonVirtualEnvironments/browser-history/bin/activate
 
               # Clonar el repo
                 echo ""
                 echo "  Clonando el repo..."
                 echo ""
-                cd /tmp/PythonVirtualEnvironments/analyzeMFT/
-                git clone https://github.com/rowingdude/analyzeMFT.git
-                mv analyzeMFT code
+                cd /tmp/PythonVirtualEnvironments/browser-history/
+                git clone https://github.com/browser-history/browser-history.git
+                mv browser-history code
 
               # Compilar
                 echo ""
@@ -284,7 +281,7 @@ browser-history: pip install browser-history
                 python3 -m pip install wheel
                 python3 -m pip install setuptools
                 python3 -m pip install pyinstaller
-                pyinstaller --onefile --hidden-import=importlib.metadata --collect-all=analyzeMFT analyzeMFT.py
+                pyinstaller --onefile --hidden-import=importlib.metadata --collect-all=browser-history browser-history.py
 
               # Desactivar el entorno virtual
                 echo ""
@@ -296,8 +293,8 @@ browser-history: pip install browser-history
                 echo ""
                 echo "    Copiando los binarios a la carpeta /usr/bin/"
                 echo ""
-                sudo rm -f /usr/bin/analyzeMFT
-                sudo cp -vf /tmp/PythonVirtualEnvironments/analyzeMFT/code/dist/analyzeMFT /usr/bin/analyzeMFT
+                sudo rm -f /usr/bin/browser-history
+                sudo cp -vf /tmp/PythonVirtualEnvironments/browser-history/code/dist/browser-history /usr/bin/browser-history
                 cd ~
 
               # Notificar fin de ejecución del script
@@ -305,7 +302,7 @@ browser-history: pip install browser-history
                 echo -e "${cColorVerde}    La instalación ha finalizado. Se han copiado las herramientas de plaso a /usr/bin/ ${cFinColor}"
                 echo -e "${cColorVerde}    Puedes ejecutarlas de la siguiente forma: ${cFinColor}"
                 echo ""
-                echo -e "${cColorVerde}      analyzeMFT [Parámetros]${cFinColor}"
+                echo -e "${cColorVerde}      browser-history [Parámetros]${cFinColor}"
                 echo ""
 
             ;;
