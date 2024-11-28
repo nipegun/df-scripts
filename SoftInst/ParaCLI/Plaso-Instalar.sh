@@ -73,8 +73,8 @@
         fi
       menu=(dialog --timeout 10 --checklist "Marca como quieres instalar la herramienta:" 22 70 16)
         opciones=(
-          1 "Clonar el repo de plaso "                                        off
-          2 "  Crear el entorno virtual de python"                            off
+          1 "Clonar el repo de plaso "                                        on
+          2 "  Crear el entorno virtual de python"                            on
           3 "    Compilar e instalar en /home/$USER/bin/"                     off
           4 "  Instalar en /home/$USER/.local/bin/"                           off
           5 "    Agregar /home/$USER/.local/bin/ al path"                     off
