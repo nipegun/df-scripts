@@ -60,7 +60,7 @@ if [ $# -ne $cCantParamEsperados ]
     echo ""
     echo "    Archivo .csv exportado. Puedes abrirlo directamente con libreoffice ejecutando en la terminal:"
     echo ""
-    echo "      libreoffice --calc --infilter='CSV:44' "$vCarpetaDondeGuardar"/MFT.csv"
+    echo -e "${cColorVerde}      libreoffice --calc --infilter='CSV:44' "$vCarpetaDondeGuardar"/MFT.csv ${cFinColor}"
     echo ""
 
     echo ""
