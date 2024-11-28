@@ -24,15 +24,6 @@
     #echo "$(tput setaf 1)Mensaje en color rojo. $(tput sgr 0)"
   cFinColor='\033[0m'
 
-# Comprobar si el script está corriendo como root
-  #if [ $(id -u) -ne 0 ]; then     # Sólo comprueba si es root
-  if [[ $EUID -ne 0 ]]; then       # Comprueba si es root o sudo
-    echo ""
-    echo -e "${cColorRojo}  Este script está preparado para ejecutarse con privilegios de administrador (como root o con sudo).${cFinColor}"
-    echo ""
-    exit
-  fi
-
 # Definir la cantidad de argumentos esperados
   cCantParamEsperados=2
 
@@ -54,12 +45,12 @@ if [ $# -ne $cCantParamEsperados ]
       echo ""
       echo "    Copiando todos los eventos .evtx de la partición de Windows a la carpeta del caso..."
       echo ""
-      mkdir -p "$vCarpetaDelCaso"/Artefactos/Originales/Eventos/
-      rm -rf "$vCarpetaDelCaso"/Artefactos/Originales/Eventos/*
-      find "$vPuntoDeMontajePartWindows" -name "*.evtx" -exec cp -v {} "$vCarpetaDelCaso"/Artefactos/Originales/Eventos/ \;
+      sudo mkdir -p "$vCarpetaDelCaso"/Artefactos/Originales/Eventos/
+      sudo rm -rf "$vCarpetaDelCaso"/Artefactos/Originales/Eventos/*
+      find "$vPuntoDeMontajePartWindows" -name "*.evtx" -exec sudo cp -v {} "$vCarpetaDelCaso"/Artefactos/Originales/Eventos/ \;
 
     # Reparar permisos
-      chown 1000:1000 "$vCarpetaDelCaso"/Artefactos/ -R
+      sudo chown 1000:1000 "$vCarpetaDelCaso"/Artefactos/ -R
 
 fi
 
