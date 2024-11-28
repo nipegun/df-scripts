@@ -133,9 +133,9 @@
                 python3 -m pip install .
               # Salir del entorno virtual
                 deactivate
-
+              # Notificar fin de instalación en el entorno virtual
                 echo ""
-                echo -e "${cColorVerde}    Entorno virtual preparado. analyzeMFT e puede ejecutar desde el venv de la siguiente forma:${cFinColor}"
+                echo -e "${cColorVerde}    Entorno virtual preparado. analyzeMFT se puede ejecutar desde el venv de la siguiente forma:${cFinColor}"
                 echo ""
                 echo -e "${cColorVerde}      source ~/repos/python/analyzeMFT/venv/bin/activate${cFinColor}"
                 echo ""
