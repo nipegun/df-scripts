@@ -74,7 +74,7 @@
       menu=(dialog --checklist "Marca como quieres instalar la herramienta:" 22 70 16)
         opciones=(
           1 "Clonar el repo de analyzeMFT"                                    on
-          2 "  Crear el entorno virtual de python"                            off
+          2 "  Crear el entorno virtual de python"                            on
           3 "    Compilar e instalar en /home/$USER/bin/"                     off
           4 "  Instalar en /home/$USER/.local/bin/"                           on
           5 "    Agregar /home/$USER/.local/bin/ al path"                     off
@@ -130,8 +130,18 @@
               # Instalar requerimientos
                 python3 -m pip install -r requirements.txt
                 python3 -m pip install -r requirements-dev.txt
+                python3 -m pip install .
               # Salir del entorno virtual
                 deactivate
+
+                echo ""
+                echo -e "${cColorVerde}    Entorno virtual preparado. analyzeMFT e puede ejecutar desde el venv de la siguiente forma:${cFinColor}"
+                echo ""
+                echo -e "${cColorVerde}      source ~/repos/python/analyzeMFT/venv/bin/activate${cFinColor}"
+                echo ""
+                echo -e "${cColorVerde}        analyzemft [Parámetros]${cFinColor}"
+                echo ""
+                echo -e "${cColorVerde}      deactivate${cFinColor}"
 
             ;;
 
