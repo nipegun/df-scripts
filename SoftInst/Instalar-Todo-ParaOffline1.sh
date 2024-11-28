@@ -26,14 +26,14 @@
 
 # Notificar inicio de ejecución del script
   echo ""
-  echo -e "${cColorRojo}  Iniciando el script de instalación de software de forénsica para acceso offline...${cFinColor}"
+  echo -e "${cColorAzulClaro}  Iniciando el script de instalación de todo el software del repo para usarlo offline...${cFinColor}"
   echo ""
 
 # Comprobar si hay conexión a Internet antes de sincronizar los df-scripts
   # Comprobar si el paquete wget está instalado. Si no lo está, instalarlo.
     if [[ $(dpkg-query -s wget 2>/dev/null | grep installed) == "" ]]; then
       echo ""
-      echo -e "${cColorRojo}  El paquete wget no está instalado. Iniciando su instalación...${cFinColor}"
+      echo -e "${cColorRojo}    El paquete wget no está instalado. Iniciando su instalación...${cFinColor}"
       echo ""
       sudo apt-get -y update && sudo apt-get -y install wget
       echo ""
@@ -42,7 +42,7 @@
   if [[ $? -eq 0 ]]; then
     # Sincronizar los df-scripts
       echo ""
-      echo -e "${cColorAzulClaro}  Sincronizando los df-scripts con las últimas versiones y descargando nuevos df-scripts (si es que existen)...${cFinColor}"
+      echo -e "${cColorAzulClaro}    Sincronizando los df-scripts con las últimas versiones y descargando nuevos df-scripts (si es que existen)...${cFinColor}"
       echo ""
       rm ~/scripts/df-scripts -R 2> /dev/null
       mkdir ~/scripts 2> /dev/null
@@ -50,7 +50,7 @@
       # Comprobar si el paquete git está instalado. Si no lo está, instalarlo.
         if [[ $(dpkg-query -s git 2>/dev/null | grep installed) == "" ]]; then
           echo ""
-          echo -e "${cColorRojo}    El paquete git no está instalado. Iniciando su instalación...${cFinColor}"
+          echo -e "${cColorRojo}      El paquete git no está instalado. Iniciando su instalación...${cFinColor}"
           echo ""
           apt-get -y update && apt-get -y install git
           echo ""
@@ -59,7 +59,7 @@
       rm ~/scripts/df-scripts/.git -R 2> /dev/null
       find ~/scripts/df-scripts/ -type f -iname "*.sh" -exec chmod +x {} \;
       echo ""
-      echo -e "${cColorVerde}    df-scripts sincronizados correctamente.${cFinColor}"
+      echo -e "${cColorVerde}      df-scripts sincronizados correctamente.${cFinColor}"
       echo ""
     # Crear los alias
       mkdir -p ~/scripts/df-scripts/Alias/
@@ -67,7 +67,7 @@
       find ~/scripts/df-scripts/Alias -type f -exec chmod +x {} \;
   else
     echo ""
-    echo -e "${cColorRojo}  No se pudo iniciar la sincronización de los df-scripts porque no se detectó conexión a Internet.${cFinColor}"
+    echo -e "${cColorRojo}    No se pudo iniciar la sincronización de los df-scripts porque no se detectó conexión a Internet.${cFinColor}"
     echo ""
   fi
 
