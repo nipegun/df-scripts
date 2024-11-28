@@ -57,7 +57,7 @@
               echo ""
               echo "  Comprobando que exista la carpeta con los eventos extraídos.."
               echo ""
-              if [ ! -d "$1"]; then
+              if [ ! -d "/Casos/$vFechaDeEjec/Artefactos/Originales" ]; then
                 echo ""
                 echo "    La carpeta no existe. Abortando script..."
                 echo ""
