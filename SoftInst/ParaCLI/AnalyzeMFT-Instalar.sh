@@ -73,12 +73,13 @@
         fi
       menu=(dialog --checklist "Marca como quieres instalar la herramienta:" 22 70 16)
         opciones=(
-          1 "Clonar el repo de analyzeMFT"                on
-          2 "  Crear el entorno virtual de python"        off
-          3 "    Compilar y guardar en /home/$USER/bin/"  off
-          4 "  Instalar en /home/$USER/.local/bin/"       on
-          5 "    Agregar /home/$USER/.local/bin/ al path" off
-
+          1 "Clonar el repo de analyzeMFT"                                    on
+          2 "  Crear el entorno virtual de python"                            off
+          3 "    Compilar e instalar en /home/$USER/bin/"                     off
+          4 "  Instalar en /home/$USER/.local/bin/"                           on
+          5 "    Agregar /home/$USER/.local/bin/ al path"                     off
+          6 "Clonar repo, crear venv, compilar e instalar a nivel de sistema" on
+          7 "Otro tipo de instalación"                                        off
         )
       choices=$("${menu[@]}" "${opciones[@]}" 2>&1 >/dev/tty)
 
@@ -219,6 +220,80 @@
               echo 'export PATH=/home/'"$USER"'/.local/bin:$PATH' >> ~/.bashrc
 
             ;;
+
+            6)
+
+              echo ""
+              echo "  Clonando repo, creando venv, compilando e instalando a nivel de sistema..."
+              echo ""
+
+              # Instalar paquetes necesarios
+                echo ""
+                echo "    Instalando paquetes necesarios..."
+                echo ""
+                sudo apt-get -y update
+                sudo apt-get -y install python3-pip
+                sudo apt-get -y install python3-setuptools
+                sudo apt-get -y install python3-dev
+                sudo apt-get -y install python3-venv
+                sudo apt-get -y install build-essential
+                sudo apt-get -y install liblzma-dev
+
+              # Preparar el entorno virtual de python
+                echo ""
+                echo "    Preparando el entorno virtual de python..."
+                echo ""
+                mkdir -p /tmp/PythonVirtualEnvironments/ 2> /dev/null
+                cd /tmp/PythonVirtualEnvironments/
+                rm -rf /tmp/PythonVirtualEnvironments/analyzeMFT/
+                python3 -m venv analyzeMFT
+
+              # Ingresar en el entorno virtual e instalar plaso
+                echo ""
+                echo "    Ingresando en el entorno virtual e instalando plaso..."
+                echo ""
+                source /tmp/PythonVirtualEnvironments/analyzeMFT/bin/activate
+                python3 -m pip install analyzeMFT
+
+              # Compilar
+                echo ""
+                echo "    Compilando..."
+                echo ""
+                python3 -m pip install pyinstaller
+                cd /tmp/PythonVirtualEnvironments/analyzeMFT/bin/
+                pyinstaller --onefile --collect-all=analyzeMFT.py analyzeMFT.py
+
+              # Desactivar el entorno virtual
+                echo ""
+                echo "    Desactivando el entorno virtual..."
+                echo ""
+                deactivate
+
+              # Copiar los binarios compilados a la carpeta de binarios del usuario
+                echo ""
+                echo "    Copiando los binarios a la carpeta /usr/bin/"
+                echo ""
+                sudo rm -f /usr/bin/analyzeMFT
+                sudo cp -vf /tmp/PythonVirtualEnvironments/analyzeMFT/bin/dist/analyzeMFT /usr/bin/analyzeMFT
+
+              # Notificar fin de ejecución del script
+                echo ""
+                echo -e "${cColorVerde}    La instalación ha finalizado. Se han copiado las herramientas de plaso a /usr/bin/ ${cFinColor}"
+                echo -e "${cColorVerde}    Puedes ejecutarlas de la siguiente forma: ${cFinColor}"
+                echo ""
+                echo -e "${cColorVerde}      analyzeMFT [Parámetros]${cFinColor}"
+                echo ""
+
+            ;;
+
+            7)
+
+              echo ""
+              echo "  Otro tipo de instalación (Pruebas)..."
+              echo ""
+
+            ;;
+
 
         esac
 
