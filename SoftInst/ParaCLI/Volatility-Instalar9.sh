@@ -147,6 +147,7 @@
                 echo -e "${cColorVerde}        volshell [Parámetros]${cFinColor}"
                 echo ""
                 echo -e "${cColorVerde}      deactivate${cFinColor}"
+                echo ""
 
             ;;
 
@@ -342,10 +343,10 @@
                 echo ""
                 echo -e "${cColorVerde}      source ~/repos/python/volatility2/venv/bin/activate${cFinColor}"
                 echo ""
-                echo -e "${cColorVerde}        vol      [Parámetros]${cFinColor}"
-                echo -e "${cColorVerde}        volshell [Parámetros]${cFinColor}"
+                echo -e "${cColorVerde}        vol.py      [Parámetros]${cFinColor}"
                 echo ""
                 echo -e "${cColorVerde}      deactivate${cFinColor}"
+                echo ""
 
             ;;
 
