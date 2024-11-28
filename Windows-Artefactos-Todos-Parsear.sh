@@ -73,7 +73,7 @@
               echo ""
               echo "  Parseando la MFT..."
               echo ""
-              sudo ~/scripts/df-scripts/Windows-Artefactos-MFT-Parsear.sh \
+              ~/scripts/df-scripts/Windows-Artefactos-MFT-Parsear.sh \
               /Casos/$vFechaDeEjec/Artefactos/Originales/MFT \
               /Casos/$vFechaDeEjec/Artefactos/Parseados/MFT
 
@@ -85,7 +85,7 @@
               echo ""
               echo "  Parseando el registro..."
               echo ""
-              sudo ~/scripts/df-scripts/Windows-Artefactos-Registro-Parsear-WindowsVistaYPosterior.sh \
+              ~/scripts/df-scripts/Windows-Artefactos-Registro-Parsear-WindowsVistaYPosterior.sh \
               /Casos/$vFechaDeEjec/Artefactos/Originales/Registro \
               /Casos/$vFechaDeEjec/Artefactos/Parseados/Registro
 
@@ -96,7 +96,7 @@
               echo ""
               echo "  Parseando los eventos..."
               echo ""
-              sudo ~/scripts/df-scripts/Windows-Artefactos-Eventos-Parsear.sh \
+              ~/scripts/df-scripts/Windows-Artefactos-Eventos-Parsear.sh \
               /Casos/$vFechaDeEjec/Artefactos/Originales/Eventos \
               /Casos/$vFechaDeEjec/Artefactos/Parseados/Eventos
 
