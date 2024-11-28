@@ -24,15 +24,6 @@
     #echo "$(tput setaf 1)Mensaje en color rojo. $(tput sgr 0)"
   cFinColor='\033[0m'
 
-# Comprobar si el script está corriendo como root
-  #if [ $(id -u) -ne 0 ]; then     # Sólo comprueba si es root
-  if [[ $EUID -ne 0 ]]; then       # Comprueba si es root o sudo
-    echo ""
-    echo -e "${cColorRojo}  Este script está preparado para ejecutarse con privilegios de administrador (como root o con sudo).${cFinColor}"
-    echo ""
-    exit
-  fi
-
 # Definir la cantidad de argumentos esperados
   cCantParamEsperados=2
 
@@ -55,40 +46,40 @@ if [ $# -ne $cCantParamEsperados ]
       vCarpetaConArchivosDeRegistro="$1" # Debe ser una carpeta sin barra final
       vCarpetaDondeGuardar="$2"          # Debe ser una carpeta sin barra final
     # Exportar registros
-      mkdir -p "$vCarpetaDondeGuardar" 2> /dev/null
+      sudo mkdir -p "$vCarpetaDondeGuardar" 2> /dev/null
       # Comprobar si el script de RegRipper existe. Si no, llamar al script de instalación de RegRipper
         if [ ! -e "/usr/local/bin/rip.pl" ]; then
           echo ""
           echo -e "${cColorRojo}  No se ha encontrado el script en perl de RegRipper. Procediendo con su instalación.${cFinColor}"
-          curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/SoftInst/ParaCLI/RegRipper-Instalar.sh | sudo bash
+          curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/SoftInst/ParaCLI/RegRipper-Instalar.sh | bash
           echo ""
         fi
       echo ""
       echo "  RegRippeando SYSTEM..."
       echo ""
-      /usr/local/bin/rip.pl -r "$vCarpetaConArchivosDeRegistro"/SYSTEM   -a > "$vCarpetaDondeGuardar"/SYSTEM.txt
+      sudo /usr/local/bin/rip.pl -r "$vCarpetaConArchivosDeRegistro"/SYSTEM   -a > "$vCarpetaDondeGuardar"/SYSTEM.txt
       echo ""
       echo "  RegRippeando SAM..."
       echo ""
-      /usr/local/bin/rip.pl -r "$vCarpetaConArchivosDeRegistro"/SAM      -a > "$vCarpetaDondeGuardar"/SAM.txt
+      sudo /usr/local/bin/rip.pl -r "$vCarpetaConArchivosDeRegistro"/SAM      -a > "$vCarpetaDondeGuardar"/SAM.txt
       echo ""
       echo "  RegRippeando SECURITY..."
       echo ""
-      /usr/local/bin/rip.pl -r "$vCarpetaConArchivosDeRegistro"/SECURITY -a > "$vCarpetaDondeGuardar"/SECURITY.txt
+      sudo /usr/local/bin/rip.pl -r "$vCarpetaConArchivosDeRegistro"/SECURITY -a > "$vCarpetaDondeGuardar"/SECURITY.txt
       echo ""
       echo "  RegRippeando SOFTWARE..."
       echo ""
-      /usr/local/bin/rip.pl -r "$vCarpetaConArchivosDeRegistro"/SOFTWARE -a > "$vCarpetaDondeGuardar"/SOFTWARE.txt
+      sudo /usr/local/bin/rip.pl -r "$vCarpetaConArchivosDeRegistro"/SOFTWARE -a > "$vCarpetaDondeGuardar"/SOFTWARE.txt
       echo ""
       echo "  RegRippeando DEFAULT..."
       echo ""
-      /usr/local/bin/rip.pl -r "$vCarpetaConArchivosDeRegistro"/DEFAULT  -a > "$vCarpetaDondeGuardar"/DEFAULT.txt
+      sudo /usr/local/bin/rip.pl -r "$vCarpetaConArchivosDeRegistro"/DEFAULT  -a > "$vCarpetaDondeGuardar"/DEFAULT.txt
 
     # Exportar registro de usuarios
       echo ""
       echo "  RegRippeando archivos de registro de usuarios..."
       echo ""
-      find "$vCarpetaConArchivosDeRegistro"/Usuarios -mindepth 1 -maxdepth 1 -type d > /tmp/CarpetasDeUsuarios.txt
+      sudo find "$vCarpetaConArchivosDeRegistro"/Usuarios -mindepth 1 -maxdepth 1 -type d > /tmp/CarpetasDeUsuarios.txt
       while IFS= read -r linea; do
         vNomUsuario="${linea##*/}"
         echo ""
@@ -99,6 +90,6 @@ if [ $# -ne $cCantParamEsperados ]
       done < "/tmp/CarpetasDeUsuarios.txt"
 
     # Reparar permisos
-      chown 1000:1000 "$vCarpetaDondeGuardar" -R
+      sudo chown 1000:1000 "$vCarpetaDondeGuardar" -R
 
 fi
