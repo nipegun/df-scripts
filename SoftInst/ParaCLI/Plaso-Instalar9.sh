@@ -78,7 +78,7 @@
           3 "    Compilar e instalar en /home/$USER/bin/"                     off
           4 "  Instalar en /home/$USER/.local/bin/"                           off
           5 "    Agregar /home/$USER/.local/bin/ al path"                     off
-          6 "Clonar repo, crear venv, compilar e instalar a nivel de sistema" on
+          6 "Clonar repo, crear venv, compilar e instalar a nivel de sistema" off
           7 "Otro tipo de instalación"                                        off
         )
       choices=$("${menu[@]}" "${opciones[@]}" 2>&1 >/dev/tty)
