@@ -73,10 +73,13 @@
         fi
       menu=(dialog --timeout 10 --checklist "Marca como quieres instalar la herramienta:" 22 70 16)
         opciones=(
-          1 "Clonar repo e Instalar en /home/$USER/.local/bin/" on
-          2 "  Agregar /home/$USER/.local/bin/ al path"         off
-          3 "Clonar repo e instalar a nivel de sistema"         off
-          4 "Otro tipo de instalación"                          off
+          1 "Clonar repo"                                 off
+          2 "  Crear el entorno virtual de python"        on
+          3 "    Compilar y guardar en /home/$USER/bin/"  off
+          4 "  Instalar en /home/$USER/.local/bin/"       on
+          5 "    Agregar /home/$USER/.local/bin/ al path" off
+          3 "Clonar repo e instalar a nivel de sistema"   off
+          4 "Otro tipo de instalación"                    off
         )
       choices=$("${menu[@]}" "${opciones[@]}" 2>&1 >/dev/tty)
 
@@ -87,35 +90,63 @@
             1)
 
               echo ""
-              echo "  Clonando repo e instalando en  /home/$USER/.local/bin/..."
+              echo "  Clonando repo..."
               echo ""
 
-              # Clonar el repo
-                mkdir -p ~/repos/python/
-                cd ~/repos/python/
-                rm -rf ~/repos/python/plaso/
-                # Comprobar si el paquete git está instalado. Si no lo está, instalarlo.
-                  if [[ $(dpkg-query -s git 2>/dev/null | grep installed) == "" ]]; then
-                    echo ""
-                    echo -e "${cColorRojo}  El paquete git no está instalado. Iniciando su instalación...${cFinColor}"
-                    echo ""
-                    sudo apt-get -y update && sudo apt-get -y install git
-                    echo ""
-                  fi
-                git clone https://github.com/log2timeline/plaso.git
+              mkdir -p ~/repos/python/
+              cd ~/repos/python/
+              rm -rf ~/repos/python/plaso/
+              # Comprobar si el paquete git está instalado. Si no lo está, instalarlo.
+                if [[ $(dpkg-query -s git 2>/dev/null | grep installed) == "" ]]; then
+                  echo ""
+                  echo -e "${cColorRojo}  El paquete git no está instalado. Iniciando su instalación...${cFinColor}"
+                  echo ""
+                  sudo apt-get -y update && sudo apt-get -y install git
+                  echo ""
+                fi
+              git clone https://github.com/log2timeline/plaso.git
 
+            ;;
+
+            2)
+
+              echo ""
+              echo "  Creando el entorno virtual de python..."
+              echo ""
+
+              cd ~/repos/python/plaso/
+              # Comprobar si el paquete python3-venv está instalado. Si no lo está, instalarlo.
+                if [[ $(dpkg-query -s python3-venv 2>/dev/null | grep installed) == "" ]]; then
+                  echo ""
+                  echo -e "${cColorRojo}  El paquete python3-venv no está instalado. Iniciando su instalación...${cFinColor}"
+                  echo ""
+                  sudo apt-get -y update && sudo apt-get -y install python3-venv
+                  echo ""
+                fi
+              python3 -m venv venv
+              # Entrar al entorno virtual
+                source ~/repos/python/plaso/venv/bin/activate
+              # Instalar requerimientos
+                python3 -m pip install -r requirements.txt
+                python3 -m pip install -r test_requirements.txt
+              # Salir del entorno virtual
+                deactivate
+
+            ;;
+
+            3)
+
+              echo ""
+              echo "    Instalando en /home/$USER/.local/bin/..."
+              echo ""
+
+              # Entrar en el entorno virtual
+                source ~/repos/python/plaso/venv/bin/activate
               # Instalar
-                # Comprobar si el paquete python3-setuptools está instalado. Si no lo está, instalarlo.
-                  if [[ $(dpkg-query -s python3-setuptools 2>/dev/null | grep installed) == "" ]]; then
-                    echo ""
-                    echo -e "${cColorRojo}  El paquete python3-setuptools no está instalado. Iniciando su instalación...${cFinColor}"
-                    echo ""
-                    sudo apt-get -y update && sudo apt-get -y install python3-setuptools
-                    echo ""
-                  fi
                 cd ~/repos/python/plaso/
                 python3 setup.py install --user
-                cd ~
+              # Salir del entorno virtual
+                deactivate
 
               # Notificar fin de ejecución del script
                 echo ""
@@ -140,10 +171,9 @@
                 echo -e "${cColorVerde}       ~/.local/bin/xattr [Parámetros]${cFinColor}"
                 echo ""
 
-
             ;;
 
-            2)
+            4)
 
               echo ""
               echo "  Agregando /home/$USER/.local/bin al path..."
@@ -152,16 +182,187 @@
 
             ;;
 
-            3)
 
-              echo ""
-              echo "  Clonando repo e instalando a nivel de sistema..."
-              echo ""
+            5)
 
+
+
+              # Instalar dependencias
+                sudo apt-get -y update
+                sudo apt-get -y install python3-dfdatetime
+                sudo python3 -m pip install dfvfs   --break-system-packages
+                sudo python3 -m pip install acstore --break-system-packages
+                sudo apt-get -y install python3-xlsxwriter
+                sudo apt-get -y install python3-defusedxml
+                sudo python3 -m pip install bencode --break-system-packages
+                sudo python3 -m pip install BTL --break-system-packages
+
+              # Clonar el repo
+
+
+              # Instalar
+                # Comprobar si el paquete python3-setuptools está instalado. Si no lo está, instalarlo.
+                  if [[ $(dpkg-query -s python3-setuptools 2>/dev/null | grep installed) == "" ]]; then
+                    echo ""
+                    echo -e "${cColorRojo}  El paquete python3-setuptools no está instalado. Iniciando su instalación...${cFinColor}"
+                    echo ""
+                    sudo apt-get -y update && sudo apt-get -y install python3-setuptools
+                    echo ""
+                  fi
+                cd ~/repos/python/plaso/
+                python3 setup.py install --user
+                cd ~
+
+
+
+
+
+              sudo apt-get -y update
+              sudo apt-get -y install python3-pip
+              sudo apt-get -y install python3-venv
+              sudo apt-get -y install python3-wheel
+              sudo apt-get -y install python3-setuptools
+              sudo apt-get -y install python3-dev
+              sudo apt-get -y install build-essential
+              sudo apt-get -y install liblzma-dev
+
+              # Entrar al entorno virtual
+                source ~/repos/python/plaso/venv/bin/activate
+                cd ~/repos/python/plaso/
+
+              python3 setup.py install
+              # Instalar el instalador
+                python3 -m pip install pyinstaller
+
+
+              # Compilar
+                cd ~/repos/python/plaso/venv/bin/
+           echo ""
+              echo "      Intentando compilar image_export..."
+              echo ""
+              pyinstaller --onefile image_export \
+              --add-data ~/"repos/python/plaso/venv/lib/python3.11/site-packages/plaso/parsers/macos_core_location.yaml:plaso/parsers" \
+              --add-data ~/"repos/python/plaso/venv/lib/python3.11/site-packages/plaso/parsers/macos_mdns.yaml:plaso/parsers" \
+              --add-data ~/"repos/python/plaso/venv/lib/python3.11/site-packages/plaso/parsers/macos_open_directory.yaml:plaso/parsers" \
+              --add-data ~/"repos/python/plaso/venv/lib/python3.11/site-packages/plaso/parsers/windows_nt.yaml:plaso/parsers" \
+              --add-data ~/"repos/python/plaso/venv/lib/python3.11/site-packages/plaso/preprocessors/time_zone_information.yaml:plaso/preprocessors" \
+              --add-data ~/"repos/python/plaso/venv/lib/python3.11/site-packages/plaso/preprocessors/mounted_devices.yaml:plaso/preprocessors"
+              echo ""
+              echo "      Intentando compilar log2timeline..."
+              echo ""
+              pyinstaller --onefile log2timeline \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_core_location.yaml:plaso/parsers" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_mdns.yaml:plaso/parsers" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_open_directory.yaml:plaso/parsers" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/windows_nt.yaml:plaso/parsers" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/preprocessors/time_zone_information.yaml:plaso/preprocessors" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/preprocessors/mounted_devices.yaml:plaso/preprocessors"
+              echo ""
+              echo "      Intentando compilar normalizer..."
+              echo ""
+              pyinstaller --onefile normalizer \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_core_location.yaml:plaso/parsers" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_mdns.yaml:plaso/parsers" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_open_directory.yaml:plaso/parsers" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/windows_nt.yaml:plaso/parsers" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/preprocessors/time_zone_information.yaml:plaso/preprocessors" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/preprocessors/mounted_devices.yaml:plaso/preprocessors"
+              echo ""
+              echo "      Intentando compilar psort..."
+              echo ""
+              vRutaALibPythonSO=$(find /usr/lib/python* -name "libpython3.11.so" 2>/dev/null)
+              pyinstaller --onefile psort \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_core_location.yaml:plaso/parsers" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_mdns.yaml:plaso/parsers" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_open_directory.yaml:plaso/parsers" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/windows_nt.yaml:plaso/parsers" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/preprocessors/time_zone_information.yaml:plaso/preprocessors" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/preprocessors/mounted_devices.yaml:plaso/preprocessors" \
+              --add-binary "$vRutaALibPythonSO:."
+              echo ""
+              echo "      Intentando compilar psteal..."
+              echo ""
+              vRutaALibPythonSO=$(find /usr/lib/ -name "libpython3.11.so.1.0" 2>/dev/null)
+              pyinstaller --onefile psteal \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_core_location.yaml:plaso/parsers" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_mdns.yaml:plaso/parsers" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_open_directory.yaml:plaso/parsers" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/windows_nt.yaml:plaso/parsers" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/preprocessors/time_zone_information.yaml:plaso/preprocessors" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/preprocessors/mounted_devices.yaml:plaso/preprocessors" \
+              --add-binary "$vRutaALibPythonSO:."
+              echo ""
+              echo "      Intentando compilar pinfo..."
+              echo ""
+              vRutaALibPythonSO=$(find /usr/lib/ -name "libpython3.11.so.1.0" 2>/dev/null)
+              pyinstaller --onefile pinfo \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_core_location.yaml:plaso/parsers" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_mdns.yaml:plaso/parsers" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_open_directory.yaml:plaso/parsers" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/windows_nt.yaml:plaso/parsers" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/preprocessors/time_zone_information.yaml:plaso/preprocessors" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/preprocessors/mounted_devices.yaml:plaso/preprocessors" \
+              --add-binary "$vRutaALibPythonSO:."
+              echo ""
+              echo "      Intentando compilar stats..."
+              echo ""
+              pyinstaller --onefile stats \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_core_location.yaml:plaso/parsers" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_mdns.yaml:plaso/parsers" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_open_directory.yaml:plaso/parsers" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/windows_nt.yaml:plaso/parsers" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/preprocessors/time_zone_information.yaml:plaso/preprocessors" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/preprocessors/mounted_devices.yaml:plaso/preprocessors"
+              echo ""
+              echo "      Intentando compilar validator..."
+              echo ""
+              pyinstaller --onefile validator \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_core_location.yaml:plaso/parsers" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_mdns.yaml:plaso/parsers" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_open_directory.yaml:plaso/parsers" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/windows_nt.yaml:plaso/parsers" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/preprocessors/time_zone_information.yaml:plaso/preprocessors" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/preprocessors/mounted_devices.yaml:plaso/preprocessors"
+              echo ""
+              echo "      Intentando compilar xattr..."
+              echo ""
+              pyinstaller --onefile xattr \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_core_location.yaml:plaso/parsers" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_mdns.yaml:plaso/parsers" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/macos_open_directory.yaml:plaso/parsers" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/parsers/windows_nt.yaml:plaso/parsers" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/preprocessors/time_zone_information.yaml:plaso/preprocessors" \
+              --add-data ~/"PythonVirtualEnvironments/plaso/lib/python3.11/site-packages/plaso/preprocessors/mounted_devices.yaml:plaso/preprocessors" \
+              --hidden-import=_cffi_backend
+
+
+
+
+
+              # Copiar el binario a /usr/bin
+                mkdir ~/bin/
+                cp -f ~/repos/python/plaso/dist/plaso ~/bin/
+
+              # Desactivar el entorno virtual
+                deactivate
+
+              # Notificar fin de ejecución del script
+                echo ""
+                echo "  El script ha finalizado. analyzeMFT se ha descargado, compilado e instalado."
+                echo ""
+                echo "    Puedes encontrar el binario en ~/bin/analyzeMFT"
+                echo ""
+                echo "  El binario debe ser usado con precaución. Es mejor correr el script directamente con python, de la siguiente manera:"
+                echo ""
+                echo "    source ~/PythonVirtualEnvironments/analyzeMFT/bin/activate"
+                echo "    python3 ~/scripts/python/analyzeMFT/analyzeMFT.py [Argumentos]"
+                echo "    deactivate"
+                echo ""
 
             ;;
 
-            4)
+
+            6)
 
               echo ""
               echo "  Instalando otro tipo de instalación..."
@@ -325,7 +526,6 @@
         esac
 
     done
-
 
   elif [ $cVerSO == "11" ]; then
 
