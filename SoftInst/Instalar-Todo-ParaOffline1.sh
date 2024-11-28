@@ -63,7 +63,7 @@
       echo ""
     # Crear los alias
       mkdir -p ~/scripts/df-scripts/Alias/
-      ~/scripts/df-scripts/DFScripts-Alias-Crear.sh
+      #~/scripts/df-scripts/DFScripts-Alias-Crear.sh
       find ~/scripts/df-scripts/Alias -type f -exec chmod +x {} \;
   else
     echo ""
