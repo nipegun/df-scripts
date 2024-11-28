@@ -70,7 +70,6 @@
     echo -e "${cColorAzulClaro}  Iniciando el script de instalación de RegRipper para Debian 12 (Bookworm)...${cFinColor}"
     echo ""
 
-
     # Crear el menú
       # Comprobar si el paquete dialog está instalado. Si no lo está, instalarlo.
         if [[ $(dpkg-query -s dialog 2>/dev/null | grep installed) == "" ]]; then
@@ -123,10 +122,12 @@
               sudo apt-get -y install git
               sudo apt-get -y install libparse-win32registry-perl
 
+              # Borrar script anterior
+                sudo rm -f /usr/local/bin/rip.pl
+
               # Clonar el repo
                 mkdir -p ~/repos/perl/
                 cd ~/repos/perl/
-                rm -rf ~/repos/perl/RegRipper3.0/
                 # Comprobar si el paquete git está instalado. Si no lo está, instalarlo.
                   if [[ $(dpkg-query -s git 2>/dev/null | grep installed) == "" ]]; then
                     echo ""
