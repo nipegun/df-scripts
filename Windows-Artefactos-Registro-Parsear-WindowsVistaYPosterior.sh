@@ -35,7 +35,7 @@ if [ $# -ne $cCantParamEsperados ]
     echo "    $0 [CarpetaConArchivosDeRegistro] [CarpetaDondeGuardar] (Ambos sin barra final)"
     echo ""
     echo "  Ejemplo:"
-    echo "    $0 /Casos/a2024m11d16/Artefactos/Originales/Registro /Casos/a2024m11d16/Artefactos/Parseados/Registro"
+    echo "    $0 /Casos/a2024m11d29/Artefactos/Originales/Registro /Casos/a2024m11d29/Artefactos/Parseados/Registro"
     echo ""
     exit
   else
