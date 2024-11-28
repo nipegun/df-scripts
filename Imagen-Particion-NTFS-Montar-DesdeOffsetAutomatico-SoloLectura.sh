@@ -24,15 +24,6 @@
     #echo "$(tput setaf 1)Mensaje en color rojo. $(tput sgr 0)"
   cFinColor='\033[0m'
 
-# Comprobar si el script está corriendo como root
-  #if [ $(id -u) -ne 0 ]; then     # Sólo comprueba si es root
-  if [[ $EUID -ne 0 ]]; then       # Comprueba si es root o sudo
-    echo ""
-    echo -e "${cColorRojo}  Este script está preparado para ejecutarse con privilegios de administrador (como root o con sudo).${cFinColor}"
-    echo ""
-    exit
-  fi
-
 # Definir la cantidad de argumentos esperados
   cCantArgumEsperados=2
 
@@ -66,8 +57,8 @@ if [ $# -ne $cCantArgumEsperados ]
       sudo mount "$1" "$2" -o ro,loop,show_sys_files,streams_interface=windows,offset=$(($vOffset*512))
     else
       sudo mkdir -p "$2"
-      sudo chown $USER:$USER "$2" -R
       sudo mount "$1" "$2" -o ro,loop,show_sys_files,streams_interface=windows,offset=$(($vOffset*512))
-      sudo chown $USER:$USER "$1"
+      sudo chown $USER:$USER "$1" -R
+      sudo chown $USER:$USER "$2" -R
     fi
 fi
