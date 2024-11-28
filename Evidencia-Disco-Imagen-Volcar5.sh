@@ -8,8 +8,8 @@
 # ----------
 # Script de NiPeGun para obtener evidencia forense de un dispositivo
 #
-# Ejecución remota con parámetros:
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Evidencia-Disco-Imagen-Volcar.sh | sudo bash -s [Dispositivo] [CarpetaDondeGuardar]  (Ambos sin barra final)
+# Ejecución remota con parámetros (se debe ejecutar sin sudo):
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Evidencia-Disco-Imagen-Volcar.sh | bash -s [Dispositivo] [CarpetaDondeGuardar]  (Ambos sin barra / final)
 #
 # Bajar y editar directamente el archivo en nano
 #   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Evidencia-Disco-Imagen-Volcar.sh | nano -
@@ -33,11 +33,11 @@
       echo ""
       echo -e "${cColorRojo}  No se han pasado suficientes parámetros al script. El uso correcto sería: ${cFinColor}"
       echo ""
-      echo "    Evidencia-Disco-Imagen-Volcar.sh [Dispositivo] [CarpetaDondeGuardar] (Ambos sin barra final)"
+      echo "    Evidencia-Disco-Imagen-Volcar.sh [Dispositivo] [CarpetaDondeGuardar] (Ambos sin barra / final)"
       echo ""
       echo "  Ejemplo:"
       echo ""
-      echo "    Evidencia-Disco-Imagen-Volcar.sh '/dev/sda' '/home/$SUDO_USER/Escritorio/Forense/Evidencia/Examen'"
+      echo "    Evidencia-Disco-Imagen-Volcar.sh '/dev/sda' '/home/$USER/Escritorio/Forense/Evidencia/Examen'"
       echo ""
       exit
     else
