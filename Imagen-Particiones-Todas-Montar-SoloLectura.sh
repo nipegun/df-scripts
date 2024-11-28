@@ -30,33 +30,51 @@
     #echo "$(tput setaf 1)Mensaje en color rojo. $(tput sgr 0)"
   cFinColor='\033[0m'
 
-# Crear un array con los offsets de incio de cada partición
-  aOffsetsDeInicio=()
-  # Comprobar si el paquete fdisk está instalado. Si no lo está, instalarlo.
-    if [[ $(dpkg-query -s fdisk 2>/dev/null | grep installed) == "" ]]; then
-      echo ""
-      echo -e "${cColorRojo}  El paquete fdisk no está instalado. Iniciando su instalación...${cFinColor}"
-      echo ""
-      sudo apt-get -y update && sudo apt-get -y install fdisk
-      echo ""
-    fi
-  for vOffset in $(sudo fdisk -l -o Device,Start "$1" | grep ^/ | rev | cut -d' ' -f1 | rev); do
-    aOffsetsDeInicio+=("$vOffset")
-  done
+# Definir la cantidad de argumentos esperados
+  cCantParamEsperados=1
 
-# Multiplicar el valor de cada campo del array x el tamaño de bloque
-  for vNroOffsetSimple in "${aOffsetsDeInicio[@]}"; do
-    echo "  Multiplicando por $vBytesPorSector el offset $vNroOffsetSimple"
-    vOffsetMultiplicado=$((vNroOffsetSimple * $vBytesPorSector))
-    aNuevosOffsets+=("$vOffsetMultiplicado")
-  done
-  echo ""
+# Comprobar que se hayan pasado la cantidad de parámetros correctos y proceder
+  if [ $# -ne $cCantParamEsperados ]
+    then
+      echo ""
+      echo -e "${cColorRojo}  Mal uso del script. El uso correcto sería: ${cFinColor}"
+      echo "    $0 [RutaAlArchivoDeImagen]"
+      echo ""
+      echo "  Ejemplo:"
+      echo "    $0 '/home/pepe/Descargas/imagen.img'"
+      echo ""
+      exit
+    else
+      # Crear un array con los offsets de incio de cada partición
+        aOffsetsDeInicio=()
+        # Comprobar si el paquete fdisk está instalado. Si no lo está, instalarlo.
+          if [[ $(dpkg-query -s fdisk 2>/dev/null | grep installed) == "" ]]; then
+            echo ""
+            echo -e "${cColorRojo}  El paquete fdisk no está instalado. Iniciando su instalación...${cFinColor}"
+            echo ""
+            sudo apt-get -y update && sudo apt-get -y install fdisk
+            echo ""
+          fi
+        for vOffset in $(sudo fdisk -l -o Device,Start "$1" | grep ^/ | rev | cut -d' ' -f1 | rev); do
+          aOffsetsDeInicio+=("$vOffset")
+        done
 
-# Crear la carpeta del caso y montar las particiones como sólo lectura
-  for vIndice in "${!aNuevosOffsets[@]}"; do
-    sudo mkdir -p /Casos/$cFechaDelCaso/Imagen/Particiones/$((vIndice + 1))
-    vDispositivoLoopLibre=$(losetup -f)
-    sudo losetup -f -o ${aNuevosOffsets[vIndice]} $1 && echo "  Partición del offset ${aNuevosOffsets[vIndice]} asignada a $vDispositivoLoopLibre. "
-    sudo mount -o ro,show_sys_files,streams_interface=windows $vDispositivoLoopLibre /Casos/$cFechaDelCaso/Imagen/Particiones/$((vIndice + 1)) &&  echo "    $vDispositivoLoopLibre montado en /Casos/$cFechaDelCaso/Imagen/Particiones/$((vIndice + 1))."
-  done
-  echo ""
+      # Multiplicar el valor de cada campo del array x el tamaño de bloque
+        for vNroOffsetSimple in "${aOffsetsDeInicio[@]}"; do
+          echo "  Multiplicando por $vBytesPorSector el offset $vNroOffsetSimple"
+          vOffsetMultiplicado=$((vNroOffsetSimple * $vBytesPorSector))
+          aNuevosOffsets+=("$vOffsetMultiplicado")
+        done
+        echo ""
+
+      # Crear la carpeta del caso y montar las particiones como sólo lectura
+        for vIndice in "${!aNuevosOffsets[@]}"; do
+          sudo mkdir -p /Casos/$cFechaDelCaso/Imagen/Particiones/$((vIndice + 1))
+          vDispositivoLoopLibre=$(losetup -f)
+          sudo losetup -f -o ${aNuevosOffsets[vIndice]} $1 && echo "  Partición del offset ${aNuevosOffsets[vIndice]} asignada a $vDispositivoLoopLibre. "
+          sudo mount -o ro,show_sys_files,streams_interface=windows $vDispositivoLoopLibre /Casos/$cFechaDelCaso/Imagen/Particiones/$((vIndice + 1)) &&  echo "    $vDispositivoLoopLibre montado en /Casos/$cFechaDelCaso/Imagen/Particiones/$((vIndice + 1))."
+        done
+        echo ""
+
+  fi
+
