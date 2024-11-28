@@ -141,6 +141,16 @@
                 echo ""
                 echo -e "${cColorVerde}      deactivate${cFinColor}"
                 echo ""
+                echo -e "${cColorVerde}      PARÁMETROS: ${cFinColor}"
+                echo ""
+                echo -e "${cColorVerde}        --help            (show this help message and exit) ${cFinColor}"
+                echo -e "${cColorVerde}        --type TYPE       (argument to decide whether to retrieve history or bookmarks. Should be one of history, bookmarks. Default is history). ${cFinColor}"
+                echo -e "${cColorVerde}        --browser BROWSER (browser to retrieve history or bookmarks from. Should be one of all, default, Chromium, Chrome, Edge, Opera, OperaGX, Brave, Vivaldi, Epic, Firefox, LibreWolf, Safari. Default is all (gets history or bookmarks from all browsers). ${cFinColor}"
+                echo -e "${cColorVerde}        --format FORMAT   (Format to be used in output. Should be one of csv, json, jsonl. Default is infer (format is inferred from the output file's extension. If no output file (-o) is specified, it defaults to csv). ${cFinColor}"
+                echo -e "${cColorVerde}        --output OUTPUT   (File where history output or bookmark output is to be written. If not provided, standard output is used). ${cFinColor}"
+                echo -e "${cColorVerde}        --profile PROFILE  (Specify the profile from which to fetch history or bookmarks. If not provided all profiles are fetched). ${cFinColor}"
+                echo -e "${cColorVerde}        --show-profiles BROWSER (List all available profiles for a given browser where browser can be one of default, Chromium, Chrome, Edge, Opera, OperaGX, Brave, Vivaldi, Epic, Firefox, LibreWolf, Safari. The browser must always be provided).${cFinColor}"
+                echo ""
 
             ;;
 
