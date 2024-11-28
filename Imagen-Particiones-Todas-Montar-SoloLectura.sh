@@ -72,7 +72,7 @@
       # Crear la carpeta del caso y montar las particiones como sólo lectura
         for vIndice in "${!aNuevosOffsets[@]}"; do
           sudo mkdir -p /Casos/$cFechaDelCaso/Imagen/Particiones/$((vIndice + 1))
-          vDispositivoLoopLibre=$(losetup -f)
+          vDispositivoLoopLibre=$(sudo losetup -f)
           sudo losetup -f -o ${aNuevosOffsets[vIndice]} $1 && echo "  Partición del offset ${aNuevosOffsets[vIndice]} asignada a $vDispositivoLoopLibre. "
           sudo mount -o ro,show_sys_files,streams_interface=windows $vDispositivoLoopLibre /Casos/$cFechaDelCaso/Imagen/Particiones/$((vIndice + 1)) &&  echo "    $vDispositivoLoopLibre montado en /Casos/$cFechaDelCaso/Imagen/Particiones/$((vIndice + 1))."
         done
