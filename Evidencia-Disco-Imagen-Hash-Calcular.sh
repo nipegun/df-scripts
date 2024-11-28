@@ -9,13 +9,10 @@
 # Script de NiPeGun para obtener el hash de un archivo con diferentes algoritmos:
 #
 # Ejecución remota con parámetros:
-#   curl -sL https://raw.githubusercontent.com/nipegun/d-scripts/refs/heads/master/Hash-Archivo-Calcular.sh | bash -s RutaAlArchivo
-#
-# Ejecución remota con parámetros y parseado:
-#   curl -sL https://raw.githubusercontent.com/nipegun/d-scripts/refs/heads/master/Hash-Archivo-Calcular.sh | bash -s RutaAlArchivo | grep -v "es:"
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Evidencia-Disco-Imagen-Hash-Calcular.sh | bash -s RutaAlArchivo
 #
 # Bajar y editar directamente el archivo en nano
-#   curl -sL https://raw.githubusercontent.com/nipegun/d-scripts/refs/heads/master/Hash-Archivo-Calcular.sh | nano -
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Evidencia-Disco-Imagen-Hash-Calcular.sh | nano -
 # ----------
 
 # Definir constantes de color
@@ -47,7 +44,7 @@ if [ $# -ne $cCantArgumEsperados ]
       echo ""
       echo -e "${cColorRojo}  El paquete dialog no está instalado. Iniciando su instalación...${cFinColor}"
       echo ""
-      apt-get -y update && apt-get -y install dialog
+      sudo apt-get -y update && sudo apt-get -y install dialog
       echo ""
     fi
 
@@ -87,7 +84,7 @@ if [ $# -ne $cCantArgumEsperados ]
                 echo ""
                 echo -e "${cColorRojo}  El paquete openssl no está instalado. Iniciando su instalación...${cFinColor}"
                 echo ""
-                apt-get -y update && apt-get -y install openssl
+                sudo apt-get -y update && sudo apt-get -y install openssl
                 echo ""
               fi
             vHashSHA3_512=$(openssl dgst -sha3-512 "$1" | cut -d'=' -f2 | sed 's- --g')
@@ -115,7 +112,7 @@ if [ $# -ne $cCantArgumEsperados ]
                 echo ""
                 echo -e "${cColorRojo}  El paquete openssl no está instalado. Iniciando su instalación...${cFinColor}"
                 echo ""
-                apt-get -y update && apt-get -y install openssl
+                sudo apt-get -y update && sudo apt-get -y install openssl
                 echo ""
               fi
             vHashSHA3_384=$(openssl dgst -sha3-384 "$1" | cut -d'=' -f2 | sed 's- --g')
@@ -143,7 +140,7 @@ if [ $# -ne $cCantArgumEsperados ]
                 echo ""
                 echo -e "${cColorRojo}  El paquete openssl no está instalado. Iniciando su instalación...${cFinColor}"
                 echo ""
-                apt-get -y update && apt-get -y install openssl
+                sudo apt-get -y update && sudo apt-get -y install openssl
                 echo ""
               fi
             vHashSHA3_256=$(openssl dgst -sha3-256 "$1" | cut -d'=' -f2 | sed 's- --g')
@@ -181,7 +178,7 @@ if [ $# -ne $cCantArgumEsperados ]
                 echo ""
                 echo -e "${cColorRojo}  El paquete openssl no está instalado. Iniciando su instalación...${cFinColor}"
                 echo ""
-                apt-get -y update && apt-get -y install openssl
+                sudo apt-get -y update && sudo apt-get -y install openssl
                 echo ""
               fi
             vHashSHA3_224=$(openssl dgst -sha3-224 "$1" | cut -d'=' -f2 | sed 's- --g')
@@ -209,7 +206,7 @@ if [ $# -ne $cCantArgumEsperados ]
                 echo ""
                 echo -e "${cColorRojo}  El paquete openssl no está instalado. Iniciando su instalación...${cFinColor}"
                 echo ""
-                apt-get -y update && apt-get -y install openssl
+                sudo apt-get -y update && sudo apt-get -y install openssl
                 echo ""
               fi
             openssl dgst -whirlpool "$1"
@@ -226,7 +223,7 @@ if [ $# -ne $cCantArgumEsperados ]
                 echo ""
                 echo -e "${cColorRojo}  El paquete openssl no está instalado. Iniciando su instalación...${cFinColor}"
                 echo ""
-                apt-get -y update && apt-get -y install openssl
+                sudo apt-get -y update && sudo apt-get -y install openssl
                 echo ""
               fi
             vHashRIPEMD_160=$(openssl dgst -rmd160 "$1" | cut -d'=' -f2 | sed 's- --g')
@@ -254,7 +251,7 @@ if [ $# -ne $cCantArgumEsperados ]
                 echo ""
                 echo -e "${cColorRojo}  El paquete openssl no está instalado. Iniciando su instalación...${cFinColor}"
                 echo ""
-                apt-get -y update && apt-get -y install openssl
+                sudo apt-get -y update && sudo apt-get -y install openssl
                 echo ""
               fi
             openssl dgst -tiger "$1"
@@ -291,7 +288,7 @@ if [ $# -ne $cCantArgumEsperados ]
                 echo ""
                 echo -e "${cColorRojo}  El paquete openssl no está instalado. Iniciando su instalación...${cFinColor}"
                 echo ""
-                #apt-get -y update && apt-get -y install openssl
+                #sudo apt-get -y update && sudo apt-get -y install openssl
                 echo ""
               fi
             openssl dgst -adler32 "$1"
