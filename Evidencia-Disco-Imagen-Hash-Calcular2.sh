@@ -69,7 +69,7 @@ if [ $# -ne $cCantArgumEsperados ]
        16 "Adler-32"   off
       )
     choices=$("${menu[@]}" "${opciones[@]}" 2>&1 >/dev/tty)
-
+    clear
     for choice in $choices
       do
         case $choice in
