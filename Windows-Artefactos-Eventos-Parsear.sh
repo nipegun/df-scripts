@@ -34,7 +34,7 @@ if [ $# -ne $cCantParamEsperados ]
     echo "    $0 [CarpetaConEventosRecolectados] [CarpetaDondeGuardar]  (Ambas sin barra final)"
     echo ""
     echo "  Ejemplo:"
-    echo "    $0 '/mnt/Windows/' '/Casos/2/Particiones/'"
+    echo "    $0 '/Casos/a2024m11d29/Artefactos/Originales/Eventos' '/Casos/a2024m11d29/Artefactos/Parseados/Eventos'"
     echo ""
     exit
   else
@@ -89,7 +89,7 @@ if [ $# -ne $cCantParamEsperados ]
               # Recorrer la carpeta e ir convirtiendo
                 sudo mkdir -p "$vCarpetaDondeGuardar"/OriginalesEnXML/
                 sudo rm -rf "$vCarpetaDondeGuardar"/OriginalesEnXML/*
-                find "$vCarpetaConEventosRecolectados"/ -name "*.evtx" | while read vArchivo; do
+                sudo find "$vCarpetaConEventosRecolectados"/ -name "*.evtx" | while read vArchivo; do
                   vArchivoDeSalida=""$vCarpetaDondeGuardar"/OriginalesEnXML/$(basename "$vArchivo" .evtx).xml"
                   sudo evtxexport -f xml "$vArchivo" > "$vArchivoDeSalida" && sed -i '1d' "$vArchivoDeSalida" && sed -i 's/^<Event [^>]*>/<Event>/' "$vArchivoDeSalida"
                   #sudo sed -i '1i\<root>' "$vArchivoDeSalida"
