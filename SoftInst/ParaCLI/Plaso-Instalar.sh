@@ -129,7 +129,7 @@
               # Instalar requerimientos
                 python3 -m pip install -r requirements.txt
                 python3 -m pip install -r test_requirements.txt
-                python3 -m pip install plaso
+                python3 -m pip install .
               # Salir del entorno virtual
                 deactivate
 
