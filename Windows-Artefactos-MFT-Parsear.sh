@@ -34,8 +34,7 @@ if [ $# -ne $cCantParamEsperados ]
     echo "    $0  [CarpetaConLaMFTOriginal] [CarpetaDondeGuardarLosParseos]"
     echo ""
     echo "  Ejemplo:"
-    echo "    $0 '/Casos/2/MFT/\$MFT' '/Casos/2/MFT'"
-    echo ""
+    echo "    $0 '/Casos/a2024m11d29/Artefactos/Originales/MFT' '/Casos/a2024m11d29/Artefactos/Parseados/MFT'"
     exit
   else
     # Comprobar que exista analyzemft
