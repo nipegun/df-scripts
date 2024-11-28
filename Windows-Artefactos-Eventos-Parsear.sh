@@ -89,6 +89,7 @@ if [ $# -ne $cCantParamEsperados ]
               # Recorrer la carpeta e ir convirtiendo
                 sudo mkdir -p "$vCarpetaDondeGuardar"/OriginalesEnXML/
                 sudo rm -rf "$vCarpetaDondeGuardar"/OriginalesEnXML/*
+                sudo chown $USER:$USER "$vCarpetaDondeGuardar" -R
                 sudo find "$vCarpetaConEventosRecolectados"/ -name "*.evtx" | while read vArchivo; do
                   vArchivoDeSalida=""$vCarpetaDondeGuardar"/OriginalesEnXML/$(basename "$vArchivo" .evtx).xml"
                   sudo evtxexport -f xml "$vArchivo" > "$vArchivoDeSalida" && sed -i '1d' "$vArchivoDeSalida" && sed -i 's/^<Event [^>]*>/<Event>/' "$vArchivoDeSalida"
