@@ -215,7 +215,8 @@ if [ $# -ne $cCantParamEsperados ]
                   echo "    Agregando los mensajes de evento a cada archivo .xml..."
                   echo ""
                   # Descargar el CSV con los eventos:
-                    curl -sL https://raw.githubusercontent.com/nipegun/dicts/refs/heads/main/windows/eventos-en-es.csv -o /tmp/eventos-en-es.csv
+                    #curl -sL https://raw.githubusercontent.com/nipegun/dicts/refs/heads/main/windows/eventos-en-es.csv -o /tmp/eventos-en-es.csv
+                    cp ~/scripts/df-scripts/EventosWindows/eventos-en-es.csv /tmp/eventos-en-es.csv
                   # Declarar arrays para guardar los mensajes
                     declare -A aMensajesEng
                     declare -A aMensajesEsp
@@ -345,7 +346,8 @@ if [ $# -ne $cCantParamEsperados ]
                   echo "    Agregando los mensajes de evento a cada archivo .xml..."
                   echo ""
                   # Descargar el CSV con los eventos:
-                    curl -sL https://raw.githubusercontent.com/nipegun/dicts/refs/heads/main/windows/eventos-en-es.csv -o /tmp/eventos-en-es.csv
+                    #curl -sL https://raw.githubusercontent.com/nipegun/dicts/refs/heads/main/windows/eventos-en-es.csv -o /tmp/eventos-en-es.csv
+                    cp ~/scripts/df-scripts/EventosWindows/eventos-en-es.csv /tmp/eventos-en-es.csv
                   # Declarar arrays para guardar los mensajes
                     declare -A aMensajesEng
                     declare -A aMensajesEsp
