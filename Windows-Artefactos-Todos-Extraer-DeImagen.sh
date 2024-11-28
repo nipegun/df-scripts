@@ -71,7 +71,7 @@ if [ $# -ne $cCantParamEsperados ]
               echo ""
               echo "  Desmontando todas las particiones loopback montadas previamente como sólo lectura.."
               echo ""
-              curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Imagen-Particiones-Todas-Desmontar-SoloLectura.sh | sudo bash
+              sudo ~/scripts/df-scripts/Imagen-Particiones-Todas-Desmontar-SoloLectura.sh
 
             ;;
 
@@ -80,7 +80,7 @@ if [ $# -ne $cCantParamEsperados ]
               echo ""
               echo "  Montando todas las particiones en modo lectura..."
               echo ""
-              curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Imagen-Particiones-Todas-Montar-SoloLectura.sh | sudo bash -s $1
+              sudo ~/scripts/df-scripts/Imagen-Particiones-Todas-Montar-SoloLectura.sh $1
 
             ;;
 
@@ -91,7 +91,7 @@ if [ $# -ne $cCantParamEsperados ]
               echo ""
               # Determinar la partición de Windows
                 vPartWindows=2
-              curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Windows-Artefactos-MFT-Extraer.sh | sudo bash -s "/Casos/$vFechaDelCaso/Imagen/Particiones/$vPartWindows" "/Casos/$vFechaDelCaso"
+              sudo ~/scripts/df-scripts/Windows-Artefactos-MFT-Extraer.sh "/Casos/$vFechaDelCaso/Imagen/Particiones/$vPartWindows" "/Casos/$vFechaDelCaso"
 
             ;;
 
@@ -102,7 +102,7 @@ if [ $# -ne $cCantParamEsperados ]
               echo ""
               # Determinar la partición de Windows
                 vPartWindows=2
-              curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Windows-Artefactos-Registro-Extraer-WindowsVistaYPosterior.sh | sudo bash -s "/Casos/$vFechaDelCaso/Imagen/Particiones/$vPartWindows" "/Casos/$vFechaDelCaso"
+              sudo ~/scripts/df-scripts/Windows-Artefactos-Registro-Extraer-WindowsVistaYPosterior.sh "/Casos/$vFechaDelCaso/Imagen/Particiones/$vPartWindows" "/Casos/$vFechaDelCaso"
 
             ;;
 
@@ -111,7 +111,7 @@ if [ $# -ne $cCantParamEsperados ]
               echo ""
               echo "  Extrayendo los eventos..."
               echo ""
-              curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Windows-Artefactos-Eventos-Extraer.sh | sudo bash -s "/Casos/$vFechaDelCaso/Imagen/Particiones/$vPartWindows" "/Casos/$vFechaDelCaso"
+              sudo ~/scripts/df-scripts/Windows-Artefactos-Eventos-Extraer.sh "/Casos/$vFechaDelCaso/Imagen/Particiones/$vPartWindows" "/Casos/$vFechaDelCaso"
 
             ;;
 
