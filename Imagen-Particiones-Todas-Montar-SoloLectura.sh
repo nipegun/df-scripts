@@ -70,8 +70,17 @@
         echo ""
 
       # Crear la carpeta del caso y montar las particiones como sólo lectura
+        # Comprobar si el paquete util-linux está instalado. Si no lo está, instalarlo.
+          if [[ $(dpkg-query -s util-linux 2>/dev/null | grep installed) == "" ]]; then
+            echo ""
+            echo -e "${cColorRojo}  El paquete util-linux no está instalado. Iniciando su instalación...${cFinColor}"
+            echo ""
+            sudo apt-get -y update && sudo apt-get -y install util-linux
+            echo ""
+          fi
         for vIndice in "${!aNuevosOffsets[@]}"; do
           sudo mkdir -p /Casos/$cFechaDelCaso/Imagen/Particiones/$((vIndice + 1))
+          
           vDispositivoLoopLibre=$(sudo losetup -f)
           sudo losetup -f -o ${aNuevosOffsets[vIndice]} $1 && echo "  Partición del offset ${aNuevosOffsets[vIndice]} asignada a $vDispositivoLoopLibre. "
           sudo mount -o ro,show_sys_files,streams_interface=windows $vDispositivoLoopLibre /Casos/$cFechaDelCaso/Imagen/Particiones/$((vIndice + 1)) &&  echo "    $vDispositivoLoopLibre montado en /Casos/$cFechaDelCaso/Imagen/Particiones/$((vIndice + 1))."
