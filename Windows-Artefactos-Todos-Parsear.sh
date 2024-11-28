@@ -33,19 +33,28 @@
       echo ""
       echo -e "${cColorRojo}  El paquete dialog no está instalado. Iniciando su instalación...${cFinColor}"
       echo ""
-      apt-get -y update && apt-get -y install dialog
+      sudo apt-get -y update && sudo apt-get -y install dialog
       echo ""
     fi
   menu=(dialog --checklist "Marca las opciones que quieras instalar:" 22 72 16)
     opciones=(
-      1 "Comprobar que existe la carpeta "  on
-      2 "  Parsear la MFT"                  on
-      3 "  Parsear el registro"             on
-      4 "  Parsear los eventos"             on
-      5 "  Parsear x"                       off
-      6 "  Parsear x"                       off
-      7 "  Parsear x"                       off
-      8 "  Parsear x"                       off
+      1 "Comprobar que existe la carpeta "       on
+      2 "  (Con internet) - Parsear la MFT"      on
+      3 "  (Con internet) - Parsear el registro" on
+      4 "  (Con internet) - Parsear los eventos" on
+      5 "  Parsear x"                            off
+      6 "  Parsear x"                            off
+      7 "  Parsear x"                            off
+      8 "  Parsear x"                            off
+      9 "  Parsear x"                            off
+     10 "  Parsear x"                            off
+     11 "  Parsear x"                            off
+     12 "  (Sin internet) - Parsear la MFT"      off
+     13 "  (Sin internet) - Parsear el registro" off
+     14 "  (Sin internet) - Parsear los eventos" off
+     15 "  (Sin internet) - x"                   off
+     16 "  (Sin internet) - x"                   off
+     17 "  (Sin internet) - x"                   off
     )
     choices=$("${menu[@]}" "${opciones[@]}" 2>&1 >/dev/tty)
 
@@ -73,6 +82,7 @@
               echo "  Parseando la MFT..."
               echo ""
               curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Windows-Artefactos-MFT-Parsear.sh | sudo bash -s /Casos/$vFechaDeEjec/Artefactos/Originales/MFT /Casos/$vFechaDeEjec/Artefactos/Parseados/MFT
+              
 
             ;;
 
@@ -103,6 +113,99 @@
             ;;
 
             6)
+
+              echo ""
+              echo "  Parseando x..."
+              echo ""
+
+            ;;
+
+
+            7)
+
+              echo ""
+              echo "  Parseando x..."
+              echo ""
+
+            ;;
+
+            8)
+
+              echo ""
+              echo "  Parseando x..."
+              echo ""
+
+            ;;
+
+            9)
+
+              echo ""
+              echo "  Parseando x..."
+              echo ""
+
+            ;;
+
+           10)
+
+              echo ""
+              echo "  Parseando x..."
+              echo ""
+
+            ;;
+
+           11)
+
+              echo ""
+              echo "  Parseando x..."
+              echo ""
+
+            ;;
+
+           12)
+
+              echo ""
+              echo "  Parseando la MFT (sin internet)..."
+              echo ""
+              sudo ~/scripts/df-scripts/Windows-Artefactos-MFT-Parsear.sh /Casos/$vFechaDeEjec/Artefactos/Originales/MFT /Casos/$vFechaDeEjec/Artefactos/Parseados/MFT
+              
+
+            ;;
+
+           13)
+
+              echo ""
+              echo "  Parseando el registro (sin internet)..."
+              echo ""
+              sudo ~/scripts/df-scripts/Windows-Artefactos-Registro-Parsear-WindowsVistaYPosterior.sh /Casos/$vFechaDeEjec/Artefactos/Originales/Registro /Casos/$vFechaDeEjec/Artefactos/Parseados/Registro
+
+            ;;
+
+           14)
+
+              echo ""
+              echo "  Parseando los eventos (sin internet)..."
+              echo ""
+              sudo ~/scripts/df-scripts/Windows-Artefactos-Eventos-Parsear.sh /Casos/$vFechaDeEjec/Artefactos/Originales/Eventos /Casos/$vFechaDeEjec/Artefactos/Parseados/Eventos
+
+            ;;
+
+           15)
+
+              echo ""
+              echo "  Parseando x..."
+              echo ""
+
+            ;;
+
+           16)
+
+              echo ""
+              echo "  Parseando x..."
+              echo ""
+
+            ;;
+
+           17)
 
               echo ""
               echo "  Parseando x..."
