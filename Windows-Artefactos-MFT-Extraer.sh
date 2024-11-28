@@ -44,7 +44,7 @@ if [ $# -ne $cCantParamEsperados ]
     vPuntoDeMontajePartWindows="$1" # Debe ser una carpeta sin barra final
     vCarpetaDelCaso="$2"            # Debe ser una carpeta sin barra final
     sudo mkdir -p "$vCarpetaDelCaso"/Artefactos/Originales/MFT/
-    sudo cp "$vPuntoDeMontajePartWindows"/\$MFT "$vCarpetaDelCaso"/Artefactos/Originales/MFT/ && echo "  Archivo MFT copiado a "$vCarpetaDelCaso"/Artefactos/Originales/MFT/"
+    sudo cp -fv "$vPuntoDeMontajePartWindows"/\$MFT "$vCarpetaDelCaso"/Artefactos/Originales/MFT/ && echo "  Archivo MFT copiado a "$vCarpetaDelCaso"/Artefactos/Originales/MFT/"
     # Reparar permisos
       sudo chown $USER:$USER "$vCarpetaDelCaso"/Artefactos/ -R
 
