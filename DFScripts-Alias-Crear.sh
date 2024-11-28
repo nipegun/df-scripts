@@ -19,7 +19,7 @@ echo ""
 echo -e "${cColorAzulClaro}  Creando alias para los df-scripts...${cFinColor}"
 echo ""
 
-ln -s /root/scripts/df-scripts/x.sh                      /root/scripts/df-scripts/Alias/x
+ln -s ~/scripts/df-scripts/x.sh                      ~/scripts/df-scripts/Alias/x
 
 echo ""
 echo -e "${cColorVerde}    Alias creados. Deberías poder ejecutar los df-scripts escribiendo el nombre de su alias.${cFinColor}"
