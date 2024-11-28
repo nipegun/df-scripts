@@ -52,7 +52,7 @@
           echo ""
           echo -e "${cColorRojo}      El paquete git no está instalado. Iniciando su instalación...${cFinColor}"
           echo ""
-          apt-get -y update && apt-get -y install git
+          sudo apt-get -y update && sudo apt-get -y install git
           echo ""
         fi
       git clone --depth=1 https://github.com/nipegun/df-scripts
