@@ -137,8 +137,50 @@
             3)
 
               echo ""
-              echo "    Compilando y guardando en /home/$USER/bin/..."
+              echo "      Compilando y guardando en /home/$USER/bin/..."
               echo ""
+
+              sudo apt-get -y update
+              sudo apt-get -y install python3-pip
+              sudo apt-get -y install python3-venv
+              sudo apt-get -y install python3-wheel
+              sudo apt-get -y install python3-setuptools
+
+              # Entrar al entorno virtual
+                source ~/repos/python/plaso/venv/bin/activate
+                cd ~/repos/python/plaso/
+
+              # Instalar el instalador
+                python3 -m pip install pyinstaller
+
+              # Compilar
+                cd ~/repos/python/plaso/plaso/scripts/
+                pyinstaller --onefile --collect-all=image_export.py image_export.py
+                pyinstaller --onefile --collect-all=image_export.py image_export.py
+                pyinstaller --onefile --collect-all=image_export.py image_export.py
+                pyinstaller --onefile --collect-all=image_export.py image_export.py
+
+
+
+              # Copiar el binario a /usr/bin
+                mkdir ~/bin/
+                cp -f ~/repos/python/plaso/dist/plaso ~/bin/
+
+              # Desactivar el entorno virtual
+                deactivate
+
+              # Notificar fin de ejecución del script
+                echo ""
+                echo "  El script ha finalizado. plaso se ha descargado, compilado e instalado."
+                echo ""
+                echo "    Puedes encontrar el binario en ~/bin/plaso"
+                echo ""
+                echo "  El binario debe ser usado con precaución. Es mejor correr el script directamente con python, de la siguiente manera:"
+                echo ""
+                echo "    source ~/PythonVirtualEnvironments/plaso/bin/activate"
+                echo "    python3 ~/scripts/python/analyzeMFT/plaso.py [Argumentos]"
+                echo "    deactivate"
+                echo ""
 
             ;;
 
