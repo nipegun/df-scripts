@@ -91,7 +91,7 @@ if [ $# -ne $cCantParamEsperados ]
         sudo find "$vCarpetaDelCaso"/Artefactos/Originales/Registro/Usuarios/ -type d -empty -delete
 
     # Reparar permisos
-      sudo chown 1000:1000 "$vCarpetaDelCaso"/Artefactos/ -R
+      sudo chown $USER:$USER "$vCarpetaDelCaso"/Artefactos/ -R
 
 fi
 
