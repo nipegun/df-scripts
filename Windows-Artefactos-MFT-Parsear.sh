@@ -46,12 +46,15 @@ if [ $# -ne $cCantParamEsperados ]
       fi
     vCarpetaConLaMFTOriginal="$1"
     vCarpetaDondeGuardar="$2"
-    mkdir -p "$vCarpetaDondeGuardar"
+    sudo mkdir -p "$vCarpetaConLaMFTOriginal" 2> /dev/null
+    sudo mkdir -p "$vCarpetaDondeGuardar"     2> /dev/null
+    sudo chown $USER:$USER "$vCarpetaConLaMFTOriginal" -R
+    sudo chown $USER:$USER "$vCarpetaDondeGuardar" -R
     echo ""
     echo "  Intentando exportar la MFT a formato CSV..."
     echo ""
     source ~/repos/python/analyzeMFT/venv/bin/activate
-      sudo analyzemft -f "$vCarpetaConLaMFTOriginal"/\$MFT -o "$vCarpetaDondeGuardar"/MFT.csv --csv      # Exportar como CSV (default)
+      analyzemft -f "$vCarpetaConLaMFTOriginal"/\$MFT -o "$vCarpetaDondeGuardar"/MFT.csv --csv      # Exportar como CSV (default)
     deactivate
     echo ""
     echo "    Archivo .csv exportado. Puedes abrirlo directamente con libreoffice ejecutando en la terminal:"
