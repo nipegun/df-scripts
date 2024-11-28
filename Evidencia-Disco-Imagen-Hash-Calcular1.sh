@@ -88,7 +88,7 @@ if [ $# -ne $cCantArgumEsperados ]
                 echo ""
               fi
             vHashSHA3_512=$(openssl dgst -sha3-512 "$1" | cut -d'=' -f2 | sed 's- --g')
-            echo -e "    El hash SHA-3 512 es: ${cColorAzulClaro}$vHashSHA3_512${cFinColor}"
+            echo -e "    El hash SHA-3 512 del archivo "$1" es: ${cColorAzulClaro}$vHashSHA3_512${cFinColor}"
 
           ;;
 
@@ -98,7 +98,7 @@ if [ $# -ne $cCantArgumEsperados ]
             echo "  Calculando el hash SHA-512 del archivo $1..."
             echo ""
             vHashSHA_512=$(sha512sum "$1" | cut -d' ' -f1)
-            echo -e "    El hash SHA-512 es: ${cColorAzulClaro}$vHashSHA_512${cFinColor}"
+            echo -e "    El hash SHA-512 del archivo "$1" es: ${cColorAzulClaro}$vHashSHA_512${cFinColor}"
 
           ;;
 
@@ -116,7 +116,7 @@ if [ $# -ne $cCantArgumEsperados ]
                 echo ""
               fi
             vHashSHA3_384=$(openssl dgst -sha3-384 "$1" | cut -d'=' -f2 | sed 's- --g')
-            echo -e "    El hash SHA-3 384 es: ${cColorAzulClaro}$vHashSHA3_384${cFinColor}"
+            echo -e "    El hash SHA-3 384 del archivo "$1" es: ${cColorAzulClaro}$vHashSHA3_384${cFinColor}"
 
           ;;
 
@@ -126,7 +126,7 @@ if [ $# -ne $cCantArgumEsperados ]
             echo "  Calculando el hash SHA-384 del archivo $1..."
             echo ""
             vHashSHA_384=$(sha384sum "$1" | cut -d' ' -f1)
-            echo -e "    El hash SHA-384 es: ${cColorAzulClaro}$vHashSHA_384${cFinColor}"
+            echo -e "    El hash SHA-384 del archivo "$1" es: ${cColorAzulClaro}$vHashSHA_384${cFinColor}"
 
           ;;
 
@@ -144,7 +144,7 @@ if [ $# -ne $cCantArgumEsperados ]
                 echo ""
               fi
             vHashSHA3_256=$(openssl dgst -sha3-256 "$1" | cut -d'=' -f2 | sed 's- --g')
-            echo -e "    El hash SHA-3 256 es: ${cColorAzulClaro}$vHashSHA3_256${cFinColor}"
+            echo -e "    El hash SHA-3 256 del archivo "$1" es: ${cColorAzulClaro}$vHashSHA3_256${cFinColor}"
 
           ;;
 
@@ -154,7 +154,7 @@ if [ $# -ne $cCantArgumEsperados ]
             echo "  Calculando el hash SHA-256 del archivo $1..."
             echo ""
             vHashSHA_256=$(sha256sum "$1" | cut -d' ' -f1)
-            echo -e "    El hash SHA-256 es: ${cColorAzulClaro}$vHashSHA_256${cFinColor}"
+            echo -e "    El hash SHA-256 del archivo "$1" es: ${cColorAzulClaro}$vHashSHA_256${cFinColor}"
 
           ;;
 
@@ -164,7 +164,7 @@ if [ $# -ne $cCantArgumEsperados ]
             echo "  Calculando el hash BLAKE2 del archivo $1..."
             echo ""
             vHashBLAKE2=$(b2sum "$1" | cut -d' ' -f1)
-            echo -e "    El hash BLAKE2 es: ${cColorAzulClaro}$vHashBLAKE2${cFinColor}"
+            echo -e "    El hash BLAKE2 del archivo "$1" es: ${cColorAzulClaro}$vHashBLAKE2${cFinColor}"
 
           ;;
 
@@ -182,7 +182,7 @@ if [ $# -ne $cCantArgumEsperados ]
                 echo ""
               fi
             vHashSHA3_224=$(openssl dgst -sha3-224 "$1" | cut -d'=' -f2 | sed 's- --g')
-            echo -e "    El hash SHA-3 224 es: ${cColorAzulClaro}$vHashSHA3_224${cFinColor}"
+            echo -e "    El hash SHA-3 224 del archivo "$1" es: ${cColorAzulClaro}$vHashSHA3_224${cFinColor}"
 
           ;;
 
@@ -192,7 +192,7 @@ if [ $# -ne $cCantArgumEsperados ]
             echo "  Calculando el hash SHA-224 del archivo $1..."
             echo ""
             vHashSHA_224=$(sha224sum "$1" | cut -d' ' -f1)
-            echo -e "    El hash SHA-224 es: ${cColorAzulClaro}$vHashSHA_224${cFinColor}"
+            echo -e "    El hash SHA-224 del archivo "$1" es: ${cColorAzulClaro}$vHashSHA_224${cFinColor}"
 
           ;;
 
@@ -227,7 +227,7 @@ if [ $# -ne $cCantArgumEsperados ]
                 echo ""
               fi
             vHashRIPEMD_160=$(openssl dgst -rmd160 "$1" | cut -d'=' -f2 | sed 's- --g')
-            echo -e "    El hash RIPEMD-160 es: ${cColorAzulClaro}$vHashRIPEMD_160${cFinColor}"
+            echo -e "    El hash RIPEMD-160 del archivo "$1" es: ${cColorAzulClaro}$vHashRIPEMD_160${cFinColor}"
 
           ;;
 
@@ -237,7 +237,7 @@ if [ $# -ne $cCantArgumEsperados ]
             echo "  Calculando el hash SHA-1 del archivo $1..."
             echo ""
             vHashSHA1=$(sha1sum "$1" | cut -d' ' -f1)
-            echo -e "    El hash SHA-1 es: ${cColorAzulClaro}$vHashSHA1${cFinColor}"
+            echo -e "    El hash SHA-1 del archivo "$1" es: ${cColorAzulClaro}$vHashSHA1${cFinColor}"
 
           ;;
 
@@ -264,7 +264,7 @@ if [ $# -ne $cCantArgumEsperados ]
             echo "  Calculando el hash MD5 del archivo $1..."
             echo ""
             vHashMD5=$(md5sum "$1" | cut -d' ' -f1)
-            echo -e "    El hash MD5 es: ${cColorAzulClaro}$vHashMD5${cFinColor}"
+            echo -e "    El hash MD5 del archivo "$1" es: ${cColorAzulClaro}$vHashMD5${cFinColor}"
 
           ;;
 
@@ -274,7 +274,7 @@ if [ $# -ne $cCantArgumEsperados ]
             echo "  Calculando el hash CRC32 del archivo $1..."
             echo ""
             vHashCRC32=$(cksum "$1")
-            echo -e "    El hash CRC32 es: ${cColorAzulClaro}$vHashCRC32${cFinColor}"
+            echo -e "    El hash CRC32 del archivo "$1" es: ${cColorAzulClaro}$vHashCRC32${cFinColor}"
 
           ;;
 
