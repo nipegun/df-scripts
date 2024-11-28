@@ -40,7 +40,7 @@
       sudo apt-get -y update && sudo apt-get -y install fdisk
       echo ""
     fi
-  for vOffset in $(fdisk -l -o Device,Start "$1" | grep ^/ | rev | cut -d' ' -f1 | rev); do
+  for vOffset in $(sudo fdisk -l -o Device,Start "$1" | grep ^/ | rev | cut -d' ' -f1 | rev); do
     aOffsetsDeInicio+=("$vOffset")
   done
 
