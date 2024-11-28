@@ -121,6 +121,6 @@ if [ $# -ne $cCantParamEsperados ]
 
     # Reparar permisos
       sudo chown $USER:$USER "$vCarpetaDondeGuardar"/ -R
-      sudo chown $USER:$USER /Casos/ -R
+      sudo chown $USER:$USER /Casos/ -R 2> /dev/null
 
 fi
