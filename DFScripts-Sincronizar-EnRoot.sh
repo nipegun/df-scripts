@@ -9,7 +9,7 @@
 # Script de NiPeGun para sincronizar los df-scripts
 #
 # Ejecución remota:
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/master/DFScripts-Sincronizar.sh | bash
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/master/DFScripts-Sincronizar-EnRoot.sh | bash
 # ----------
 
 # Definir constantes de color
