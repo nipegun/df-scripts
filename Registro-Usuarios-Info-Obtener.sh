@@ -36,7 +36,7 @@ if [ $# -ne $cCantArgumEsperados ]
         echo ""
         echo -e "${cColorRojo}  El paquete dialog no está instalado. Iniciando su instalación...${cFinColor}"
         echo ""
-        apt-get -y update && apt-get -y install dialog
+        sudo apt-get -y update && sudo apt-get -y install dialog
         echo ""
       fi
     declare -A aUsuarios
@@ -45,11 +45,11 @@ if [ $# -ne $cCantArgumEsperados ]
         echo ""
         echo -e "${cColorRojo}  El paquete chntpw no está instalado. Iniciando su instalación...${cFinColor}"
         echo ""
-        apt-get -y update && apt-get -y install chntpw
+        sudo apt-get -y update && sudo apt-get -y install chntpw
         echo ""
       fi
     # Obtener pares de datos de RID y Username de todos los usuarios locales
-    chntpw -l /Particiones/Pruebas/WINDOWS/system32/config/SAM | grep -v sername
+    sudo chntpw -l /Particiones/Pruebas/WINDOWS/system32/config/SAM | grep -v sername
     cat $1$2
 
     # Leer la salida línea por línea, excluyendo la primera línea de encabezado
