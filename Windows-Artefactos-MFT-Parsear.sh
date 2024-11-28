@@ -51,7 +51,9 @@ if [ $# -ne $cCantParamEsperados ]
     echo ""
     echo "  Intentando exportar la MFT a formato CSV..."
     echo ""
-    sudo analyzeMFT -f "$vCarpetaConLaMFTOriginal"/\$MFT -o "$vCarpetaDondeGuardar"/MFT.csv --csv      # Exportar como CSV (default)
+    source ~/repos/python/analyzeMFT/venv/bin/activate
+      sudo analyzeMFT -f "$vCarpetaConLaMFTOriginal"/\$MFT -o "$vCarpetaDondeGuardar"/MFT.csv --csv      # Exportar como CSV (default)
+    deactivate
     echo ""
     echo "    Archivo .csv exportado. Puedes abrirlo directamente con libreoffice ejecutando en la terminal:"
     echo ""
