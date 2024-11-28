@@ -76,7 +76,7 @@
           1 "Clonar el repo de analyzeMFT"                                    on
           2 "  Crear el entorno virtual de python"                            on
           3 "    Compilar e instalar en /home/$USER/bin/"                     off
-          4 "  Instalar en /home/$USER/.local/bin/"                           on
+          4 "  Instalar en /home/$USER/.local/bin/"                           off
           5 "    Agregar /home/$USER/.local/bin/ al path"                     off
           6 "Clonar repo, crear venv, compilar e instalar a nivel de sistema" off
           7 "Otro tipo de instalación"                                        off
