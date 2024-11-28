@@ -113,6 +113,7 @@ if [ $# -ne $cCantParamEsperados ]
               # También convertir a texto
                 sudo mkdir -p "$vCarpetaDondeGuardar"/OriginalesEnTXT/
                 sudo rm -rf "$vCarpetaDondeGuardar"/OriginalesEnTXT/*
+                sudo chown $USER:$USER "$vCarpetaDondeGuardar" -R
                 find "$vCarpetaConEventosRecolectados"/ -name "*.evtx" | while read vArchivo; do
                   vArchivoDeSalida=""$vCarpetaDondeGuardar"/OriginalesEnTXT/$(basename "$vArchivo" .evtx).txt"
                   sudo evtxexport "$vArchivo" > "$vArchivoDeSalida" && sed -i '1d' "$vArchivoDeSalida"
@@ -161,6 +162,7 @@ if [ $# -ne $cCantParamEsperados ]
               # Generar un archivo por cada evento dentro del xml
                 # Crear una carpeta para almacenar los archivos de vEventos
                   sudo mkdir -p "$vCarpetaDondeGuardar"/EventosIndividuales/
+                  sudo chown $USER:$USER "$vCarpetaDondeGuardar" -R
                 # Contador de vEventos
                   vContador=1
                 # Variable para almacenar un vEvento temporalmente
@@ -191,6 +193,7 @@ if [ $# -ne $cCantParamEsperados ]
                   echo "    Renombrando cada archivo .xml con el valor su etiqueta SystemTime..."
                   echo ""
                   sudo mkdir -p "$vCarpetaDondeGuardar"/EventosIndividualesOrdenadosPorFecha/
+                  sudo chown $USER:$USER "$vCarpetaDondeGuardar" -R
                   # Recorrer cada archivo XML en la carpeta
                     for file in "$vCarpetaDondeGuardar"/EventosIndividuales/*.xml ; do
                       # Extraer el valor de SystemTime usando xmlstarlet
@@ -289,6 +292,7 @@ if [ $# -ne $cCantParamEsperados ]
               # Generar un archivo por cada evento dentro del xml
                 # Crear una carpeta para almacenar los archivos de vEventos
                   sudo mkdir -p "$vCarpetaDondeGuardar"/EventosIndividualesDeUsuario/
+                  sudo chown $USER:$USER "$vCarpetaDondeGuardar" -R
                 # Contador de vEventos
                   vContador=1
                 # Variable para almacenar un vEvento temporalmente
@@ -319,6 +323,7 @@ if [ $# -ne $cCantParamEsperados ]
                   echo "    Renombrando cada archivo .xml con el valor su etiqueta SystemTime..."
                   echo ""
                   sudo mkdir -p "$vCarpetaDondeGuardar"/EventosIndividualesDeUsuarioOrdenadosPorFecha/
+                  sudo chown $USER:$USER "$vCarpetaDondeGuardar" -R
                   # Recorrer cada archivo XML en la carpeta
                     for file in "$vCarpetaDondeGuardar"/EventosIndividualesDeUsuario/* ; do
                       # Extraer el valor de SystemTime usando xmlstarlet
