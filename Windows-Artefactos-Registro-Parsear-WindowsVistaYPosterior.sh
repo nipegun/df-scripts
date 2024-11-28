@@ -99,7 +99,6 @@ if [ $# -ne $cCantParamEsperados ]
         sudo mkdir -p "$vCarpetaDondeGuardar"/Usuarios/"$vNomUsuario" 2> /dev/null
         sudo chown $USER:$USER "$vCarpetaDondeGuardar" -R
         sudo /usr/local/bin/rip.pl -r "$vCarpetaConArchivosDeRegistro"/Usuarios/"$vNomUsuario"/NTUSER.DAT  -a > "$vCarpetaDondeGuardar"/Usuarios/"$vNomUsuario"/NTUSER.DAT.txt
-        /usr/local/bin/rip.pl -r "$vCarpetaConArchivosDeRegistro"/Usuarios/"$vNomUsuario"/NTUSER.DAT  -a > "$vCarpetaDondeGuardar"/Usuarios/"$vNomUsuario"/NTUSER.DAT2.txt
       done < "/tmp/CarpetasDeUsuarios.txt"
 
     # Reparar permisos
