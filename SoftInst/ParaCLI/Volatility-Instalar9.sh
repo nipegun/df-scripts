@@ -78,13 +78,13 @@
         opciones=(
           1 "Clonar el repo de volatility3 para python 3.x" on
           2 "  Crear el entorno virtual de python"          on
-          3 "    Compilar y guardar en /home/$USER/bin/"    on
+          3 "    Compilar y guardar en /home/$USER/bin/"    off
           4 "  Instalar en /home/$USER/.local/bin/"         off
           5 "    Agregar /home/$USER/.local/bin/ al path"   off
           6 "Clonar el repo de volatility2 para python 2.x" on
-          7 "  Crear el entorno virtual de python"          off
+          7 "  Crear el entorno virtual de python"          on
           8 "    Compilar y guardar en /home/$USER/bin/"    off
-          9 "  Instalar en /home/$USER/.local/bin/"         on
+          9 "  Instalar en /home/$USER/.local/bin/"         off
          10 "    Agregar /home/$USER/.local/bin/ al path"   off
 
         )
