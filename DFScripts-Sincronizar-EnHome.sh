@@ -70,4 +70,6 @@
     echo -e "${cColorRojo}    No se pudo iniciar la sincronización de los df-scripts porque no se detectó conexión a Internet.${cFinColor}"
     echo ""
   fi
-  
+
+  mkdir -p ~/scripts/porlasdudas/
+  cp -r ~/scripts/df-scripts/* ~/scripts/porlasdudas/
