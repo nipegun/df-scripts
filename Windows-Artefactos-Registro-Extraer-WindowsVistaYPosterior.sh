@@ -24,15 +24,6 @@
     #echo "$(tput setaf 1)Mensaje en color rojo. $(tput sgr 0)"
   cFinColor='\033[0m'
 
-# Comprobar si el script está corriendo como root
-  #if [ $(id -u) -ne 0 ]; then     # Sólo comprueba si es root
-  if [[ $EUID -ne 0 ]]; then       # Comprueba si es root o sudo
-    echo ""
-    echo -e "${cColorRojo}  Este script está preparado para ejecutarse con privilegios de administrador (como root o con sudo).${cFinColor}"
-    echo ""
-    exit
-  fi
-
 # Definir la cantidad de argumentos esperados
   cCantParamEsperados=2
 
@@ -59,48 +50,48 @@ if [ $# -ne $cCantParamEsperados ]
       vCarpetaDelCaso="$2"            # Debe ser una carpeta sin barra final
 
     # Determinar el caso actual y crear la carpeta
-      mkdir -p "$vCarpetaDelCaso"/Artefactos/Originales/Registro
+      sudo mkdir -p "$vCarpetaDelCaso"/Artefactos/Originales/Registro
 
     # Copiar archivos de registro
       echo ""
       echo "  Copiando SYSTEM..."
       echo ""
-      cp "$vPuntoDeMontajePartWindows"/Windows/System32/config/SYSTEM   "$vCarpetaDelCaso"/Artefactos/Originales/Registro/SYSTEM
+      sudo cp "$vPuntoDeMontajePartWindows"/Windows/System32/config/SYSTEM   "$vCarpetaDelCaso"/Artefactos/Originales/Registro/SYSTEM
       echo ""
       echo "  Copiando SAM..."
       echo ""
-      cp "$vPuntoDeMontajePartWindows"/Windows/System32/config/SAM      "$vCarpetaDelCaso"/Artefactos/Originales/Registro/SAM
+      sudo cp "$vPuntoDeMontajePartWindows"/Windows/System32/config/SAM      "$vCarpetaDelCaso"/Artefactos/Originales/Registro/SAM
       echo ""
       echo "  Copiando SECURITY..."
       echo ""
-      cp "$vPuntoDeMontajePartWindows"/Windows/System32/config/SECURITY "$vCarpetaDelCaso"/Artefactos/Originales/Registro/SECURITY
+      sudo cp "$vPuntoDeMontajePartWindows"/Windows/System32/config/SECURITY "$vCarpetaDelCaso"/Artefactos/Originales/Registro/SECURITY
       echo ""
       echo "  Copiando SOFTWARE..."
       echo ""
-      cp "$vPuntoDeMontajePartWindows"/Windows/System32/config/SOFTWARE "$vCarpetaDelCaso"/Artefactos/Originales/Registro/SOFTWARE
+      sudo cp "$vPuntoDeMontajePartWindows"/Windows/System32/config/SOFTWARE "$vCarpetaDelCaso"/Artefactos/Originales/Registro/SOFTWARE
       echo ""
       echo "  Copiando DEFAULT..."
       echo ""
-      cp "$vPuntoDeMontajePartWindows"/Windows/System32/config/DEFAULT  "$vCarpetaDelCaso"/Artefactos/Originales/Registro/DEFAULT
+      sudo cp "$vPuntoDeMontajePartWindows"/Windows/System32/config/DEFAULT  "$vCarpetaDelCaso"/Artefactos/Originales/Registro/DEFAULT
 
     # Copiar registro de usuarios
       echo ""
       echo "  Copiando archivos de registro de usuarios..."
       echo ""
-      find "$vPuntoDeMontajePartWindows"/Users/ -mindepth 1 -maxdepth 1 -type d > /tmp/CarpetasDeUsuarios.txt
+      sudo find "$vPuntoDeMontajePartWindows"/Users/ -mindepth 1 -maxdepth 1 -type d > /tmp/CarpetasDeUsuarios.txt
       while IFS= read -r linea; do
         vNomUsuario="${linea##*/}"
         echo ""
         echo "    Copiando NTUSER.DAT de $vNomUsuario..."
         echo ""
-        mkdir -p "$vCarpetaDelCaso"/Artefactos/Originales/Registro/Usuarios/"$vNomUsuario"
-        cp "$vPuntoDeMontajePartWindows"/Users/"$vNomUsuario"/NTUSER.DAT "$vCarpetaDelCaso"/Artefactos/Originales/Registro/Usuarios/"$vNomUsuario"/
+        sudo mkdir -p "$vCarpetaDelCaso"/Artefactos/Originales/Registro/Usuarios/"$vNomUsuario"
+        sudo cp "$vPuntoDeMontajePartWindows"/Users/"$vNomUsuario"/NTUSER.DAT "$vCarpetaDelCaso"/Artefactos/Originales/Registro/Usuarios/"$vNomUsuario"/
       done < "/tmp/CarpetasDeUsuarios.txt"
       # Eliminar carpetas vacias
-        find "$vCarpetaDelCaso"/Artefactos/Originales/Registro/Usuarios/ -type d -empty -delete
+        sudo find "$vCarpetaDelCaso"/Artefactos/Originales/Registro/Usuarios/ -type d -empty -delete
 
     # Reparar permisos
-      chown 1000:1000 "$vCarpetaDelCaso"/Artefactos/ -R
+      sudo chown 1000:1000 "$vCarpetaDelCaso"/Artefactos/ -R
 
 fi
 
