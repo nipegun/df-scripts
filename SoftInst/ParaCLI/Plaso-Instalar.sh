@@ -78,8 +78,8 @@
           3 "    Compilar y guardar en /home/$USER/bin/"  off
           4 "  Instalar en /home/$USER/.local/bin/"       on
           5 "    Agregar /home/$USER/.local/bin/ al path" off
-          3 "Clonar repo e instalar a nivel de sistema"   off
-          4 "Otro tipo de instalación"                    off
+          6 "Clonar repo e instalar a nivel de sistema"   off
+          7 "Otro tipo de instalación"                    off
         )
       choices=$("${menu[@]}" "${opciones[@]}" 2>&1 >/dev/tty)
 
