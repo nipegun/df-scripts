@@ -35,7 +35,7 @@ if [ $# -ne $cCantParamEsperados ]
     echo "    $0 [PuntoDeMontajeDeLaPartDeWindows] [CarpetaDelCaso]  (Ambos sin barra final)"
     echo ""
     echo "  Ejemplo:"
-    echo "    $0 '/mnt/DiscoWindows' '/Casos/002'"
+    echo "    $0 '/Casos/a2024m11d29/Imagen/Particiones/2' '/Casos/a2024m11d29'"
     echo ""
     exit
   else
