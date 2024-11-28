@@ -24,23 +24,6 @@
     #echo "$(tput setaf 1)Mensaje en color rojo. $(tput sgr 0)"
   cFinColor='\033[0m'
 
-# Comprobar si el script está corriendo como root
-  #if [ $(id -u) -ne 0 ]; then     # Sólo comprueba si es root
-  if [[ $EUID -ne 0 ]]; then       # Comprueba si es root o sudo
-    echo ""
-    echo -e "${cColorRojo}  Este script está preparado para ejecutarse con privilegios de administrador (como root o con sudo).${cFinColor}"
-    echo ""
-    exit
-  fi
-
-# Comprobar si el paquete curl está instalado. Si no lo está, instalarlo.
-  if [[ $(dpkg-query -s curl 2>/dev/null | grep installed) == "" ]]; then
-    echo ""
-    echo -e "${cColorRojo}  El paquete curl no está instalado. Iniciando su instalación...${cFinColor}"
-    echo ""
-    apt-get -y update && apt-get -y install curl
-    echo ""
-  fi
 # Definir la cantidad de argumentos esperados
   cCantArgumEsperados=3
 
@@ -60,9 +43,13 @@ if [ $# -ne $cCantArgumEsperados ]
     echo ""
     echo ""
     if [ -d "$2" ]; then
-      mount "$1" "$2" -o ro,loop,show_sys_files,streams_interface=windows,offset=$(($3*512))
+      sudo mount "$1" "$2" -o ro,loop,show_sys_files,streams_interface=windows,offset=$(($3*512))
+      sudo chown $USER:$USER "$1" -R
+      sudo chown $USER:$USER "$2" -R
     else
-      mkdir -p "$2"
-      mount "$1" "$2" -o ro,loop,show_sys_files,streams_interface=windows,offset=$(($3*512))
+      sudo mkdir -p "$2"
+      sudo mount "$1" "$2" -o ro,loop,show_sys_files,streams_interface=windows,offset=$(($3*512))
+      sudo chown $USER:$USER "$1" -R
+      sudo chown $USER:$USER "$2" -R
     fi
 fi
