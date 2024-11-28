@@ -78,7 +78,7 @@
           3 "    Compilar e instalar en /home/$USER/bin/"                     off
           4 "  Instalar en /home/$USER/.local/bin/"                           on
           5 "    Agregar /home/$USER/.local/bin/ al path"                     off
-          6 "Clonar repo, crear venv, compilar e instalar a nivel de sistema" on
+          6 "Clonar repo, crear venv, compilar e instalar a nivel de sistema" off
           7 "Otro tipo de instalación"                                        off
         )
       choices=$("${menu[@]}" "${opciones[@]}" 2>&1 >/dev/tty)
@@ -269,8 +269,10 @@
                 cd code
                 python3 -m pip install -r requirements.txt
                 python3 -m pip install -r requirements-dev.txt
+                python3 -m pip install wheel
+                python3 -m pip install setuptools
                 python3 -m pip install pyinstaller
-                pyinstaller --onefile --collect-all=analyzeMFT analyzeMFT.py
+                pyinstaller --onefile --hidden-import=importlib.metadata --collect-all=analyzeMFT analyzeMFT.py
 
               # Desactivar el entorno virtual
                 echo ""
