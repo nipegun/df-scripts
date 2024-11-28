@@ -37,10 +37,12 @@
   if [ $# -ne $cCantParamEsperados ]
     then
       echo ""
-      echo -e "${cColorRojo}  Mal uso del script. El uso correcto sería: ${cFinColor}"
+      echo -e "${cColorRojo}  No le has pasado un parámetro al script. El uso correcto sería: ${cFinColor}"
+      echo ""
       echo "    $0 [RutaAlArchivoDeImagen]"
       echo ""
       echo "  Ejemplo:"
+      echo ""
       echo "    $0 '/home/pepe/Descargas/imagen.img'"
       echo ""
       exit
