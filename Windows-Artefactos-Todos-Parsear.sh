@@ -55,7 +55,7 @@
             1)
 
               echo ""
-              echo "  Comprobando que existe la carpeta con los eventos extraídos.."
+              echo "  Comprobando que exista la carpeta con los eventos extraídos.."
               echo ""
               if [ ! -d "$1"]; then
                 echo ""
@@ -63,6 +63,8 @@
                 echo ""
                 exit
               fi
+              echo "    La carpeta existe."
+              echo ""
 
             ;;
 
