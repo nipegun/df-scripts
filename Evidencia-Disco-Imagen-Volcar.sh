@@ -79,6 +79,7 @@
                   sudo mkdir -p "$vCarpetaDondeGuardar" 2> /dev/null
                   sudo chown $USER:$USER "$vCarpetaDondeGuardar" -R
                   sudo dd if="$vDispositivo" of="$vCarpetaDondeGuardar"/evidencia.img bs=4M status=progress
+                  ~/scripts/df-scripts/Evidencia-Disco-Imagen-Hash-Calcular.sh "$vCarpetaDondeGuardar/evidencia.img"
 
                 ;;
 
@@ -90,6 +91,7 @@
                   sudo mkdir -p "$vCarpetaDondeGuardar" 2> /dev/null
                   sudo chown $USER:$USER "$vCarpetaDondeGuardar" -R
                   sudo dd if="$vDispositivo"1 of="$vCarpetaDondeGuardar"/evidencia_p1.img bs=4M status=progress
+                  ~/scripts/df-scripts/Evidencia-Disco-Imagen-Hash-Calcular.sh "$vCarpetaDondeGuardar/evidencia_p1.img"
 
                 ;;
 
@@ -101,6 +103,7 @@
                   sudo mkdir -p "$vCarpetaDondeGuardar" 2> /dev/null
                   sudo chown $USER:$USER "$vCarpetaDondeGuardar" -R
                   sudo dd if="$vDispositivo"2 of="$vCarpetaDondeGuardar"/evidencia_p2.img bs=4M status=progress
+                  ~/scripts/df-scripts/Evidencia-Disco-Imagen-Hash-Calcular.sh "$vCarpetaDondeGuardar/evidencia_p2.img"
 
                 ;;
 
@@ -112,6 +115,7 @@
                   sudo mkdir -p "$vCarpetaDondeGuardar" 2> /dev/null
                   sudo chown $USER:$USER "$vCarpetaDondeGuardar" -R
                   sudo dd if="$vDispositivo"3 of="$vCarpetaDondeGuardar"/evidencia_p3.img bs=4M status=progress
+                  ~/scripts/df-scripts/Evidencia-Disco-Imagen-Hash-Calcular.sh "$vCarpetaDondeGuardar/evidencia_p3.img"
 
                 ;;
 
@@ -123,6 +127,7 @@
                   sudo mkdir -p "$vCarpetaDondeGuardar" 2> /dev/null
                   sudo chown $USER:$USER "$vCarpetaDondeGuardar" -R
                   sudo dd if="$vDispositivo"4 of="$vCarpetaDondeGuardar"/evidencia_p4.img bs=4M status=progress
+                  ~/scripts/df-scripts/Evidencia-Disco-Imagen-Hash-Calcular.sh "$vCarpetaDondeGuardar/evidencia_p4.img"
 
                 ;;
 
@@ -134,6 +139,7 @@
                   sudo mkdir -p "$vCarpetaDondeGuardar" 2> /dev/null
                   sudo chown $USER:$USER "$vCarpetaDondeGuardar" -R
                   sudo dd if="$vDispositivo"5 of="$vCarpetaDondeGuardar"/evidencia_p5.img bs=4M status=progress
+                  ~/scripts/df-scripts/Evidencia-Disco-Imagen-Hash-Calcular.sh "$vCarpetaDondeGuardar/evidencia_p5.img"
 
                 ;;
 
@@ -145,6 +151,7 @@
                   sudo mkdir -p "$vCarpetaDondeGuardar" 2> /dev/null
                   sudo chown $USER:$USER "$vCarpetaDondeGuardar" -R
                   sudo dd if="$vDispositivo"6 of="$vCarpetaDondeGuardar"/evidencia_p6.img bs=4M status=progress
+                  ~/scripts/df-scripts/Evidencia-Disco-Imagen-Hash-Calcular.sh "$vCarpetaDondeGuardar/evidencia_p6.img"
 
                 ;;
 
@@ -156,6 +163,7 @@
                   sudo mkdir -p "$vCarpetaDondeGuardar" 2> /dev/null
                   sudo chown $USER:$USER "$vCarpetaDondeGuardar" -R
                   sudo dd if="$vDispositivo"7 of="$vCarpetaDondeGuardar"/evidencia_p7.img bs=4M status=progress
+                  ~/scripts/df-scripts/Evidencia-Disco-Imagen-Hash-Calcular.sh "$vCarpetaDondeGuardar/evidencia_p7.img"
 
                 ;;
 
@@ -167,6 +175,7 @@
                   sudo mkdir -p "$vCarpetaDondeGuardar" 2> /dev/null
                   sudo chown $USER:$USER "$vCarpetaDondeGuardar" -R
                   sudo dd if="$vDispositivo"8 of="$vCarpetaDondeGuardar"/evidencia_p8.img bs=4M status=progress
+                  ~/scripts/df-scripts/Evidencia-Disco-Imagen-Hash-Calcular.sh "$vCarpetaDondeGuardar/evidencia_p8.img"
 
                 ;;
 
