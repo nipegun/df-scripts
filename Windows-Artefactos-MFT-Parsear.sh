@@ -50,6 +50,7 @@ if [ $# -ne $cCantParamEsperados ]
     sudo mkdir -p "$vCarpetaDondeGuardar"     2> /dev/null
     sudo chown $USER:$USER "$vCarpetaConLaMFTOriginal" -R
     sudo chown $USER:$USER "$vCarpetaDondeGuardar" -R
+
     echo ""
     echo "  Intentando exportar la MFT a formato CSV..."
     echo ""
@@ -65,42 +66,58 @@ if [ $# -ne $cCantParamEsperados ]
     echo ""
     echo "  Intentando exportar la MFT a formato JSON..."
     echo ""
-    sudo analyzeMFT -f "$vCarpetaConLaMFTOriginal"/\$MFT -o "$vCarpetaDondeGuardar"/MFT.json --json     # Exportar como JSON
-    
+    source ~/repos/python/analyzeMFT/venv/bin/activate
+      analyzemft -f "$vCarpetaConLaMFTOriginal"/\$MFT -o "$vCarpetaDondeGuardar"/MFT.json --json     # Exportar como JSON
+    deactivate
+
     echo ""
     echo "  Intentando exportar la MFT a formato XML..."
     echo ""
-    sudo analyzeMFT -f "$vCarpetaConLaMFTOriginal"/\$MFT -o "$vCarpetaDondeGuardar"/MFT.xml --xml      # Exportar como XML
-    
+    source ~/repos/python/analyzeMFT/venv/bin/activate
+      analyzemft -f "$vCarpetaConLaMFTOriginal"/\$MFT -o "$vCarpetaDondeGuardar"/MFT.xml --xml      # Exportar como XML
+    deactivate
+
     echo ""
     echo "  Intentando exportar la MFT a formato Excel..."
     echo ""
-    sudo analyzeMFT -f "$vCarpetaConLaMFTOriginal"/\$MFT -o "$vCarpetaDondeGuardar"/MFT.xls --excel    # Exportar como Excel
-    
+    source ~/repos/python/analyzeMFT/venv/bin/activate
+      analyzemft -f "$vCarpetaConLaMFTOriginal"/\$MFT -o "$vCarpetaDondeGuardar"/MFT.xls --excel    # Exportar como Excel
+    deactivate
+
     echo ""
     echo "  Intentando exportar la MFT a formato Body para mactime..."
     echo ""
-    sudo analyzeMFT -f "$vCarpetaConLaMFTOriginal"/\$MFT -o "$vCarpetaDondeGuardar"/MFT-BodyMactime --body     # Exportar como body file (for mactime)
+    source ~/repos/python/analyzeMFT/venv/bin/activate
+      analyzemft -f "$vCarpetaConLaMFTOriginal"/\$MFT -o "$vCarpetaDondeGuardar"/MFT-BodyMactime --body     # Exportar como body file (for mactime)
+    deactivate
 
     echo ""
     echo "  Intentando exportar la MFT a formato TSK timeline..."
     echo ""
-    sudo analyzeMFT -f "$vCarpetaConLaMFTOriginal"/\$MFT -o "$vCarpetaDondeGuardar"/MFT-TSKTimeLine --timeline # Exportar como TSK timeline
+    source ~/repos/python/analyzeMFT/venv/bin/activate
+      analyzemft -f "$vCarpetaConLaMFTOriginal"/\$MFT -o "$vCarpetaDondeGuardar"/MFT-TSKTimeLine --timeline # Exportar como TSK timeline
+    deactivate
 
     echo ""
     echo "  Exportando la MFT a formato log2timeline CSV..."
     echo ""
-    sudo analyzeMFT -f "$vCarpetaConLaMFTOriginal"/\$MFT -o "$vCarpetaDondeGuardar"/MFT-log2timeline.l2t --l2t      # Exportar como log2timeline CSV
+    source ~/repos/python/analyzeMFT/venv/bin/activate
+      analyzemft -f "$vCarpetaConLaMFTOriginal"/\$MFT -o "$vCarpetaDondeGuardar"/MFT-log2timeline.l2t --l2t      # Exportar como log2timeline CSV
+    deactivate
 
     echo ""
     echo "  Intentando exportar la MFT a formato SQLite..."
     echo ""
-    sudo analyzeMFT -f "$vCarpetaConLaMFTOriginal"/\$MFT -o "$vCarpetaDondeGuardar"/MFT-SQLite --sqlite   # Exportar como SQLite database
+    source ~/repos/python/analyzeMFT/venv/bin/activate
+      analyzemft -f "$vCarpetaConLaMFTOriginal"/\$MFT -o "$vCarpetaDondeGuardar"/MFT-SQLite --sqlite   # Exportar como SQLite database
+    deactivate
 
     echo ""
     echo "  Intentando exportar la MFT a formato TSK Body..."
     echo ""
-    sudo analyzeMFT -f "$vCarpetaConLaMFTOriginal"/\$MFT -o "$vCarpetaDondeGuardar"/MFT-TSKbody --tsk      # Exportar como TSK bodyfile format
+    source ~/repos/python/analyzeMFT/venv/bin/activate
+      analyzemft -f "$vCarpetaConLaMFTOriginal"/\$MFT -o "$vCarpetaDondeGuardar"/MFT-TSKbody --tsk      # Exportar como TSK bodyfile format
+    deactivate
 
     # Reparar permisos
       sudo chown 1000:1000 "$vCarpetaDondeGuardar"/Artefactos -R
