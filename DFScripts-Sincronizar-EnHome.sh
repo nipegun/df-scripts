@@ -70,6 +70,4 @@
     echo -e "${cColorRojo}    No se pudo iniciar la sincronización de los df-scripts porque no se detectó conexión a Internet.${cFinColor}"
     echo ""
   fi
-
-# Instalar software
   
