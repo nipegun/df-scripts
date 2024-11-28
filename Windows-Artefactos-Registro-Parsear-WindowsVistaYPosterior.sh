@@ -54,25 +54,35 @@ if [ $# -ne $cCantParamEsperados ]
           curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/SoftInst/ParaCLI/RegRipper-Instalar.sh | bash
           echo ""
         fi
+
       echo ""
       echo "  RegRippeando SYSTEM..."
       echo ""
+      sudo chmod +x /usr/local/bin/rip.pl
       sudo /usr/local/bin/rip.pl -r "$vCarpetaConArchivosDeRegistro"/SYSTEM   -a > "$vCarpetaDondeGuardar"/SYSTEM.txt
+
       echo ""
       echo "  RegRippeando SAM..."
       echo ""
+      sudo chmod +x /usr/local/bin/rip.pl
       sudo /usr/local/bin/rip.pl -r "$vCarpetaConArchivosDeRegistro"/SAM      -a > "$vCarpetaDondeGuardar"/SAM.txt
+
       echo ""
       echo "  RegRippeando SECURITY..."
       echo ""
+      sudo chmod +x /usr/local/bin/rip.pl
       sudo /usr/local/bin/rip.pl -r "$vCarpetaConArchivosDeRegistro"/SECURITY -a > "$vCarpetaDondeGuardar"/SECURITY.txt
+
       echo ""
       echo "  RegRippeando SOFTWARE..."
       echo ""
+      sudo chmod +x /usr/local/bin/rip.pl
       sudo /usr/local/bin/rip.pl -r "$vCarpetaConArchivosDeRegistro"/SOFTWARE -a > "$vCarpetaDondeGuardar"/SOFTWARE.txt
+
       echo ""
       echo "  RegRippeando DEFAULT..."
       echo ""
+      sudo chmod +x /usr/local/bin/rip.pl
       sudo /usr/local/bin/rip.pl -r "$vCarpetaConArchivosDeRegistro"/DEFAULT  -a > "$vCarpetaDondeGuardar"/DEFAULT.txt
 
     # Exportar registro de usuarios
