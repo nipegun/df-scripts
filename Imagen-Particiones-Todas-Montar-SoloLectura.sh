@@ -54,7 +54,7 @@
             echo ""
           fi
         vBytesPorSector=$(mmls "$1" | grep ector | grep - | cut -d'-' -f1 | sed 's- -\n-g' | grep ^[0-9])
-        echo "  Se calcularán offsets finales para tamaño de sector de $vBytesPorSector bytes..."
+        echo "  Se calcularán offsets finales para tamaño de sector de $vBytesPorSector bytes..." && echo -e "\n"
       # Crear un array con los offsets de incio de cada partición
         aOffsetsDeInicio=()
         # Comprobar si el paquete fdisk está instalado. Si no lo está, instalarlo.
@@ -90,7 +90,7 @@
           sudo mkdir -p /Casos/$cFechaDelCaso/Imagen/Particiones/$((vIndice + 1))
           
           vDispositivoLoopLibre=$(sudo losetup -f)
-          sudo losetup -f -o ${aNuevosOffsets[vIndice]} $1 && echo -e "\n" && echo "  Partición del offset ${aNuevosOffsets[vIndice]} asignada a $vDispositivoLoopLibre. " && echo -e "\n"
+          sudo losetup -f -o ${aNuevosOffsets[vIndice]} $1 && echo -e "\n" && echo "  Partición del offset ${aNuevosOffsets[vIndice]} asignada a $vDispositivoLoopLibre. "
           sudo mount -o ro,show_sys_files,streams_interface=windows $vDispositivoLoopLibre /Casos/$cFechaDelCaso/Imagen/Particiones/$((vIndice + 1)) && echo -e "\n" && echo "    $vDispositivoLoopLibre montado en /Casos/$cFechaDelCaso/Imagen/Particiones/$((vIndice + 1))." && echo -e "\n"
         done
         echo ""
