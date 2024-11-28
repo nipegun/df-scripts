@@ -54,7 +54,7 @@
             echo ""
           fi
         vBytesPorSector=$(mmls "$1" | grep ector | grep - | cut -d'-' -f1 | sed 's- -\n-g' | grep ^[0-9])
-        echo "  Se calcularán offsets finales para tamaño de sector de $vBytesPorSector bytes..." && echo -e "\n"
+        echo -e "\n" && echo "  Se calcularán offsets finales para tamaño de sector de $vBytesPorSector bytes..." && echo -e "\n"
       # Crear un array con los offsets de incio de cada partición
         aOffsetsDeInicio=()
         # Comprobar si el paquete fdisk está instalado. Si no lo está, instalarlo.
