@@ -53,17 +53,17 @@
             sudo apt-get -y update && sudo apt-get -y install dialog
             echo ""
           fi
-        menu=(dialog --checklist "Marca las opciones que quieras instalar:" 22 96 16)
+        menu=(dialog --checklist "Volcado del dispositivo $vDispositivo :" 22 96 16)
           opciones=(
-            1 "Obtener todo el disco" on
-            2 "Obtener la partición 1" off
-            3 "Obtener la particion 2" off
-            4 "Obtener la partición 3" off
-            5 "Obtener la partición 4" off
-            6 "Obtener la partición 5" off
-            7 "Obtener la particion 6" off
-            8 "Obtener la partición 7" off
-            9 "Obtener la partición 8" off
+            1 "Volcar todas las particiones de "$vDispositivo" hacia un único archivo" on
+            2 "Volcar la partición "$vDispositivo"1 hacia un archivo aparte"           off
+            3 "Volcar la partición "$vDispositivo"2 hacia un archivo aparte"           off
+            4 "Volcar la partición "$vDispositivo"3 hacia un archivo aparte"           off
+            5 "Volcar la partición "$vDispositivo"4 hacia un archivo aparte"           off
+            6 "Volcar la partición "$vDispositivo"5 hacia un archivo aparte"           off
+            7 "Volcar la partición "$vDispositivo"6 hacia un archivo aparte"           off
+            8 "Volcar la partición "$vDispositivo"7 hacia un archivo aparte"           off
+            9 "Volcar la partición "$vDispositivo"8 hacia un archivo aparte"           off
           )
         choices=$("${menu[@]}" "${opciones[@]}" 2>&1 >/dev/tty)
 
@@ -74,8 +74,10 @@
                 1)
 
                   echo ""
-                  echo "  Obtener todo el disco..."
+                  echo "  Volcar todas las particiones de "$vDispositivo" hacia un único archivo..."
                   echo ""
+                  sudo mkdir -p "$vCarpetaDondeGuardar" 2> /dev/null
+                  sudo chown $USER:$USER "$vCarpetaDondeGuardar" -R
                   sudo dd if="$vDispositivo" of="$vCarpetaDondeGuardar"/evidencia.img status=progress
 
                 ;;
@@ -83,8 +85,10 @@
                 2)
 
                   echo ""
-                  echo "  Obtener la partición 1..."
+                  echo "  Volcando la partición "$vDispositivo"1 hacia un archivo aparte..."
                   echo ""
+                  sudo mkdir -p "$vCarpetaDondeGuardar" 2> /dev/null
+                  sudo chown $USER:$USER "$vCarpetaDondeGuardar" -R
                   sudo dd if="$vDispositivo"1 of="$vCarpetaDondeGuardar"/evidencia_p1.img status=progress
 
                 ;;
@@ -92,8 +96,10 @@
                 3)
 
                   echo ""
-                  echo "  Obtener la partición 2..."
+                  echo "  Volcando la partición "$vDispositivo"2 hacia un archivo aparte..."
                   echo ""
+                  sudo mkdir -p "$vCarpetaDondeGuardar" 2> /dev/null
+                  sudo chown $USER:$USER "$vCarpetaDondeGuardar" -R
                   sudo dd if="$vDispositivo"2 of="$vCarpetaDondeGuardar"/evidencia_p2.img status=progress
 
                 ;;
@@ -101,8 +107,10 @@
                 4)
 
                   echo ""
-                  echo "  Obtener la partición 3..."
+                  echo "  Volcando la partición "$vDispositivo"3 hacia un archivo aparte..."
                   echo ""
+                  sudo mkdir -p "$vCarpetaDondeGuardar" 2> /dev/null
+                  sudo chown $USER:$USER "$vCarpetaDondeGuardar" -R
                   sudo dd if="$vDispositivo"3 of="$vCarpetaDondeGuardar"/evidencia_p3.img status=progress
 
                 ;;
@@ -110,8 +118,10 @@
                 5)
 
                   echo ""
-                  echo "  Obtener la partición 4..."
+                  echo "  Volcando la partición "$vDispositivo"4 hacia un archivo aparte..."
                   echo ""
+                  sudo mkdir -p "$vCarpetaDondeGuardar" 2> /dev/null
+                  sudo chown $USER:$USER "$vCarpetaDondeGuardar" -R
                   sudo dd if="$vDispositivo"4 of="$vCarpetaDondeGuardar"/evidencia_p4.img status=progress
 
                 ;;
@@ -119,8 +129,10 @@
                 6)
 
                   echo ""
-                  echo "  Obtener la partición 5..."
+                  echo "  Volcando la partición "$vDispositivo"5 hacia un archivo aparte..."
                   echo ""
+                  sudo mkdir -p "$vCarpetaDondeGuardar" 2> /dev/null
+                  sudo chown $USER:$USER "$vCarpetaDondeGuardar" -R
                   sudo dd if="$vDispositivo"5 of="$vCarpetaDondeGuardar"/evidencia_p5.img status=progress
 
                 ;;
@@ -128,8 +140,10 @@
                 7)
 
                   echo ""
-                  echo "  Obtener la partición 6..."
+                  echo "  Volcando la partición "$vDispositivo"6 hacia un archivo aparte..."
                   echo ""
+                  sudo mkdir -p "$vCarpetaDondeGuardar" 2> /dev/null
+                  sudo chown $USER:$USER "$vCarpetaDondeGuardar" -R
                   sudo dd if="$vDispositivo"6 of="$vCarpetaDondeGuardar"/evidencia_p6.img status=progress
 
                 ;;
@@ -137,8 +151,10 @@
                 8)
 
                   echo ""
-                  echo "  Obtener la partición 7..."
+                  echo "  Volcando la partición "$vDispositivo"7 hacia un archivo aparte..."
                   echo ""
+                  sudo mkdir -p "$vCarpetaDondeGuardar" 2> /dev/null
+                  sudo chown $USER:$USER "$vCarpetaDondeGuardar" -R
                   sudo dd if="$vDispositivo"7 of="$vCarpetaDondeGuardar"/evidencia_p7.img status=progress
 
                 ;;
@@ -146,8 +162,10 @@
                 9)
 
                   echo ""
-                  echo "  Obtener la partición 8..."
+                  echo "  Volcando la partición "$vDispositivo"8 hacia un archivo aparte..."
                   echo ""
+                  sudo mkdir -p "$vCarpetaDondeGuardar" 2> /dev/null
+                  sudo chown $USER:$USER "$vCarpetaDondeGuardar" -R
                   sudo dd if="$vDispositivo"8 of="$vCarpetaDondeGuardar"/evidencia_p8.img status=progress
 
                 ;;
