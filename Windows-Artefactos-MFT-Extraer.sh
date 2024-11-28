@@ -34,7 +34,7 @@ if [ $# -ne $cCantParamEsperados ]
     echo "    $0 [PuntoDeMontajeDeLaPartDeWindows] [CarpetaDelCaso]  (Ambos sin barra final)"
     echo ""
     echo "  Ejemplo:"
-    echo "    $0 '/mnt/DiscoWindows' '/Casos/002'"
+    echo "    $0 '/Casos/a2024m11d29/Imagen/Particiones/2' '/Casos/a2024m11d29/'"
     echo ""
     exit
   else
@@ -44,8 +44,8 @@ if [ $# -ne $cCantParamEsperados ]
     vPuntoDeMontajePartWindows="$1" # Debe ser una carpeta sin barra final
     vCarpetaDelCaso="$2"            # Debe ser una carpeta sin barra final
     sudo mkdir -p "$vCarpetaDelCaso"/Artefactos/Originales/MFT/
-    sudo cp "$vPuntoDeMontajePartWindows"/\$MFT "$vCarpetaDelCaso"/Artefactos/Originales/MFT/
+    sudo cp "$vPuntoDeMontajePartWindows"/\$MFT "$vCarpetaDelCaso"/Artefactos/Originales/MFT/ && echo "  Archivo MFT copiado a "$vCarpetaDelCaso"/Artefactos/Originales/MFT/"
     # Reparar permisos
-      sudo chown 1000:1000 "$vCarpetaDelCaso"/Artefactos/ -R
+      sudo chown $USER:$USER "$vCarpetaDelCaso"/Artefactos/ -R
 
 fi
