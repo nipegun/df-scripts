@@ -142,6 +142,7 @@
                 echo -e "${cColorVerde}        analyzemft [Parámetros]${cFinColor}"
                 echo ""
                 echo -e "${cColorVerde}      deactivate${cFinColor}"
+                echo ""
 
             ;;
 
