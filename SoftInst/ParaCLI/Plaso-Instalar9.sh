@@ -150,6 +150,7 @@
                 echo -e "${cColorVerde}        xattr        [Parámetros]${cFinColor}"
                 echo ""
                 echo -e "${cColorVerde}      deactivate${cFinColor}"
+                echo ""
 
             ;;
 
