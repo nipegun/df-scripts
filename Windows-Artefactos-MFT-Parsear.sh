@@ -9,7 +9,7 @@
 # Script de NiPeGun para parsear el archivo $MFT original a múltimples formatos
 #
 # Ejecución remota:
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Windows-Artefactos-MFT-Parsear.sh | sudo bash -s [CarpetaConLaMFTOriginal] [CarpetaDondeGuardarLosParseos]
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Windows-Artefactos-MFT-Parsear.sh | bash -s [CarpetaConLaMFTOriginal] [CarpetaDondeGuardarLosParseos]
 #
 # Bajar y editar directamente el archivo en nano
 #   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Windows-Artefactos-MFT-Parsear.sh | nano -
@@ -51,7 +51,7 @@ if [ $# -ne $cCantParamEsperados ]
     echo ""
     echo "  Intentando exportar la MFT a formato CSV..."
     echo ""
-    analyzeMFT -f "$vCarpetaConLaMFTOriginal"/\$MFT -o "$vCarpetaDondeGuardar"/MFT.csv --csv      # Exportar como CSV (default)
+    sudo analyzeMFT -f "$vCarpetaConLaMFTOriginal"/\$MFT -o "$vCarpetaDondeGuardar"/MFT.csv --csv      # Exportar como CSV (default)
     echo ""
     echo "    Archivo .csv exportado. Puedes abrirlo directamente con libreoffice ejecutando en la terminal:"
     echo ""
@@ -61,44 +61,44 @@ if [ $# -ne $cCantParamEsperados ]
     echo ""
     echo "  Intentando exportar la MFT a formato JSON..."
     echo ""
-    analyzeMFT -f "$vCarpetaConLaMFTOriginal"/\$MFT -o "$vCarpetaDondeGuardar"/MFT.json --json     # Exportar como JSON
+    sudo analyzeMFT -f "$vCarpetaConLaMFTOriginal"/\$MFT -o "$vCarpetaDondeGuardar"/MFT.json --json     # Exportar como JSON
     
     echo ""
     echo "  Intentando exportar la MFT a formato XML..."
     echo ""
-    analyzeMFT -f "$vCarpetaConLaMFTOriginal"/\$MFT -o "$vCarpetaDondeGuardar"/MFT.xml --xml      # Exportar como XML
+    sudo analyzeMFT -f "$vCarpetaConLaMFTOriginal"/\$MFT -o "$vCarpetaDondeGuardar"/MFT.xml --xml      # Exportar como XML
     
     echo ""
     echo "  Intentando exportar la MFT a formato Excel..."
     echo ""
-    analyzeMFT -f "$vCarpetaConLaMFTOriginal"/\$MFT -o "$vCarpetaDondeGuardar"/MFT.xls --excel    # Exportar como Excel
+    sudo analyzeMFT -f "$vCarpetaConLaMFTOriginal"/\$MFT -o "$vCarpetaDondeGuardar"/MFT.xls --excel    # Exportar como Excel
     
     echo ""
     echo "  Intentando exportar la MFT a formato Body para mactime..."
     echo ""
-    analyzeMFT -f "$vCarpetaConLaMFTOriginal"/\$MFT -o "$vCarpetaDondeGuardar"/MFT-BodyMactime --body     # Exportar como body file (for mactime)
+    sudo analyzeMFT -f "$vCarpetaConLaMFTOriginal"/\$MFT -o "$vCarpetaDondeGuardar"/MFT-BodyMactime --body     # Exportar como body file (for mactime)
 
     echo ""
     echo "  Intentando exportar la MFT a formato TSK timeline..."
     echo ""
-    analyzeMFT -f "$vCarpetaConLaMFTOriginal"/\$MFT -o "$vCarpetaDondeGuardar"/MFT-TSKTimeLine --timeline # Exportar como TSK timeline
+    sudo analyzeMFT -f "$vCarpetaConLaMFTOriginal"/\$MFT -o "$vCarpetaDondeGuardar"/MFT-TSKTimeLine --timeline # Exportar como TSK timeline
 
     echo ""
     echo "  Exportando la MFT a formato log2timeline CSV..."
     echo ""
-    analyzeMFT -f "$vCarpetaConLaMFTOriginal"/\$MFT -o "$vCarpetaDondeGuardar"/MFT-log2timeline.l2t --l2t      # Exportar como log2timeline CSV
+    sudo analyzeMFT -f "$vCarpetaConLaMFTOriginal"/\$MFT -o "$vCarpetaDondeGuardar"/MFT-log2timeline.l2t --l2t      # Exportar como log2timeline CSV
 
     echo ""
     echo "  Intentando exportar la MFT a formato SQLite..."
     echo ""
-    analyzeMFT -f "$vCarpetaConLaMFTOriginal"/\$MFT -o "$vCarpetaDondeGuardar"/MFT-SQLite --sqlite   # Exportar como SQLite database
+    sudo analyzeMFT -f "$vCarpetaConLaMFTOriginal"/\$MFT -o "$vCarpetaDondeGuardar"/MFT-SQLite --sqlite   # Exportar como SQLite database
 
     echo ""
     echo "  Intentando exportar la MFT a formato TSK Body..."
     echo ""
-    analyzeMFT -f "$vCarpetaConLaMFTOriginal"/\$MFT -o "$vCarpetaDondeGuardar"/MFT-TSKbody --tsk      # Exportar como TSK bodyfile format
+    sudo analyzeMFT -f "$vCarpetaConLaMFTOriginal"/\$MFT -o "$vCarpetaDondeGuardar"/MFT-TSKbody --tsk      # Exportar como TSK bodyfile format
 
     # Reparar permisos
-      chown 1000:1000 "$vCarpetaDondeGuardar"/Artefactos -R
+      sudo chown 1000:1000 "$vCarpetaDondeGuardar"/Artefactos -R
 
 fi
