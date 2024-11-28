@@ -78,16 +78,14 @@
         opciones=(
           1 "Clonar el repo de volatility3 para python 3.x" on
           2 "  Crear el entorno virtual de python"          on
-          3 "    Instalar dentro del entorno virtual"       on
-          4 "    Compilar y guardar en /home/$USER/bin/"    on
-          5 "  Instalar en /home/$USER/.local/bin/"         off
-          6 "    Agregar /home/$USER/.local/bin/ al path"   off
-          7 "Clonar el repo de volatility2 para python 2.x" on
-          8 "  Crear el entorno virtual de python"          off
-          9 "    Instalar dentro del entorno virtual"       off
-         10 "    Compilar y guardar en /home/$USER/bin/"    off
-         11 "  Instalar en /home/$USER/.local/bin/"         on
-         12 "    Agregar /home/$USER/.local/bin/ al path"   off
+          3 "    Compilar y guardar en /home/$USER/bin/"    on
+          4 "  Instalar en /home/$USER/.local/bin/"         off
+          5 "    Agregar /home/$USER/.local/bin/ al path"   off
+          6 "Clonar el repo de volatility2 para python 2.x" on
+          7 "  Crear el entorno virtual de python"          off
+          8 "    Compilar y guardar en /home/$USER/bin/"    off
+          9 "  Instalar en /home/$USER/.local/bin/"         on
+         10 "    Agregar /home/$USER/.local/bin/ al path"   off
 
         )
       choices=$("${menu[@]}" "${opciones[@]}" 2>&1 >/dev/tty)
@@ -133,38 +131,22 @@
                   echo ""
                 fi
               python3 -m venv venv
-
-            ;;
-
-            3)
-
-              echo ""
-              echo "    Instalando dentro del entorno virtual..."
-              echo ""
-
-              # Entrar en el entorno virtual
+              # Entrar al entorno virtual
                 source ~/repos/python/volatility3/venv/bin/activate
-                cd ~/repos/python/volatility3/
-                # Comprobar si el paquete python3-pip está instalado. Si no lo está, instalarlo.
-                  if [[ $(dpkg-query -s python3-pip 2>/dev/null | grep installed) == "" ]]; then
-                    echo ""
-                    echo -e "${cColorRojo}  El paquete python3-pip no está instalado. Iniciando su instalación...${cFinColor}"
-                    echo ""
-                    sudo apt-get -y update && sudo apt-get -y install python3-pip
-                    echo ""
-                  fi
+              # Instalar requerimientos
                 python3 -m pip install .
-              # Salir del entorno virtual  
+              # Salir del entorno virtual
                 deactivate
-
-              # Notificar fin de la sección
+              # Notificar fin de instalación en el entorno virtual
                 echo ""
-                echo "  Volatility3 se ha instalado dentro del entorno virtual. Para ejecutarlo:"
+                echo -e "${cColorVerde}    Entorno virtual preparado. volatility3 se puede ejecutar desde el venv de la siguiente forma:${cFinColor}"
                 echo ""
-                echo "    source ~/repos/python/volatility3/venv/bin/activate"
-                echo "    vol [parametros]"
-                echo "    deactivate"
+                echo -e "${cColorVerde}      source ~/repos/python/volatility3/venv/bin/activate${cFinColor}"
                 echo ""
+                echo -e "${cColorVerde}        vol      [Parámetros]${cFinColor}"
+                echo -e "${cColorVerde}        volshell [Parámetros]${cFinColor}"
+                echo ""
+                echo -e "${cColorVerde}      deactivate${cFinColor}"
 
             ;;
 
@@ -248,7 +230,7 @@
 
             ;;
 
-            5)
+            4)
 
               echo ""
               echo "  Instalando en /home/$USER/.local/bin/..."
@@ -281,7 +263,7 @@
 
             ;;
 
-            6)
+            5)
 
               echo ""
               echo "  Agregando /home/$USER/.local/bin al path..."
@@ -290,7 +272,7 @@
 
             ;;
 
-            7)
+            6)
 
               echo ""
               echo "  Clonando el repo de volatility2 para python 2.x..."
@@ -312,7 +294,7 @@
 
             ;;
 
-            8)
+            7)
 
               echo ""
               echo "  Creando el entorno virtual de python..."
@@ -332,16 +314,6 @@
                 fi
               cd ~/repos/python/volatility2/
               virtualenv -p /usr/local/bin/python2.7 venv
-
-
-            ;;
-
-            9)
-
-              echo ""
-              echo "    Instalando volatility2 dentro del entorno virtual..."
-              echo ""
-
               # Entrar al entorno virtual
                 source ~/repos/python/volatility2/venv/bin/activate
 
@@ -364,18 +336,20 @@
               # Desactivar el entorno virtual
                 deactivate
 
-              # Notificar fin de la instalación
+              # Notificar fin de instalación en el entorno virtual
                 echo ""
-                echo "  Volatility3 se ha instalado dentro del entorno virtual. Para ejecutarlo:"
+                echo -e "${cColorVerde}    Entorno virtual preparado. volatility2 se puede ejecutar desde el venv de la siguiente forma:${cFinColor}"
                 echo ""
-                echo "    source ~/repos/python/volatility2/venv/bin/activate"
-                echo "    vol.py [parametros]"
-                echo "    deactivate"
+                echo -e "${cColorVerde}      source ~/repos/python/volatility2/venv/bin/activate${cFinColor}"
                 echo ""
+                echo -e "${cColorVerde}        vol      [Parámetros]${cFinColor}"
+                echo -e "${cColorVerde}        volshell [Parámetros]${cFinColor}"
+                echo ""
+                echo -e "${cColorVerde}      deactivate${cFinColor}"
 
             ;;
 
-           10)
+            8)
 
               echo ""
               echo "  Compilando y guardando en /home/$USER/bin/..."
@@ -428,7 +402,7 @@
 
             ;;
 
-            11)
+            9)
 
               echo ""
               echo "    Instalando en /home/$USER/.local/bin/..."
@@ -469,7 +443,7 @@
 
             ;;
 
-           12)
+           10)
 
               echo ""
               echo "    Agregando /home/$USER/.local/bin al path..."
