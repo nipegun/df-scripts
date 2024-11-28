@@ -253,15 +253,24 @@
                 echo "    Ingresando en el entorno virtual e instalando plaso..."
                 echo ""
                 source /tmp/PythonVirtualEnvironments/analyzeMFT/bin/activate
-                python3 -m pip install analyzeMFT
+
+              # Clonar el repo
+                echo ""
+                echo "  Clonando el repo..."
+                echo ""
+                cd /tmp/PythonVirtualEnvironments/analyzeMFT/
+                git clone https://github.com/rowingdude/analyzeMFT.git
+                mv analyzeMFT code
 
               # Compilar
                 echo ""
                 echo "    Compilando..."
                 echo ""
+                cd code
+                python3 -m pip install -r requirements.txt
+                python3 -m pip install -r requirements-dev.txt
                 python3 -m pip install pyinstaller
-                cd /tmp/PythonVirtualEnvironments/analyzeMFT/bin/
-                pyinstaller --onefile --collect-all=analyzeMFT.py analyzeMFT.py
+                pyinstaller --onefile --collect-all=analyzeMFT analyzeMFT.py
 
               # Desactivar el entorno virtual
                 echo ""
@@ -274,7 +283,8 @@
                 echo "    Copiando los binarios a la carpeta /usr/bin/"
                 echo ""
                 sudo rm -f /usr/bin/analyzeMFT
-                sudo cp -vf /tmp/PythonVirtualEnvironments/analyzeMFT/bin/dist/analyzeMFT /usr/bin/analyzeMFT
+                sudo cp -vf /tmp/PythonVirtualEnvironments/analyzeMFT/code/dist/analyzeMFT /usr/bin/analyzeMFT
+                cd ~
 
               # Notificar fin de ejecución del script
                 echo ""
