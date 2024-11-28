@@ -30,15 +30,6 @@
     #echo "$(tput setaf 1)Mensaje en color rojo. $(tput sgr 0)"
   cFinColor='\033[0m'
 
-# Comprobar si el script está corriendo como root
-  #if [ $(id -u) -ne 0 ]; then     # Sólo comprueba si es root
-  if [[ $EUID -ne 0 ]]; then       # Comprueba si es root o sudo
-    echo ""
-    echo -e "${cColorRojo}  Este script está preparado para ejecutarse con privilegios de administrador (como root o con sudo).${cFinColor}"
-    echo ""
-    exit
-  fi
-
 # Crear un array con los offsets de incio de cada partición
   aOffsetsDeInicio=()
   # Comprobar si el paquete fdisk está instalado. Si no lo está, instalarlo.
@@ -46,7 +37,7 @@
       echo ""
       echo -e "${cColorRojo}  El paquete fdisk no está instalado. Iniciando su instalación...${cFinColor}"
       echo ""
-      apt-get -y update && apt-get -y install fdisk
+      sudo apt-get -y update && sudo apt-get -y install fdisk
       echo ""
     fi
   for vOffset in $(fdisk -l -o Device,Start "$1" | grep ^/ | rev | cut -d' ' -f1 | rev); do
@@ -63,9 +54,9 @@
 
 # Crear la carpeta del caso y montar las particiones como sólo lectura
   for vIndice in "${!aNuevosOffsets[@]}"; do
-    mkdir -p /Casos/$cFechaDelCaso/Imagen/Particiones/$((vIndice + 1))
+    sudo mkdir -p /Casos/$cFechaDelCaso/Imagen/Particiones/$((vIndice + 1))
     vDispositivoLoopLibre=$(losetup -f)
-    losetup -f -o ${aNuevosOffsets[vIndice]} $1 && echo "  Partición del offset ${aNuevosOffsets[vIndice]} asignada a $vDispositivoLoopLibre. "
-    mount -o ro,show_sys_files,streams_interface=windows $vDispositivoLoopLibre /Casos/$cFechaDelCaso/Imagen/Particiones/$((vIndice + 1)) &&  echo "    $vDispositivoLoopLibre montado en /Casos/$cFechaDelCaso/Imagen/Particiones/$((vIndice + 1))."
+    sudo losetup -f -o ${aNuevosOffsets[vIndice]} $1 && echo "  Partición del offset ${aNuevosOffsets[vIndice]} asignada a $vDispositivoLoopLibre. "
+    sudo mount -o ro,show_sys_files,streams_interface=windows $vDispositivoLoopLibre /Casos/$cFechaDelCaso/Imagen/Particiones/$((vIndice + 1)) &&  echo "    $vDispositivoLoopLibre montado en /Casos/$cFechaDelCaso/Imagen/Particiones/$((vIndice + 1))."
   done
   echo ""
