@@ -137,6 +137,14 @@
             3)
 
               echo ""
+              echo "    Compilando y guardando en /home/$USER/bin/..."
+              echo ""
+
+            ;;
+
+            4)
+
+              echo ""
               echo "    Instalando en /home/$USER/.local/bin/..."
               echo ""
 
@@ -173,7 +181,7 @@
 
             ;;
 
-            4)
+            5)
 
               echo ""
               echo "  Agregando /home/$USER/.local/bin al path..."
@@ -183,7 +191,7 @@
             ;;
 
 
-            5)
+            6)
 
 
 
@@ -362,7 +370,7 @@
             ;;
 
 
-            6)
+            7)
 
               echo ""
               echo "  Instalando otro tipo de instalación..."
