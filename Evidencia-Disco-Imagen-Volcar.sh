@@ -9,10 +9,10 @@
 # Script de NiPeGun para obtener evidencia forense de un dispositivo
 #
 # Ejecución remota con parámetros:
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Windows-Artefactos-Eventos-Parsear.sh | sudo bash -s [CarpetaConEventosRecolectados] [CarpetaDondeGuardar]  (Ambas sin barra final)
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Evidencia-Disco-Imagen-Volcar.sh | sudo bash -s [Dispositivo] [CarpetaDondeGuardar]  (Ambas sin barra final)
 #
 # Bajar y editar directamente el archivo en nano
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Windows-Artefactos-Eventos-Parsear.sh | nano -
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Evidencia-Disco-Imagen-Volcar.sh | nano -
 # ----------
 
 # Definir constantes de color
