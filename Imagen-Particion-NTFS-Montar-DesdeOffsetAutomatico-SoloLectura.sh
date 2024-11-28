@@ -58,14 +58,16 @@ if [ $# -ne $cCantArgumEsperados ]
           echo ""
           echo -e "${cColorRojo}  El paquete sleuthkit no está instalado. Iniciando su instalación...${cFinColor}"
           echo ""
-          apt-get -y update && apt-get -y install sleuthkit
+          sudo apt-get -y update && sudo apt-get -y install sleuthkit
           echo ""
         fi
       vOffset=$(mmls "$1" | grep NTFS | sed 's-  - -g' | sed 's-  - -g' | cut -d' ' -f3 | sed 's/^0*//')
     if [ -d "$2" ]; then
-      mount "$1" "$2" -o ro,loop,show_sys_files,streams_interface=windows,offset=$(($vOffset*512))
+      sudo mount "$1" "$2" -o ro,loop,show_sys_files,streams_interface=windows,offset=$(($vOffset*512))
     else
-      mkdir -p "$2"
-      mount "$1" "$2" -o ro,loop,show_sys_files,streams_interface=windows,offset=$(($vOffset*512))
+      sudo mkdir -p "$2"
+      sudo chown $USER:$USER "$2" -R
+      sudo mount "$1" "$2" -o ro,loop,show_sys_files,streams_interface=windows,offset=$(($vOffset*512))
+      sudo chown $USER:$USER "$1"
     fi
 fi
