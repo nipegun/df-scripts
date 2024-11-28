@@ -18,9 +18,6 @@
 # Definir fecha de ejecución del script
   cFechaDelCaso=$(date +a%Ym%md%d)
 
-# vTamAsigMinCluster
-  vBytesPorSector=512
-
 # Definir constantes de color
   cColorAzul="\033[0;34m"
   cColorAzulClaro="\033[1;34m"
@@ -47,6 +44,17 @@
       echo ""
       exit
     else
+      # vTamAsigMinCluster
+        # Comprobar si el paquete sleuthkit está instalado. Si no lo está, instalarlo.
+          if [[ $(dpkg-query -s sleuthkit 2>/dev/null | grep installed) == "" ]]; then
+            echo ""
+            echo -e "${cColorRojo}  El paquete sleuthkit no está instalado. Iniciando su instalación...${cFinColor}"
+            echo ""
+            sudo apt-get -y update && sudo apt-get -y install sleuthkit
+            echo ""
+          fi
+        vBytesPorSector=$(mmls "$1" | grep ector | grep - | cut -d'-' -f1 | sed 's- -\n-g' | grep ^[0-9])
+        echo "  Se calcularán offsets finales para tamaño de sector de $vBytesPorSector bytes..."
       # Crear un array con los offsets de incio de cada partición
         aOffsetsDeInicio=()
         # Comprobar si el paquete fdisk está instalado. Si no lo está, instalarlo.
