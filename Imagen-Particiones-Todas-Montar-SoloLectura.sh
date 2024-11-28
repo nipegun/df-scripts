@@ -82,8 +82,8 @@
           sudo mkdir -p /Casos/$cFechaDelCaso/Imagen/Particiones/$((vIndice + 1))
           
           vDispositivoLoopLibre=$(sudo losetup -f)
-          sudo losetup -f -o ${aNuevosOffsets[vIndice]} $1 && echo "  Partición del offset ${aNuevosOffsets[vIndice]} asignada a $vDispositivoLoopLibre. "
-          sudo mount -o ro,show_sys_files,streams_interface=windows $vDispositivoLoopLibre /Casos/$cFechaDelCaso/Imagen/Particiones/$((vIndice + 1)) &&  echo "    $vDispositivoLoopLibre montado en /Casos/$cFechaDelCaso/Imagen/Particiones/$((vIndice + 1))."
+          sudo losetup -f -o ${aNuevosOffsets[vIndice]} $1 && echo -e "\n" && echo "  Partición del offset ${aNuevosOffsets[vIndice]} asignada a $vDispositivoLoopLibre. " && echo -e "\n"
+          sudo mount -o ro,show_sys_files,streams_interface=windows $vDispositivoLoopLibre /Casos/$cFechaDelCaso/Imagen/Particiones/$((vIndice + 1)) && echo -e "\n" && echo "    $vDispositivoLoopLibre montado en /Casos/$cFechaDelCaso/Imagen/Particiones/$((vIndice + 1))." && echo -e "\n"
         done
         echo ""
 
