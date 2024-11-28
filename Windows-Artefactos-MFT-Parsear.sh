@@ -43,7 +43,7 @@ if [ $# -ne $cCantParamEsperados ]
         echo ""
         echo -e "${cColorRojo}    El binario de analyzemft no está instalado. Instalando... ${cFinColor}"
         echo ""
-        curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/SoftInst/ParaCLI/analyzeMFT-Instalar.sh | bash
+        #curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/SoftInst/ParaCLI/analyzeMFT-Instalar.sh | bash
       fi
     vCarpetaConLaMFTOriginal="$1"
     vCarpetaDondeGuardar="$2"
@@ -52,7 +52,7 @@ if [ $# -ne $cCantParamEsperados ]
     echo "  Intentando exportar la MFT a formato CSV..."
     echo ""
     source ~/repos/python/analyzeMFT/venv/bin/activate
-      sudo analyzeMFT -f "$vCarpetaConLaMFTOriginal"/\$MFT -o "$vCarpetaDondeGuardar"/MFT.csv --csv      # Exportar como CSV (default)
+      sudo analyzemft -f "$vCarpetaConLaMFTOriginal"/\$MFT -o "$vCarpetaDondeGuardar"/MFT.csv --csv      # Exportar como CSV (default)
     deactivate
     echo ""
     echo "    Archivo .csv exportado. Puedes abrirlo directamente con libreoffice ejecutando en la terminal:"
