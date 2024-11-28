@@ -37,7 +37,7 @@
       echo ""
       echo "  Ejemplo:"
       echo ""
-      echo '    Evidencia-Disco-Imagen-Volcar.sh '"/dev/sda"' '"/home/$USER/Escritorio/Forense/Evidencia/Examen"''
+      echo "    Evidencia-Disco-Imagen-Volcar.sh '/dev/sda' '/home/$USER/Escritorio/Forense/Evidencia/Examen'"
       echo ""
       exit
     else
