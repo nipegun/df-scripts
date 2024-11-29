@@ -120,8 +120,7 @@ if [ $# -ne $cCantParamEsperados ]
               echo ""
               echo "  Extrayendo los navegadores..."
               echo ""
-browser-history -b Chrome -t history -f csv -o Chrome.csv
-ln -s /ruta/deseada /ruta/predeterminada/del/navegador
+              sudo ~/scripts/df-scripts/Windows-Artefactos-Navegadores-Extraer.sh "/Casos/$vFechaDelCaso/Imagen/Particiones/$vPartWindows" "/Casos/$vFechaDelCaso"
 
             ;;
 
