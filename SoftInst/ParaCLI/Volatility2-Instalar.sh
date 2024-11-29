@@ -12,10 +12,10 @@
 #   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/SoftInst/ParaCLI/Volatility-Instalar.sh | bash      (No debería pipearse con sudo)
 #
 # Ejecución remota como root:
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/SoftInst/ParaCLI/Volatility-Instalar.sh | bash
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/SoftInst/ParaCLI/Volatility2-Instalar.sh | bash
 #
 # Bajar y editar directamente el archivo en nano
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/SoftInst/ParaCLI/Volatility-Instalar.sh | nano -
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/SoftInst/ParaCLI/Volatility2-Instalar.sh | nano -
 # ----------
 
 # Definir constantes de color
@@ -76,12 +76,12 @@
         fi
       menu=(dialog --checklist "Marca las opciones que quieras instalar:" 22 96 16)
         opciones=(
-          7 "Clonar el repo de volatility2 para python 2.x"                   on
-          8 "  Crear el entorno virtual de python"                            on
-          9 "    Compilar y guardar en /home/$USER/bin/"                      off
-         10 "  Instalar en /home/$USER/.local/bin/"                           off
-         11 "    Agregar /home/$USER/.local/bin/ al path"                     off
-         12 "Clonar repo, crear venv, compilar e instalar a nivel de sistema" off
+          1 "Clonar el repo de volatility2 para python 2.x"                   on
+          2 "  Crear el entorno virtual de python"                            on
+          3 "    Compilar y guardar en /home/$USER/bin/"                      off
+          4 "  Instalar en /home/$USER/.local/bin/"                           off
+          5 "    Agregar /home/$USER/.local/bin/ al path"                     off
+          6 "Clonar repo, crear venv, compilar e instalar a nivel de sistema" off
         )
       choices=$("${menu[@]}" "${opciones[@]}" 2>&1 >/dev/tty)
 
@@ -272,9 +272,8 @@
             6)
 
               echo ""
-              echo "    Agregando /home/$USER/.local/bin al path..."
+              echo "    Clonando repo, creando venv, compilando e instalando a nivel de sistema..."
               echo ""
-              echo 'export PATH=/home/'"$USER"'/.local/bin:$PATH' >> ~/.bashrc
 
             ;;
 
