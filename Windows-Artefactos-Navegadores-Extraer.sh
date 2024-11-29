@@ -48,7 +48,7 @@ if [ $# -ne $cCantParamEsperados ]
       echo ""
       echo "  Copiando datos de navegadores de usuarios..."
       echo ""
-      sudo find "$vPuntoDeMontajePartWindows"/Users/ -mindepth 1 -maxdepth 1 -type d > /tmp/CarpetasDeUsuarios.txt
+      sudo find "$vPuntoDeMontajePartWindows"/"$vNumPartConSistema"/Users/ -mindepth 1 -maxdepth 1 -type d > /tmp/CarpetasDeUsuarios.txt
       while IFS= read -r linea; do
         vNomUsuario="${linea##*/}"
         echo ""
