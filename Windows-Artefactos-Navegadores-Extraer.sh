@@ -79,7 +79,7 @@ if [ $# -ne $cCantParamEsperados ]
       # Epic
           sudo mkdir -p "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/"$vNomUsuario"/Epic/
           sudo chown $USER:$USER "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/"$vNomUsuario"/Epic/
-          sudo cp -rf "$vPuntoDeMontajePartWindows"/"$vNumPartConSistema"/Users/"$vNomUsuario"/AppData/Roaming/Epic Privacy Browser/* \
+          sudo cp -rf "$vPuntoDeMontajePartWindows"/"$vNumPartConSistema"/Users/"$vNomUsuario"/AppData/Roaming/"Epic Privacy Browser"/* \
           "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/"$vNomUsuario"/Epic/
       # Firefox
           sudo mkdir -p "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/"$vNomUsuario"/Firefox/
@@ -94,17 +94,17 @@ if [ $# -ne $cCantParamEsperados ]
       # Opera
           sudo mkdir -p "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/"$vNomUsuario"/Opera/
           sudo chown $USER:$USER "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/"$vNomUsuario"/Opera/
-          sudo cp -rf "$vPuntoDeMontajePartWindows"/"$vNumPartConSistema"/Users/"$vNomUsuario"/AppData/Roaming/Opera Software/Opera Stable/* \
+          sudo cp -rf "$vPuntoDeMontajePartWindows"/"$vNumPartConSistema"/Users/"$vNomUsuario"/AppData/Roaming/"Opera Software/Opera Stable"/* \
           "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/"$vNomUsuario"/Opera/
       # OperaGX
           sudo mkdir -p "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/"$vNomUsuario"/OperaGX/
           sudo chown $USER:$USER "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/"$vNomUsuario"/OperaGX/
-          sudo cp -rf "$vPuntoDeMontajePartWindows"/"$vNumPartConSistema"/Users/"$vNomUsuario"/AppData/Roaming/Opera Software/Opera GX Stable/* \
+          sudo cp -rf "$vPuntoDeMontajePartWindows"/"$vNumPartConSistema"/Users/"$vNomUsuario"/AppData/Roaming/"Opera Software/Opera GX Stable"/* \
           "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/"$vNomUsuario"/OperaGX/
       # Safari
           sudo mkdir -p "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/"$vNomUsuario"/Safari/
           sudo chown $USER:$USER "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/"$vNomUsuario"/Safari/
-          sudo cp -rf "$vPuntoDeMontajePartWindows"/"$vNumPartConSistema"/Users/"$vNomUsuario"/AppData/Roaming/Apple Computer/Safari/* \
+          sudo cp -rf "$vPuntoDeMontajePartWindows"/"$vNumPartConSistema"/Users/"$vNomUsuario"/AppData/Roaming/"Apple Computer"/Safari/* \
           "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/"$vNomUsuario"/Safari/
       # Safari
           sudo mkdir -p "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/"$vNomUsuario"/Vivaldi/
