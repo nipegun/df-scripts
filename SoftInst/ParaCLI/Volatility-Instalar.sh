@@ -76,17 +76,18 @@
         fi
       menu=(dialog --checklist "Marca las opciones que quieras instalar:" 22 96 16)
         opciones=(
-          1 "Clonar el repo de volatility3 para python 3.x" on
-          2 "  Crear el entorno virtual de python"          on
-          3 "    Compilar y guardar en /home/$USER/bin/"    off
-          4 "  Instalar en /home/$USER/.local/bin/"         off
-          5 "    Agregar /home/$USER/.local/bin/ al path"   off
-          6 "Clonar el repo de volatility2 para python 2.x" on
-          7 "  Crear el entorno virtual de python"          on
-          8 "    Compilar y guardar en /home/$USER/bin/"    off
-          9 "  Instalar en /home/$USER/.local/bin/"         off
-         10 "    Agregar /home/$USER/.local/bin/ al path"   off
-
+          1 "Clonar el repo de volatility3 para python 3.x"                   on
+          2 "  Crear el entorno virtual de python"                            on
+          3 "    Compilar y guardar en /home/$USER/bin/"                      off
+          4 "  Instalar en /home/$USER/.local/bin/"                           off
+          5 "    Agregar /home/$USER/.local/bin/ al path"                     off
+          6 "Clonar repo, crear venv, compilar e instalar a nivel de sistema" off
+          7 "Clonar el repo de volatility2 para python 2.x"                   on
+          8 "  Crear el entorno virtual de python"                            on
+          9 "    Compilar y guardar en /home/$USER/bin/"                      off
+         10 "  Instalar en /home/$USER/.local/bin/"                           off
+         11 "    Agregar /home/$USER/.local/bin/ al path"                     off
+         12 "Clonar repo, crear venv, compilar e instalar a nivel de sistema" off
         )
       choices=$("${menu[@]}" "${opciones[@]}" 2>&1 >/dev/tty)
 
@@ -276,6 +277,83 @@
             6)
 
               echo ""
+              echo "  Clonando repo, creando venv, compilando e instalando a nivel de sistema..."
+              echo ""
+
+              # Instalar paquetes necesarios
+                echo ""
+                echo "    Instalando paquetes necesarios..."
+                echo ""
+                sudo apt-get -y update
+                sudo apt-get -y install python3-pip
+                sudo apt-get -y install python3-setuptools
+                sudo apt-get -y install python3-dev
+                sudo apt-get -y install python3-venv
+                sudo apt-get -y install build-essential
+                sudo apt-get -y install liblzma-dev
+
+              # Preparar el entorno virtual de python
+                echo ""
+                echo "    Preparando el entorno virtual de python..."
+                echo ""
+                mkdir -p /tmp/PythonVirtualEnvironments/ 2> /dev/null
+                cd /tmp/PythonVirtualEnvironments/
+                rm -rf /tmp/PythonVirtualEnvironments/volatility3/
+                python3 -m venv volatility3
+
+              # Ingresar en el entorno virtual e instalar
+                echo ""
+                echo "    Ingresando en el entorno virtual e instalando..."
+                echo ""
+                source /tmp/PythonVirtualEnvironments/volatility3/bin/activate
+
+              # Clonar el repo
+                echo ""
+                echo "  Clonando el repo..."
+                echo ""
+                cd /tmp/PythonVirtualEnvironments/volatility3/
+                git clone https://github.com/rowingdude/analyzeMFT.git
+                mv volatility3 code
+
+              # Compilar
+                echo ""
+                echo "    Compilando..."
+                echo ""
+                cd code
+                python3 -m pip install -r requirements.txt
+                python3 -m pip install -r requirements-dev.txt
+                python3 -m pip install wheel
+                python3 -m pip install setuptools
+                python3 -m pip install pyinstaller
+                pyinstaller --onefile --hidden-import=importlib.metadata --collect-all=volatility3 volatility3.py
+
+              # Desactivar el entorno virtual
+                echo ""
+                echo "    Desactivando el entorno virtual..."
+                echo ""
+                deactivate
+
+              # Copiar los binarios compilados a la carpeta de binarios del usuario
+                echo ""
+                echo "    Copiando los binarios a la carpeta /usr/bin/"
+                echo ""
+                sudo rm -f /usr/bin/volatility3
+                sudo cp -vf /tmp/PythonVirtualEnvironments/volatility3/code/dist/analyzeMFT /usr/bin/volatility3
+                cd ~
+
+              # Notificar fin de ejecución del script
+                echo ""
+                echo -e "${cColorVerde}    La instalación ha finalizado. Se han copiado las herramientas a /usr/bin/ ${cFinColor}"
+                echo -e "${cColorVerde}    Puedes ejecutarlas de la siguiente forma: ${cFinColor}"
+                echo ""
+                echo -e "${cColorVerde}      volatility3 [Parámetros]${cFinColor}"
+                echo ""
+
+            ;;
+
+            7)
+
+              echo ""
               echo "  Clonando el repo de volatility2 para python 2.x..."
               echo ""
 
@@ -295,7 +373,7 @@
 
             ;;
 
-            7)
+            8)
 
               echo ""
               echo "  Creando el entorno virtual de python..."
@@ -350,7 +428,7 @@
 
             ;;
 
-            8)
+            9)
 
               echo ""
               echo "  Compilando y guardando en /home/$USER/bin/..."
@@ -403,7 +481,7 @@
 
             ;;
 
-            9)
+           10)
 
               echo ""
               echo "    Instalando en /home/$USER/.local/bin/..."
@@ -444,7 +522,7 @@
 
             ;;
 
-           10)
+           11)
 
               echo ""
               echo "    Agregando /home/$USER/.local/bin al path..."
