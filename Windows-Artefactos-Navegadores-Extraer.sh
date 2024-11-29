@@ -9,10 +9,10 @@
 # Script de NiPeGun para extraer todas las carpetas con información de navegadores de una partición NTFS
 #
 # Ejecución remota:
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Windows-Artefactos-MFT-Extraer.sh | sudo bash -s [PuntoDeMontajeDeLaPartDeWindows] [CarpetaDelCaso]  (Ambos sin barra final)
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Windows-Artefactos-Navegadores-Extraer.sh | bash -s [PuntoDeMontajeDeLaPartDeWindows] [CarpetaDelCaso]  (Ambos sin barra final)
 #
 # Bajar y editar directamente el archivo en nano
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Windows-Artefactos-MFT-Extraer.sh  | nano -
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Windows-Artefactos-Navegadores-Extraer.sh | nano -
 # ----------
 
 # Definir constantes de color
@@ -43,8 +43,40 @@ if [ $# -ne $cCantParamEsperados ]
     echo ""
     vPuntoDeMontajePartWindows="$1" # Debe ser una carpeta sin barra final
     vCarpetaDelCaso="$2"            # Debe ser una carpeta sin barra final
-    sudo mkdir -p "$vCarpetaDelCaso"/Artefactos/Originales/MFT/
-    sudo cp -fv "$vPuntoDeMontajePartWindows"/\$MFT "$vCarpetaDelCaso"/Artefactos/Originales/MFT/
+    # Brave
+      sudo mkdir -p "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/Brave/
+      sudo cp -fv "$vPuntoDeMontajePartWindows"/Users* "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/Brave/
+    # Chrome
+      sudo mkdir -p "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/Chrome/
+      sudo cp -fv "$vPuntoDeMontajePartWindows"/Users* "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/Chrome/
+    # Chromium
+      sudo mkdir -p "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/Chromium/
+      sudo cp -fv "$vPuntoDeMontajePartWindows"/Users* "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/Chromium/
+    # Edge
+      sudo mkdir -p "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/Edge/
+      sudo cp -fv "$vPuntoDeMontajePartWindows"/Users* "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/Edge/
+    # Epic
+      sudo mkdir -p "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/Brave/
+      sudo cp -fv "$vPuntoDeMontajePartWindows"/Users* "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/Brave/
+    # Firefox
+      sudo mkdir -p "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/Firefox/
+      sudo cp -fv "$vPuntoDeMontajePartWindows"/Users* "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/Firefox/
+    # LibreWolf
+      sudo mkdir -p "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/LibreWolf/
+      sudo cp -fv "$vPuntoDeMontajePartWindows"/Users* "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/LibreWolf/
+    # Opera
+      sudo mkdir -p "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/Opera/
+      sudo cp -fv "$vPuntoDeMontajePartWindows"/Users* "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/Opera/
+    # OperaGX
+      sudo mkdir -p "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/OperaGX/
+      sudo cp -fv "$vPuntoDeMontajePartWindows"/Users* "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/OperaGX/
+    # Safari
+      sudo mkdir -p "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/Safari/
+      sudo cp -fv "$vPuntoDeMontajePartWindows"/Users* "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/Safari/
+    # Vivaldi
+      sudo mkdir -p "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/Vivaldi/
+      sudo cp -fv "$vPuntoDeMontajePartWindows"/Users* "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/Vivaldi/
+
     # Reparar permisos
       sudo chown $USER:$USER "$vCarpetaDelCaso"/Artefactos/ -R
 
