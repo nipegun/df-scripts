@@ -1,37 +1,3 @@
-
-
-
-# Historial de todos los navegadores en CSV
-browser-history --type history --browser all --format csv --output history_all.csv
-
-# Marcadores de todos los navegadores en JSON
-browser-history --type bookmarks --browser all --format json --output bookmarks_all.json
-
-# Historial de Chrome en JSONL
-browser-history --type history --browser Chrome --format jsonl --output chrome_history.jsonl
-
-# Marcadores de Firefox en CSV para el perfil predeterminado
-browser-history --type bookmarks --browser Firefox --format csv --profile default --output firefox_bookmarks.csv
-
-# Historial de Brave en todos los perfiles, sin guardar en archivo
-browser-history --type history --browser Brave
-
-# Marcadores de todos los navegadores en JSON, sin guardar en archivo
-browser-history --type bookmarks --browser all --format json
-
-# Mostrar perfiles disponibles para Opera
-browser-history --show-profiles Opera
-
-# Historial de Edge en CSV para un perfil específico
-browser-history --type history --browser Edge --format csv --profile "Profile 2" --output edge_profile2_history.csv
-
-# Marcadores de LibreWolf en JSONL
-browser-history --type bookmarks --browser LibreWolf --format jsonl --output librewolf_bookmarks.jsonl
-
-# Historial de todos los navegadores, formato inferido por extensión
-browser-history --type history --browser all --output detailed_history_output.csv
-
-
 #!/bin/bash
 
 # Pongo a disposición pública este script bajo el término de "software de dominio público".
@@ -86,80 +52,195 @@ if [ $# -ne $cCantParamEsperados ]
     sudo chown $USER:$USER "$vCarpetaDondeGuardar" -R
 
     echo ""
-    echo "  Parseando datos de navegación del navegador Brave..."
+    echo "  Parseando datos de navegación de todos los navegadores juntos..."
     echo ""
     source ~/repos/python/browser-history/venv/bin/activate
       browser-history 
+    # Historial
+      browser-history --type history --browser all --format csv     --output bookmarks_all.csv
+      browser-history --type history --browser all --format json    --output bookmarks_all.json
+      browser-history --type history --browser all --format jsonl   --output bookmarks_all.jsonl
+    # Marcadores
+      browser-history --type bookmarks --browser all --format csv   --output bookmarks_all.csv
+      browser-history --type bookmarks --browser all --format json  --output bookmarks_all.json
+      browser-history --type bookmarks --browser all --format jsonl --output bookmarks_all.jsonl
+    deactivate
+
+    echo ""
+    echo "  Parseando datos de navegación del navegador Brave..."
+    echo ""
+    source ~/repos/python/browser-history/venv/bin/activate
+    # Mostrar los perfiles encontrados
+      browser-history --show-profiles Brave
+      #browser-history --type bookmarks --browser Firefox --format csv --profile default --output firefox_bookmarks.csv
+    # Historial
+      browser-history --type history --browser Brave --format csv     --output bookmarks_Brave.csv
+      browser-history --type history --browser Brave --format json    --output bookmarks_Brave.json
+      browser-history --type history --browser Brave --format jsonl   --output bookmarks_Brave.jsonl
+    # Marcadores
+      browser-history --type bookmarks --browser Brave --format csv   --output bookmarks_Brave.csv
+      browser-history --type bookmarks --browser Brave --format json  --output bookmarks_Brave.json
+      browser-history --type bookmarks --browser Brave --format jsonl --output bookmarks_Brave.jsonl
     deactivate
 
     echo ""
     echo "  Parseando datos de navegación del navegador Chrome..."
     echo ""
     source ~/repos/python/browser-history/venv/bin/activate
-      browser-history 
+    # Mostrar los perfiles encontrados
+      browser-history --show-profiles Chrome
+    # Historial
+      browser-history --type history --browser Chrome --format csv     --output bookmarks_Chrome.csv
+      browser-history --type history --browser Chrome --format json    --output bookmarks_Chrome.json
+      browser-history --type history --browser Chrome --format jsonl   --output bookmarks_Chrome.jsonl
+    # Marcadores
+      browser-history --type bookmarks --browser Chrome --format csv   --output bookmarks_Chrome.csv
+      browser-history --type bookmarks --browser Chrome --format json  --output bookmarks_Chrome.json
+      browser-history --type bookmarks --browser Chrome --format jsonl --output bookmarks_Chrome.jsonl
     deactivate
 
     echo ""
     echo "  Parseando datos de navegación del navegador Chromium..."
     echo ""
     source ~/repos/python/browser-history/venv/bin/activate
-      browser-history 
+    # Mostrar los perfiles encontrados
+      browser-history --show-profiles Chromium
+    # Historial
+      browser-history --type history --browser Chromium --format csv     --output bookmarks_Chromium.csv
+      browser-history --type history --browser Chromium --format json    --output bookmarks_Chromium.json
+      browser-history --type history --browser Chromium --format jsonl   --output bookmarks_Chromium.jsonl
+    # Marcadores
+      browser-history --type bookmarks --browser Chromium --format csv   --output bookmarks_Chromium.csv
+      browser-history --type bookmarks --browser Chromium --format json  --output bookmarks_Chromium.json
+      browser-history --type bookmarks --browser Chromium --format jsonl --output bookmarks_Chromium.jsonl
     deactivate
 
     echo ""
     echo "  Parseando datos de navegación del navegador Edge..."
     echo ""
     source ~/repos/python/browser-history/venv/bin/activate
-      browser-history 
+    # Mostrar los perfiles encontrados
+      browser-history --show-profiles Edge
+    # Historial
+      browser-history --type history --browser Edge --format csv     --output bookmarks_Edge.csv
+      browser-history --type history --browser Edge --format json    --output bookmarks_Edge.json
+      browser-history --type history --browser Edge --format jsonl   --output bookmarks_Edge.jsonl
+    # Marcadores
+      browser-history --type bookmarks --browser Edge --format csv   --output bookmarks_Edge.csv
+      browser-history --type bookmarks --browser Edge --format json  --output bookmarks_Edge.json
+      browser-history --type bookmarks --browser Edge --format jsonl --output bookmarks_Edge.jsonl
     deactivate
 
     echo ""
     echo "  Parseando datos de navegación del navegador Epic..."
     echo ""
     source ~/repos/python/browser-history/venv/bin/activate
-      browser-history 
+    # Mostrar los perfiles encontrados
+      browser-history --show-profiles Epic
+    # Historial
+      browser-history --type history --browser Epic --format csv     --output bookmarks_Epic.csv
+      browser-history --type history --browser Epic --format json    --output bookmarks_Epic.json
+      browser-history --type history --browser Epic --format jsonl   --output bookmarks_Epic.jsonl
+    # Marcadores
+      browser-history --type bookmarks --browser Epic --format csv   --output bookmarks_Epic.csv
+      browser-history --type bookmarks --browser Epic --format json  --output bookmarks_Epic.json
+      browser-history --type bookmarks --browser Epic --format jsonl --output bookmarks_Epic.jsonl
     deactivate
 
     echo ""
     echo "  Parseando datos de navegación del navegador Firefox..."
     echo ""
     source ~/repos/python/browser-history/venv/bin/activate
-      browser-history 
+    # Mostrar los perfiles encontrados
+      browser-history --show-profiles Firefox
+    # Historial
+      browser-history --type history --browser Firefox --format csv     --output bookmarks_Firefox.csv
+      browser-history --type history --browser Firefox --format json    --output bookmarks_Firefox.json
+      browser-history --type history --browser Firefox --format jsonl   --output bookmarks_Firefox.jsonl
+    # Marcadores
+      browser-history --type bookmarks --browser Firefox --format csv   --output bookmarks_Firefox.csv
+      browser-history --type bookmarks --browser Firefox --format json  --output bookmarks_Firefox.json
+      browser-history --type bookmarks --browser Firefox --format jsonl --output bookmarks_Firefox.jsonl
     deactivate
 
     echo ""
     echo "  Parseando datos de navegación del navegador LibreWolf..."
     echo ""
     source ~/repos/python/browser-history/venv/bin/activate
-      browser-history 
+    # Mostrar los perfiles encontrados
+      browser-history --show-profiles LibreWolf
+    # Historial
+      browser-history --type history --browser LibreWolf --format csv     --output bookmarks_LibreWolf.csv
+      browser-history --type history --browser LibreWolf --format json    --output bookmarks_LibreWolf.json
+      browser-history --type history --browser LibreWolf --format jsonl   --output bookmarks_LibreWolf.jsonl
+    # Marcadores
+      browser-history --type bookmarks --browser LibreWolf --format csv   --output bookmarks_LibreWolf.csv
+      browser-history --type bookmarks --browser LibreWolf --format json  --output bookmarks_LibreWolf.json
+      browser-history --type bookmarks --browser LibreWolf --format jsonl --output bookmarks_LibreWolf.jsonl
     deactivate
 
     echo ""
     echo "  Parseando datos de navegación del navegador Opera..."
     echo ""
     source ~/repos/python/browser-history/venv/bin/activate
-      browser-history 
+    # Mostrar los perfiles encontrados
+      browser-history --show-profiles Opera
+    # Historial
+      browser-history --type history --browser Opera --format csv     --output bookmarks_Opera.csv
+      browser-history --type history --browser Opera --format json    --output bookmarks_Opera.json
+      browser-history --type history --browser Opera --format jsonl   --output bookmarks_Opera.jsonl
+    # Marcadores
+      browser-history --type bookmarks --browser Opera --format csv   --output bookmarks_Opera.csv
+      browser-history --type bookmarks --browser Opera --format json  --output bookmarks_Opera.json
+      browser-history --type bookmarks --browser Opera --format jsonl --output bookmarks_Opera.jsonl
     deactivate
 
     echo ""
     echo "  Parseando datos de navegación del navegador OperaGX..."
     echo ""
     source ~/repos/python/browser-history/venv/bin/activate
-      browser-history 
+    # Mostrar los perfiles encontrados
+      browser-history --show-profiles OperaGX
+    # Historial
+      browser-history --type history --browser OperaGX --format csv     --output bookmarks_OperaGX.csv
+      browser-history --type history --browser OperaGX --format json    --output bookmarks_OperaGX.json
+      browser-history --type history --browser OperaGX --format jsonl   --output bookmarks_OperaGX.jsonl
+    # Marcadores
+      browser-history --type bookmarks --browser OperaGX --format csv   --output bookmarks_OperaGX.csv
+      browser-history --type bookmarks --browser OperaGX --format json  --output bookmarks_OperaGX.json
+      browser-history --type bookmarks --browser OperaGX --format jsonl --output bookmarks_OperaGX.jsonl
     deactivate
 
     echo ""
     echo "  Parseando datos de navegación del navegador Safari..."
     echo ""
     source ~/repos/python/browser-history/venv/bin/activate
-      browser-history 
+    # Mostrar los perfiles encontrados
+      browser-history --show-profiles Safari
+    # Historial
+      browser-history --type history --browser Safari --format csv     --output bookmarks_Safari.csv
+      browser-history --type history --browser Safari --format json    --output bookmarks_Safari.json
+      browser-history --type history --browser Safari --format jsonl   --output bookmarks_Safari.jsonl
+    # Marcadores
+      browser-history --type bookmarks --browser Safari --format csv   --output bookmarks_Safari.csv
+      browser-history --type bookmarks --browser Safari --format json  --output bookmarks_Safari.json
+      browser-history --type bookmarks --browser Safari --format jsonl --output bookmarks_Safari.jsonl
     deactivate
 
     echo ""
     echo "  Parseando datos de navegación del navegador Vivaldi..."
     echo ""
     source ~/repos/python/browser-history/venv/bin/activate
-      browser-history 
+    # Mostrar los perfiles encontrados
+      browser-history --show-profiles Vivaldi
+    # Historial
+      browser-history --type history --browser Vivaldi --format csv     --output bookmarks_Vivaldi.csv
+      browser-history --type history --browser Vivaldi --format json    --output bookmarks_Vivaldi.json
+      browser-history --type history --browser Vivaldi --format jsonl   --output bookmarks_Vivaldi.jsonl
+    # Marcadores
+      browser-history --type bookmarks --browser Vivaldi --format csv   --output bookmarks_Vivaldi.csv
+      browser-history --type bookmarks --browser Vivaldi --format json  --output bookmarks_Vivaldi.json
+      browser-history --type bookmarks --browser Vivaldi --format jsonl --output bookmarks_Vivaldi.jsonl
     deactivate
 
     # Reparar permisos
@@ -167,3 +248,5 @@ if [ $# -ne $cCantParamEsperados ]
       sudo chown $USER:$USER /Casos/ -R 2> /dev/null
 
 fi
+
+
