@@ -259,9 +259,9 @@
                 rm -rf /tmp/PythonVirtualEnvironments/analyzeMFT/
                 python3 -m venv analyzeMFT
 
-              # Ingresar en el entorno virtual e instalar plaso
+              # Ingresar en el entorno virtual e instalar
                 echo ""
-                echo "    Ingresando en el entorno virtual e instalando plaso..."
+                echo "    Ingresando en el entorno virtual e instalando..."
                 echo ""
                 source /tmp/PythonVirtualEnvironments/analyzeMFT/bin/activate
 
@@ -301,7 +301,7 @@
 
               # Notificar fin de ejecución del script
                 echo ""
-                echo -e "${cColorVerde}    La instalación ha finalizado. Se han copiado las herramientas de plaso a /usr/bin/ ${cFinColor}"
+                echo -e "${cColorVerde}    La instalación ha finalizado. Se han copiado las herramientas a /usr/bin/ ${cFinColor}"
                 echo -e "${cColorVerde}    Puedes ejecutarlas de la siguiente forma: ${cFinColor}"
                 echo ""
                 echo -e "${cColorVerde}      analyzeMFT [Parámetros]${cFinColor}"
