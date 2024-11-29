@@ -56,7 +56,7 @@ if [ $# -ne $cCantParamEsperados ]
           3 "  Extraer la MFT"                                                     on
           4 "  Extraer el registro"                                                on
           5 "  Extraer los eventos"                                                on
-          6 "  Extraer x"                                                          on
+          6 "  Extraer los navegadores"                                            on
           7 "  Extraer x"                                                          on
           8 "  Extraer x"                                                          on
         )
@@ -118,8 +118,10 @@ if [ $# -ne $cCantParamEsperados ]
             6)
 
               echo ""
-              echo "  Extrayendo x..."
+              echo "  Extrayendo los navegadores..."
               echo ""
+browser-history -b Chrome -t history -f csv -o Chrome.csv
+ln -s /ruta/deseada /ruta/predeterminada/del/navegador
 
             ;;
 
