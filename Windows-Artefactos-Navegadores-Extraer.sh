@@ -45,39 +45,94 @@ if [ $# -ne $cCantParamEsperados ]
     vCarpetaDelCaso="$2"            # Debe ser una carpeta sin barra final
     # Brave
       sudo mkdir -p "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/Brave/
-      sudo cp -fv "$vPuntoDeMontajePartWindows"/Users* "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/Brave/
+      sudo cp -rf "$vPuntoDeMontajePartWindows"/Users/nipegun/AppData/Roaming/Mozilla/Firefox/Profiles/* "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/Brave/
     # Chrome
       sudo mkdir -p "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/Chrome/
-      sudo cp -fv "$vPuntoDeMontajePartWindows"/Users* "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/Chrome/
+      sudo cp -rf "$vPuntoDeMontajePartWindows"/Users/nipegun/AppData/Roaming/Mozilla/Firefox/Profiles/* "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/Chrome/
     # Chromium
       sudo mkdir -p "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/Chromium/
-      sudo cp -fv "$vPuntoDeMontajePartWindows"/Users* "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/Chromium/
+      sudo cp -rf "$vPuntoDeMontajePartWindows"/Users/nipegun/AppData/Roaming/Mozilla/Firefox/Profiles/* "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/Chromium/
     # Edge
       sudo mkdir -p "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/Edge/
-      sudo cp -fv "$vPuntoDeMontajePartWindows"/Users* "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/Edge/
+      sudo cp -rf "$vPuntoDeMontajePartWindows"/Users/nipegun/AppData/Roaming/Mozilla/Firefox/Profiles/* "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/Edge/
     # Epic
       sudo mkdir -p "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/Brave/
-      sudo cp -fv "$vPuntoDeMontajePartWindows"/Users* "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/Brave/
+      sudo cp -rf "$vPuntoDeMontajePartWindows"/Users/nipegun/AppData/Roaming/Mozilla/Firefox/Profiles/* "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/Brave/
     # Firefox
       sudo mkdir -p "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/Firefox/
-      sudo cp -fv "$vPuntoDeMontajePartWindows"/Users* "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/Firefox/
+      sudo cp -rf "$vPuntoDeMontajePartWindows"/Users/nipegun/AppData/Roaming/Mozilla/Firefox/Profiles/* "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/Firefox/
     # LibreWolf
       sudo mkdir -p "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/LibreWolf/
-      sudo cp -fv "$vPuntoDeMontajePartWindows"/Users* "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/LibreWolf/
+      sudo cp -rf "$vPuntoDeMontajePartWindows"/Users/nipegun/AppData/Roaming/Mozilla/Firefox/Profiles/* "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/LibreWolf/
     # Opera
       sudo mkdir -p "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/Opera/
-      sudo cp -fv "$vPuntoDeMontajePartWindows"/Users* "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/Opera/
+      sudo cp -rf "$vPuntoDeMontajePartWindows"/Users/nipegun/AppData/Roaming/Mozilla/Firefox/Profiles/* "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/Opera/
     # OperaGX
       sudo mkdir -p "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/OperaGX/
-      sudo cp -fv "$vPuntoDeMontajePartWindows"/Users* "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/OperaGX/
+      sudo cp -rf "$vPuntoDeMontajePartWindows"/Users/nipegun/AppData/Roaming/Mozilla/Firefox/Profiles/* "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/OperaGX/
     # Safari
       sudo mkdir -p "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/Safari/
-      sudo cp -fv "$vPuntoDeMontajePartWindows"/Users* "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/Safari/
+      sudo cp -rf "$vPuntoDeMontajePartWindows"/Users/nipegun/AppData/Roaming/Mozilla/Firefox/Profiles/* "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/Safari/
     # Vivaldi
       sudo mkdir -p "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/Vivaldi/
-      sudo cp -fv "$vPuntoDeMontajePartWindows"/Users* "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/Vivaldi/
+      sudo cp -rf "$vPuntoDeMontajePartWindows"/Users/nipegun/AppData/Roaming/Mozilla/Firefox/Profiles/* "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/Vivaldi/
 
     # Reparar permisos
       sudo chown $USER:$USER "$vCarpetaDelCaso"/Artefactos/ -R
 
 fi
+Brave
+
+/AppData/Roaming/BraveSoftware/Brave-Browser
+/AppData/Roaming/BraveSoftware/Brave-Browser/User Data/Default
+
+Chrome
+
+/AppData/Roaming/Google/Chrome
+/AppData/Roaming/Google/Chrome/User Data/Default
+
+Chromium
+
+/AppData/Roaming/Chromium
+/AppData/Roaming/Chromium/User Data/Default
+
+Edge
+
+/AppData/Roaming/Microsoft/Edge
+/AppData/Roaming/Microsoft/Edge/User Data/Default
+
+Epic
+
+/AppData/Roaming/Epic Privacy Browser
+/AppData/Roaming/Epic Privacy Browser/User Data/Default
+
+Firefox
+
+/AppData/Roaming/Mozilla/Firefox/Profiles
+/AppData/Roaming/Mozilla/Firefox/Profiles/[Nombre-del-Perfil]
+
+LibreWolf
+
+/AppData/Roaming/LibreWolf
+/AppData/Roaming/LibreWolf/Profiles/[Nombre-del-Perfil]
+
+Opera
+
+/AppData/Roaming/Opera Software/Opera Stable
+/AppData/Roaming/Opera Software/Opera Stable
+
+OperaGX
+
+/AppData/Roaming/Opera Software/Opera GX Stable
+/AppData/Roaming/Opera Software/Opera GX Stable
+
+Safari
+
+/AppData/Roaming/Apple Computer/Safari.
+/AppData/Roaming/Apple
+
+Vivaldi
+
+/AppData/Roaming/Vivaldi
+/AppData/Roaming/Vivaldi/User Data/Default
+
