@@ -42,6 +42,7 @@ if [ $# -ne $cCantParamEsperados ]
     echo ""
     echo ""
     vPuntoDeMontajePartWindows="$1" # Debe ser una carpeta sin barra final
+    vNumPartConSistema="2"
     vCarpetaDelCaso="$2"            # Debe ser una carpeta sin barra final
     # Copiar registro de usuarios
       echo ""
@@ -58,57 +59,57 @@ if [ $# -ne $cCantParamEsperados ]
       # Brave
           sudo mkdir -p "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/"$vNomUsuario"/Brave/
           sudo chown $USER:$USER "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/"$vNomUsuario"/Brave/
-          sudo cp -rf "$vPuntoDeMontajePartWindows"/Users/"$vNomUsuario"/AppData/Roaming/BraveSoftware/Brave-Browser/* \
+          sudo cp -rf "$vPuntoDeMontajePartWindows"/"$vNumPartConSistema"/Users/"$vNomUsuario"/AppData/Roaming/BraveSoftware/Brave-Browser/* \
           "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/"$vNomUsuario"/Brave/
       # Chrome
           sudo mkdir -p "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/"$vNomUsuario"/Chrome/
           sudo chown $USER:$USER "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/"$vNomUsuario"/Chrome/
-          sudo cp -rf "$vPuntoDeMontajePartWindows"/Users/"$vNomUsuario"/AppData/Roaming/Google/Chrome/* \
+          sudo cp -rf "$vPuntoDeMontajePartWindows"/"$vNumPartConSistema"/Users/"$vNomUsuario"/AppData/Roaming/Google/Chrome/* \
           "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/"$vNomUsuario"/Chrome/
       # Chromium
           sudo mkdir -p "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/"$vNomUsuario"/Chromium/
           sudo chown $USER:$USER "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/"$vNomUsuario"/Chromium/
-          sudo cp -rf "$vPuntoDeMontajePartWindows"/Users/"$vNomUsuario"/AppData/Roaming/Chromium/* \
+          sudo cp -rf "$vPuntoDeMontajePartWindows"/"$vNumPartConSistema"/Users/"$vNomUsuario"/AppData/Roaming/Chromium/* \
           "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/"$vNomUsuario"/Chromium/
       # Edge
           sudo mkdir -p "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/"$vNomUsuario"/Edge/
           sudo chown $USER:$USER "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/"$vNomUsuario"/Edge/
-          sudo cp -rf "$vPuntoDeMontajePartWindows"/Users/"$vNomUsuario"/AppData/Roaming/Microsoft/Edge/* \
+          sudo cp -rf "$vPuntoDeMontajePartWindows"/"$vNumPartConSistema"/Users/"$vNomUsuario"/AppData/Roaming/Microsoft/Edge/* \
           "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/"$vNomUsuario"/Edge/
       # Epic
           sudo mkdir -p "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/"$vNomUsuario"/Epic/
           sudo chown $USER:$USER "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/"$vNomUsuario"/Epic/
-          sudo cp -rf "$vPuntoDeMontajePartWindows"/Users/"$vNomUsuario"/AppData/Roaming/Epic Privacy Browser/* \
+          sudo cp -rf "$vPuntoDeMontajePartWindows"/"$vNumPartConSistema"/Users/"$vNomUsuario"/AppData/Roaming/Epic Privacy Browser/* \
           "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/"$vNomUsuario"/Epic/
       # Firefox
           sudo mkdir -p "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/"$vNomUsuario"/Firefox/
           sudo chown $USER:$USER "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/"$vNomUsuario"/Firefox/
-          sudo cp -rf "$vPuntoDeMontajePartWindows"/Users/"$vNomUsuario"/AppData/Roaming/Mozilla/Firefox/* \
+          sudo cp -rf "$vPuntoDeMontajePartWindows"/"$vNumPartConSistema"/Users/"$vNomUsuario"/AppData/Roaming/Mozilla/Firefox/* \
           "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/"$vNomUsuario"/Epic/
       # Librewolf
           sudo mkdir -p "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/"$vNomUsuario"/Librewolf/
           sudo chown $USER:$USER "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/"$vNomUsuario"/Librewolf/
-          sudo cp -rf "$vPuntoDeMontajePartWindows"/Users/"$vNomUsuario"/AppData/Roaming/Mozilla/Librewolf/* \
+          sudo cp -rf "$vPuntoDeMontajePartWindows"/"$vNumPartConSistema"/Users/"$vNomUsuario"/AppData/Roaming/Mozilla/Librewolf/* \
           "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/"$vNomUsuario"/Librewolf/
       # Opera
           sudo mkdir -p "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/"$vNomUsuario"/Opera/
           sudo chown $USER:$USER "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/"$vNomUsuario"/Opera/
-          sudo cp -rf "$vPuntoDeMontajePartWindows"/Users/"$vNomUsuario"/AppData/Roaming/Opera Software/Opera GX Stable/* \
+          sudo cp -rf "$vPuntoDeMontajePartWindows"/"$vNumPartConSistema"/Users/"$vNomUsuario"/AppData/Roaming/Opera Software/Opera Stable/* \
           "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/"$vNomUsuario"/Opera/
       # OperaGX
           sudo mkdir -p "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/"$vNomUsuario"/OperaGX/
           sudo chown $USER:$USER "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/"$vNomUsuario"/OperaGX/
-          sudo cp -rf "$vPuntoDeMontajePartWindows"/Users/"$vNomUsuario"/AppData/Roaming/Opera Software/Opera GX Stable/* \
+          sudo cp -rf "$vPuntoDeMontajePartWindows"/"$vNumPartConSistema"/Users/"$vNomUsuario"/AppData/Roaming/Opera Software/Opera GX Stable/* \
           "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/"$vNomUsuario"/OperaGX/
       # Safari
           sudo mkdir -p "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/"$vNomUsuario"/Safari/
           sudo chown $USER:$USER "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/"$vNomUsuario"/Safari/
-          sudo cp -rf "$vPuntoDeMontajePartWindows"/Users/"$vNomUsuario"/AppData/Roaming/Apple Computer/Safari/* \
+          sudo cp -rf "$vPuntoDeMontajePartWindows"/"$vNumPartConSistema"/Users/"$vNomUsuario"/AppData/Roaming/Apple Computer/Safari/* \
           "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/"$vNomUsuario"/Safari/
       # Safari
           sudo mkdir -p "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/"$vNomUsuario"/Vivaldi/
           sudo chown $USER:$USER "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/"$vNomUsuario"/Vivaldi/
-          sudo cp -rf "$vPuntoDeMontajePartWindows"/Users/"$vNomUsuario"/AppData/Roaming/Vivaldi/* \
+          sudo cp -rf "$vPuntoDeMontajePartWindows"/"$vNumPartConSistema"/Users/"$vNomUsuario"/AppData/Roaming/Vivaldi/* \
           "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/"$vNomUsuario"/Vivaldi/
       done < "/tmp/CarpetasDeUsuarios.txt"
       # Eliminar carpetas vacias
