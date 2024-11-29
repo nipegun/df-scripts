@@ -392,7 +392,9 @@
                 echo ""
                 echo "    Copiando los binarios a la carpeta /usr/bin/"
                 echo ""
+                sudo rm -f /usr/bin/volatility3
                 sudo cp -vf /tmp/PythonVirtualEnvironments/volatility3/code/dist/vol      /usr/bin/volatility3
+                sudo rm -f /usr/bin/volatility3shell
                 sudo cp -vf /tmp/PythonVirtualEnvironments/volatility3/code/dist/volshell /usr/bin/volatility3shell
                 cd ~
 
