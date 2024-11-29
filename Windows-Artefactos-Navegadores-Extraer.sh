@@ -113,7 +113,7 @@ if [ $# -ne $cCantParamEsperados ]
           "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/"$vNomUsuario"/Vivaldi/
       done < "/tmp/CarpetasDeUsuarios.txt"
       # Eliminar carpetas vacias
-        sudo find "$vCarpetaDelCaso"/Artefactos/Originales/Registro/Usuarios/ -type d -empty -delete
+        sudo find "$vCarpetaDelCaso"/Artefactos/Originales/Navegadores/ -type d -empty -delete
 
     # Reparar permisos
       sudo chown $USER:$USER "$vCarpetaDelCaso"/Artefactos/ -R
