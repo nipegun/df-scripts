@@ -275,6 +275,135 @@
               echo "    Clonando repo, creando venv, compilando e instalando a nivel de sistema..."
               echo ""
 
+
+              MODIFICAR LA METODOLOGÍA PARA ADAPTARLA A LA 2
+
+              # Preparar el entorno virtual de python
+                echo ""
+                echo "    Preparando el entorno virtual de python..."
+                echo ""
+                mkdir -p /tmp/PythonVirtualEnvironments/ 2> /dev/null
+                rm -rf /tmp/PythonVirtualEnvironments/volatility3/
+                cd /tmp/PythonVirtualEnvironments/
+              # Comprobar si el paquete python3-venv está instalado. Si no lo está, instalarlo.
+                if [[ $(dpkg-query -s python3-venv 2>/dev/null | grep installed) == "" ]]; then
+                  echo ""
+                  echo -e "${cColorRojo}  El paquete python3-venv no está instalado. Iniciando su instalación...${cFinColor}"
+                  echo ""
+                  sudo apt-get -y update && sudo apt-get -y install python3-venv
+                  echo ""
+                fi
+                python3 -m venv volatility3
+
+              # Ingresar en el entorno virtual e instalar
+                echo ""
+                echo "    Ingresando en el entorno virtual e instalando..."
+                echo ""
+                source /tmp/PythonVirtualEnvironments/volatility3/bin/activate
+
+              # Clonar el repo
+                echo ""
+                echo "  Clonando el repo..."
+                echo ""
+                cd /tmp/PythonVirtualEnvironments/volatility3/
+                # Comprobar si el paquete git está instalado. Si no lo está, instalarlo.
+                  if [[ $(dpkg-query -s git 2>/dev/null | grep installed) == "" ]]; then
+                    echo ""
+                    echo -e "${cColorRojo}  El paquete git no está instalado. Iniciando su instalación...${cFinColor}"
+                    echo ""
+                    sudo apt-get -y update && sudo apt-get -y install git
+                    echo ""
+                  fi
+                git clone https://github.com/volatilityfoundation/volatility3.git
+                mv volatility3 code
+                cd code
+
+              # Compilar
+                echo ""
+                echo "    Compilando..."
+                echo ""
+                
+                sudo apt-get -y install build-essential
+                sudo apt-get -y install python3-dev
+
+                python3 -m pip install wheel
+                python3 -m pip install setuptools
+                python3 -m pip install pyinstaller
+                
+                python3 -m pip install distorm3
+                python3 -m pip install pycrypto
+                python3 -m pip install pillow
+                python3 -m pip install openpyxl
+                python3 -m pip install ujson
+                python3 -m pip install pytz
+                python3 -m pip install ipython
+                python3 -m pip install capstone
+                python3 -m pip install yara-python
+                
+                python3 -m pip install .
+
+                pyinstaller --onefile --collect-all=vol.py vol.py
+                pyinstaller --onefile --collect-all=volshell.py volshell.py
+
+                #pyinstaller --onefile --hidden-import=importlib.metadata --collect-all=volatility3 volatility3.py
+
+              # Instalar paquetes necesarios
+                #echo ""
+                #echo "    Instalando paquetes necesarios..."
+                #echo ""
+                #sudo apt-get -y update
+                #sudo apt-get -y install python3
+                #sudo apt-get -y install python3-pip
+                #sudo apt-get -y install python3-setuptools
+                #sudo apt-get -y install python3-dev
+                #sudo apt-get -y install python3-venv
+                #sudo apt-get -y install python3-wheel
+                #sudo apt-get -y install python3-distorm3
+                #sudo apt-get -y install python3-yara
+                #sudo apt-get -y install python3-pillow
+                #sudo apt-get -y install python3-openpyxl
+                #sudo apt-get -y install python3-ujson
+                #sudo apt-get -y install python3-ipython
+                #sudo apt-get -y install python3-capstone
+                #sudo apt-get -y install python3-pycryptodome          # Anterior pycrypto
+                #sudo apt-get -y install python3-pytz-deprecation-shim # Anterior python3-pytz                sudo apt-get -y install build-essential
+
+                
+                #sudo apt-get -y install liblzma-dev
+
+                #sudo apt-get -y install git
+                #sudo apt-get -y install libraw1394-11
+                #sudo apt-get -y install libcapstone-dev
+                #sudo apt-get -y install capstone-tool
+                #sudo apt-get -y install tzdata
+
+
+                #sudo apt-get -y install libpython3-dev
+
+              # Desactivar el entorno virtual
+                echo ""
+                echo "    Desactivando el entorno virtual..."
+                echo ""
+                deactivate
+
+              # Copiar los binarios compilados a la carpeta de binarios del usuario
+                echo ""
+                echo "    Copiando los binarios a la carpeta /usr/bin/"
+                echo ""
+                sudo rm -f /usr/bin/volatility3
+                sudo cp -vf /tmp/PythonVirtualEnvironments/volatility3/code/dist/vol      /usr/bin/volatility3
+                sudo rm -f /usr/bin/volatility3shell
+                sudo cp -vf /tmp/PythonVirtualEnvironments/volatility3/code/dist/volshell /usr/bin/volatility3shell
+                cd ~
+
+              # Notificar fin de ejecución del script
+                echo ""
+                echo -e "${cColorVerde}    La instalación ha finalizado. Se han copiado las herramientas a /usr/bin/ ${cFinColor}"
+                echo -e "${cColorVerde}    Puedes ejecutarlas de la siguiente forma: ${cFinColor}"
+                echo ""
+                echo -e "${cColorVerde}      volatility3 [Parámetros]${cFinColor}"
+                echo ""
+
             ;;
 
         esac
