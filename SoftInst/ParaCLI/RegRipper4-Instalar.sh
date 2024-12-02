@@ -136,11 +136,11 @@
                     sudo apt-get -y update && sudo apt-get -y install git
                     echo ""
                   fi
-                git clone https://github.com/keydet89/RegRipper3.0.git
+                git clone https://github.com/keydet89/RegRipper4.0.git
 
               # Copiar el repo a /usr/local/src/
                 sudo rm -rf /usr/local/src/regripper
-                sudo cp -r ~/repos/perl/RegRipper3.0 /usr/local/src/regripper
+                sudo cp -r ~/repos/perl/RegRipper4.0 /usr/local/src/regripper
 
               #
                 sudo rm -rf /usr/share/regripper
