@@ -74,7 +74,7 @@
       menu=(dialog --timeout 10 --checklist "Marca como quieres instalar la herramienta:" 22 70 16)
         opciones=(
           1 "Clonar el repo de plaso "                                        on
-          2 "  Crear el entorno virtual de python"                            on
+          2 "  Crear el entorno virtual de python e instalar dentro"          on
           3 "    Compilar e instalar en /home/$USER/bin/"                     off
           4 "  Instalar en /home/$USER/.local/bin/"                           off
           5 "    Agregar /home/$USER/.local/bin/ al path"                     off
@@ -111,7 +111,7 @@
             2)
 
               echo ""
-              echo "  Creando el entorno virtual de python..."
+              echo "  Creando el entorno virtual de python e instalar dentro..."
               echo ""
 
               cd ~/repos/python/plaso/
