@@ -248,6 +248,7 @@
                 /usr/local/bin/python2.7 -m pip install -U pyinstaller==3.6 --user
                 /usr/local/bin/python2.7 -m pip install -U git+https://github.com/volatilityfoundation/volatility.git --user
                 mv ~/.local/bin/vol.py ~/.local/bin/volatility2
+                # Falta relacionar correctamente los plugins
 
             ;;
 
@@ -266,37 +267,48 @@
               echo "    Clonando repo, creando venv, compilando e instalando a nivel de sistema..."
               echo ""
 
-
-              MODIFICAR LA METODOLOGÍA PARA ADAPTARLA A LA 2
+              echo ""
+              echo "      Comprobando si python2 está instalado..."
+              echo ""
+              # Comprobar si python 2.7 está instalado y, si no lo está, instalarlo
+                if [ ! -f /usr/local/bin/python2.7 ]; then
+                  # Comprobar si el paquete git está instalado. Si no lo está, instalarlo.
+                    if [[ $(dpkg-query -s git 2>/dev/null | grep installed) == "" ]]; then
+                      echo ""
+                      echo -e "${cColorRojo}  El paquete git no está instalado. Iniciando su instalación...${cFinColor}"
+                      echo ""
+                      sudo apt-get -y update && sudo apt-get -y install git
+                      echo ""
+                    fi
+                  curl -sL https://raw.githubusercontent.com/nipegun/d-scripts/refs/heads/master/SoftInst/ParaCLI/Python2-Instalar.sh | sudo bash
+                fi
 
               # Preparar el entorno virtual de python
                 echo ""
-                echo "    Preparando el entorno virtual de python..."
+                echo "      Preparando el entorno virtual de python..."
                 echo ""
-                mkdir -p /tmp/PythonVirtualEnvironments/ 2> /dev/null
-                rm -rf /tmp/PythonVirtualEnvironments/volatility3/
-                cd /tmp/PythonVirtualEnvironments/
-              # Comprobar si el paquete python3-venv está instalado. Si no lo está, instalarlo.
-                if [[ $(dpkg-query -s python3-venv 2>/dev/null | grep installed) == "" ]]; then
-                  echo ""
-                  echo -e "${cColorRojo}  El paquete python3-venv no está instalado. Iniciando su instalación...${cFinColor}"
-                  echo ""
-                  sudo apt-get -y update && sudo apt-get -y install python3-venv
-                  echo ""
-                fi
-                python3 -m venv volatility3
+                # Eliminar el virtualenv actualmente instalado
+                  sudo apt-get -y autoremove virtualenv
+                # Instalar el virtualenv de python2
+                  curl https://bootstrap.pypa.io/pip/2.7/get-pip.py | sudo python2.7
+                  sudo pip2 install virtualenv
+                # Crear el entorno virtual
+                  mkdir -p /tmp/PythonVirtualEnvironments/ 2> /dev/null
+                  rm -rf /tmp/PythonVirtualEnvironments/volatility2/
+                  cd /tmp/PythonVirtualEnvironments/
+                  /usr/local/bin/virtualenv -p /usr/local/bin/python2.7 volatility2
 
               # Ingresar en el entorno virtual e instalar
                 echo ""
-                echo "    Ingresando en el entorno virtual e instalando..."
+                echo "      Ingresando en el entorno virtual..."
                 echo ""
-                source /tmp/PythonVirtualEnvironments/volatility3/bin/activate
+                source /tmp/PythonVirtualEnvironments/volatility2/bin/activate
 
               # Clonar el repo
                 echo ""
-                echo "  Clonando el repo..."
+                echo "      Clonando el repo..."
                 echo ""
-                cd /tmp/PythonVirtualEnvironments/volatility3/
+                cd /tmp/PythonVirtualEnvironments/volatility2/
                 # Comprobar si el paquete git está instalado. Si no lo está, instalarlo.
                   if [[ $(dpkg-query -s git 2>/dev/null | grep installed) == "" ]]; then
                     echo ""
@@ -305,71 +317,32 @@
                     sudo apt-get -y update && sudo apt-get -y install git
                     echo ""
                   fi
-                git clone https://github.com/volatilityfoundation/volatility3.git
-                mv volatility3 code
+                git clone https://github.com/volatilityfoundation/volatility.git
+                mv volatility code
                 cd code
 
               # Compilar
                 echo ""
                 echo "    Compilando..."
                 echo ""
-                
                 sudo apt-get -y install build-essential
-                sudo apt-get -y install python3-dev
-
-                python3 -m pip install wheel
-                python3 -m pip install setuptools
-                python3 -m pip install pyinstaller
-                
-                python3 -m pip install distorm3
-                python3 -m pip install pycrypto
-                python3 -m pip install pillow
-                python3 -m pip install openpyxl
-                python3 -m pip install ujson
-                python3 -m pip install pytz
-                python3 -m pip install ipython
-                python3 -m pip install capstone
-                python3 -m pip install yara-python
-                
-                python3 -m pip install .
-
-                pyinstaller --onefile --collect-all=vol.py vol.py
-                pyinstaller --onefile --collect-all=volshell.py volshell.py
-
-                #pyinstaller --onefile --hidden-import=importlib.metadata --collect-all=volatility3 volatility3.py
-
-              # Instalar paquetes necesarios
-                #echo ""
-                #echo "    Instalando paquetes necesarios..."
-                #echo ""
-                #sudo apt-get -y update
-                #sudo apt-get -y install python3
-                #sudo apt-get -y install python3-pip
-                #sudo apt-get -y install python3-setuptools
-                #sudo apt-get -y install python3-dev
-                #sudo apt-get -y install python3-venv
-                #sudo apt-get -y install python3-wheel
-                #sudo apt-get -y install python3-distorm3
-                #sudo apt-get -y install python3-yara
-                #sudo apt-get -y install python3-pillow
-                #sudo apt-get -y install python3-openpyxl
-                #sudo apt-get -y install python3-ujson
-                #sudo apt-get -y install python3-ipython
-                #sudo apt-get -y install python3-capstone
-                #sudo apt-get -y install python3-pycryptodome          # Anterior pycrypto
-                #sudo apt-get -y install python3-pytz-deprecation-shim # Anterior python3-pytz                sudo apt-get -y install build-essential
-
-                
-                #sudo apt-get -y install liblzma-dev
-
-                #sudo apt-get -y install git
-                #sudo apt-get -y install libraw1394-11
-                #sudo apt-get -y install libcapstone-dev
-                #sudo apt-get -y install capstone-tool
-                #sudo apt-get -y install tzdata
-
-
-                #sudo apt-get -y install libpython3-dev
+                sudo apt-get -y install upx
+                sudo apt-get -y install binutils
+                sudo apt-get -y install libc-bin
+                pip2 install -U wheel
+                pip2 install -U setuptools
+                pip2 install -U distorm3
+                pip2 install -U pycrypto
+                pip2 install -U pillow
+                pip2 install -U openpyxl
+                pip2 install -U ujson
+                pip2 install -U pytz
+                pip2 install -U ipython
+                pip2 install -U capstone
+                pip2 install -U yara-python
+                pip2 install -U .
+                pip2 install -U pyinstaller==3.6
+                pyinstaller --onefile vol.py
 
               # Desactivar el entorno virtual
                 echo ""
@@ -381,10 +354,8 @@
                 echo ""
                 echo "    Copiando los binarios a la carpeta /usr/bin/"
                 echo ""
-                sudo rm -f /usr/bin/volatility3
-                sudo cp -vf /tmp/PythonVirtualEnvironments/volatility3/code/dist/vol      /usr/bin/volatility3
-                sudo rm -f /usr/bin/volatility3shell
-                sudo cp -vf /tmp/PythonVirtualEnvironments/volatility3/code/dist/volshell /usr/bin/volatility3shell
+                sudo rm -f /usr/bin/volatility2
+                sudo cp -vf /tmp/PythonVirtualEnvironments/volatility2/code/dist/vol      /usr/bin/volatility2
                 cd ~
 
               # Notificar fin de ejecución del script
@@ -392,7 +363,7 @@
                 echo -e "${cColorVerde}    La instalación ha finalizado. Se han copiado las herramientas a /usr/bin/ ${cFinColor}"
                 echo -e "${cColorVerde}    Puedes ejecutarlas de la siguiente forma: ${cFinColor}"
                 echo ""
-                echo -e "${cColorVerde}      volatility3 [Parámetros]${cFinColor}"
+                echo -e "${cColorVerde}      volatility2 [Parámetros]${cFinColor}"
                 echo ""
 
             ;;
