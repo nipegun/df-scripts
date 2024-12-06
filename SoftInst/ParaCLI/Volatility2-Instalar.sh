@@ -6,12 +6,9 @@
 # No tienes que aceptar ningún tipo de términos de uso o licencia para utilizarlo o modificarlo porque va sin CopyLeft.
 
 # ----------
-# Script de NiPeGun para instalar y configurar Volatility en Debian
+# Script de NiPeGun para instalar y configurar Volatility2 en Debian
 #
-# Ejecución remota :
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/SoftInst/ParaCLI/Volatility2-Instalar.sh | bash      (No debería pipearse con sudo)
-#
-# Ejecución remota como root:
+# Ejecución remota  (No debería pipearse con sudo, aunque luego pida permisos sudo):
 #   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/SoftInst/ParaCLI/Volatility2-Instalar.sh | bash
 #
 # Bajar y editar directamente el archivo en nano
@@ -342,6 +339,15 @@
                 pip2 install -U yara-python
                 pip2 install -U .
                 pip2 install -U pyinstaller==3.6
+                # Descargar el binario de UPX
+                  vArchivoUltVers=$(curl -sL https://github.com/upx/upx/releases/latest/ | sed 's->\n->-g' | grep href | grep amd64 | grep "tar.xz" | cut -d'"' -f2 | grep -v src)
+                  curl -L "$vArchivoUltVers" -o /tmp/upx.tar.xz
+                  cd /tmp/
+                  tar -xf upx.tar.xz
+                  find /tmp -type d -name "upx-*" -exec mv {} /tmp/upx/ \;
+                  sudo cp /tmp/upx/upx /usr/local/bin/
+                  cd /tmp/PythonVirtualEnvironments/volatility2/code/
+                sed -i -e 's|path = m.groups()[-1]|path = m.groups()[-1] if m else None\nif not path:\n\tcontinue|g' /tmp/PythonVirtualEnvironments/volatility2/lib/python2.7/site-packages/PyInstaller/depend/utils.py
                 pyinstaller --onefile vol.py
 
               # Desactivar el entorno virtual
