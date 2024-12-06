@@ -74,7 +74,7 @@
       menu=(dialog --checklist "Marca las opciones que quieras instalar:" 22 96 16)
         opciones=(
           1 "Clonar el repo de volatility2 para python 2.x"                   on
-          2 "  Crear el entorno virtual de python"                            on
+          2 "  Crear el entorno virtual de python e instalar dentro"          on
           3 "    Compilar y guardar en /home/$USER/bin/"                      off
           4 "  Instalar en /home/$USER/.local/bin/"                           off
           5 "    Agregar /home/$USER/.local/bin/ al path"                     off
@@ -111,7 +111,7 @@
             2)
 
               echo ""
-              echo "  Creando el entorno virtual de python..."
+              echo "  Creando el entorno virtual de python e instalando dentro..."
               echo ""
 
               # Comprobar si python 2.7 está instalado y, si no lo está, instalarlo
