@@ -111,7 +111,7 @@
             2)
 
               echo ""
-              echo "  Creando el entorno virtual de python e instalar dentro..."
+              echo "  Creando el entorno virtual de python e instalando dentro..."
               echo ""
 
               cd ~/repos/python/plaso/
