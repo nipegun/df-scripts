@@ -127,10 +127,16 @@
                       sudo apt-get -y update && sudo apt-get -y install git
                       echo ""
                     fi
-                  curl -sL https://raw.githubusercontent.com/nipegun/d-scripts/refs/heads/master/SoftInst/ParaCLI/Python-Instalar.sh | sudo bash
+                  curl -sL https://raw.githubusercontent.com/nipegun/d-scripts/refs/heads/master/SoftInst/ParaCLI/Python2-Instalar.sh | sudo bash
                 fi
               cd ~/repos/python/volatility2/
-              virtualenv -p /usr/local/bin/python2.7 venv
+              # Eliminar el virtualenv actualmente instalado
+                sudo apt-get -y autoremove virtualenv
+              # Instalar el virtualenv de python2
+                curl https://bootstrap.pypa.io/pip/2.7/get-pip.py | sudo python2.7
+                sudo pip2 install virtualenv
+              # Crear el entorno virtual
+                /usr/local/bin/virtualenv -p /usr/local/bin/python2.7 venv
               # Entrar al entorno virtual
                 source ~/repos/python/volatility2/venv/bin/activate
 
@@ -159,7 +165,7 @@
                 echo ""
                 echo -e "${cColorVerde}      source ~/repos/python/volatility2/venv/bin/activate${cFinColor}"
                 echo ""
-                echo -e "${cColorVerde}        vol.py      [Parámetros]${cFinColor}"
+                echo -e "${cColorVerde}        vol.py [Parámetros]${cFinColor}"
                 echo ""
                 echo -e "${cColorVerde}      deactivate${cFinColor}"
                 echo ""
@@ -173,18 +179,10 @@
               echo ""
 
               # Entrar en el entorno virtual
-                source ~/repos/python/volatility3/venv/bin/activate
+                source ~/repos/python/volatility2/venv/bin/activate
                 cd ~/repos/python/volatility2/
 
               # Compilar
-                # Comprobar si el paquete python3-pip está instalado. Si no lo está, instalarlo.
-                  if [[ $(dpkg-query -s python3-pip 2>/dev/null | grep installed) == "" ]]; then
-                    echo ""
-                    echo -e "${cColorRojo}  El paquete python3-pip no está instalado. Iniciando su instalación...${cFinColor}"
-                    echo ""
-                    sudo apt-get -y update && sudo apt-get -y install python3-pip
-                    echo ""
-                  fi
                 pip2 install -U pyinstaller==3.6
                 pyinstaller --onefile vol.py
 
@@ -197,24 +195,17 @@
 
               # Notificar fin de ejecución del script
                 echo ""
-                echo "  El script ha finalizado. Los scripts compilados se han copiado a:"
+                echo -e "${cColorVerde}    El script compilado se ha copiado a:${cFinColor}"
                 echo ""
-                echo "    ~/bin/volatility3"
+                echo -e "${cColorVerde}      ~/bin/volatility2${cFinColor}"
                 echo ""
-                echo "      y"
+                echo -e "${cColorVerde}      El binario debe ser ejecutado con precaución. Es mejor correr el script dentro del entorno virtual:${cFinColor}"
                 echo ""
-                echo "    ~/bin/volatility3shell"
+                echo -e "${cColorVerde}        source ~/repos/python/volatility2/venv/bin/activate${cFinColor}"
                 echo ""
-                echo "  Los binarios deben ser ejecutados con precaución. Es mejor correr los scripts directamente con python, de la siguiente manera:"
+                echo -e "${cColorVerde}          vol.py [Parámetros]${cFinColor}"
                 echo ""
-                echo "    ~/scripts/python/volatility3/vol.py [Argumentos]"
-                echo ""
-                echo ""
-                echo "    O, si se quiere ejecutar dentro del entorno virtual:"
-                echo ""
-                echo "      source ~/PythonVirtualEnvironments/volatility3/bin/activate"
-                echo "      ~/scripts/python/volatility3/vol.py [Argumentos]"
-                echo "      deactivate"
+                echo -e "${cColorVerde}        deactivate${cFinColor}"
                 echo ""
 
             ;;
