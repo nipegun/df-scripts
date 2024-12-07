@@ -46,16 +46,15 @@
 
 # Calcular los posibles perfiles a aplicar al dump
   echo ""
-  echo -e "${cColorVerde}  Calculando que perfiles se le pueden aplicar al dump...${cFinColor}"
+  echo "  Calculando que perfiles se le pueden aplicar al dump..."
   echo ""
   vPerfilesSugeridos=$(vol.py -f "$cRutaAlArchivoDeDump" imageinfo | grep uggested | cut -d':' -f2 | sed 's-,--g' | sed "s- -\n-" | sed 's- -|-g' | sed 's-|- | -g')
   echo ""
   echo "    Se le pueden aplicar los siguientes perfiles:"
   echo "      $vPerfilesSugeridos"
 
-mkdir -p /tmp/volatility2/
-
 # Guardar todos los perfiles en un archivo
+  mkdir -p /tmp/volatility2/
   vol.py --info | grep "A Profile" | cut -d' ' -f1 > /tmp/volatility2/Volatility2-TodosLosPerfiles.txt
 # Guardar los perfiles sugeridos en un archivo
   vol.py -f "$cRutaAlArchivoDeDump" imageinfo | grep uggested | cut -d':' -f2 | sed 's-,--g' | sed "s- -\n-" | sed 's- -|-g' | sed 's/|/\n/g' | sed 's-  --g' | sed 's- --g' | sed '/^$/d' > /tmp/Volatility2-PerfilesSugeridos.txt
@@ -63,14 +62,15 @@ mkdir -p /tmp/volatility2/
 # Guardar todos los plugins en un archivo
   vol.py -h | sed "s-\t-|-g" | grep "^||" | sed 's-|--g' | cut -d' ' -f1 > /tmp/volatility2/Volatility2-Plugins.txt
 
-# Aplicar plugins a los perfiles sugeridos
+# Parsear con todos los perfiles sugeridos
   while IFS= read -r vPerfil; do
     echo ""
-    echo -e "${cColorAzulClaro}  Parseando con el perfil $vPerfil... ${cFinColor}"
+    echo "  Parseando con el perfil $vPerfil..."
     echo ""
-    while IFS= read -r vPlugin; do
-      echo -e "${cColorAzul}    Aplicando el plugin $vPlugin... ${cFinColor}"
-      vol.py -f "$cRutaAlArchivoDeDump" --profile="$vPerfil" "$vPlugin" > "$cCarpetaDondeGuardar"/"$vPerfil"-"$vPlugin".txt 2>/dev/null
-    done < /tmp/volatility2/Volatility2-Plugins.txt
+    # Aplicar todos los plugins
+      while IFS= read -r vPlugin; do
+        echo "    Aplicando el plugin $vPlugin..."
+        vol.py -f "$cRutaAlArchivoDeDump" --profile="$vPerfil" "$vPlugin" > "$cCarpetaDondeGuardar"/"$vPerfil"-"$vPlugin".txt 2>/dev/null
+      done < /tmp/volatility2/Volatility2-Plugins.txt
   done < /tmp/volatility2/Volatility2-PerfilesSugeridos.txt
 
