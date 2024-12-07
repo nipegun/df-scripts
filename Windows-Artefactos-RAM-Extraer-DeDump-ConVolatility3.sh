@@ -80,18 +80,30 @@
     vol -f "$cRutaAlArchivoDeDump" windows.amcache | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.amcache.txt
 
   # windows.bigpools (List big page pools)
+    # Argumentos:
+    #   --tags TAGS - Comma separated list of pool tags to filter pools returned
+    #   --show-free - Show freed regions (otherwise only show allocations in use)
     vol -f "$cRutaAlArchivoDeDump" windows.bigpools | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.bigpools.txt
 
   # windows.callbacks (Lists kernel callbacks and notification routines)
     vol -f "$cRutaAlArchivoDeDump" windows.callbacks | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.cmdline.txt
 
   # windows.cmdline (Lists process command line arguments)
+    # Argumentos:
+    #   --pid [PID ...] - Process IDs to include (all other processes are excluded)
     vol -f "$cRutaAlArchivoDeDump" windows.cmdline | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.cmdline.txt
 
   # windows.cmdscan (Looks for Windows Command History lists)
+    # Argumentos:
+    #   --no-registry                   - Don't search the registry for possible values of CommandHistorySize
+    #   --max-history [MAX_HISTORY ...] - CommandHistorySize values to search for.
     vol -f "$cRutaAlArchivoDeDump" windows.cmdscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.cmdscan.txt
 
   # windows.consoles (Looks for Windows console buffers)
+    # Argumentos:
+    #   --no-registry                   - Don't search the registry for possible values of CommandHistorySize and HistoryBufferMax
+    #   --max-history [MAX_HISTORY ...] - CommandHistorySize values to search for.
+    #   --max-buffers [MAX_BUFFERS ...] - HistoryBufferMax values to search for.
     vol -f "$cRutaAlArchivoDeDump" windows.consoles | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.consoles.txt
 
   # windows.crashinfo (Lists the information from a Windows crash dump)
@@ -104,6 +116,13 @@
     vol -f "$cRutaAlArchivoDeDump" windows.devicetree | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.devicetree.txt
 
   # windows.dlllist (Lists the loaded modules in a particular windows memory image)
+    # Argumentos:
+    #   --pid [PID ...] - Process IDs to include (all other processes are excluded)
+    #   --offset OFFSET - Process offset in the physical address space
+    #   --name NAME     - Specify a regular expression to match dll name(s)
+    #   --base BASE     - Specify a base virtual address in process memory
+    #   --ignore-case   - Specify case insensitivity for the regular expression name matching
+    #   --dump          - Extract listed DLLs
     vol -f "$cRutaAlArchivoDeDump" windows.dlllist | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.dlllist.txt
 
   # windows.driverirp (List IRPs for drivers in a particular windows memory image)
