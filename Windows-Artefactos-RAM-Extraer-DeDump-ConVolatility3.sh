@@ -76,44 +76,68 @@
 
 # Parsear datos
 
+  # Crear carpetas
+    mkdir -p "$cCarpetaDondeGuardar"/tab
+    mkdir -p "$cCarpetaDondeGuardar"/txt
+    mkdir -p "$cCarpetaDondeGuardar"/csv
+    mkdir -p "$cCarpetaDondeGuardar"/json
+
   # windows.amcache (Extract information on executed applications from the AmCache)
-    vol -f "$cRutaAlArchivoDeDump" windows.amcache | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.amcache.txt
+    vol           -f "$cRutaAlArchivoDeDump" windows.amcache | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.amcache.tab
+    vol -r pretty -f "$cRutaAlArchivoDeDump" windows.amcache | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/txt/windows.amcache.txt
+    vol -r csv    -f "$cRutaAlArchivoDeDump" windows.amcache | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/csv/windows.amcache.csv
+    vol -r json   -f "$cRutaAlArchivoDeDump" windows.amcache | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/json/windows.amcache.json
 
   # windows.bigpools (List big page pools)
     # Argumentos:
     #   --tags TAGS - Comma separated list of pool tags to filter pools returned
     #   --show-free - Show freed regions (otherwise only show allocations in use)
-    vol -f "$cRutaAlArchivoDeDump" windows.bigpools | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.bigpools.txt
+    # En uso
+      vol           -f "$cRutaAlArchivoDeDump" windows.bigpools | grep -v "Volatility 3"             >  "$cCarpetaDondeGuardar"/tab/windows.bigpools-enuso.tab
+      vol -r pretty -f "$cRutaAlArchivoDeDump" windows.bigpools | grep -v "Volatility 3"             >  "$cCarpetaDondeGuardar"/txt/windows.bigpools-enuso.txt
+      vol -r csv    -f "$cRutaAlArchivoDeDump" windows.bigpools | grep -v "Volatility 3"             >  "$cCarpetaDondeGuardar"/csv/windows.bigpools-enuso.csv
+      vol -r json   -f "$cRutaAlArchivoDeDump" windows.bigpools | grep -v "Volatility 3"             > "$cCarpetaDondeGuardar"/json/windows.bigpools-enuso.json
+    # En uso y libres
+      vol           -f "$cRutaAlArchivoDeDump" windows.bigpools --show-free | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.bigpools-enusoylibres.tab
+      vol -r pretty -f "$cRutaAlArchivoDeDump" windows.bigpools --show-free | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/txt/windows.bigpools-enusoylibres.txt
+      vol -r csv    -f "$cRutaAlArchivoDeDump" windows.bigpools --show-free | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/csv/windows.bigpools-enusoylibres.csv
+      vol -r json   -f "$cRutaAlArchivoDeDump" windows.bigpools --show-free | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/json/windows.bigpools-enusoylibres.json
 
   # windows.callbacks (Lists kernel callbacks and notification routines)
-    vol -f "$cRutaAlArchivoDeDump" windows.callbacks | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.cmdline.txt
+    vol           -f "$cRutaAlArchivoDeDump" windows.callbacks | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.callbacks.tab
+    vol -r pretty -f "$cRutaAlArchivoDeDump" windows.callbacks | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/txt/windows.callbacks.txt
+    vol -r csv    -f "$cRutaAlArchivoDeDump" windows.callbacks | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/csv/windows.callbacks.txt
+    vol -r json   -f "$cRutaAlArchivoDeDump" windows.callbacks | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/json/windows.callbacks.txt
 
   # windows.cmdline (Lists process command line arguments)
     # Argumentos:
     #   --pid [PID ...] - Process IDs to include (all other processes are excluded)
-    vol -f "$cRutaAlArchivoDeDump" windows.cmdline | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.cmdline.txt
+    vol           -f "$cRutaAlArchivoDeDump" windows.cmdline | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.cmdline.txt
+    vol -r pretty -f "$cRutaAlArchivoDeDump" windows.cmdline | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/txt/windows.cmdline.txt
+    vol -r csv    -f "$cRutaAlArchivoDeDump" windows.cmdline | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/csv/windows.cmdline.txt
+    vol -r json   -f "$cRutaAlArchivoDeDump" windows.cmdline | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/json/windows.cmdline.txt
 
   # windows.cmdscan (Looks for Windows Command History lists)
     # Argumentos:
     #   --no-registry                   - Don't search the registry for possible values of CommandHistorySize
     #   --max-history [MAX_HISTORY ...] - CommandHistorySize values to search for.
-    vol -f "$cRutaAlArchivoDeDump" windows.cmdscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.cmdscan.txt
+    vol -f "$cRutaAlArchivoDeDump" windows.cmdscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.cmdscan.tab
 
   # windows.consoles (Looks for Windows console buffers)
     # Argumentos:
     #   --no-registry                   - Don't search the registry for possible values of CommandHistorySize and HistoryBufferMax
     #   --max-history [MAX_HISTORY ...] - CommandHistorySize values to search for.
     #   --max-buffers [MAX_BUFFERS ...] - HistoryBufferMax values to search for.
-    vol -f "$cRutaAlArchivoDeDump" windows.consoles | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.consoles.txt
+    vol -f "$cRutaAlArchivoDeDump" windows.consoles | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.consoles.tab
 
   # windows.crashinfo (Lists the information from a Windows crash dump)
-    vol -f "$cRutaAlArchivoDeDump" windows.crashinfo | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.crashinfo.txt
+    vol -f "$cRutaAlArchivoDeDump" windows.crashinfo | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.crashinfo.tab
 
   # windows.debugregisters ()
-    vol -f "$cRutaAlArchivoDeDump" windows.debugregisters | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.debugregisters.txt
+    vol -f "$cRutaAlArchivoDeDump" windows.debugregisters | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.debugregisters.tab
 
   # windows.devicetree (Listing tree based on drivers and attached devices in a particular windows memory image)
-    vol -f "$cRutaAlArchivoDeDump" windows.devicetree | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.devicetree.txt
+    vol -f "$cRutaAlArchivoDeDump" windows.devicetree | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.devicetree.tab
 
   # windows.dlllist (Lists the loaded modules in a particular windows memory image)
     # Argumentos:
@@ -123,16 +147,16 @@
     #   --base BASE     - Specify a base virtual address in process memory
     #   --ignore-case   - Specify case insensitivity for the regular expression name matching
     #   --dump          - Extract listed DLLs
-    vol -f "$cRutaAlArchivoDeDump" windows.dlllist | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.dlllist.txt
+    vol -f "$cRutaAlArchivoDeDump" windows.dlllist | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.dlllist.tab
 
   # windows.driverirp (List IRPs for drivers in a particular windows memory image)
-    vol -f "$cRutaAlArchivoDeDump" windows.driverirp | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.driverirp.txt
+    vol -f "$cRutaAlArchivoDeDump" windows.driverirp | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.driverirp.tab
 
   # windows.drivermodule (Determines if any loaded drivers were hidden by a rootkit)
-    vol -f "$cRutaAlArchivoDeDump" windows.drivermodule | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.drivermodule.txt
+    vol -f "$cRutaAlArchivoDeDump" windows.drivermodule | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.drivermodule.tab
 
   # windows.driverscan (Scans for drivers present in a particular windows memory image)
-    vol -f "$cRutaAlArchivoDeDump" windows.driverscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.driverscan.txt
+    vol -f "$cRutaAlArchivoDeDump" windows.driverscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.driverscan.tab
 
   # windows.dumfiles (Dumps cached file contents from Windows memory samples)
     # Argumentos:
@@ -155,98 +179,98 @@
     # Argumentos:
     #   --pid [PID ...] - Filter on specific process IDs
     #   --silent        - Suppress common and non-persistent variables
-    vol -f "$cRutaAlArchivoDeDump" windows.envars | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.envars.txt
+    vol -f "$cRutaAlArchivoDeDump" windows.envars | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.envars.tab
 
   # windows.filescan (Scans for file objects present in a particular windows memory image)
-    vol -f "$cRutaAlArchivoDeDump" windows.filescan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.filescan.txt
+    vol -f "$cRutaAlArchivoDeDump" windows.filescan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.filescan.tab
 
   # windows.getservicesids ()
-    vol -f "$cRutaAlArchivoDeDump" windows.getservicesids | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.getservicesids.txt
+    vol -f "$cRutaAlArchivoDeDump" windows.getservicesids | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.getservicesids.tab
 
   # windows.getsids (Lists process token sids)
     # Argumentos:
     #   --pid [PID ...] - Filter on specific process IDs
-    vol -f "$cRutaAlArchivoDeDump" windows.getsids | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.getsids.txt
+    vol -f "$cRutaAlArchivoDeDump" windows.getsids | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.getsids.tab
 
   # windows.handles (Lists process open handles)
     # Argumentos:
     #   --pid [PID ...] - Process IDs to include (all other processes are excluded)
     #   --offset OFFSET - Process offset in the physical address space
-    vol -f "$cRutaAlArchivoDeDump" windows.handles | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.handles.txt
+    vol -f "$cRutaAlArchivoDeDump" windows.handles | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.handles.tab
 
   # windows.hollowprocesses (Lists hollowed processes)
     # Argumentos:
     #   --pid [PID ...] - Process IDs to include (all other processes are excluded)
-    vol -f "$cRutaAlArchivoDeDump" windows.hollowprocesses | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.hollowprocesses.txt
+    vol -f "$cRutaAlArchivoDeDump" windows.hollowprocesses | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.hollowprocesses.tab
 
   # windows.iat (Extract Import Address Table to list API (functions) used by a program contained in external libraries)
     # Argumentos:
     #   --pid [PID ...] - Process IDs to include (all other processes are excluded)
-    vol -f "$cRutaAlArchivoDeDump" windows.iat | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.iat.txt
+    vol -f "$cRutaAlArchivoDeDump" windows.iat | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.iat.tab
 
   # windows.info (Show OS & kernel details of the memory sample being analyzed)
-    vol -f "$cRutaAlArchivoDeDump" windows.info | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.info.txt
+    vol -f "$cRutaAlArchivoDeDump" windows.info | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.info.tab
 
   # windows.joblinks (Print process job link information)
     # Argumentos:
     #   --physical - Display physical offset instead of virtual
-    vol -f "$cRutaAlArchivoDeDump" windows.joblinks | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.joblinks-offsetvirtual.txt
-    vol --physical -f "$cRutaAlArchivoDeDump" windows.joblinks | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.joblinks-offsetfisico.txt
+    vol -f "$cRutaAlArchivoDeDump" windows.joblinks | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.joblinks-offsetvirtual.tab
+    vol --physical -f "$cRutaAlArchivoDeDump" windows.joblinks | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.joblinks-offsetfisico.tab
 
   # windows.kpcrs (Print KPCR structure for each processor)
-    vol -f "$cRutaAlArchivoDeDump" windows.kpcrs | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.kpcrs.txt
+    vol -f "$cRutaAlArchivoDeDump" windows.kpcrs | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.kpcrs.tab
 
   # windows.ldrmodules (Lists the loaded modules in a particular windows memory image)
     # Argumentos:
     #   --pid [PID ...] - Process IDs to include (all other processes are excluded)
-    vol -f "$cRutaAlArchivoDeDump" windows.ldrmodules | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.ldrmodules.txt
+    vol -f "$cRutaAlArchivoDeDump" windows.ldrmodules | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.ldrmodules.tab
 
   # windows.malfind (Lists process memory ranges that potentially contain injected code)
-    vol -f "$cRutaAlArchivoDeDump" windows.malfind | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.malfind.txt
+    vol -f "$cRutaAlArchivoDeDump" windows.malfind | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.malfind.tab
 
   # windows.mbrscan (Scans for and parses potential Master Boot Records (MBRs))
     # Argumentos:
     #   --full - It analyzes and provides all the information in the partition entry and bootcode hexdump. (It returns a lot of information, so we recommend you render it in CSV.)
-    vol -f "$cRutaAlArchivoDeDump" windows.mbrscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.mbrscan.txt
-    vol --full -f "$cRutaAlArchivoDeDump" windows.mbrscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.mbrscan-full.txt
+    vol -f "$cRutaAlArchivoDeDump" windows.mbrscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.mbrscan.tab
+    vol --full -f "$cRutaAlArchivoDeDump" windows.mbrscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.mbrscan-full.tab
 
   # windows.memmap (Prints the memory map)
     # Argumentos:
     #   --pid PID - Process ID to include (all other processes are excluded)
     #   --dump    - Extract listed memory segments
-    vol -f "$cRutaAlArchivoDeDump" windows.memmap | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.memmap.txt
+    vol -f "$cRutaAlArchivoDeDump" windows.memmap | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.memmap.tab
 
   # windows.modscan (Scans for modules present in a particular windows memory image)
     # Argumentos:
     #   --dump      - Extract listed modules
     #   --base BASE - Extract a single module with BASE address
     #   --name NAME - module name/sub string
-    vol -f "$cRutaAlArchivoDeDump" windows.modscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.modscan.txt
+    vol -f "$cRutaAlArchivoDeDump" windows.modscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.modscan.tab
 
   # windows.modules (Lists the loaded kernel modules)
     # Argumentos:
     #   --dump      - Extract listed modules
     #   --base BASE - Extract a single module with BASE address
     #   --name NAME - module name/sub string
-    vol -f "$cRutaAlArchivoDeDump" windows.modules | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.modules.txt
+    vol -f "$cRutaAlArchivoDeDump" windows.modules | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.modules.tab
 
   # windows.mutantscan (Scans for mutexes present in a particular windows memory image)
-    vol -f "$cRutaAlArchivoDeDump" windows.mutantscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.mutantscan.txt
+    vol -f "$cRutaAlArchivoDeDump" windows.mutantscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.mutantscan.tab
 
   # windows.netscan (Scans for network objects present in a particular windows memory image)
     # Argumentos:
     #   --include-corrupt - Radically eases result validation. This will show partially overwritten data. WARNING: the results are likely to include garbage and/or corrupt data. Be cautious!
-    vol -f "$cRutaAlArchivoDeDump" windows.netscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.netscan.txt
-    vol --include-corrupt -f "$cRutaAlArchivoDeDump" windows.netscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.netscan-corrupt.txt
+    vol -f "$cRutaAlArchivoDeDump" windows.netscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.netscan.tab
+    vol --include-corrupt -f "$cRutaAlArchivoDeDump" windows.netscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.netscan-corrupt.tab
 
   # windows.netstat (Traverses network tracking structures present in a particular windows memory image)
     # Argumentos:
     #   --include-corrupt - Radically eases result validation. This will show partially overwritten data. WARNING: the results are likely to include garbage and/or corrupt data. Be cautious!
-    vol -f "$cRutaAlArchivoDeDump" windows.netstat | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.netstat.txt
-    vol -f "$cRutaAlArchivoDeDump" windows.netstat | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.netstat-corrupt.txt
+    vol -f "$cRutaAlArchivoDeDump" windows.netstat | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.netstat.tab
+    vol -f "$cRutaAlArchivoDeDump" windows.netstat | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.netstat-corrupt.tab
 
   # windows.orphan_kernel_threads (Lists process threads)
-    vol -f "$cRutaAlArchivoDeDump" windows.orphan_kernel_threads | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.orphan_kernel_threads.txt
+    vol -f "$cRutaAlArchivoDeDump" windows.orphan_kernel_threads | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.orphan_kernel_threads.tab
 
   # windows.pe_symbols (Prints symbols in PE files in process and kernel memory)
     # Argumentos:
@@ -254,147 +278,147 @@
     #   --module MODULE             - Module in which to resolve symbols. Use "ntoskrnl.exe" to resolve in the base kernel executable.
     #   --symbols [SYMBOLS ...]     - Symbol name to resolve
     #   --addresses [ADDRESSES ...] - Address of symbol to resolve
-    vol -f "$cRutaAlArchivoDeDump" windows.pe_symbols | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/
+    vol -f "$cRutaAlArchivoDeDump" windows.pe_symbols | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.pe_symbols.tab
 
   # windows.pedump (Allows extracting PE Files from a specific address in a specific address space)
     # Argumentos:
     #   --pid [PID ...] - Process IDs to include (all other processes are excluded)
     #   --base BASE     - Base address to reconstruct a PE file
     #   --kernel-module - Extract from kernel address space.
-    vol -f "$cRutaAlArchivoDeDump" windows.pedump | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/
+    vol -f "$cRutaAlArchivoDeDump" windows.pedump | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.pedump.tab
 
   # windows.poolscanner (A generic pool scanner plugin)
   
-    vol -f "$cRutaAlArchivoDeDump" windows.poolscanner | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.poolscanner.txt
+    vol -f "$cRutaAlArchivoDeDump" windows.poolscanner | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.poolscanner.tab
 
   # windows.privileges (Lists process token privileges)
     # Argumentos:
     #   --pid [PID ...] - Filter on specific process IDs
-    vol -f "$cRutaAlArchivoDeDump" windows.privileges | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.privileges.txt
+    vol -f "$cRutaAlArchivoDeDump" windows.privileges | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.privileges.tab
 
   # windows.processghosting (Lists processes whose DeletePending bit is set or whose FILE_OBJECT is set to 0)
-    vol -f "$cRutaAlArchivoDeDump" windows.processghosting | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.processghosting.txt
+    vol -f "$cRutaAlArchivoDeDump" windows.processghosting | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.processghosting.tab
 
   # windows.pslist (Lists the processes present in a particular windows memory image)
     # Argumentos:
     #   --physical      - Display physical offsets instead of virtual
     #   --pid [PID ...] - Process ID to include (all other processes are excluded)
     #   --dump          - Extract listed processes
-    vol -f "$cRutaAlArchivoDeDump" windows.pslist | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.pslist-virtual.txt
-    vol --physical -f "$cRutaAlArchivoDeDump" windows.pslist | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.pslist-fisico.txt
+    vol -f "$cRutaAlArchivoDeDump" windows.pslist | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.pslist-virtual.tab
+    vol --physical -f "$cRutaAlArchivoDeDump" windows.pslist | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"tab//windows.pslist-fisico.tab
 
   # windows.psscan (Scans for processes present in a particular windows memory image)
     # Argumentos:
     #   --physical      - Display physical offsets instead of virtual
     #   --pid [PID ...] - Process ID to include (all other processes are excluded)
     #   --dump          - Extract listed processes
-    vol -f "$cRutaAlArchivoDeDump" windows.psscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.psscan.txt
+    vol -f "$cRutaAlArchivoDeDump" windows.psscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.psscan.tab
 
   # windows.pstree (Plugin for listing processes in a tree based on their parent process ID)
     # Argumentos:
     #   --physical      - Display physical offsets instead of virtual
     #   --pid [PID ...] - Process ID to include (all other processes are excluded)
-    vol -f "$cRutaAlArchivoDeDump" windows.pstree | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.pstree.txt
+    vol -f "$cRutaAlArchivoDeDump" windows.pstree | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.pstree.tab
 
   # windows.psxview (Lists all processes found via four of the methods described in "The Art of Memory Forensics," which may help identify processes that are trying to hide themselves. I recommend using -r pretty if you are looking at this plugin's output in a terminal)
     # Argumentos:
     # --physical-offsets - List processes with physical offsets instead of virtual offsets.
-    vol -r pretty -f "$cRutaAlArchivoDeDump" windows.psxview | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.psxview-offsetsvirtuales.txt
-    vol -r pretty --physical-offsets -f "$cRutaAlArchivoDeDump" windows.psxview | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.psxview-offsetsfisicos.txt
+    vol -r pretty -f "$cRutaAlArchivoDeDump" windows.psxview | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.psxview-offsetsvirtuales.tab
+    vol -r pretty --physical-offsets -f "$cRutaAlArchivoDeDump" windows.psxview | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.psxview-offsetsfisicos.tab
 
   # windows.registry.certificates (Lists the certificates in the registry's Certificate Store)
     # Argumentos:
     #   --dump - Extract listed certificates
-    vol -f "$cRutaAlArchivoDeDump" windows.registry.certificates | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/
+    vol -f "$cRutaAlArchivoDeDump" windows.registry.certificates | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.registry.certificates.tab
 
   # windows.registry.getcellroutine (Reports registry hives with a hooked GetCellRoutine handler)
-    vol -f "$cRutaAlArchivoDeDump" windows.registry.getcellroutine | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.registry.getcellroutine.txt
+    vol -f "$cRutaAlArchivoDeDump" windows.registry.getcellroutine | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.registry.getcellroutine.tab
 
   # windows.registry.hivelist (Lists the registry hives present in a particular memory image)
     # Argumentos:
     #   --filter FILTER - String to filter hive names returned
     #   --dump          - Extract listed registry hives
-    vol -f "$cRutaAlArchivoDeDump" windows.registry.hivelist | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.registry.hivelist.txt
+    vol -f "$cRutaAlArchivoDeDump" windows.registry.hivelist | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.registry.hivelist.tab
 
   # windows.registry.hivescan (Scans for registry hives present in a particular windows memory image)
-    vol -f "$cRutaAlArchivoDeDump" windows.registry.hivescan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.registry.hivescan.txt
+    vol -f "$cRutaAlArchivoDeDump" windows.registry.hivescan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.registry.hivescan.tab
 
   # windows.registry.printkey (Lists the registry keys under a hive or specific key value)
     # Argumentos:
     #   --offset OFFSET - Hive Offset
     #   --key KEY       - Key to start from
     #   --recurse       - Recurses through keys
-    vol -f "$cRutaAlArchivoDeDump" windows.registry.printkey | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.registry.printkey.txt
+    vol -f "$cRutaAlArchivoDeDump" windows.registry.printkey | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.registry.printkey.tab
 
   # windows.registry.userassist (Print userassist registry keys and information)
     # Argumentos:
     #   --offset OFFSET - Hive Offset
-    vol -f "$cRutaAlArchivoDeDump" windows.registry.userassist | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.registry.userassist.txt
+    vol -f "$cRutaAlArchivoDeDump" windows.registry.userassist | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.registry.userassist.tab
 
   # windows.scheduled_tasks (Decodes scheduled task information from the Windows registry, including information about triggers, actions, run times, and creation times)
-    vol -f "$cRutaAlArchivoDeDump" windows.scheduled_tasks | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.scheduled_tasks.txt # dio error
+    vol -f "$cRutaAlArchivoDeDump" windows.scheduled_tasks | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.scheduled_tasks.tab # dio error
 
   # windows.sessions (lists Processes with Session information extracted from Environmental Variables)
     # Argumentos:
     #   --pid [PID ...] - Process IDs to include (all other processes are excluded)
-    vol -f "$cRutaAlArchivoDeDump" windows.sessions | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.sessions.txt
+    vol -f "$cRutaAlArchivoDeDump" windows.sessions | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.sessions.tab
 
   # windows.shimcachemem (Reads Shimcache entries from the ahcache.sys AVL tree)
-    vol -f "$cRutaAlArchivoDeDump" windows.shimcachemem | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.shimcachemem.txt
+    vol -f "$cRutaAlArchivoDeDump" windows.shimcachemem | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.shimcachemem.tab
 
   # windows.skeleton_key_check (Looks for signs of Skeleton Key malware)
-    vol -f "$cRutaAlArchivoDeDump" windows.skeleton_key_check | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.skeleton_key_check.txt
+    vol -f "$cRutaAlArchivoDeDump" windows.skeleton_key_check | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.skeleton_key_check.tab
 
   # windows.ssdt (Lists the system call table)
-    vol -f "$cRutaAlArchivoDeDump" windows.ssdt | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.ssdt.txt
+    vol -f "$cRutaAlArchivoDeDump" windows.ssdt | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.ssdt.tab
 
   # windows.statistics (Lists statistics about the memory space)
-    vol -f "$cRutaAlArchivoDeDump" windows.statistics | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.statistics.txt
+    vol -f "$cRutaAlArchivoDeDump" windows.statistics | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.statistics.tab
 
   # windows.strings (Reads output from the strings command and indicates which process(es) each string belongs to)
     # Argumentos:
     #   --pid [PID ...]             - Process ID to include (all other processes are excluded)
     #   --strings-file STRINGS_FILE - Strings file
-    vol -f "$cRutaAlArchivoDeDump" windows.strings | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/ # Requiere argumentos [--pid [PID ...]] --strings-file STRINGS_FILE
+    vol -f "$cRutaAlArchivoDeDump" windows.strings | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.strings.tab
 
   # windows.suspicious_threads (Lists suspicious userland process threads)
     # Argumentos:
     #   --pid [PID ...] - Filter on specific process IDs
-    vol -f "$cRutaAlArchivoDeDump" windows.suspicious_threads | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.suspicious_threads.txt
+    vol -f "$cRutaAlArchivoDeDump" windows.suspicious_threads | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.suspicious_threads.tab
 
   # windows.svcdiff (Compares services found through list walking versus scanning to find rootkits)
-    vol -f "$cRutaAlArchivoDeDump" windows.svcdiff | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.svcdiff.txt
+    vol -f "$cRutaAlArchivoDeDump" windows.svcdiff | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.svcdiff.tab
 
   # windows.svclist (Lists services contained with the services.exe doubly linked list of services)
-    vol -f "$cRutaAlArchivoDeDump" windows.svclist | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.svclist.txt
+    vol -f "$cRutaAlArchivoDeDump" windows.svclist | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.svclist.tab
 
   # windows.svcscan (Scans for windows services)
-    vol -f "$cRutaAlArchivoDeDump" windows.svcscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.svcscan.txt
+    vol -f "$cRutaAlArchivoDeDump" windows.svcscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.svcscan.tab
 
   # windows.symlinkscan (Scans for links present in a particular windows memory image)
-    vol -f "$cRutaAlArchivoDeDump" windows.symlinkscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.symlinkscan.txt
+    vol -f "$cRutaAlArchivoDeDump" windows.symlinkscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.symlinkscan.tab
 
   # windows.thrdscan (Scans for windows threads)
-    vol -f "$cRutaAlArchivoDeDump" windows.thrdscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.thrdscan.txt
+    vol -f "$cRutaAlArchivoDeDump" windows.thrdscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.thrdscan.tab
 
   # windows.threads (Lists process threads)
     # Argumentos:
     #   --pid [PID ...] - Filter on specific process IDs
-    vol -f "$cRutaAlArchivoDeDump" windows.threads | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.threads.txt
+    vol -f "$cRutaAlArchivoDeDump" windows.threads | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.threads.tab
 
   # windows.timers (Print kernel timers and associated module DPCs)
-    vol -f "$cRutaAlArchivoDeDump" windows.timers | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.timers.txt
+    vol -f "$cRutaAlArchivoDeDump" windows.timers | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.timers.tab
 
   # windows.truecrypt (TrueCrypt Cached Passphrase Finder)
     # Argumentos:
     #   --min-length MIN-LENGTH - Minimum length of passphrases to identify
-    vol -f "$cRutaAlArchivoDeDump" windows.truecrypt | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.truecrypt # Dio error: truecrypt_module_base = next(
+    vol -f "$cRutaAlArchivoDeDump" windows.truecrypt | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.truecrypt.tab # Dio error: truecrypt_module_base = next(
       
   # windows.unhooked_system_calls (Looks for signs of Skeleton Key malware)
-    vol -f "$cRutaAlArchivoDeDump" windows.unhooked_system_calls | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.unhooked_system_calls.txt
+    vol -f "$cRutaAlArchivoDeDump" windows.unhooked_system_calls | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.unhooked_system_calls.tab
 
   # windows.unloadedmodules (Lists the unloaded kernel modules)
-    vol -f "$cRutaAlArchivoDeDump" windows.unloadedmodules | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.unloadedmodules.txt
+    vol -f "$cRutaAlArchivoDeDump" windows.unloadedmodules | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.unloadedmodules.tab
 
   # windows.vadinfo (Lists process memory ranges)
     # Argumentos:
@@ -402,27 +426,27 @@
     #   --pid [PID ...]   - Filter on specific process IDs
     #   --dump            - Extract listed memory ranges
     #   --maxsize MAXSIZE - Maximum size for dumped VAD sections (all the bigger sections will be ignored)
-    vol -f "$cRutaAlArchivoDeDump" windows.vadinfo | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.vadinfo.txt
+    vol -f "$cRutaAlArchivoDeDump" windows.vadinfo | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.vadinfo.tab
 
   # windows.vadregexscan (Scans all virtual memory areas for tasks using RegEx)
     # Argumentos:
     #   --pid [PID ...]   - Filter on specific process IDs
     #   --pattern PATTERN - RegEx pattern
     #   --maxsize MAXSIZE - Maximum size in bytes for displayed context
-    vol -f "$cRutaAlArchivoDeDump" windows.vadregexscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.vadregexscan.txt
+    vol -f "$cRutaAlArchivoDeDump" windows.vadregexscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.vadregexscan.tab
 
   # windows.vadwalk (Walk the VAD tree)
     # Argumentos:
     #   --pid [PID ...] - Process IDs to include (all other processes are excluded)
-    vol -f "$cRutaAlArchivoDeDump" windows.vadwalk | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.vadwalk.txt
+    vol -f "$cRutaAlArchivoDeDump" windows.vadwalk | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.vadwalk.tab
 
   # windows.verinfo (Lists version information from PE files)
     # Argumenots:
     #   --extensive - Search physical layer for version information
-    vol -f "$cRutaAlArchivoDeDump" windows.verinfo | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.verinfo.txt
+    vol -f "$cRutaAlArchivoDeDump" windows.verinfo | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.verinfo.tab
 
   # windows.virtmap (Lists virtual mapped sections)
-    vol -f "$cRutaAlArchivoDeDump" windows.virtmap | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.virtmap.txt
+    vol -f "$cRutaAlArchivoDeDump" windows.virtmap | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.virtmap.tab
 
   # No windows
 
@@ -432,7 +456,7 @@
       #   --isf ISF             - Specific ISF file to process
       #   --validate            - Validate against schema if possible
       #   --live                - Traverse all files, rather than use the cache
-      vol -f "$cRutaAlArchivoDeDump" isfinfo | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/isfinfo.txt
+      vol -f "$cRutaAlArchivoDeDump" isfinfo | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/isfinfo.tab
 
     # layerwriter (Runs the automagics and writes out the primary layer produced by the stacker)
       # Argumentos:
@@ -448,14 +472,14 @@
       # Argumentos:
       #   --pattern PATTERN - RegEx pattern
       #   --maxsize MAXSIZE - Maximum size in bytes for displayed context
-      vol -f "$cRutaAlArchivoDeDump" regexscan.RegExScan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/regexscan.RegExScan # Requiere argumentos --pattern PATTERN [--maxsize MAXSIZE]
+      vol -f "$cRutaAlArchivoDeDump" regexscan.RegExScan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/regexscan.RegExScan.tab
 
     # timeliner (Runs all relevant plugins that provide time related information and orders the results by time)
       # Argumentos:
       #   --record-config                     - Whether to record the state of all the plugins once complete
       #   --plugin-filter [PLUGIN-FILTER ...] - Only run plugins featuring this substring
       #   --create-bodyfile                   - Whether to create a body file whilst producing results
-      vol -f "$cRutaAlArchivoDeDump" timeliner | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/timeliner.txt
+      vol -f "$cRutaAlArchivoDeDump" timeliner | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/timeliner.tab
 
   # Desactivar el entorno virtual
     deactivate
