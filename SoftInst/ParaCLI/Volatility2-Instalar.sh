@@ -134,6 +134,8 @@
                 sudo pip2 install virtualenv
               # Crear el entorno virtual
                 /usr/local/bin/virtualenv -p /usr/local/bin/python2.7 venv
+              # Crear el mensaje para mostrar cuando se entra al entorno virtual
+                echo 'echo -e "\n  Activando el entorno virtual de Volatility2... \n"' >> ~/repos/python/volatility2/venv/bin/activate
               # Entrar al entorno virtual
                 source ~/repos/python/volatility2/venv/bin/activate
 
