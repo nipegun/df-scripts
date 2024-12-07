@@ -68,8 +68,8 @@ mkdir -p /tmp/volatility2/
     echo -e "${cColorAzulClaro}  Aplicando todos los plugins al perfil $vPerfil... ${cFinColor}"
     echo ""
     while IFS= read -r vPlugin; do
-        echo -e "${cColorAzul}    Aplicando el plugin $vPlugin... ${cFinColor}"
-        vol.py -f "$cRutaAlArchivoDeDump" --profile="$vPerfil" "$vPlugin" > "$cCarpetaDondeGuardar"/"$vPerfil"-"$vPlugin".txt 2>/dev/null
+      echo -e "${cColorAzul}    Aplicando el plugin $vPlugin... ${cFinColor}"
+      vol.py -f "$cRutaAlArchivoDeDump" --profile="$vPerfil" "$vPlugin" > "$cCarpetaDondeGuardar"/"$vPerfil"-"$vPlugin".txt 2>/dev/null
     done < /tmp/volatility2/Volatility2-Plugins.txt
   done < /tmp/volatility2/Volatility2-PerfilesSugeridos.txt
 
