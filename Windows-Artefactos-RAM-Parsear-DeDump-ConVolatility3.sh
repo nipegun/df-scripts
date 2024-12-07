@@ -84,7 +84,7 @@
 
   # windows.amcache (Extract information on executed applications from the AmCache)
     echo ""
-    echo "    Aplicando plugin windows.amcache..."
+    echo "    Aplicando el plugin windows.amcache..."
     echo ""
     vol           -f "$cRutaAlArchivoDeDump" windows.amcache | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.amcache.tab
     vol -r pretty -f "$cRutaAlArchivoDeDump" windows.amcache | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/txt/windows.amcache.txt
@@ -96,7 +96,7 @@
     #   --tags TAGS - Comma separated list of pool tags to filter pools returned
     #   --show-free - Show freed regions (otherwise only show allocations in use)
     echo ""
-    echo "    Aplicando plugin windows.bigpools..."
+    echo "    Aplicando el plugin windows.bigpools..."
     echo ""
     # En uso
       vol           -f "$cRutaAlArchivoDeDump" windows.bigpools | grep -v "Volatility 3"             >  "$cCarpetaDondeGuardar"/tab/windows.bigpools-enuso.tab
@@ -111,7 +111,7 @@
 
   # windows.callbacks (Lists kernel callbacks and notification routines)
     echo ""
-    echo "    Aplicando plugin windows.callbacks..."
+    echo "    Aplicando el plugin windows.callbacks..."
     echo ""
     vol           -f "$cRutaAlArchivoDeDump" windows.callbacks | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.callbacks.tab
     vol -r pretty -f "$cRutaAlArchivoDeDump" windows.callbacks | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/txt/windows.callbacks.txt
@@ -122,7 +122,7 @@
     # Argumentos:
     #   --pid [PID ...] - Process IDs to include (all other processes are excluded)
     echo ""
-    echo "    Aplicando plugin windows.cmdline..."
+    echo "    Aplicando el plugin windows.cmdline..."
     echo ""
     vol           -f "$cRutaAlArchivoDeDump" windows.cmdline | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.cmdline.tab
     vol -r pretty -f "$cRutaAlArchivoDeDump" windows.cmdline | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/txt/windows.cmdline.txt
@@ -134,7 +134,7 @@
     #   --no-registry                   - Don't search the registry for possible values of CommandHistorySize
     #   --max-history [MAX_HISTORY ...] - CommandHistorySize values to search for.
     echo ""
-    echo "    Aplicando plugin windows.cmdscan..."
+    echo "    Aplicando el plugin windows.cmdscan..."
     echo ""
     vol           -f "$cRutaAlArchivoDeDump" windows.cmdscan | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.cmdscan.tab
     vol -r pretty -f "$cRutaAlArchivoDeDump" windows.cmdscan | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/txt/windows.cmdscan.txt
@@ -147,7 +147,7 @@
     #   --max-history [MAX_HISTORY ...] - CommandHistorySize values to search for.
     #   --max-buffers [MAX_BUFFERS ...] - HistoryBufferMax values to search for.
     echo ""
-    echo "    Aplicando plugin windows.consoles..."
+    echo "    Aplicando el plugin windows.consoles..."
     echo ""
     vol           -f "$cRutaAlArchivoDeDump" windows.consoles | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.consoles.tab
     vol -r pretty -f "$cRutaAlArchivoDeDump" windows.consoles | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/txt/windows.consoles.txt
@@ -156,7 +156,7 @@
 
   # windows.crashinfo (Lists the information from a Windows crash dump)
     echo ""
-    echo "    Aplicando plugin windows.crashinfo..."
+    echo "    Aplicando el plugin windows.crashinfo..."
     echo ""
     vol           -f "$cRutaAlArchivoDeDump" windows.crashinfo | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.crashinfo.tab
     vol -r pretty -f "$cRutaAlArchivoDeDump" windows.crashinfo | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/txt/windows.crashinfo.txt
@@ -165,7 +165,7 @@
 
   # windows.debugregisters ()
     echo ""
-    echo "    Aplicando plugin windows.debugregisters..."
+    echo "    Aplicando el plugin windows.debugregisters..."
     echo ""
     vol           -f "$cRutaAlArchivoDeDump" windows.debugregisters | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.debugregisters.tab
     vol -r pretty -f "$cRutaAlArchivoDeDump" windows.debugregisters | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/txt/windows.debugregisters.txt
@@ -174,7 +174,7 @@
 
   # windows.devicetree (Listing tree based on drivers and attached devices in a particular windows memory image)
     echo ""
-    echo "    Aplicando plugin windows.devicetree..."
+    echo "    Aplicando el plugin windows.devicetree..."
     echo ""
     vol           -f "$cRutaAlArchivoDeDump" windows.devicetree | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.devicetree.tab
     vol -r pretty -f "$cRutaAlArchivoDeDump" windows.devicetree | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/txt/windows.devicetree.txt
@@ -190,7 +190,7 @@
     #   --ignore-case   - Specify case insensitivity for the regular expression name matching
     #   --dump          - Extract listed DLLs
     echo ""
-    echo "    Aplicando plugin windows.dlllist..."
+    echo "    Aplicando el plugin windows.dlllist..."
     echo ""
     vol           -f "$cRutaAlArchivoDeDump" windows.dlllist | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.dlllist.tab
     vol -r pretty -f "$cRutaAlArchivoDeDump" windows.dlllist | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/txt/windows.dlllist.txt
@@ -199,7 +199,7 @@
 
   # windows.driverirp (List IRPs for drivers in a particular windows memory image)
     echo ""
-    echo "    Aplicando plugin windows.driverirp..."
+    echo "    Aplicando el plugin windows.driverirp..."
     echo ""
     vol           -f "$cRutaAlArchivoDeDump" windows.driverirp | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.driverirp.tab
     vol -r pretty -f "$cRutaAlArchivoDeDump" windows.driverirp | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/txt/windows.driverirp.txt
@@ -208,7 +208,7 @@
 
   # windows.drivermodule (Determines if any loaded drivers were hidden by a rootkit)
     echo ""
-    echo "    Aplicando plugin windows.drivermodule..."
+    echo "    Aplicando el plugin windows.drivermodule..."
     echo ""
     vol           -f "$cRutaAlArchivoDeDump" windows.drivermodule | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.drivermodule.tab
     vol -r pretty -f "$cRutaAlArchivoDeDump" windows.drivermodule | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/txt/windows.drivermodule.txt
@@ -217,7 +217,7 @@
 
   # windows.driverscan (Scans for drivers present in a particular windows memory image)
     echo ""
-    echo "    Aplicando plugin windows.driverscan..."
+    echo "    Aplicando el plugin windows.driverscan..."
     echo ""
     vol           -f "$cRutaAlArchivoDeDump" windows.driverscan | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.driverscan.tab
     vol -r pretty -f "$cRutaAlArchivoDeDump" windows.driverscan | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/txt/windows.driverscan.txt
@@ -232,7 +232,7 @@
     #  --filter FILTER     - Dump files matching regular expression FILTER
     #  --ignore-case       - Ignore case in filter match
     echo ""
-    echo "    Aplicando plugin windows.dumfiles..."
+    echo "    Aplicando el plugin windows.dumfiles..."
     echo ""
     mkdir -p ~/ArtefactosRAM/Archivos
     cd ~/ArtefactosRAM/Archivos/
@@ -249,7 +249,7 @@
     #   --pid [PID ...] - Filter on specific process IDs
     #   --silent        - Suppress common and non-persistent variables
     echo ""
-    echo "    Aplicando plugin windows.envars..."
+    echo "    Aplicando el plugin windows.envars..."
     echo ""
     vol           -f "$cRutaAlArchivoDeDump" windows.envars | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.envars.tab
     vol -r pretty -f "$cRutaAlArchivoDeDump" windows.envars | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/txt/windows.envars.txt
@@ -258,7 +258,7 @@
 
   # windows.filescan (Scans for file objects present in a particular windows memory image)
     echo ""
-    echo "    Aplicando plugin windows.filescan..."
+    echo "    Aplicando el plugin windows.filescan..."
     echo ""
     vol           -f "$cRutaAlArchivoDeDump" windows.filescan | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.filescan.tab
     vol -r pretty -f "$cRutaAlArchivoDeDump" windows.filescan | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/txt/windows.filescan.txt
@@ -267,7 +267,7 @@
 
   # windows.getservicesids (Lists process token sids)
     echo ""
-    echo "    Aplicando plugin windows.getservicesids..."
+    echo "    Aplicando el plugin windows.getservicesids..."
     echo ""
     vol           -f "$cRutaAlArchivoDeDump" windows.getservicesids | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.getservicesids.tab
     vol -r pretty -f "$cRutaAlArchivoDeDump" windows.getservicesids | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/txt/windows.getservicesids.txt
@@ -278,7 +278,7 @@
     # Argumentos:
     #   --pid [PID ...] - Filter on specific process IDs
     echo ""
-    echo "    Aplicando plugin windows.getsids..."
+    echo "    Aplicando el plugin windows.getsids..."
     echo ""
     vol           -f "$cRutaAlArchivoDeDump" windows.getsids | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.getsids.tab
     vol -r pretty -f "$cRutaAlArchivoDeDump" windows.getsids | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/txt/windows.getsids.txt
@@ -290,7 +290,7 @@
     #   --pid [PID ...] - Process IDs to include (all other processes are excluded)
     #   --offset OFFSET - Process offset in the physical address space
     echo ""
-    echo "    Aplicando plugin windows.handles..."
+    echo "    Aplicando el plugin windows.handles..."
     echo ""
     vol           -f "$cRutaAlArchivoDeDump" windows.handles | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.handles.tab
     vol -r pretty -f "$cRutaAlArchivoDeDump" windows.handles | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/txt/windows.handles.txt
@@ -301,7 +301,7 @@
     # Argumentos:
     #   --pid [PID ...] - Process IDs to include (all other processes are excluded)
     echo ""
-    echo "    Aplicando plugin windows.hollowprocesses..."
+    echo "    Aplicando el plugin windows.hollowprocesses..."
     echo ""
     vol           -f "$cRutaAlArchivoDeDump" windows.hollowprocesses | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.hollowprocesses.tab
     vol -r pretty -f "$cRutaAlArchivoDeDump" windows.hollowprocesses | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/txt/windows.hollowprocesses.txt
@@ -312,7 +312,7 @@
     # Argumentos:
     #   --pid [PID ...] - Process IDs to include (all other processes are excluded)
     echo ""
-    echo "    Aplicando plugin windows.iat..."
+    echo "    Aplicando el plugin windows.iat..."
     echo ""
     vol           -f "$cRutaAlArchivoDeDump" windows.iat | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.iat.tab
     vol -r pretty -f "$cRutaAlArchivoDeDump" windows.iat | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/txt/windows.iat.txt
@@ -321,7 +321,7 @@
 
   # windows.info (Show OS & kernel details of the memory sample being analyzed)
     echo ""
-    echo "    Aplicando plugin windows.info..."
+    echo "    Aplicando el plugin windows.info..."
     echo ""
     vol           -f "$cRutaAlArchivoDeDump" windows.info | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.info.tab
     vol -r pretty -f "$cRutaAlArchivoDeDump" windows.info | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/txt/windows.info.txt
@@ -332,7 +332,7 @@
     # Argumentos:
     #   --physical - Display physical offset instead of virtual
     echo ""
-    echo "    Aplicando plugin windows.joblinks..."
+    echo "    Aplicando el plugin windows.joblinks..."
     echo ""
     # Offset virtual
       vol           -f "$cRutaAlArchivoDeDump" windows.joblinks | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.joblinks-offsetvirtual.tab
@@ -347,7 +347,7 @@
 
   # windows.kpcrs (Print KPCR structure for each processor)
     echo ""
-    echo "    Aplicando plugin windows.kpcrs..."
+    echo "    Aplicando el plugin windows.kpcrs..."
     echo ""
     vol           -f "$cRutaAlArchivoDeDump" windows.kpcrs | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.kpcrs.tab
     vol -r pretty -f "$cRutaAlArchivoDeDump" windows.kpcrs | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/txt/windows.kpcrs.txt
@@ -358,7 +358,7 @@
     # Argumentos:
     #   --pid [PID ...] - Process IDs to include (all other processes are excluded)
     echo ""
-    echo "    Aplicando plugin windows.ldrmodules..."
+    echo "    Aplicando el plugin windows.ldrmodules..."
     echo ""
     vol           -f "$cRutaAlArchivoDeDump" windows.ldrmodules | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.ldrmodules.tab
     vol -r pretty -f "$cRutaAlArchivoDeDump" windows.ldrmodules | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/txt/windows.ldrmodules.txt
@@ -367,7 +367,7 @@
 
   # windows.malfind (Lists process memory ranges that potentially contain injected code)
     echo ""
-    echo "    Aplicando plugin windows.malfind..."
+    echo "    Aplicando el plugin windows.malfind..."
     echo ""
     vol           -f "$cRutaAlArchivoDeDump" windows.malfind | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.malfind.tab
     vol -r pretty -f "$cRutaAlArchivoDeDump" windows.malfind | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/txt/windows.malfind.txt
@@ -378,7 +378,7 @@
     # Argumentos:
     #   --full - It analyzes and provides all the information in the partition entry and bootcode hexdump. (It returns a lot of information, so we recommend you render it in CSV.)
     echo ""
-    echo "    Aplicando plugin windows.mbrscan..."
+    echo "    Aplicando el plugin windows.mbrscan..."
     echo ""
     # Simple
       vol           -f "$cRutaAlArchivoDeDump" windows.mbrscan | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.mbrscan.tab
@@ -396,7 +396,7 @@
     #   --pid PID - Process ID to include (all other processes are excluded)
     #   --dump    - Extract listed memory segments
     echo ""
-    echo "    Aplicando plugin windows.memmap..."
+    echo "    Aplicando el plugin windows.memmap..."
     echo ""
     vol           -f "$cRutaAlArchivoDeDump" windows.memmap | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.memmap.tab
     vol -r pretty -f "$cRutaAlArchivoDeDump" windows.memmap | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/txt/windows.memmap.txt
@@ -409,7 +409,7 @@
     #   --base BASE - Extract a single module with BASE address
     #   --name NAME - module name/sub string
     echo ""
-    echo "    Aplicando plugin windows.modscan..."
+    echo "    Aplicando el plugin windows.modscan..."
     echo ""
     vol           -f "$cRutaAlArchivoDeDump" windows.modscan | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.modscan.tab
     vol -r pretty -f "$cRutaAlArchivoDeDump" windows.modscan | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/txt/windows.modscan.txt
@@ -422,7 +422,7 @@
     #   --base BASE - Extract a single module with BASE address
     #   --name NAME - module name/sub string
     echo ""
-    echo "    Aplicando plugin windows.modules..."
+    echo "    Aplicando el plugin windows.modules..."
     echo ""
     vol           -f "$cRutaAlArchivoDeDump" windows.modules | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.modules.tab
     vol -r pretty -f "$cRutaAlArchivoDeDump" windows.modules | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/txt/windows.modules.txt
@@ -431,7 +431,7 @@
 
   # windows.mutantscan (Scans for mutexes present in a particular windows memory image)
     echo ""
-    echo "    Aplicando plugin windows.mutantscan..."
+    echo "    Aplicando el plugin windows.mutantscan..."
     echo ""
     vol           -f "$cRutaAlArchivoDeDump" windows.mutantscan | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.mutantscan.tab
     vol -r pretty -f "$cRutaAlArchivoDeDump" windows.mutantscan | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/txt/windows.mutantscan.txt
@@ -442,7 +442,7 @@
     # Argumentos:
     #   --include-corrupt - Radically eases result validation. This will show partially overwritten data. WARNING: the results are likely to include garbage and/or corrupt data. Be cautious!
     echo ""
-    echo "    Aplicando plugin windows.netscan..."
+    echo "    Aplicando el plugin windows.netscan..."
     echo ""
     # Sin corruptos
       vol           -f "$cRutaAlArchivoDeDump" windows.netscan | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.netscan.tab
@@ -459,7 +459,7 @@
     # Argumentos:
     #   --include-corrupt - Radically eases result validation. This will show partially overwritten data. WARNING: the results are likely to include garbage and/or corrupt data. Be cautious!
     echo ""
-    echo "    Aplicando plugin windows.netstat..."
+    echo "    Aplicando el plugin windows.netstat..."
     echo ""
     # Sin corruptos
       vol           -f "$cRutaAlArchivoDeDump" windows.netstat | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.netstat.tab
@@ -474,7 +474,7 @@
 
   # windows.orphan_kernel_threads (Lists process threads)
     echo ""
-    echo "    Aplicando plugin windows.orphan_kernel_threads..."
+    echo "    Aplicando el plugin windows.orphan_kernel_threads..."
     echo ""
     vol           -f "$cRutaAlArchivoDeDump" windows.orphan_kernel_threads | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.orphan_kernel_threads.tab
     vol -r pretty -f "$cRutaAlArchivoDeDump" windows.orphan_kernel_threads | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/txt/windows.orphan_kernel_threads.txt
@@ -488,7 +488,7 @@
     #   --symbols [SYMBOLS ...]     - Symbol name to resolve
     #   --addresses [ADDRESSES ...] - Address of symbol to resolve
     echo ""
-    echo "    Aplicando plugin windows.pe_symbols..."
+    echo "    Aplicando el plugin windows.pe_symbols..."
     echo ""
     vol           -f "$cRutaAlArchivoDeDump" windows.pe_symbols | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.pe_symbols.tab
     vol -r pretty -f "$cRutaAlArchivoDeDump" windows.pe_symbols | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/txt/windows.pe_symbols.txt
@@ -501,7 +501,7 @@
     #   --base BASE     - Base address to reconstruct a PE file
     #   --kernel-module - Extract from kernel address space.
     echo ""
-    echo "    Aplicando plugin windows.pedump..."
+    echo "    Aplicando el plugin windows.pedump..."
     echo ""
     vol           -f "$cRutaAlArchivoDeDump" windows.pedump | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.pedump.tab
     vol -r pretty -f "$cRutaAlArchivoDeDump" windows.pedump | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/txt/windows.pedump.txt
@@ -510,7 +510,7 @@
 
   # windows.poolscanner (A generic pool scanner plugin)
     echo ""
-    echo "    Aplicando plugin windows.poolscanner..."
+    echo "    Aplicando el plugin windows.poolscanner..."
     echo ""
     vol           -f "$cRutaAlArchivoDeDump" windows.poolscanner | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.poolscanner.tab
     vol -r pretty -f "$cRutaAlArchivoDeDump" windows.poolscanner | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/txt/windows.poolscanner.txt
@@ -521,7 +521,7 @@
     # Argumentos:
     #   --pid [PID ...] - Filter on specific process IDs
     echo ""
-    echo "    Aplicando plugin windows.privileges..."
+    echo "    Aplicando el plugin windows.privileges..."
     echo ""
     vol           -f "$cRutaAlArchivoDeDump" windows.privileges | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.privileges.tab
     vol -r pretty -f "$cRutaAlArchivoDeDump" windows.privileges | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/txt/windows.privileges.txt
@@ -530,7 +530,7 @@
 
   # windows.processghosting (Lists processes whose DeletePending bit is set or whose FILE_OBJECT is set to 0)
     echo ""
-    echo "    Aplicando plugin windows.processghosting..."
+    echo "    Aplicando el plugin windows.processghosting..."
     echo ""
     vol           -f "$cRutaAlArchivoDeDump" windows.processghosting | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.processghosting.tab
     vol -r pretty -f "$cRutaAlArchivoDeDump" windows.processghosting | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/txt/windows.processghosting.txt
@@ -543,7 +543,7 @@
     #   --pid [PID ...] - Process ID to include (all other processes are excluded)
     #   --dump          - Extract listed processes
     echo ""
-    echo "    Aplicando plugin windows.pslist..."
+    echo "    Aplicando el plugin windows.pslist..."
     echo ""
     # Offset virtual
       vol           -f "$cRutaAlArchivoDeDump" windows.pslist | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.pslist-offsetvirtual.tab
@@ -562,7 +562,7 @@
     #   --pid [PID ...] - Process ID to include (all other processes are excluded)
     #   --dump          - Extract listed processes
     echo ""
-    echo "    Aplicando plugin windows.psscan..."
+    echo "    Aplicando el plugin windows.psscan..."
     echo ""
     # Offset virtual
       vol           -f "$cRutaAlArchivoDeDump" windows.psscan | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.psscan-offsetvirtual.tab
@@ -580,7 +580,7 @@
     #   --physical      - Display physical offsets instead of virtual
     #   --pid [PID ...] - Process ID to include (all other processes are excluded)
     echo ""
-    echo "    Aplicando plugin windows.pstree..."
+    echo "    Aplicando el plugin windows.pstree..."
     echo ""
     # Offset virtual
       vol           -f "$cRutaAlArchivoDeDump" windows.pstree | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.pstree-offsetvirtual.tab
@@ -597,7 +597,7 @@
     # Argumentos:
     # --physical-offsets - List processes with physical offsets instead of virtual offsets.
     echo ""
-    echo "    Aplicando plugin windows.psxview..."
+    echo "    Aplicando el plugin windows.psxview..."
     echo ""
     # Offsets virtuales
       vol           -f "$cRutaAlArchivoDeDump" windows.psxview | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.psxview-offsetsvirtuales.tab
@@ -614,7 +614,7 @@
     # Argumentos:
     #   --dump - Extract listed certificates
     echo ""
-    echo "    Aplicando plugin windows.registry.certificates..."
+    echo "    Aplicando el plugin windows.registry.certificates..."
     echo ""
     vol           -f "$cRutaAlArchivoDeDump" windows.registry.certificates | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.registry.certificates.tab
     vol -r pretty -f "$cRutaAlArchivoDeDump" windows.registry.certificates | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/txt/windows.registry.certificates.txt
@@ -623,7 +623,7 @@
 
   # windows.registry.getcellroutine (Reports registry hives with a hooked GetCellRoutine handler)
     echo ""
-    echo "    Aplicando plugin windows.registry.getcellroutine..."
+    echo "    Aplicando el plugin windows.registry.getcellroutine..."
     echo ""
     vol           -f "$cRutaAlArchivoDeDump" windows.registry.getcellroutine | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.registry.getcellroutine.tab
     vol -r pretty -f "$cRutaAlArchivoDeDump" windows.registry.getcellroutine | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/txt/windows.registry.getcellroutine.txt
@@ -635,7 +635,7 @@
     #   --filter FILTER - String to filter hive names returned
     #   --dump          - Extract listed registry hives
     echo ""
-    echo "    Aplicando plugin windows.registry.hivelist..."
+    echo "    Aplicando el plugin windows.registry.hivelist..."
     echo ""
     vol           -f "$cRutaAlArchivoDeDump" windows.registry.hivelist | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.registry.hivelist.tab
     vol -r pretty -f "$cRutaAlArchivoDeDump" windows.registry.hivelist | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/txt/windows.registry.hivelist.txt
@@ -644,7 +644,7 @@
 
   # windows.registry.hivescan (Scans for registry hives present in a particular windows memory image)
     echo ""
-    echo "    Aplicando plugin windows.registry.hivescan..."
+    echo "    Aplicando el plugin windows.registry.hivescan..."
     echo ""
     vol           -f "$cRutaAlArchivoDeDump" windows.registry.hivescan | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.registry.hivescan.tab
     vol -r pretty -f "$cRutaAlArchivoDeDump" windows.registry.hivescan | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/txt/windows.registry.hivescan.txt
@@ -657,7 +657,7 @@
     #   --key KEY       - Key to start from
     #   --recurse       - Recurses through keys
     echo ""
-    echo "    Aplicando plugin windows.registry.printkey..."
+    echo "    Aplicando el plugin windows.registry.printkey..."
     echo ""
     vol           -f "$cRutaAlArchivoDeDump" windows.registry.printkey | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.registry.printkey.tab
     vol -r pretty -f "$cRutaAlArchivoDeDump" windows.registry.printkey | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/txt/windows.registry.printkey.txt
@@ -668,7 +668,7 @@
     # Argumentos:
     #   --offset OFFSET - Hive Offset
     echo ""
-    echo "    Aplicando plugin windows.registry.userassist..."
+    echo "    Aplicando el plugin windows.registry.userassist..."
     echo ""
     vol           -f "$cRutaAlArchivoDeDump" windows.registry.userassist | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.registry.userassist.tab
     vol -r pretty -f "$cRutaAlArchivoDeDump" windows.registry.userassist | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/txt/windows.registry.userassist.txt
@@ -677,7 +677,7 @@
 
   # windows.scheduled_tasks (Decodes scheduled task information from the Windows registry, including information about triggers, actions, run times, and creation times)
     echo ""
-    echo "    Aplicando plugin windows.scheduled_tasks..."
+    echo "    Aplicando el plugin windows.scheduled_tasks..."
     echo ""
     vol           -f "$cRutaAlArchivoDeDump" windows.scheduled_tasks | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.scheduled_tasks.tab
     vol -r pretty -f "$cRutaAlArchivoDeDump" windows.scheduled_tasks | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/txt/windows.scheduled_tasks.txt
@@ -688,7 +688,7 @@
     # Argumentos:
     #   --pid [PID ...] - Process IDs to include (all other processes are excluded)
     echo ""
-    echo "    Aplicando plugin windows.sessions..."
+    echo "    Aplicando el plugin windows.sessions..."
     echo ""
     vol           -f "$cRutaAlArchivoDeDump" windows.sessions | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.sessions.tab
     vol -r pretty -f "$cRutaAlArchivoDeDump" windows.sessions | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/txt/windows.sessions.txt
@@ -697,7 +697,7 @@
 
   # windows.shimcachemem (Reads Shimcache entries from the ahcache.sys AVL tree)
     echo ""
-    echo "    Aplicando plugin windows.shimcachemem..."
+    echo "    Aplicando el plugin windows.shimcachemem..."
     echo ""
     vol           -f "$cRutaAlArchivoDeDump" windows.shimcachemem | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.shimcachemem.tab
     vol -r pretty -f "$cRutaAlArchivoDeDump" windows.shimcachemem | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/txt/windows.shimcachemem.txt
@@ -706,7 +706,7 @@
 
   # windows.skeleton_key_check (Looks for signs of Skeleton Key malware)
     echo ""
-    echo "    Aplicando plugin windows.skeleton_key_check..."
+    echo "    Aplicando el plugin windows.skeleton_key_check..."
     echo ""
     vol           -f "$cRutaAlArchivoDeDump" windows.skeleton_key_check | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.skeleton_key_check.tab
     vol -r pretty -f "$cRutaAlArchivoDeDump" windows.skeleton_key_check | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/txt/windows.skeleton_key_check.txt
@@ -715,7 +715,7 @@
 
   # windows.ssdt (Lists the system call table)
     echo ""
-    echo "    Aplicando plugin windows.ssdt..."
+    echo "    Aplicando el plugin windows.ssdt..."
     echo ""
     vol           -f "$cRutaAlArchivoDeDump" windows.ssdt | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.ssdt.tab
     vol -r pretty -f "$cRutaAlArchivoDeDump" windows.ssdt | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/txt/windows.ssdt.txt
@@ -724,7 +724,7 @@
 
   # windows.statistics (Lists statistics about the memory space)
     echo ""
-    echo "    Aplicando plugin windows.statistics..."
+    echo "    Aplicando el plugin windows.statistics..."
     echo ""
     vol           -f "$cRutaAlArchivoDeDump" windows.statistics | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.statistics.tab
     vol -r pretty -f "$cRutaAlArchivoDeDump" windows.statistics | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/txt/windows.statistics.txt
@@ -736,7 +736,7 @@
     #   --pid [PID ...]             - Process ID to include (all other processes are excluded)
     #   --strings-file STRINGS_FILE - Strings file
     echo ""
-    echo "    Aplicando plugin windows.strings..."
+    echo "    Aplicando el plugin windows.strings..."
     echo ""
     vol           -f "$cRutaAlArchivoDeDump" windows.strings | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.strings.tab
     vol -r pretty -f "$cRutaAlArchivoDeDump" windows.strings | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/txt/windows.strings.txt
@@ -747,7 +747,7 @@
     # Argumentos:
     #   --pid [PID ...] - Filter on specific process IDs
     echo ""
-    echo "    Aplicando plugin windows.suspicious_threads..."
+    echo "    Aplicando el plugin windows.suspicious_threads..."
     echo ""
     vol           -f "$cRutaAlArchivoDeDump" windows.suspicious_threads | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.suspicious_threads.tab
     vol -r pretty -f "$cRutaAlArchivoDeDump" windows.suspicious_threads | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/txt/windows.suspicious_threads.txt
@@ -756,7 +756,7 @@
 
   # windows.svcdiff (Compares services found through list walking versus scanning to find rootkits)
     echo ""
-    echo "    Aplicando plugin windows.svcdiff..."
+    echo "    Aplicando el plugin windows.svcdiff..."
     echo ""
     vol           -f "$cRutaAlArchivoDeDump" windows.svcdiff | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.svcdiff.tab
     vol -r pretty -f "$cRutaAlArchivoDeDump" windows.svcdiff | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/txt/windows.svcdiff.txt
@@ -765,7 +765,7 @@
 
   # windows.svclist (Lists services contained with the services.exe doubly linked list of services)
     echo ""
-    echo "    Aplicando plugin windows.svclist..."
+    echo "    Aplicando el plugin windows.svclist..."
     echo ""
     vol           -f "$cRutaAlArchivoDeDump" windows.svclist | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.svclist.tab
     vol -r pretty -f "$cRutaAlArchivoDeDump" windows.svclist | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/txt/windows.svclist.txt
@@ -774,7 +774,7 @@
 
   # windows.svcscan (Scans for windows services)
     echo ""
-    echo "    Aplicando plugin windows.svcscan..."
+    echo "    Aplicando el plugin windows.svcscan..."
     echo ""
     vol           -f "$cRutaAlArchivoDeDump" windows.svcscan | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.svcscan.tab
     vol -r pretty -f "$cRutaAlArchivoDeDump" windows.svcscan | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/txt/windows.svcscan.txt
@@ -783,7 +783,7 @@
 
   # windows.symlinkscan (Scans for links present in a particular windows memory image)
     echo ""
-    echo "    Aplicando plugin windows.symlinkscan..."
+    echo "    Aplicando el plugin windows.symlinkscan..."
     echo ""
     vol           -f "$cRutaAlArchivoDeDump" windows.symlinkscan | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.symlinkscan.tab
     vol -r pretty -f "$cRutaAlArchivoDeDump" windows.symlinkscan | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/txt/windows.symlinkscan.txt
@@ -792,7 +792,7 @@
 
   # windows.thrdscan (Scans for windows threads)
     echo ""
-    echo "    Aplicando plugin windows.thrdscan..."
+    echo "    Aplicando el plugin windows.thrdscan..."
     echo ""
     vol           -f "$cRutaAlArchivoDeDump" windows.thrdscan | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.thrdscan.tab
     vol -r pretty -f "$cRutaAlArchivoDeDump" windows.thrdscan | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/txt/windows.thrdscan.txt
@@ -803,7 +803,7 @@
     # Argumentos:
     #   --pid [PID ...] - Filter on specific process IDs
     echo ""
-    echo "    Aplicando plugin windows.threads..."
+    echo "    Aplicando el plugin windows.threads..."
     echo ""
     vol           -f "$cRutaAlArchivoDeDump" windows.threads | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.threads.tab
     vol -r pretty -f "$cRutaAlArchivoDeDump" windows.threads | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/txt/windows.threads.txt
@@ -812,7 +812,7 @@
 
   # windows.timers (Print kernel timers and associated module DPCs)
     echo ""
-    echo "    Aplicando plugin windows.timers..."
+    echo "    Aplicando el plugin windows.timers..."
     echo ""
     vol           -f "$cRutaAlArchivoDeDump" windows.timers | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.timers.tab
     vol -r pretty -f "$cRutaAlArchivoDeDump" windows.timers | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/txt/windows.timers.txt
@@ -823,7 +823,7 @@
     # Argumentos:
     #   --min-length MIN-LENGTH - Minimum length of passphrases to identify
     echo ""
-    echo "    Aplicando plugin windows.truecrypt..."
+    echo "    Aplicando el plugin windows.truecrypt..."
     echo ""
     vol           -f "$cRutaAlArchivoDeDump" windows.truecrypt | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.truecrypt.tab
     vol -r pretty -f "$cRutaAlArchivoDeDump" windows.truecrypt | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/txt/windows.truecrypt.txt
@@ -832,7 +832,7 @@
 
   # windows.unhooked_system_calls (Looks for signs of Skeleton Key malware)
     echo ""
-    echo "    Aplicando plugin windows.unhooked_system_calls..."
+    echo "    Aplicando el plugin windows.unhooked_system_calls..."
     echo ""
     vol           -f "$cRutaAlArchivoDeDump" windows.unhooked_system_calls | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.unhooked_system_calls.tab
     vol -r pretty -f "$cRutaAlArchivoDeDump" windows.unhooked_system_calls | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/txt/windows.unhooked_system_calls.txt
@@ -841,7 +841,7 @@
 
   # windows.unloadedmodules (Lists the unloaded kernel modules)
     echo ""
-    echo "    Aplicando plugin windows.unloadedmodules..."
+    echo "    Aplicando el plugin windows.unloadedmodules..."
     echo ""
     vol -f "$cRutaAlArchivoDeDump" windows.unloadedmodules | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.unloadedmodules.tab
     vol -r pretty -f "$cRutaAlArchivoDeDump" windows.unloadedmodules | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/txt/windows.unloadedmodules.txt
@@ -855,7 +855,7 @@
     #   --dump            - Extract listed memory ranges
     #   --maxsize MAXSIZE - Maximum size for dumped VAD sections (all the bigger sections will be ignored)
     echo ""
-    echo "    Aplicando plugin windows.vadinfo..."
+    echo "    Aplicando el plugin windows.vadinfo..."
     echo ""
     vol           -f "$cRutaAlArchivoDeDump" windows.vadinfo | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.vadinfo.tab
     vol -r pretty -f "$cRutaAlArchivoDeDump" windows.vadinfo | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/txt/windows.vadinfo.txt
@@ -868,7 +868,7 @@
     #   --pattern PATTERN - RegEx pattern
     #   --maxsize MAXSIZE - Maximum size in bytes for displayed context
     echo ""
-    echo "    Aplicando plugin windows.vadregexscan..."
+    echo "    Aplicando el plugin windows.vadregexscan..."
     echo ""
     vol           -f "$cRutaAlArchivoDeDump" windows.vadregexscan | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.vadregexscan.tab
     vol -r pretty -f "$cRutaAlArchivoDeDump" windows.vadregexscan | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/txt/windows.vadregexscan.txt
@@ -879,7 +879,7 @@
     # Argumentos:
     #   --pid [PID ...] - Process IDs to include (all other processes are excluded)
     echo ""
-    echo "    Aplicando plugin windows.vadwalk..."
+    echo "    Aplicando el plugin windows.vadwalk..."
     echo ""
     vol           -f "$cRutaAlArchivoDeDump" windows.vadwalk | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.vadwalk.tab
     vol -r pretty -f "$cRutaAlArchivoDeDump" windows.vadwalk | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/txt/windows.vadwalk.txt
@@ -890,7 +890,7 @@
     # Argumenots:
     #   --extensive - Search physical layer for version information
     echo ""
-    echo "    Aplicando plugin windows.verinfo..."
+    echo "    Aplicando el plugin windows.verinfo..."
     echo ""
     # Normal
       vol           -f "$cRutaAlArchivoDeDump" windows.verinfo | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.verinfo-normal.tab
@@ -905,7 +905,7 @@
 
   # windows.virtmap (Lists virtual mapped sections)
     echo ""
-    echo "    Aplicando plugin windows.virtmap..."
+    echo "    Aplicando el plugin windows.virtmap..."
     echo ""
     vol           -f "$cRutaAlArchivoDeDump" windows.virtmap | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/windows.virtmap.tab
     vol -r pretty -f "$cRutaAlArchivoDeDump" windows.virtmap | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/txt/windows.virtmap.txt
@@ -921,7 +921,7 @@
       #   --validate            - Validate against schema if possible
       #   --live                - Traverse all files, rather than use the cache
       echo ""
-      echo "    Aplicando plugin isinfo..."
+      echo "    Aplicando el plugin isinfo..."
       echo ""
       vol           -f "$cRutaAlArchivoDeDump" isfinfo | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/isfinfo.tab
       vol -r pretty -f "$cRutaAlArchivoDeDump" isfinfo | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/txt/isfinfo.txt
@@ -934,7 +934,7 @@
       #   --list                  - List available layers
       #   --layers [LAYERS ...]   - Names of layers to write (defaults to the highest non-mapped layer)
       echo ""
-      echo "    Aplicando plugin layerwriter..."
+      echo "    Aplicando el plugin layerwriter..."
       echo ""
       mkdir -p ~/ArtefactosRAM/MemoryLayer/
       cd ~/ArtefactosRAM/MemoryLayer/
@@ -946,7 +946,7 @@
       #   --pattern PATTERN - RegEx pattern
       #   --maxsize MAXSIZE - Maximum size in bytes for displayed context
       echo ""
-      echo "    Aplicando plugin regexscan.RegExScan..."
+      echo "    Aplicando el plugin regexscan.RegExScan..."
       echo ""
       vol           -f "$cRutaAlArchivoDeDump" regexscan.RegExScan | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/regexscan.RegExScan.tab
       vol -r pretty -f "$cRutaAlArchivoDeDump" regexscan.RegExScan | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/txt/regexscan.RegExScan.txt
@@ -959,7 +959,7 @@
       #   --plugin-filter [PLUGIN-FILTER ...] - Only run plugins featuring this substring
       #   --create-bodyfile                   - Whether to create a body file whilst producing results
       echo ""
-      echo "    Aplicando plugin timeliner..."
+      echo "    Aplicando el plugin timeliner..."
       echo ""
       vol           -f "$cRutaAlArchivoDeDump" timeliner | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/tab/timeliner.tab
       vol -r pretty -f "$cRutaAlArchivoDeDump" timeliner | grep -v "Volatility 3" >  "$cCarpetaDondeGuardar"/txt/timeliner.txt
