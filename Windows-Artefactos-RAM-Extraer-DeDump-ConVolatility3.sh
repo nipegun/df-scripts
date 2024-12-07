@@ -153,123 +153,115 @@
       vol -f "$cRutaAlArchivoDeDump" windows.info                    > "$cCarpetaDondeGuardar"/windows.info.txt
     # windows.joblinks (Print process job link information)
       vol -f "$cRutaAlArchivoDeDump" windows.joblinks                > "$cCarpetaDondeGuardar"/windows.joblinks.txt
-    # windows.kpcrs ()
+    # windows.kpcrs (Print KPCR structure for each processor)
       vol -f "$cRutaAlArchivoDeDump" windows.kpcrs                   > "$cCarpetaDondeGuardar"/windows.kpcrs.txt
-    # windows.ldrmodules ()
+    # windows.ldrmodules (Lists the loaded modules in a particular windows memory image)
       vol -f "$cRutaAlArchivoDeDump" windows.ldrmodules              > "$cCarpetaDondeGuardar"/windows.ldrmodules.txt
-    # windows.malfind ()
+    # windows.malfind (Lists process memory ranges that potentially contain injected code)
       vol -f "$cRutaAlArchivoDeDump" windows.malfind                 > "$cCarpetaDondeGuardar"/windows.malfind.txt
-    # windows.mbrscan ()
+    # windows.mbrscan (Scans for and parses potential Master Boot Records (MBRs))
       vol -f "$cRutaAlArchivoDeDump" windows.mbrscan                 > "$cCarpetaDondeGuardar"/windows.mbrscan.txt
-    # windows.memmap ()
+    # windows.memmap (Prints the memory map)
       vol -f "$cRutaAlArchivoDeDump" windows.memmap                  > "$cCarpetaDondeGuardar"/windows.memmap.txt
-    # windows.modscan ()
+    # windows.modscan (Scans for modules present in a particular windows memory image)
       vol -f "$cRutaAlArchivoDeDump" windows.modscan                 > "$cCarpetaDondeGuardar"/windows.modscan.txt
-    # windows.modules ()
+    # windows.modules (Lists the loaded kernel modules)
       vol -f "$cRutaAlArchivoDeDump" windows.modules                 > "$cCarpetaDondeGuardar"/windows.modules.txt
-    # windows.mutantscan ()
+    # windows.mutantscan (Scans for mutexes present in a particular windows memory image)
       vol -f "$cRutaAlArchivoDeDump" windows.mutantscan              > "$cCarpetaDondeGuardar"/windows.mutantscan.txt
-    # windows.netscan ()
+    # windows.netscan (Scans for network objects present in a particular windows memory image)
       vol -f "$cRutaAlArchivoDeDump" windows.netscan                 > "$cCarpetaDondeGuardar"/windows.netscan.txt
-    # windows.netstat ()
+    # windows.netstat (Traverses network tracking structures present in a particular windows memory image)
       vol -f "$cRutaAlArchivoDeDump" windows.netstat                 > "$cCarpetaDondeGuardar"/windows.netstat.txt
-    # windows.orphan_kernel_threads ()
+    # windows.orphan_kernel_threads (Lists process threads)
       vol -f "$cRutaAlArchivoDeDump" windows.orphan_kernel_threads   > "$cCarpetaDondeGuardar"/windows.orphan_kernel_threads.txt
-    # windows.pe_symbols ()
+    # windows.pe_symbols (Prints symbols in PE files in process and kernel memory)
       vol -f "$cRutaAlArchivoDeDump" windows.pe_symbols              > "$cCarpetaDondeGuardar"/ # Requiere argumentos --source {kernel,processes} --module MODULE [--symbols [SYMBOLS ...]] [--addresses [ADDRESSES ...]]
-    # windows.pedump ()
+    # windows.pedump (Allows extracting PE Files from a specific address in a specific address space)
       vol -f "$cRutaAlArchivoDeDump" windows.pedump                  > "$cCarpetaDondeGuardar"/ # Requiere argumentos [--pid [PID ...]] --base BASE [--kernel-module]
-    # windows.poolscanner ()
+    # windows.poolscanner (A generic pool scanner plugin)
       vol -f "$cRutaAlArchivoDeDump" windows.poolscanner             > "$cCarpetaDondeGuardar"/windows.poolscanner.txt
-    # windows.privileges
+    # windows.privileges (Lists process token privileges)
       vol -f "$cRutaAlArchivoDeDump" windows.privileges              > "$cCarpetaDondeGuardar"/windows.privileges.txt
-    # windows.processghosting ()
+    # windows.processghosting (Lists processes whose DeletePending bit is set or whose FILE_OBJECT is set to 0)
       vol -f "$cRutaAlArchivoDeDump" windows.processghosting         > "$cCarpetaDondeGuardar"/windows.processghosting.txt
-    # windows.pslist ()
+    # windows.pslist (Lists the processes present in a particular windows memory image)
       vol -f "$cRutaAlArchivoDeDump" windows.pslist                  > "$cCarpetaDondeGuardar"/windows.pslist.txt
-    # windows.psscan ()
+    # windows.psscan (Scans for processes present in a particular windows memory image)
       vol -f "$cRutaAlArchivoDeDump" windows.psscan                  > "$cCarpetaDondeGuardar"/windows.psscan.txt
-    # windows.pstree ()
+    # windows.pstree (Plugin for listing processes in a tree based on their parent process ID)
       vol -f "$cRutaAlArchivoDeDump" windows.pstree                  > "$cCarpetaDondeGuardar"/windows.pstree.txt
-    # windows.psxview ()
-      vol -f "$cRutaAlArchivoDeDump" windows.psxview                 > "$cCarpetaDondeGuardar"/windows.psxview.txt
-    # windows.registry.certificates ()
+    # windows.psxview (Lists all processes found via four of the methods described in "The Art of Memory Forensics," which may help identify processes that are trying to hide themselves. I recommend using -r pretty if you are looking at this plugin's output in a terminal)
+      vol -r pretty -f "$cRutaAlArchivoDeDump" windows.psxview       > "$cCarpetaDondeGuardar"/windows.psxview.txt
+    # windows.registry.certificates (Lists the certificates in the registry's Certificate Store)
       vol -f "$cRutaAlArchivoDeDump" windows.registry.certificates   > "$cCarpetaDondeGuardar"/ # Dio error
-    # windows.registry.getcellroutine ()
+    # windows.registry.getcellroutine (Reports registry hives with a hooked GetCellRoutine handler)
       vol -f "$cRutaAlArchivoDeDump" windows.registry.getcellroutine > "$cCarpetaDondeGuardar"/windows.registry.getcellroutine.txt
-    # windows.registry.hivelist ()
+    # windows.registry.hivelist (Lists the registry hives present in a particular memory image)
       vol -f "$cRutaAlArchivoDeDump" windows.registry.hivelist       > "$cCarpetaDondeGuardar"/windows.registry.hivelist.txt
-    # windows.registry.hivescan ()
+    # windows.registry.hivescan (Scans for registry hives present in a particular windows memory image)
       vol -f "$cRutaAlArchivoDeDump" windows.registry.hivescan       > "$cCarpetaDondeGuardar"/windows.registry.hivescan.txt
-    # windows.registry.printkey ()
+    # windows.registry.printkey (Lists the registry keys under a hive or specific key value)
       vol -f "$cRutaAlArchivoDeDump" windows.registry.printkey       > "$cCarpetaDondeGuardar"/windows.registry.printkey.txt
-    # windows.registry.userassist ()
+    # windows.registry.userassist (Print userassist registry keys and information)
       vol -f "$cRutaAlArchivoDeDump" windows.registry.userassist     > "$cCarpetaDondeGuardar"/windows.registry.userassist.txt
-    # windows.scheduled_tasks ()
+    # windows.scheduled_tasks (Decodes scheduled task information from the Windows registry, including information about triggers, actions, run times, and creation times)
       vol -f "$cRutaAlArchivoDeDump" windows.scheduled_tasks         > "$cCarpetaDondeGuardar"/windows.scheduled_tasks.txt # dio error
-    # windows.sessions ()
+    # windows.sessions (lists Processes with Session information extracted from Environmental Variables)
       vol -f "$cRutaAlArchivoDeDump" windows.sessions                > "$cCarpetaDondeGuardar"/windows.sessions.txt
-    # windows.shimcachemem ()
+    # windows.shimcachemem (Reads Shimcache entries from the ahcache.sys AVL tree)
       vol -f "$cRutaAlArchivoDeDump" windows.shimcachemem            > "$cCarpetaDondeGuardar"/windows.shimcachemem.txt
-    # windows.skeleton_key_check ()
+    # windows.skeleton_key_check (Looks for signs of Skeleton Key malware)
       vol -f "$cRutaAlArchivoDeDump" windows.skeleton_key_check      > "$cCarpetaDondeGuardar"/windows.skeleton_key_check.txt
-    # windows.ssdt ()
+    # windows.ssdt (Lists the system call table)
       vol -f "$cRutaAlArchivoDeDump" windows.ssdt                    > "$cCarpetaDondeGuardar"/windows.ssdt.txt
-    # windows.statistics ()
+    # windows.statistics (Lists statistics about the memory space)
       vol -f "$cRutaAlArchivoDeDump" windows.statistics              > "$cCarpetaDondeGuardar"/windows.statistics.txt
-    # windows.strings ()
+    # windows.strings (Reads output from the strings command and indicates which process(es) each string belongs to)
       vol -f "$cRutaAlArchivoDeDump" windows.strings                 > "$cCarpetaDondeGuardar"/ # Requiere argumentos [--pid [PID ...]] --strings-file STRINGS_FILE
-    # windows.suspicious_threads ()
+    # windows.suspicious_threads (Lists suspicious userland process threads)
       vol -f "$cRutaAlArchivoDeDump" windows.suspicious_threads      > "$cCarpetaDondeGuardar"/windows.suspicious_threads.txt
-    # windows.svcdiff ()
+    # windows.svcdiff (Compares services found through list walking versus scanning to find rootkits)
       vol -f "$cRutaAlArchivoDeDump" windows.svcdiff                 > "$cCarpetaDondeGuardar"/windows.svcdiff.txt
-    # windows.svclist ()
+    # windows.svclist (Lists services contained with the services.exe doubly linked list of services)
       vol -f "$cRutaAlArchivoDeDump" windows.svclist                 > "$cCarpetaDondeGuardar"/windows.svclist.txt
-    # windows.svcscan ()
+    # windows.svcscan (Scans for windows services)
       vol -f "$cRutaAlArchivoDeDump" windows.svcscan                 > "$cCarpetaDondeGuardar"/windows.svcscan.txt
-    # windows.symlinkscan
+    # windows.symlinkscan (Scans for links present in a particular windows memory image)
       vol -f "$cRutaAlArchivoDeDump" windows.symlinkscan             > "$cCarpetaDondeGuardar"/windows.symlinkscan.txt
-    # windows.thrdscan ()
+    # windows.thrdscan (Scans for windows threads)
       vol -f "$cRutaAlArchivoDeDump" windows.thrdscan                > "$cCarpetaDondeGuardar"/windows.thrdscan.txt
-    # windows.threads ()
+    # windows.threads (Lists process threads)
       vol -f "$cRutaAlArchivoDeDump" windows.threads                 > "$cCarpetaDondeGuardar"/windows.threads.txt
-    # windows.timers ()
+    # windows.timers (Print kernel timers and associated module DPCs)
       vol -f "$cRutaAlArchivoDeDump" windows.timers                  > "$cCarpetaDondeGuardar"/windows.timers.txt
-    # windows.truecrypt ()
+    # windows.truecrypt (TrueCrypt Cached Passphrase Finder)
       vol -f "$cRutaAlArchivoDeDump" windows.truecrypt               > "$cCarpetaDondeGuardar"/windows.truecrypt # Dio erro ruecrypt_module_base = next(
-    # windows.unhooked_system_calls ()
+    # windows.unhooked_system_calls (Looks for signs of Skeleton Key malware)
       vol -f "$cRutaAlArchivoDeDump" windows.unhooked_system_calls   > "$cCarpetaDondeGuardar"/windows.unhooked_system_calls.txt
-    # windows.unloadedmodules
+    # windows.unloadedmodules (Lists the unloaded kernel modules)
       vol -f "$cRutaAlArchivoDeDump" windows.unloadedmodules         > "$cCarpetaDondeGuardar"/windows.unloadedmodules.txt
-    # windows.vadinfo ()
+    # windows.vadinfo (Lists process memory ranges)
       vol -f "$cRutaAlArchivoDeDump" windows.vadinfo                 > "$cCarpetaDondeGuardar"/windows.vadinfo.txt
-    # windows.vadregexscan ()
+    # windows.vadregexscan (Scans all virtual memory areas for tasks using RegEx)
       vol -f "$cRutaAlArchivoDeDump" windows.vadregexscan            > "$cCarpetaDondeGuardar"/windows.vadregexscan.txt # Requiere argumentos: [--pid [PID ...]] --pattern PATTERN [--maxsize MAXSIZE]
-    # windows.vadwalk ()
+    # windows.vadwalk (Walk the VAD tree)
       vol -f "$cRutaAlArchivoDeDump" windows.vadwalk                 > "$cCarpetaDondeGuardar"/windows.vadwalk.txt
-    # windows.verinfo ()
+    # windows.verinfo (Lists version information from PE files)
       vol -f "$cRutaAlArchivoDeDump" windows.verinfo                 > "$cCarpetaDondeGuardar"/windows.verinfo.txt
-    # windows.virtmap ()
+    # windows.virtmap (Lists virtual mapped sections)
       vol -f "$cRutaAlArchivoDeDump" windows.virtmap                 > "$cCarpetaDondeGuardar"/windows.virtmap.txt
 
     # No windows
-      # banners ()
-        vol -f "$cRutaAlArchivoDeDump" banners                         > "$cCarpetaDondeGuardar"/banners.txt
-      # configwriter ()
-        vol -f "$cRutaAlArchivoDeDump" configwriter                    > "$cCarpetaDondeGuardar"/configwriter.txt
-      # frameworkinfo ()
-        vol -f "$cRutaAlArchivoDeDump" frameworkinfo                   > "$cCarpetaDondeGuardar"/frameworkinfo.txt
-      # isinfo ()
+      # isinfo (Determines information about the currently available ISF files, or a specific one)
         vol -f "$cRutaAlArchivoDeDump" isfinfo                         > "$cCarpetaDondeGuardar"/isfinfo.txt
       # layerwriter ()
         mkdir -p ~/ArtefactosRAM/MemoryLayer/
         cd ~/ArtefactosRAM/MemoryLayer/
         vol -f "$cRutaAlArchivoDeDump" layerwriter
         cd ..
-      # regexscan.RegExScan ()
+      # regexscan.RegExScan (Scans kernel memory using RegEx patterns)
         vol -f "$cRutaAlArchivoDeDump" regexscan.RegExScan             > "$cCarpetaDondeGuardar"/regexscan.RegExScan # Requiere argumentos --pattern PATTERN [--maxsize MAXSIZE]
-      # timeliner ()
+      # timeliner (Runs all relevant plugins that provide time related information and orders the results by time)
         vol -f "$cRutaAlArchivoDeDump" timeliner                       > "$cCarpetaDondeGuardar"/timeliner.txt
-      # vmscan ()
-        vol -f "$cRutaAlArchivoDeDump" vmscan                          > "$cCarpetaDondeGuardar"/vmscan.txt
 
