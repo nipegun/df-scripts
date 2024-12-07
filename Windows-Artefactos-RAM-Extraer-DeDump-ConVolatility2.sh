@@ -66,7 +66,7 @@ mkdir -p /tmp/volatility2/
 # Aplicar plugins a los perfiles sugeridos
   while IFS= read -r vPerfil; do
     echo ""
-    echo -e "${cColorAzulClaro}  Aplicando todos los plugins al perfil $vPerfil... ${cFinColor}"
+    echo -e "${cColorAzulClaro}  Parseando con el perfil $vPerfil... ${cFinColor}"
     echo ""
     while IFS= read -r vPlugin; do
       echo -e "${cColorAzul}    Aplicando el plugin $vPlugin... ${cFinColor}"
