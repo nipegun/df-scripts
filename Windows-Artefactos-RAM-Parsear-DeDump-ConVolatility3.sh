@@ -34,7 +34,7 @@
     echo ""
     echo "      Ejemplo:"
     echo ""
-    echo "    $0 /Casos/a2024m11d24/Dump/RAM.dump /Casos/a2024m11d24/Artefactos"
+    echo "    $0 ~/Descargas/RAM.dump ~/Escritorio/Artefactos"
     echo ""
     exit 1
   fi
