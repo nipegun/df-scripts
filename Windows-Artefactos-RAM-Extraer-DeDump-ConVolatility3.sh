@@ -184,18 +184,24 @@
       vol -f "$cRutaAlArchivoDeDump" windows.vadwalk                 > "$cCarpetaDondeGuardar"/windows.vadwalk.txt
       vol -f "$cRutaAlArchivoDeDump" windows.verinfo                 > "$cCarpetaDondeGuardar"/windows.verinfo.txt
       vol -f "$cRutaAlArchivoDeDump" windows.virtmap                 > "$cCarpetaDondeGuardar"/windows.virtmap.txt
-     # No windows
-      vol -f "$cRutaAlArchivoDeDump" banners                         > "$cCarpetaDondeGuardar"/banners.txt
-      vol -f "$cRutaAlArchivoDeDump" configwriter                    > "$cCarpetaDondeGuardar"/configwriter.txt
-      vol -f "$cRutaAlArchivoDeDump" frameworkinfo                   > "$cCarpetaDondeGuardar"/frameworkinfo.txt
-      vol -f "$cRutaAlArchivoDeDump" isfinfo                         > "$cCarpetaDondeGuardar"/isfinfo.txt
-      
-      mkdir -p ~/ArtefactosRAM/MemoryLayer/
-      cd ~/ArtefactosRAM/MemoryLayer/
-      vol -f "$cRutaAlArchivoDeDump" layerwriter
-      cd .. 
-
-      vol -f "$cRutaAlArchivoDeDump" timeliner                       > "$cCarpetaDondeGuardar"/timeliner.txt
-      vol -f "$cRutaAlArchivoDeDump" vmscan                          > "$cCarpetaDondeGuardar"/vmscan.txt
-      vol -f "$cRutaAlArchivoDeDump" yarascan                        > "$cCarpetaDondeGuardar"/yarascan.YaraScan
+    # No windows
+      # banners
+        vol -f "$cRutaAlArchivoDeDump" banners                         > "$cCarpetaDondeGuardar"/banners.txt
+      # configwriter
+        vol -f "$cRutaAlArchivoDeDump" configwriter                    > "$cCarpetaDondeGuardar"/configwriter.txt
+      # frameworkinfo
+        vol -f "$cRutaAlArchivoDeDump" frameworkinfo                   > "$cCarpetaDondeGuardar"/frameworkinfo.txt
+      # isinfo
+        vol -f "$cRutaAlArchivoDeDump" isfinfo                         > "$cCarpetaDondeGuardar"/isfinfo.txt
+      # layerwriter
+        mkdir -p ~/ArtefactosRAM/MemoryLayer/
+        cd ~/ArtefactosRAM/MemoryLayer/
+        vol -f "$cRutaAlArchivoDeDump" layerwriter
+        cd ..
+      # regexscan.RegExScan
+        vol -f "$cRutaAlArchivoDeDump" regexscan.RegExScan             > "$cCarpetaDondeGuardar"/regexscan.RegExScan # Requiere argumentos --pattern PATTERN [--maxsize MAXSIZE]
+      # timeliner
+        vol -f "$cRutaAlArchivoDeDump" timeliner                       > "$cCarpetaDondeGuardar"/timeliner.txt
+      # vmscan
+        vol -f "$cRutaAlArchivoDeDump" vmscan                          > "$cCarpetaDondeGuardar"/vmscan.txt
 
