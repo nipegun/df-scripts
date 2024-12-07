@@ -46,12 +46,12 @@
 
 # Calcular los posibles perfiles a aplicar al dump
   echo ""
-  echo -e "${cColorVerde}  Calculando los posibles perfiles de volatility2 a aplicar al dump...${cFinColor}"
+  echo -e "${cColorVerde}  Calculando que perfiles se le pueden aplicar al dump...${cFinColor}"
   echo ""
   vPerfilesSugeridos=$(vol.py -f "$cRutaAlArchivoDeDump" imageinfo | grep uggested | cut -d':' -f2 | sed 's-,--g' | sed "s- -\n-" | sed 's- -|-g' | sed 's-|- | -g')
   echo ""
-  echo "    Los perfiles sugeridos:"
-  echo "$vPerfilesSugeridos"
+  echo "    Los perfiles sugeridos son:"
+  echo "      $vPerfilesSugeridos"
 
 mkdir -p /tmp/volatility2/
 
@@ -65,11 +65,11 @@ mkdir -p /tmp/volatility2/
 # Aplicar plugins a los perfiles sugeridos
   while IFS= read -r vPerfil; do
     echo ""
-    echo -e "${cColorAzulClaro}  Aplicando plugins para el perfil $vPerfil... ${cFinColor}"
+    echo -e "${cColorAzulClaro}  Aplicando todos los plugins al perfil $vPerfil... ${cFinColor}"
     echo ""
     while IFS= read -r vPlugin; do
-        echo -e "${cColorAzul}  Ejecutando plugin $vPlugin... ${cFinColor}"
-        vol.py -f "$cRutaAlArchivoDeDump" --profile="$vPerfil" "$vPlugin" > "$cCarpetaDondeGuardar/$vPerfil-$vPlugin.txt" 2>/dev/null
+        echo -e "${cColorAzul}    Aplicando el plugin $vPlugin... ${cFinColor}"
+        vol.py -f "$cRutaAlArchivoDeDump" --profile="$vPerfil" "$vPlugin" > "$cCarpetaDondeGuardar"/"$vPerfil"-"$vPlugin".txt 2>/dev/null
     done < /tmp/volatility2/Volatility2-Plugins.txt
-done < /tmp/volatility2/Volatility2-PerfilesSugeridos.txt
+  done < /tmp/volatility2/Volatility2-PerfilesSugeridos.txt
 
