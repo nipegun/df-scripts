@@ -358,6 +358,8 @@
     vol -f "$cRutaAlArchivoDeDump" windows.strings | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/ # Requiere argumentos [--pid [PID ...]] --strings-file STRINGS_FILE
 
   # windows.suspicious_threads (Lists suspicious userland process threads)
+    # Argumentos:
+    #   --pid [PID ...] - Filter on specific process IDs
     vol -f "$cRutaAlArchivoDeDump" windows.suspicious_threads | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.suspicious_threads.txt
 
   # windows.svcdiff (Compares services found through list walking versus scanning to find rootkits)
@@ -376,12 +378,16 @@
     vol -f "$cRutaAlArchivoDeDump" windows.thrdscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.thrdscan.txt
 
   # windows.threads (Lists process threads)
+    # Argumentos:
+    #   --pid [PID ...] - Filter on specific process IDs
     vol -f "$cRutaAlArchivoDeDump" windows.threads | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.threads.txt
 
   # windows.timers (Print kernel timers and associated module DPCs)
     vol -f "$cRutaAlArchivoDeDump" windows.timers | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.timers.txt
 
   # windows.truecrypt (TrueCrypt Cached Passphrase Finder)
+    # Argumentos:
+    #   --min-length MIN-LENGTH - Minimum length of passphrases to identify
     vol -f "$cRutaAlArchivoDeDump" windows.truecrypt | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.truecrypt # Dio error: truecrypt_module_base = next(
       
   # windows.unhooked_system_calls (Looks for signs of Skeleton Key malware)
@@ -391,15 +397,28 @@
     vol -f "$cRutaAlArchivoDeDump" windows.unloadedmodules | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.unloadedmodules.txt
 
   # windows.vadinfo (Lists process memory ranges)
+    # Argumentos:
+    #   --address ADDRESS - Process virtual memory address to include (all other address ranges are excluded).
+    #   --pid [PID ...]   - Filter on specific process IDs
+    #   --dump            - Extract listed memory ranges
+    #   --maxsize MAXSIZE - Maximum size for dumped VAD sections (all the bigger sections will be ignored)
     vol -f "$cRutaAlArchivoDeDump" windows.vadinfo | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.vadinfo.txt
 
   # windows.vadregexscan (Scans all virtual memory areas for tasks using RegEx)
-    vol -f "$cRutaAlArchivoDeDump" windows.vadregexscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.vadregexscan.txt # Requiere argumentos: [--pid [PID ...]] --pattern PATTERN [--maxsize MAXSIZE]
+    # Argumentos:
+    #   --pid [PID ...]   - Filter on specific process IDs
+    #   --pattern PATTERN - RegEx pattern
+    #   --maxsize MAXSIZE - Maximum size in bytes for displayed context
+    vol -f "$cRutaAlArchivoDeDump" windows.vadregexscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.vadregexscan.txt
 
   # windows.vadwalk (Walk the VAD tree)
+    # Argumentos:
+    #   --pid [PID ...] - Process IDs to include (all other processes are excluded)
     vol -f "$cRutaAlArchivoDeDump" windows.vadwalk | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.vadwalk.txt
 
   # windows.verinfo (Lists version information from PE files)
+    # Argumenots:
+    #   --extensive - Search physical layer for version information
     vol -f "$cRutaAlArchivoDeDump" windows.verinfo | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.verinfo.txt
 
   # windows.virtmap (Lists virtual mapped sections)
@@ -408,18 +427,34 @@
   # No windows
 
     # isinfo (Determines information about the currently available ISF files, or a specific one)
+      # Argumentos:
+      #   --filter [FILTER ...] - String that must be present in the file URI to display the ISF
+      #   --isf ISF             - Specific ISF file to process
+      #   --validate            - Validate against schema if possible
+      #   --live                - Traverse all files, rather than use the cache
       vol -f "$cRutaAlArchivoDeDump" isfinfo | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/isfinfo.txt
 
-    # layerwriter ()
+    # layerwriter (Runs the automagics and writes out the primary layer produced by the stacker)
+      # Argumentos:
+      #   --block-size BLOCK_SIZE - Size of blocks to copy over
+      #   --list                  - List available layers
+      #   --layers [LAYERS ...]   - Names of layers to write (defaults to the highest non-mapped layer)
       mkdir -p ~/ArtefactosRAM/MemoryLayer/
       cd ~/ArtefactosRAM/MemoryLayer/
       vol -f "$cRutaAlArchivoDeDump" layerwriter
       cd ..
 
     # regexscan.RegExScan (Scans kernel memory using RegEx patterns)
+      # Argumentos:
+      #   --pattern PATTERN - RegEx pattern
+      #   --maxsize MAXSIZE - Maximum size in bytes for displayed context
       vol -f "$cRutaAlArchivoDeDump" regexscan.RegExScan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/regexscan.RegExScan # Requiere argumentos --pattern PATTERN [--maxsize MAXSIZE]
 
     # timeliner (Runs all relevant plugins that provide time related information and orders the results by time)
+      # Argumentos:
+      #   --record-config                     - Whether to record the state of all the plugins once complete
+      #   --plugin-filter [PLUGIN-FILTER ...] - Only run plugins featuring this substring
+      #   --create-bodyfile                   - Whether to create a body file whilst producing results
       vol -f "$cRutaAlArchivoDeDump" timeliner | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/timeliner.txt
 
   # Desactivar el entorno virtual
