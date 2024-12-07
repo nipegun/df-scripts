@@ -44,7 +44,34 @@
   cCarpetaDondeGuardar="$2"
   mkdir -p "$cCarpetaDondeGuardar"
 
-# Entrar en el entorno virtual
+# Comprobar si existe el repo de volatility3
+  if [ ! -d ~/repos/python/volatility3/ ]; then
+    echo ""
+    echo "  El repo de volatility3 existe. Descargándolo..."
+    echo ""
+    mkdir -p ~/repos/python/
+    cd ~/repos/python/
+    # Comprobar si el paquete git está instalado. Si no lo está, instalarlo.
+      if [[ $(dpkg-query -s git 2>/dev/null | grep installed) == "" ]]; then
+        echo ""
+        echo -e "${cColorRojo}  El paquete git no está instalado. Iniciando su instalación...${cFinColor}"
+        echo ""
+        sudo apt-get -y update && sudo apt-get -y install git
+        echo ""
+      fi
+    git clone https://github.com/volatilityfoundation/volatility3.git
+  fi
+
+# Comprobar si existe el entorno virtual de python de volatility3
+  if [ ! -d ~/repos/python/volatility3/venv/ ]; then
+    echo ""
+    echo "  El entorno virtual de python de volatility3 no existe. Creándolo..."
+    echo ""
+    cd ~/repos/python/volatility3/
+    python3 -m venv venv
+  fi
+
+# Entrar en el entorno virtual de python
   source ~/repos/python/volatility3/venv/bin/activate
 
 # Parsear datos
