@@ -125,6 +125,8 @@
                   echo ""
                 fi
               python3 -m venv venv
+              # Crear el mensaje para mostrar cuando se entra al entorno virtual
+                echo 'echo -e "\n  Activando el entorno virtual de analyzeMFT... \n"' >> ~/repos/python/analyzeMFT/venv/bin/activate
               # Entrar al entorno virtual
                 source ~/repos/python/analyzeMFT/venv/bin/activate
               # Instalar requerimientos
