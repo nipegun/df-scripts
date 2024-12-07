@@ -59,6 +59,7 @@ mkdir -p /tmp/volatility2/
   vol.py --info | grep "A Profile" | cut -d' ' -f1 > /tmp/volatility2/Volatility2-TodosLosPerfiles.txt
 # Guardar los perfiles sugeridos en un archivo
   vol.py -f "$cRutaAlArchivoDeDump" imageinfo | grep uggested | cut -d':' -f2 | sed 's-,--g' | sed "s- -\n-" | sed 's- -|-g' | sed 's/|/\n/g' | sed 's-  --g' | sed 's- --g' | sed '/^$/d' > /tmp/Volatility2-PerfilesSugeridos.txt
+  sed '/^$/d' /tmp/volatility2/Volatility2-PerfilesSugeridos.txt
 # Guardar todos los plugins en un archivo
   vol.py -h | sed "s-\t-|-g" | grep "^||" | sed 's-|--g' | cut -d' ' -f1 > /tmp/volatility2/Volatility2-Plugins.txt
 
