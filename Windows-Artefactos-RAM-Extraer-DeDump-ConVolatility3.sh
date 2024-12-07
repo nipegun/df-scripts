@@ -103,29 +103,29 @@
       vol -f "$cRutaAlArchivoDeDump" windows.amcache                 > "$cCarpetaDondeGuardar"/windows.amcache.txt
     # windows.bigpools (List big page pools)
       vol -f "$cRutaAlArchivoDeDump" windows.bigpools                > "$cCarpetaDondeGuardar"/windows.bigpools.txt
-    # windows.callbacks ()
+    # windows.callbacks (Lists kernel callbacks and notification routines)
       vol -f "$cRutaAlArchivoDeDump" windows.callbacks               > "$cCarpetaDondeGuardar"/windows.cmdline.txt
-    # windows.cmdline ()
+    # windows.cmdline (Lists process command line arguments)
       vol -f "$cRutaAlArchivoDeDump" windows.cmdline                 > "$cCarpetaDondeGuardar"/windows.cmdline.txt
-    # windows.cmdscan ()
+    # windows.cmdscan (Looks for Windows Command History lists)
       vol -f "$cRutaAlArchivoDeDump" windows.cmdscan                 > "$cCarpetaDondeGuardar"/windows.cmdscan.txt
-    # windows.consoles ()
+    # windows.consoles (Looks for Windows console buffers)
       vol -f "$cRutaAlArchivoDeDump" windows.consoles                > "$cCarpetaDondeGuardar"/windows.consoles.txt
-    # windows.crashinfo ()
+    # windows.crashinfo (Lists the information from a Windows crash dump)
       vol -f "$cRutaAlArchivoDeDump" windows.crashinfo               > "$cCarpetaDondeGuardar"/windows.crashinfo.txt
     # windows.debugregisters ()
       vol -f "$cRutaAlArchivoDeDump" windows.debugregisters          > "$cCarpetaDondeGuardar"/windows.debugregisters.txt
-    # windows.devicetree ()
+    # windows.devicetree (Listing tree based on drivers and attached devices in a particular windows memory image)
       vol -f "$cRutaAlArchivoDeDump" windows.devicetree              > "$cCarpetaDondeGuardar"/windows.devicetree.txt
-    # windows.dlllist ()
+    # windows.dlllist (Lists the loaded modules in a particular windows memory image)
       vol -f "$cRutaAlArchivoDeDump" windows.dlllist                 > "$cCarpetaDondeGuardar"/windows.dlllist.txt
-    # windows.driverirp ()
+    # windows.driverirp (List IRPs for drivers in a particular windows memory image)
       vol -f "$cRutaAlArchivoDeDump" windows.driverirp               > "$cCarpetaDondeGuardar"/windows.driverirp.txt
-    # windows.drivermodule ()
+    # windows.drivermodule (Determines if any loaded drivers were hidden by a rootkit)
       vol -f "$cRutaAlArchivoDeDump" windows.drivermodule            > "$cCarpetaDondeGuardar"/windows.drivermodule.txt
-    # windows.driverscan ()
+    # windows.driverscan (Scans for drivers present in a particular windows memory image)
       vol -f "$cRutaAlArchivoDeDump" windows.driverscan              > "$cCarpetaDondeGuardar"/windows.driverscan.txt
-    # windows.dumfiles ()
+    # windows.dumfiles (Dumps cached file contents from Windows memory samples)
       mkdir -p ~/ArtefactosRAM/Archivos
       cd ~/ArtefactosRAM/Archivos/
       aExtensiones=("jpg" "png" "gif" "txt" "pdf")
@@ -135,23 +135,23 @@
       done
       cd ..
       dd if=file.None.0xfffffa8000d06e10.dat of=img.png bs=1 skip=0
-    # windows.envars ()
+    # windows.envars (Display process environment variables)
       vol -f "$cRutaAlArchivoDeDump" windows.envars                  > "$cCarpetaDondeGuardar"/windows.envars.txt
-    # windows.filescan ()
+    # windows.filescan (Scans for file objects present in a particular windows memory image)
       vol -f "$cRutaAlArchivoDeDump" windows.filescan                > "$cCarpetaDondeGuardar"/windows.filescan.txt
     # windows.getservicesids ()
       vol -f "$cRutaAlArchivoDeDump" windows.getservicesids          > "$cCarpetaDondeGuardar"/windows.getservicesids.txt
-    # windows.getsids ()
+    # windows.getsids (Lists process token sids)
       vol -f "$cRutaAlArchivoDeDump" windows.getsids                 > "$cCarpetaDondeGuardar"/windows.getsids.txt
-    # windows.handles ()
+    # windows.handles (Lists process open handles)
       vol -f "$cRutaAlArchivoDeDump" windows.handles                 > "$cCarpetaDondeGuardar"/windows.handles.txt
-    # windows.hollowprocesses ()
+    # windows.hollowprocesses (Lists hollowed processes)
       vol -f "$cRutaAlArchivoDeDump" windows.hollowprocesses         > "$cCarpetaDondeGuardar"/windows.hollowprocesses.txt
-    # windows.iat ()
+    # windows.iat (Extract Import Address Table to list API (functions) used by a program contained in external libraries)
       vol -f "$cRutaAlArchivoDeDump" windows.iat                     > "$cCarpetaDondeGuardar"/windows.iat.txt
-    # windows.info ()
+    # windows.info (Show OS & kernel details of the memory sample being analyzed.)
       vol -f "$cRutaAlArchivoDeDump" windows.info                    > "$cCarpetaDondeGuardar"/windows.info.txt
-    # windows.joblinks ()
+    # windows.joblinks (Print process job link information)
       vol -f "$cRutaAlArchivoDeDump" windows.joblinks                > "$cCarpetaDondeGuardar"/windows.joblinks.txt
     # windows.kpcrs ()
       vol -f "$cRutaAlArchivoDeDump" windows.kpcrs                   > "$cCarpetaDondeGuardar"/windows.kpcrs.txt
