@@ -8,7 +8,7 @@
 # ----------
 # Script de NiPeGun para instalar todas las herramientas de forénsica del repo para ser usadas offline
 #
-# Ejecución remota con sudo:
+# Ejecución remota:
 #   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/DFScripts-Sincronizar-EnHome.sh | bash
 #
 # Bajar y editar directamente el archivo en nano
