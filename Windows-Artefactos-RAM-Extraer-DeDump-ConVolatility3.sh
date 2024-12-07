@@ -32,7 +32,7 @@
     echo ""
     echo "    $0 [RutaAlArchivoConDump] [CarpetaDondeGuardar]"
     echo ""
-    echo -e "    Ejemplo:"
+    echo "      Ejemplo:"
     echo ""
     echo "    $0 /Casos/a2024m11d24/Dump/RAM.dump /Casos/a2024m11d24/Artefactos"
     echo ""
