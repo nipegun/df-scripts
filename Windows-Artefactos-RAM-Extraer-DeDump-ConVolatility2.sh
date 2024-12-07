@@ -18,51 +18,53 @@
 # Definir constantes de color
   cColorAzul="\033[0;34m"
   cColorAzulClaro="\033[1;34m"
-  cColorVerde='\033[1;32m'
-  cColorRojo='\033[1;31m'
+  cColorVerde="\033[1;32m"
+  cColorRojo="\033[1;31m"
   # Para el color rojo también:
     #echo "$(tput setaf 1)Mensaje en color rojo. $(tput sgr 0)"
-  cFinColor='\033[0m'
+  cFinColor="\033[0m"
 
-# Definir la cantidad de argumentos esperados
-  cCantParamEsperados=1
-
-if [ $# -ne $cCantParamEsperados ]
-  then
+# Salir si la cantidad de parámetros pasados no es correcta
+  cCantParamEsperados=2
+  if [ $# -ne $cCantParamEsperados ]; then
     echo ""
-    echo -e "${cColorRojo}  Mal uso del script. El uso correcto sería: ${cFinColor}"
+    echo -e "${cColorRojo}  Mal uso del script. El uso correcto sería:${cFinColor}"
+    echo ""
     echo "    $0 [RutaAlArchivoConDump] [CarpetaDondeGuardar]"
     echo ""
-    echo "  Ejemplo:"
-    echo "    $0 [/Casos/a2024m11d24/Dump/RAM.dump] [/Casos/a2024m11d24/Artefactos]"
+    echo -e "    Ejemplo:"
     echo ""
-    exit
-  else
-    # Crear constante para archivo de dump
-      cRutaAlArchivoDeDump="$1"
-      cCarpetaDondeGuardar="$2"
-      mkdir -p "$cCarpetaDondeGuardar"
-      echo ""
-      echo "  Calculando los posibles perfiles de volatility2 que se le pueden aplicar al dump..."
-      echo ""
-      vPerfilesPosibles=(vol.py -f "$cRutaAlArchivoDeDump" imageinfo | grep uggested | cut -d':' -f2 | sed 's-,--g' | sed "s- -\n-" | sed 's- -|-g')
-      echo "    Los posibles perfiles son:"
-      echo "      $vPerfilesPosibles"
-      echo ""
-      mkdir -p /tmp/volatility2/
-      # Guardar todos los perfiles en un archivo
-        vol.py --info | grep "A Profile" | cut -d' ' -f1 > /tmp/volatility2/Volatility2-TodosLosPerfiles.txt
-      # Guardar los perfiles sugeridos en un archivo
-        vol.py -f "$cRutaAlArchivoDeDump" imageinfo | grep uggested | cut -d':' -f2 | sed 's-,--g' | sed "s- -\n-" | sed 's- -|-g' | sed 's/|/\n/g' | sed 's-  --g' | sed 's- --g' | sed '/^$/d' > /tmp/Volatility2-PerfilesSugeridos.txt
-      # Guardar todos los plugins en un archivo
-        vol.py -h | sed "s-\t-|-g" | grep "^||" | sed 's-|--g' | cut -d' ' -f1 > /tmp/volatility2/Volatility2-Plugins.txt
-      #
-        while IFS= read -r vPerfil; do
-          echo "  Aplicando todos los plugins del perfil $vPerfil..."
-          while IFS= read -r vPlugin; do
-            echo "    Aplicando el plugin $vPlugin..."
-            vol.py -f "$cRutaAlArchivoDeDump" --profile=$vPerfil $vPlugin > /tmp/volatility2/Volatility2-"$vPerfil"-"$vPlugin".txt
-          done < /tmp/volatility2/Volatility2-Plugins.txt
-        done <   /tmp/volatility2/Volatility2-PerfilesSugeridos.txt
+    echo "    $0 /Casos/a2024m11d24/Dump/RAM.dump /Casos/a2024m11d24/Artefactos"
+    echo ""
+    exit 1
+  fi
 
-fi
+# Crear constantes para los argumentos
+cRutaAlArchivoDeDump="$1"
+cCarpetaDondeGuardar="$2"
+mkdir -p "$cCarpetaDondeGuardar"
+
+echo -e "\n${cColorVerde}Calculando los posibles perfiles de volatility2...${cFinColor}\n"
+
+# Obtener perfiles sugeridos
+vPerfilesPosibles=$(vol.py -f "$cRutaAlArchivoDeDump" imageinfo | grep uggested | cut -d':' -f2 | sed 's/,//g' | tr ' ' '\n')
+
+echo "Los posibles perfiles son:"
+echo "$vPerfilesPosibles"
+
+mkdir -p /tmp/volatility2/
+
+# Guardar perfiles y plugins en archivos
+vol.py --info | grep "A Profile" | cut -d' ' -f1 > /tmp/volatility2/Volatility2-TodosLosPerfiles.txt
+echo "$vPerfilesPosibles" > /tmp/volatility2/Volatility2-PerfilesSugeridos.txt
+vol.py -h | grep "^  -" | sed 's/  //g' | cut -d' ' -f1 > /tmp/volatility2/Volatility2-Plugins.txt
+
+# Aplicar plugins a los perfiles sugeridos
+while IFS= read -r vPerfil; do
+    echo -e "\n${cColorAzulClaro}Aplicando plugins para el perfil $vPerfil...${cFinColor}"
+    while IFS= read -r vPlugin; do
+        echo -e "${cColorAzul}  Ejecutando plugin $vPlugin...${cFinColor}"
+        vol.py -f "$cRutaAlArchivoDeDump" --profile="$vPerfil" "$vPlugin" > "$cCarpetaDondeGuardar/$vPerfil-$vPlugin.txt" 2>/dev/null
+    done < /tmp/volatility2/Volatility2-Plugins.txt
+done < /tmp/volatility2/Volatility2-PerfilesSugeridos.txt
+
