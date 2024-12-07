@@ -124,6 +124,8 @@
                   echo ""
                 fi
               python3 -m venv venv
+              # Crear el mensaje para mostrar cuando se entra al entorno virtual
+                echo 'echo -e "\n  Activando el entorno virtual de Plaso... \n"' >> ~/repos/python/plaso/venv/bin/activate
               # Entrar al entorno virtual
                 source ~/repos/python/plaso/venv/bin/activate
               # Instalar requerimientos
