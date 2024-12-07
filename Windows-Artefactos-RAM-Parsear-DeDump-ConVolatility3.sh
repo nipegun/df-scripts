@@ -80,7 +80,7 @@
       apt-get -y update && apt-get -y install dialog
       echo ""
     fi
-  menu=(dialog --checklist "Marca los formatos de salida que quieras obtener:" 22 96 16)
+  menu=(dialog --checklist "Marca los formatos de salida que quieras obtener:" 22 80 16)
     opciones=(
       1 "Parsear hacia archivos tabulados" on
       2 "Parsear hacia archivos txt"       off
