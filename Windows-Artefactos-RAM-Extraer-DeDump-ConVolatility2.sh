@@ -62,6 +62,14 @@
 # Guardar todos los plugins en un archivo
   vol.py -h | sed "s-\t-|-g" | grep "^||" | sed 's-|--g' | cut -d' ' -f1 > /tmp/volatility2/Volatility2-Plugins.txt
 
+# Obtener la versión correcta del sistema operativo
+  while IFS= read -r vPerfil; do
+    echo ""
+    echo "  Intentando obtener la versión correcta del SO desde el registro usando el perfil $vPerfil..."
+    echo ""
+    vol.py -f "$cRutaAlArchivoDeDump" --profile="$vPerfil" printkey -K "Microsoft\\Windows NT\\CurrentVersion" | grep -a BuildLab
+  done < /tmp/volatility2/Volatility2-PerfilesSugeridos.txt
+
 # Parsear con todos los perfiles sugeridos
   while IFS= read -r vPerfil; do
     echo ""
@@ -73,4 +81,6 @@
         vol.py -f "$cRutaAlArchivoDeDump" --profile="$vPerfil" "$vPlugin" > "$cCarpetaDondeGuardar"/"$vPerfil"-"$vPlugin".txt 2>/dev/null
       done < /tmp/volatility2/Volatility2-Plugins.txt
   done < /tmp/volatility2/Volatility2-PerfilesSugeridos.txt
+
+
 
