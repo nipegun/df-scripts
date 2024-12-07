@@ -135,6 +135,12 @@
     vol -f "$cRutaAlArchivoDeDump" windows.driverscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.driverscan.txt
 
   # windows.dumfiles (Dumps cached file contents from Windows memory samples)
+    # Argumentos:
+    #  --pid PID           - Process ID to include (all other processes are excluded)
+    #  --virtaddr VIRTADDR - Dump a single _FILE_OBJECT at this virtual address
+    #  --physaddr PHYSADDR - Dump a single _FILE_OBJECT at this physical address
+    #  --filter FILTER     - Dump files matching regular expression FILTER
+    #  --ignore-case       - Ignore case in filter match
     mkdir -p ~/ArtefactosRAM/Archivos
     cd ~/ArtefactosRAM/Archivos/
     aExtensiones=("jpg" "png" "gif" "txt" "pdf")
@@ -146,6 +152,9 @@
     dd if=file.None.0xfffffa8000d06e10.dat of=img.png bs=1 skip=0
 
   # windows.envars (Display process environment variables)
+    # Argumentos:
+    #   --pid [PID ...] - Filter on specific process IDs
+    #   --silent        - Suppress common and non-persistent variables
     vol -f "$cRutaAlArchivoDeDump" windows.envars | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.envars.txt
 
   # windows.filescan (Scans for file objects present in a particular windows memory image)
@@ -155,42 +164,70 @@
     vol -f "$cRutaAlArchivoDeDump" windows.getservicesids | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.getservicesids.txt
 
   # windows.getsids (Lists process token sids)
+    # Argumentos:
+    #   --pid [PID ...] - Filter on specific process IDs
     vol -f "$cRutaAlArchivoDeDump" windows.getsids | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.getsids.txt
 
   # windows.handles (Lists process open handles)
+    # Argumentos:
+    #   --pid [PID ...] - Process IDs to include (all other processes are excluded)
+    #   --offset OFFSET - Process offset in the physical address space
     vol -f "$cRutaAlArchivoDeDump" windows.handles | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.handles.txt
 
   # windows.hollowprocesses (Lists hollowed processes)
+    # Argumentos:
+    #   --pid [PID ...] - Process IDs to include (all other processes are excluded)
     vol -f "$cRutaAlArchivoDeDump" windows.hollowprocesses | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.hollowprocesses.txt
 
   # windows.iat (Extract Import Address Table to list API (functions) used by a program contained in external libraries)
+    # Argumentos:
+    #   --pid [PID ...] - Process IDs to include (all other processes are excluded)
     vol -f "$cRutaAlArchivoDeDump" windows.iat | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.iat.txt
 
-  # windows.info (Show OS & kernel details of the memory sample being analyzed.)
+  # windows.info (Show OS & kernel details of the memory sample being analyzed)
     vol -f "$cRutaAlArchivoDeDump" windows.info | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.info.txt
 
   # windows.joblinks (Print process job link information)
-    vol -f "$cRutaAlArchivoDeDump" windows.joblinks | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.joblinks.txt
+    # Argumentos:
+    #   --physical - Display physical offset instead of virtual
+    vol -f "$cRutaAlArchivoDeDump" windows.joblinks | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.joblinks-offsetvirtual.txt
+    vol --physical -f "$cRutaAlArchivoDeDump" windows.joblinks | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.joblinks-offsetfisico.txt
 
   # windows.kpcrs (Print KPCR structure for each processor)
     vol -f "$cRutaAlArchivoDeDump" windows.kpcrs | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.kpcrs.txt
 
   # windows.ldrmodules (Lists the loaded modules in a particular windows memory image)
+    # Argumentos:
+    #   --pid [PID ...] - Process IDs to include (all other processes are excluded)
     vol -f "$cRutaAlArchivoDeDump" windows.ldrmodules | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.ldrmodules.txt
 
   # windows.malfind (Lists process memory ranges that potentially contain injected code)
     vol -f "$cRutaAlArchivoDeDump" windows.malfind | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.malfind.txt
 
   # windows.mbrscan (Scans for and parses potential Master Boot Records (MBRs))
+    # Argumentos:
+    #   --full - It analyzes and provides all the information in the partition entry and bootcode hexdump. (It returns a lot of information, so we recommend you render it in CSV.)
     vol -f "$cRutaAlArchivoDeDump" windows.mbrscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.mbrscan.txt
+    vol --full -f "$cRutaAlArchivoDeDump" windows.mbrscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.mbrscan-full.txt
 
   # windows.memmap (Prints the memory map)
+    # Argumentos:
+    #   --pid PID - Process ID to include (all other processes are excluded)
+    #   --dump    - Extract listed memory segments
     vol -f "$cRutaAlArchivoDeDump" windows.memmap | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.memmap.txt
 
   # windows.modscan (Scans for modules present in a particular windows memory image)
+    # Argumentos:
+    #   --dump      - Extract listed modules
+    #   --base BASE - Extract a single module with BASE address
+    #   --name NAME - module name/sub string
     vol -f "$cRutaAlArchivoDeDump" windows.modscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.modscan.txt
 
   # windows.modules (Lists the loaded kernel modules)
+    # Argumentos:
+    #   --dump      - Extract listed modules
+    #   --base BASE - Extract a single module with BASE address
+    #   --name NAME - module name/sub string
     vol -f "$cRutaAlArchivoDeDump" windows.modules | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/windows.modules.txt
 
   # windows.mutantscan (Scans for mutexes present in a particular windows memory image)
