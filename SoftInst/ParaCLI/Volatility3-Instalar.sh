@@ -8,8 +8,8 @@
 # ----------
 # Script de NiPeGun para instalar y configurar Volatility en Debian
 #
-# Ejecución remota :
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/SoftInst/ParaCLI/Volatility3-Instalar.sh | bash      (No debería pipearse con sudo)
+# Ejecución remota  (No debería pipearse con sudo, aunque luego pida permisos sudo):
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/SoftInst/ParaCLI/Volatility3-Instalar.sh | bash
 #
 # Ejecución remota como root:
 #   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/SoftInst/ParaCLI/Volatility3-Instalar.sh | bash
@@ -21,11 +21,11 @@
 # Definir constantes de color
   cColorAzul="\033[0;34m"
   cColorAzulClaro="\033[1;34m"
-  cColorVerde='\033[1;32m'
-  cColorRojo='\033[1;31m'
+  cColorVerde="\033[1;32m"
+  cColorRojo="\033[1;31m"
   # Para el color rojo también:
     #echo "$(tput setaf 1)Mensaje en color rojo. $(tput sgr 0)"
-  cFinColor='\033[0m'
+  cFinColor="\033[0m"
 
 # Determinar la versión de Debian
   if [ -f /etc/os-release ]; then             # Para systemd y freedesktop.org.
@@ -126,6 +126,8 @@
                   echo ""
                 fi
               python3 -m venv venv
+              # Crear el mensaje para mostrar cuando se entra al entorno virtual
+                echo 'echo -e "\n  Activando el entorno virtual de Volatility3... \n"' >> ~/repos/python/volatility3/venv/bin/activate
               # Entrar al entorno virtual
                 source ~/repos/python/volatility3/venv/bin/activate
               # Instalar requerimientos
