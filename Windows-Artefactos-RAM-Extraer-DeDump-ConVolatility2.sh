@@ -25,7 +25,7 @@
   cFinColor='\033[0m'
 
 # Definir la cantidad de argumentos esperados
-  cCantParamEsperados=2
+  cCantParamEsperados=1
 
 if [ $# -ne $cCantParamEsperados ]
   then
