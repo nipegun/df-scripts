@@ -127,7 +127,16 @@
                 fi
               python3 -m venv venv
               # Crear el mensaje para mostrar cuando se entra al entorno virtual
-                echo 'echo -e "\n  Activando el entorno virtual de Volatility3... \n"' >> ~/repos/python/volatility3/venv/bin/activate
+                echo ''                                                                      >> ~/repos/python/volatility3/venv/bin/activate
+                echo 'echo -e "\n  Activando el entorno virtual de volatility3... \n"'       >> ~/repos/python/volatility3/venv/bin/activate
+                echo 'echo -e "    Forma de uso:\n"'                                         >> ~/repos/python/volatility3/venv/bin/activate
+                echo 'echo -e "      vol -f [RutaAlArchivoDeDump] [Plugin]\n"'               >> ~/repos/python/volatility3/venv/bin/activate
+                echo 'echo -e "    Comandos rápidos:\n"'                                     >> ~/repos/python/volatility3/venv/bin/activate
+                echo 'echo -e "      Obtener info de windows:\n"'                            >> ~/repos/python/volatility3/venv/bin/activate
+                echo 'echo -e "        vol -f $HOME/Descargas/Evidencia.raw windows.info\n"' >> ~/repos/python/volatility3/venv/bin/activate
+                echo 'echo -e "      Obtener info de linux:\n"'                              >> ~/repos/python/volatility3/venv/bin/activate
+                echo 'echo -e "        vol -f $HOME/Descargas/Evidencia.raw linux.info\n"'   >> ~/repos/python/volatility3/venv/bin/activate
+                
               # Entrar al entorno virtual
                 source ~/repos/python/volatility3/venv/bin/activate
               # Instalar requerimientos
