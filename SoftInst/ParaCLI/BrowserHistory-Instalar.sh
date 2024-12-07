@@ -125,6 +125,8 @@
                   echo ""
                 fi
               python3 -m venv venv
+              # Crear el mensaje para mostrar cuando se entra al entorno virtual
+                echo 'echo -e "\n  Activando el entorno virtual de browser-history... \n"' >> ~/repos/python/browser-history/venv/bin/activate
               # Entrar al entorno virtual
                 source ~/repos/python/browser-history/venv/bin/activate
               # Instalar requerimientos
