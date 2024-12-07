@@ -140,6 +140,16 @@
               # Entrar al entorno virtual
                 source ~/repos/python/volatility3/venv/bin/activate
               # Instalar requerimientos
+                python3 -m pip install wheel
+                python3 -m pip install distorm3
+                python3 -m pip install pycrypto
+                python3 -m pip install pillow
+                python3 -m pip install openpyxl
+                python3 -m pip install ujson
+                python3 -m pip install pytz
+                python3 -m pip install ipython
+                python3 -m pip install capstone
+                python3 -m pip install yara-python
                 python3 -m pip install .
               # Salir del entorno virtual
                 deactivate
