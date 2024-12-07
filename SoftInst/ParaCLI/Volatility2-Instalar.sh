@@ -135,7 +135,16 @@
               # Crear el entorno virtual
                 /usr/local/bin/virtualenv -p /usr/local/bin/python2.7 venv
               # Crear el mensaje para mostrar cuando se entra al entorno virtual
-                echo 'echo -e "\n  Activando el entorno virtual de Volatility2... \n"' >> ~/repos/python/volatility2/venv/bin/activate
+                echo ''                                                                                        >> ~/repos/python/volatility2/venv/bin/activate
+                echo 'echo -e "\n  Activando el entorno virtual de Volatility2... \n"'                         >> ~/repos/python/volatility2/venv/bin/activate
+                echo 'echo -e "    Forma de uso:\n"'                                                           >> ~/repos/python/volatility2/venv/bin/activate
+                echo 'echo -e "      vol.py -f [RutaAlArchivoDeDump] [Plugin]\n"'                              >> ~/repos/python/volatility2/venv/bin/activate
+                echo 'echo -e "    Comandos rápidos:\n"'                                                       >> ~/repos/python/volatility2/venv/bin/activate
+                echo 'echo -e "      Obtener info de la imagen:\n"'                                            >> ~/repos/python/volatility2/venv/bin/activate
+                echo 'echo -e "        vol.py -f $HOME/Descargas/Evidencia.raw imageinfo\n"'                   >> ~/repos/python/volatility2/venv/bin/activate
+                echo 'echo -e "      Aplicar un perfil y un plugin:\n"'                                        >> ~/repos/python/volatility2/venv/bin/activate
+                echo 'echo -e "        vol.py -f $HOME/Descargas/Evidencia.raw --profile=Win7SP1x86 pslist\n"' >> ~/repos/python/volatility2/venv/bin/activate
+
               # Entrar al entorno virtual
                 source ~/repos/python/volatility2/venv/bin/activate
 
