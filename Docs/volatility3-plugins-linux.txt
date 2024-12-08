@@ -1,0 +1,45 @@
+1. Información general del sistema
+
+    linux.banner: Extrae la versión del kernel desde la memoria.
+    linux.cpuinfo: Proporciona información sobre la CPU.
+    linux.lsmod: Lista los módulos cargados en el kernel.
+    linux.dmesg: Extrae el log de mensajes del kernel (dmesg).
+
+2. Análisis de procesos
+
+    linux.pslist: Lista los procesos en ejecución.
+    linux.pstree: Muestra los procesos en forma de árbol.
+    linux.psscan: Escanea procesos, incluyendo ocultos o terminados.
+    linux.proc.*::
+        linux.proc.psaux: Recupera información adicional sobre los procesos (equivalente a ps aux).
+        linux.proc.cmdline: Extrae las líneas de comando usadas por los procesos.
+        linux.proc.environ: Enumera las variables de entorno de los procesos.
+
+3. Análisis de red
+
+    linux.netstat: Muestra conexiones TCP, UDP y sockets abiertos.
+    linux.ifconfig: Proporciona detalles de las interfaces de red configuradas.
+    linux.arp: Extrae información de la tabla ARP.
+
+4. Análisis de memoria
+
+    linux.malfind: Busca regiones de memoria sospechosas o maliciosas.
+    linux.vma_info: Proporciona detalles de las áreas de memoria virtual (VMA) de los procesos.
+
+5. Análisis del sistema de archivos
+
+    linux.mount: Lista los sistemas de archivos montados.
+    linux.find_file: Busca y extrae archivos desde la memoria.
+    linux.tmpfs: Recupera información de sistemas de archivos temporales.
+
+6. Seguridad y análisis avanzado
+
+    linux.hidden_modules: Detecta módulos del kernel ocultos.
+    linux.bash: Recupera el historial de comandos ejecutados en la consola Bash.
+    linux.check_creds: Identifica credenciales compartidas entre procesos.
+
+7. Plugins avanzados
+
+    linux.volshell: Proporciona un shell interactivo para explorar la memoria de Linux.
+    linux.slabinfo: Muestra estadísticas sobre los slabs del kernel (gestión de memoria).
+    linux.yarascan: Escanea la memoria usando reglas YARA para encontrar patrones específicos.
