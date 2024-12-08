@@ -85,12 +85,15 @@
     fi
   menu=(dialog --checklist "Marca los formatos de salida que quieras obtener:" 22 60 16)
     opciones=(
-      1 "Recrear el sistema de carpetas y archivos de dentro del dump" off
-      2 "Extraer el sistema de carpetas y archivos de dentro del dump" on
+      1 "Recrear el sistema de carpetas y archivos de dentro del dump" on
+      2 "Extraer el sistema de carpetas y archivos de dentro del dump" off
       3 "Parsear datos hacia archivos tabulados"                       on
       4 "Parsear datos hacia archivos txt"                             off
       5 "Parsear datos hacia archivos csv"                             off
       6 "Parsear datos hacia archivos json"                            off
+      7 "Buscar IPs privadas de clase A"                               off
+      8 "Buscar IPs privadas de clase B"                               off
+      9 "Buscar IPs privadas de clase C"                               off
     )
   choices=$("${menu[@]}" "${opciones[@]}" 2>&1 >/dev/tty)
   #clear
@@ -2809,6 +2812,33 @@
 
             # Desactivar el entorno virtual
               deactivate
+
+        ;;
+
+        7)
+
+          echo ""
+          echo "  Buscando IPs privadas de clase A..."
+          echo ""
+          strings "$cRutaAlArchivoDeDump" | grep -Eo '10\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])' | sort -n | uniq
+
+        ;;
+
+        8)
+
+          echo ""
+          echo "  Buscando IPs privadas de clase B..."
+          echo ""
+          strings "$cRutaAlArchivoDeDump" | grep -Eo '172\.(1[6-9]|2[0-9]|3[0-1])\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])' | sort -n | uniq
+
+        ;;
+
+        9)
+
+          echo ""
+          echo "  Buscando IPs privadas de clase C..."
+          echo ""
+          strings "$cRutaAlArchivoDeDump" | grep -Eo '192\.168\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])' | sort -n | uniq
 
         ;;
 
