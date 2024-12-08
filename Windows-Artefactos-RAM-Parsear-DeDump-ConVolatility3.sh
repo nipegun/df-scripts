@@ -39,7 +39,7 @@
     echo ""
     echo "      Ejemplo:"
     echo ""
-    echo "    $0 ~/Descargas/RAM.dump ~/Escritorio/Artefactos"
+    echo "    $0 ~/Descargas/RAM.dump ~/Escritorio/ArtefactosRAM"
     echo ""
     exit 1
   fi
