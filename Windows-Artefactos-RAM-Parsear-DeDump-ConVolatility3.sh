@@ -319,52 +319,52 @@
         5)
 
           echo ""
-          echo "  Extrayendo archivos individuales de otro tipo..."
+          echo "  Extrayendo archivos individuales de logs y eventos..."
           echo ""
           # Guardar todas las líneas con las imágenes encontradas
-            cat "$cCarpetaDondeGuardar"/tab/windows.filescan.tab | grep -a -i --color -E '\.(txt|txs)$' > "$cCarpetaDondeGuardar"/tab/windows.filescan-otros.tab
+            cat "$cCarpetaDondeGuardar"/tab/windows.filescan.tab | grep -a -i --color -E '\.(log|evtx)$' > "$cCarpetaDondeGuardar"/tab/windows.filescan-logsyeventos.tab
           # Crear el array asociativo y meter dentro todos los offsets y los archivos
-            declare -A aOffsetsArchivosOtros
+            declare -A aOffsetsArchivosLogsYEventos
             while IFS=$'\t' read -r key value; do
-              aOffsetsArchivosOtros["$key"]="$value"
-            done < "$cCarpetaDondeGuardar"/tab/windows.filescan-otros.tab
+              aOffsetsArchivosLogsYEventos["$key"]="$value"
+            done < "$cCarpetaDondeGuardar"/tab/windows.filescan-logsyeventos.tab
           # Crear la carpeta donde guardar las imagenes
-            mkdir -p "$cCarpetaDondeGuardar"/Archivos/Individuales/Otros/
+            mkdir -p "$cCarpetaDondeGuardar"/Archivos/Individuales/LogsYEventos/
           # Recorrer el array e ir guardando los offsets
-            for key in "${!aOffsetsArchivosOtros[@]}"; do
-              vol --quiet -f "$cRutaAlArchivoDeDump" -o "$cCarpetaDondeGuardar"/Archivos/Individuales/Otros/ windows.dumpfiles --virtaddr $key -n
+            for key in "${!aOffsetsArchivosLogsYEventos[@]}"; do
+              vol --quiet -f "$cRutaAlArchivoDeDump" -o "$cCarpetaDondeGuardar"/Archivos/Individuales/LogsYEventos/ windows.dumpfiles --virtaddr $key -n
             done
           # Eliminar archivos con hash duplicado
-            declare -A aHashesOtros
-            find "$cCarpetaDondeGuardar"/Archivos/Individuales/Otros/ -type f | while read -r vArchivo; do
+            declare -A aHashesLogsYEventos
+            find "$cCarpetaDondeGuardar"/Archivos/Individuales/LogsYEventos/ -type f | while read -r vArchivo; do
               # Calcular el hash del archivo (usa sha256sum o md5sum según prefieras)
                 vHash=$(sha256sum "$vArchivo" | sed 's/ .*//')
               # Verificar si el hash ya existe en el array
-                if [[ -v aHashesOtros["$vHash"] ]]; then
+                if [[ -v aHashesLogsYEventos["$vHash"] ]]; then
                   # Si el hash ya existe, eliminar el archivo duplicado
                   echo "Eliminando duplicado: $vArchivo (hash: $vHash)"
                   rm -f "$vArchivo"
                 else
                   # Si el hash no existe, guardar el archivo en el array
-                  aHashesOtros["$vHash"]="$vArchivo"
+                  aHashesLogsYEventos["$vHash"]="$vArchivo"
                 fi
             done
           # Eliminar la extension .vacb a todos los archivos
-        #    find "$cCarpetaDondeGuardar"/Archivos/Individuales/Otros/ -type f -name "*.vacb" | while IFS= read -r vArchivo; do
-        #      # Obtener la nueva ruta sin la extensión .vacb
-        #        vNuevoNombre="${vArchivo%.vacb}"
-        #      # Renombrar el archivo
-        #        mv "$vArchivo" "$vNuevoNombre"
-        #        echo "Renombrado: $vArchivo -> $vNuevoNombre"
-        #    done
+            find "$cCarpetaDondeGuardar"/Archivos/Individuales/LogsYEventos/ -type f -name "*.vacb" | while IFS= read -r vArchivo; do
+              # Obtener la nueva ruta sin la extensión .vacb
+                vNuevoNombre="${vArchivo%.vacb}"
+              # Renombrar el archivo
+                mv "$vArchivo" "$vNuevoNombre"
+                echo "Renombrado: $vArchivo -> $vNuevoNombre"
+            done
           # Eliminar la extension .dat a todos los archivos
-         #   find "$cCarpetaDondeGuardar"/Archivos/Individuales/Otros/ -type f -name "*.dat" | while IFS= read -r vArchivo; do
-         #     # Obtener la nueva ruta sin la extensión .dat
-         #       vNuevoNombre="${vArchivo%.dat}"
-         #     # Renombrar el archivo
-         #       mv "$vArchivo" "$vNuevoNombre"
-         #       echo "Renombrado: $vArchivo -> $vNuevoNombre"
-         #   done
+            find "$cCarpetaDondeGuardar"/Archivos/Individuales/LogsYEventos/ -type f -name "*.dat" | while IFS= read -r vArchivo; do
+              # Obtener la nueva ruta sin la extensión .dat
+                vNuevoNombre="${vArchivo%.dat}"
+              # Renombrar el archivo
+                mv "$vArchivo" "$vNuevoNombre"
+                echo "Renombrado: $vArchivo -> $vNuevoNombre"
+            done
 
         ;;
 
