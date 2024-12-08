@@ -85,11 +85,11 @@
     fi
   menu=(dialog --checklist "Marca los formatos de salida que quieras obtener:" 22 60 16)
     opciones=(
-      1 "Extraer el sistema de archivos de dentro del dump" on
-      2 "Parsear datos hacia archivos tabulados"            on
-      3 "Parsear datos hacia archivos txt"                  off
-      4 "Parsear datos hacia archivos csv"                  off
-      5 "Parsear datos hacia archivos json"                 off
+      1 "Extraer el sistema de carpetas y archivos de dentro del dump" on
+      2 "Parsear datos hacia archivos tabulados"                       on
+      3 "Parsear datos hacia archivos txt"                             off
+      4 "Parsear datos hacia archivos csv"                             off
+      5 "Parsear datos hacia archivos json"                            off
     )
   choices=$("${menu[@]}" "${opciones[@]}" 2>&1 >/dev/tty)
   #clear
@@ -101,7 +101,7 @@
         1)
 
           echo ""
-          echo "  Extrayendo el sistema de archivo de la RAM..."
+          echo "  Extrayendo el sistema carpetas y archivos de dentro del dump..."
           echo ""
 
           # Crear carpeta
