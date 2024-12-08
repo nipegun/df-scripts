@@ -44,7 +44,8 @@ if [ $# -ne $cCantArgumEsperados ]
       echo ""
       echo -e "${cColorRojo}  El paquete dialog no está instalado. Iniciando su instalación...${cFinColor}"
       echo ""
-      sudo apt-get -y update && sudo apt-get -y install dialog
+      sudo apt-get -y update
+      sudo apt-get -y install dialog
       echo ""
     fi
 
@@ -84,7 +85,8 @@ if [ $# -ne $cCantArgumEsperados ]
                 echo ""
                 echo -e "${cColorRojo}  El paquete openssl no está instalado. Iniciando su instalación...${cFinColor}"
                 echo ""
-                sudo apt-get -y update && sudo apt-get -y install openssl
+                sudo apt-get -y update
+                sudo apt-get -y install openssl
                 echo ""
               fi
             vHashSHA3_512=$(openssl dgst -sha3-512 "$1" | cut -d'=' -f2 | sed 's- --g')
@@ -112,7 +114,8 @@ if [ $# -ne $cCantArgumEsperados ]
                 echo ""
                 echo -e "${cColorRojo}  El paquete openssl no está instalado. Iniciando su instalación...${cFinColor}"
                 echo ""
-                sudo apt-get -y update && sudo apt-get -y install openssl
+                sudo apt-get -y update
+                sudo apt-get -y install openssl
                 echo ""
               fi
             vHashSHA3_384=$(openssl dgst -sha3-384 "$1" | cut -d'=' -f2 | sed 's- --g')
@@ -140,7 +143,8 @@ if [ $# -ne $cCantArgumEsperados ]
                 echo ""
                 echo -e "${cColorRojo}  El paquete openssl no está instalado. Iniciando su instalación...${cFinColor}"
                 echo ""
-                sudo apt-get -y update && sudo apt-get -y install openssl
+                sudo apt-get -y update
+                sudo apt-get -y install openssl
                 echo ""
               fi
             vHashSHA3_256=$(openssl dgst -sha3-256 "$1" | cut -d'=' -f2 | sed 's- --g')
@@ -178,7 +182,8 @@ if [ $# -ne $cCantArgumEsperados ]
                 echo ""
                 echo -e "${cColorRojo}  El paquete openssl no está instalado. Iniciando su instalación...${cFinColor}"
                 echo ""
-                sudo apt-get -y update && sudo apt-get -y install openssl
+                sudo apt-get -y update
+                sudo apt-get -y install openssl
                 echo ""
               fi
             vHashSHA3_224=$(openssl dgst -sha3-224 "$1" | cut -d'=' -f2 | sed 's- --g')
@@ -206,7 +211,8 @@ if [ $# -ne $cCantArgumEsperados ]
                 echo ""
                 echo -e "${cColorRojo}  El paquete openssl no está instalado. Iniciando su instalación...${cFinColor}"
                 echo ""
-                sudo apt-get -y update && sudo apt-get -y install openssl
+                sudo apt-get -y update
+                sudo apt-get -y install openssl
                 echo ""
               fi
             openssl dgst -whirlpool "$1"
@@ -223,7 +229,8 @@ if [ $# -ne $cCantArgumEsperados ]
                 echo ""
                 echo -e "${cColorRojo}  El paquete openssl no está instalado. Iniciando su instalación...${cFinColor}"
                 echo ""
-                sudo apt-get -y update && sudo apt-get -y install openssl
+                sudo apt-get -y update
+                sudo apt-get -y install openssl
                 echo ""
               fi
             vHashRIPEMD_160=$(openssl dgst -rmd160 "$1" | cut -d'=' -f2 | sed 's- --g')
@@ -251,7 +258,8 @@ if [ $# -ne $cCantArgumEsperados ]
                 echo ""
                 echo -e "${cColorRojo}  El paquete openssl no está instalado. Iniciando su instalación...${cFinColor}"
                 echo ""
-                sudo apt-get -y update && sudo apt-get -y install openssl
+                sudo apt-get -y update
+                sudo apt-get -y install openssl
                 echo ""
               fi
             openssl dgst -tiger "$1"
@@ -288,7 +296,8 @@ if [ $# -ne $cCantArgumEsperados ]
                 echo ""
                 echo -e "${cColorRojo}  El paquete openssl no está instalado. Iniciando su instalación...${cFinColor}"
                 echo ""
-                #sudo apt-get -y update && sudo apt-get -y install openssl
+                #sudo apt-get -y update
+                #sudo apt-get -y install openssl
                 echo ""
               fi
             openssl dgst -adler32 "$1"
