@@ -177,7 +177,7 @@
             for key in "${!aOffsetsArchivos[@]}"; do
               mkdir -p "$cCarpetaDondeGuardar"/Archivos/Reales/"$(dirname "${aOffsetsArchivos[$key]}")" \
               && cd "$cCarpetaDondeGuardar"/Archivos/Reales/"$(dirname "${aOffsetsArchivos[$key]}")" \
-              && vol -f "$cRutaAlArchivoDeDump" -o "$cCarpetaDondeGuardar"/Archivos/Reales/"$(dirname "${aOffsetsArchivos[$key]}")" windows.dumpfiles --virtaddr $key
+              && vol --quiet -f "$cRutaAlArchivoDeDump" -o "$cCarpetaDondeGuardar"/Archivos/Reales/"$(dirname "${aOffsetsArchivos[$key]}")" windows.dumpfiles --virtaddr $key
             done
 
             # windows.dumpfiles (Dumps cached file contents from Windows memory samples)
