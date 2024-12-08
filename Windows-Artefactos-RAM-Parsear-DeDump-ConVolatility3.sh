@@ -208,11 +208,13 @@
             done
           # Eliminar la extension .dat a todos los archivos
             find "$cCarpetaDondeGuardar"/Archivos/Individuales/Imagenes/ -type f -name "*.dat" | while IFS= read -r vArchivo; do
-              # Obtener la nueva ruta sin la extensión .dat
-                vNuevoNombre="${vArchivo%.dat}"
-              # Renombrar el archivo
-                mv "$vArchivo" "$vNuevoNombre"
-                echo "Renombrado: $vArchivo -> $vNuevoNombre"
+              # Verificar si el nombre del archivo contiene "DataSectionObject"
+                if [[ "$vArchivo" == *"DataSectionObject"* ]]; then
+                  # Obtener la nueva ruta sin la extensión .dat
+                    vNuevoNombre="${vArchivo%.dat}"
+                  # Renombrar el archivo
+                    mv "$vArchivo" "$vNuevoNombre"
+                fi
             done
 
         ;;
@@ -260,11 +262,13 @@
             done
           # Eliminar la extension .dat a todos los archivos
             find "$cCarpetaDondeGuardar"/Archivos/Individuales/Documentos/ -type f -name "*.dat" | while IFS= read -r vArchivo; do
-              # Obtener la nueva ruta sin la extensión .dat
-                vNuevoNombre="${vArchivo%.dat}"
-              # Renombrar el archivo
-                mv "$vArchivo" "$vNuevoNombre"
-                echo "Renombrado: $vArchivo -> $vNuevoNombre"
+              # Verificar si el nombre del archivo contiene "DataSectionObject"
+                if [[ "$vArchivo" == *"DataSectionObject"* ]]; then
+                  # Obtener la nueva ruta sin la extensión .dat
+                    vNuevoNombre="${vArchivo%.dat}"
+                  # Renombrar el archivo
+                    mv "$vArchivo" "$vNuevoNombre"
+                fi
             done
 
         ;;
@@ -312,11 +316,13 @@
             done
           # Eliminar la extension .dat a todos los archivos
             find "$cCarpetaDondeGuardar"/Archivos/Individuales/Scripts/ -type f -name "*.dat" | while IFS= read -r vArchivo; do
-              # Obtener la nueva ruta sin la extensión .dat
-                vNuevoNombre="${vArchivo%.dat}"
-              # Renombrar el archivo
-                mv "$vArchivo" "$vNuevoNombre"
-                echo "Renombrado: $vArchivo -> $vNuevoNombre"
+              # Verificar si el nombre del archivo contiene "DataSectionObject"
+                if [[ "$vArchivo" == *"DataSectionObject"* ]]; then
+                  # Obtener la nueva ruta sin la extensión .dat
+                    vNuevoNombre="${vArchivo%.dat}"
+                  # Renombrar el archivo
+                    mv "$vArchivo" "$vNuevoNombre"
+                fi
             done
 
         ;;
@@ -364,11 +370,13 @@
             done
           # Eliminar la extension .dat a todos los archivos
             find "$cCarpetaDondeGuardar"/Archivos/Individuales/LogsYEventos/ -type f -name "*.dat" | while IFS= read -r vArchivo; do
-              # Obtener la nueva ruta sin la extensión .dat
-                vNuevoNombre="${vArchivo%.dat}"
-              # Renombrar el archivo
-                mv "$vArchivo" "$vNuevoNombre"
-                echo "Renombrado: $vArchivo -> $vNuevoNombre"
+              # Verificar si el nombre del archivo contiene "DataSectionObject"
+                if [[ "$vArchivo" == *"DataSectionObject"* ]]; then
+                  # Obtener la nueva ruta sin la extensión .dat
+                    vNuevoNombre="${vArchivo%.dat}"
+                  # Renombrar el archivo
+                    mv "$vArchivo" "$vNuevoNombre"
+                fi
             done
 
         ;;
@@ -3204,6 +3212,17 @@
               mkdir -p "$cCarpetaDondeGuardar"/Archivos/Reales/"$(dirname "${aOffsetsArchivos[$key]}")" \
               && cd "$cCarpetaDondeGuardar"/Archivos/Reales/"$(dirname "${aOffsetsArchivos[$key]}")" \
               && vol --quiet -f "$cRutaAlArchivoDeDump" -o "$cCarpetaDondeGuardar"/Archivos/Reales/"$(dirname "${aOffsetsArchivos[$key]}")" windows. --virtaddr $key
+            done
+
+          # Eliminar la extension .dat a todos los archivos
+            find "$cCarpetaDondeGuardar"/Archivos/Reales/ -type f -name "*.dat" | while IFS= read -r vArchivo; do
+              # Verificar si el nombre del archivo contiene "DataSectionObject"
+                if [[ "$vArchivo" == *"DataSectionObject"* ]]; then
+                  # Obtener la nueva ruta sin la extensión .dat
+                    vNuevoNombre="${vArchivo%.dat}"
+                  # Renombrar el archivo
+                    mv "$vArchivo" "$vNuevoNombre"
+                fi
             done
 
             # windows. (Dumps cached file contents from Windows memory samples)
