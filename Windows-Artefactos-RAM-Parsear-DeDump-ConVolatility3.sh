@@ -125,7 +125,7 @@
               echo "    Aplicando el plugin windows.bigpools..."
               echo ""
               # En uso
-                vol -f "$cRutaAlArchivoDeDump" windows.bigpools | grep -v "Volatility 3"             > "$cCarpetaDondeGuardar"/tab/windows.bigpools-enuso.tab
+                vol -f "$cRutaAlArchivoDeDump" windows.bigpools             | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.bigpools-enuso.tab
               # En uso y libres
                 vol -f "$cRutaAlArchivoDeDump" windows.bigpools --show-free | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.bigpools-enusoylibres.tab
 
@@ -297,9 +297,9 @@
               echo "    Aplicando el plugin windows.joblinks..."
               echo ""
               # Offset virtual
-                vol -f "$cRutaAlArchivoDeDump" windows.joblinks | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.joblinks-offsetvirtual.tab
+                vol -f "$cRutaAlArchivoDeDump" windows.joblinks            | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.joblinks-offsetvirtual.tab
               # Offset físico
-                vol --physical           -f "$cRutaAlArchivoDeDump" windows.joblinks | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.joblinks-offsetfisico.tab
+                vol -f "$cRutaAlArchivoDeDump" windows.joblinks --physical | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.joblinks-offsetfisico.tab
 
             # windows.kpcrs (Print KPCR structure for each processor)
               echo ""
@@ -328,9 +328,9 @@
               echo "    Aplicando el plugin windows.mbrscan..."
               echo ""
               # Simple
-                vol -f "$cRutaAlArchivoDeDump" windows.mbrscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.mbrscan.tab
+                vol -f "$cRutaAlArchivoDeDump" windows.mbrscan        | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.mbrscan.tab
               # Completo
-                vol --full           -f "$cRutaAlArchivoDeDump" windows.mbrscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.mbrscan-full.tab
+                vol -f "$cRutaAlArchivoDeDump" windows.mbrscan --full | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.mbrscan-full.tab
 
             # windows.memmap (Prints the memory map)
               # Argumentos:
@@ -374,9 +374,9 @@
               echo "    Aplicando el plugin windows.netscan..."
               echo ""
               # Sin corruptos
-                vol -f "$cRutaAlArchivoDeDump" windows.netscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.netscan.tab
+                vol -f "$cRutaAlArchivoDeDump" windows.netscan                   | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.netscan.tab
               # Con corruptos
-                vol --include-corrupt           -f "$cRutaAlArchivoDeDump" windows.netscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.netscan-corrupt.tab
+                vol -f "$cRutaAlArchivoDeDump" windows.netscan --include-corrupt | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.netscan-corrupt.tab
 
             # windows.netstat (Traverses network tracking structures present in a particular windows memory image)
               # Argumentos:
@@ -385,9 +385,9 @@
               echo "    Aplicando el plugin windows.netstat..."
               echo ""
               # Sin corruptos
-                vol -f "$cRutaAlArchivoDeDump" windows.netstat | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.netstat.tab
+                vol -f "$cRutaAlArchivoDeDump" windows.netstat                   | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.netstat.tab
               # Con corruptos
-                vol -f "$cRutaAlArchivoDeDump" windows.netstat | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.netstat-corrupt.tab
+                vol -f "$cRutaAlArchivoDeDump" windows.netstat --include-corrupt | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.netstat-corrupt.tab
 
             # windows.orphan_kernel_threads (Lists process threads)
               echo ""
@@ -445,9 +445,9 @@
               echo "    Aplicando el plugin windows.pslist..."
               echo ""
               # Offset virtual
-                vol -f "$cRutaAlArchivoDeDump" windows.pslist | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.pslist-offsetvirtual.tab
+                vol -f "$cRutaAlArchivoDeDump" windows.pslist            | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.pslist-offsetvirtual.tab
               # Offset físico
-                vol --physical           -f "$cRutaAlArchivoDeDump" windows.pslist | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.pslist-offsetfisico.tab
+                vol -f "$cRutaAlArchivoDeDump" windows.pslist --physical | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.pslist-offsetfisico.tab
 
             # windows.psscan (Scans for processes present in a particular windows memory image)
               # Argumentos:
@@ -458,9 +458,9 @@
               echo "    Aplicando el plugin windows.psscan..."
               echo ""
               # Offset virtual
-                vol -f "$cRutaAlArchivoDeDump" windows.psscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.psscan-offsetvirtual.tab
+                vol -f "$cRutaAlArchivoDeDump" windows.psscan            | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.psscan-offsetvirtual.tab
               # Offset físico
-                vol --physical           -f "$cRutaAlArchivoDeDump" windows.psscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.psscan-offsetfisico.tab
+                vol -f "$cRutaAlArchivoDeDump" windows.psscan --physical | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.psscan-offsetfisico.tab
 
             # windows.pstree (Plugin for listing processes in a tree based on their parent process ID)
               # Argumentos:
@@ -470,9 +470,9 @@
               echo "    Aplicando el plugin windows.pstree..."
               echo ""
               # Offset virtual
-                vol -f "$cRutaAlArchivoDeDump" windows.pstree | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.pstree-offsetvirtual.tab
+                vol -f "$cRutaAlArchivoDeDump" windows.pstree            | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.pstree-offsetvirtual.tab
               # Offset físico
-                vol --physical           -f "$cRutaAlArchivoDeDump" windows.pstree | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.pstree-offsetfisico.tab
+                vol -f "$cRutaAlArchivoDeDump" windows.pstree --physical | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.pstree-offsetfisico.tab
 
             # windows.psxview (Lists all processes found via four of the methods described in "The Art of Memory Forensics," which may help identify processes that are trying to hide themselves. I recommend using -r pretty if you are looking at this plugin's output in a terminal)
               # Argumentos:
@@ -481,9 +481,9 @@
               echo "    Aplicando el plugin windows.psxview..."
               echo ""
               # Offsets virtuales
-                vol -f "$cRutaAlArchivoDeDump" windows.psxview | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.psxview-offsetsvirtuales.tab
+                vol -f "$cRutaAlArchivoDeDump" windows.psxview                    | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.psxview-offsetsvirtuales.tab
               # Offsets físicos
-                vol --physical-offsets           -f "$cRutaAlArchivoDeDump" windows.psxview | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.psxview-offsetsfisicos.tab
+                vol -f "$cRutaAlArchivoDeDump" windows.psxview --physical-offsets | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.psxview-offsetsfisicos.tab
 
             # windows.registry.certificates (Lists the certificates in the registry's Certificate Store)
               # Argumentos:
@@ -687,9 +687,9 @@
               echo "    Aplicando el plugin windows.verinfo..."
               echo ""
               # Normal
-                vol -f "$cRutaAlArchivoDeDump" windows.verinfo | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.verinfo-normal.tab
+                vol -f "$cRutaAlArchivoDeDump" windows.verinfo             | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.verinfo-normal.tab
               # Extensivo
-                vol --extensive           -f "$cRutaAlArchivoDeDump" windows.verinfo | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.verinfo-extensivo.tab
+                vol -f "$cRutaAlArchivoDeDump" windows.verinfo --extensive | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.verinfo-extensivo.tab
 
             # windows.virtmap (Lists virtual mapped sections)
               echo ""
@@ -775,7 +775,7 @@
               echo "    Aplicando el plugin windows.bigpools..."
               echo ""
               # En uso
-                vol -r pretty -f "$cRutaAlArchivoDeDump" windows.bigpools | grep -v "Volatility 3"             > "$cCarpetaDondeGuardar"/txt/windows.bigpools-enuso.txt
+                vol -r pretty -f "$cRutaAlArchivoDeDump" windows.bigpools             | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/txt/windows.bigpools-enuso.txt
               # En uso y libres
                 vol -r pretty -f "$cRutaAlArchivoDeDump" windows.bigpools --show-free | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/txt/windows.bigpools-enusoylibres.txt
 
@@ -947,9 +947,9 @@
               echo "    Aplicando el plugin windows.joblinks..."
               echo ""
               # Offset virtual
-                vol -r pretty -f "$cRutaAlArchivoDeDump" windows.joblinks | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/txt/windows.joblinks-offsetvirtual.txt
+                vol -r pretty -f "$cRutaAlArchivoDeDump" windows.joblinks            | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/txt/windows.joblinks-offsetvirtual.txt
               # Offset físico
-                vol --physical -r pretty -f "$cRutaAlArchivoDeDump" windows.joblinks | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/txt/windows.joblinks-offsetfisico.txt
+                vol -r pretty -f "$cRutaAlArchivoDeDump" windows.joblinks --physical | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/txt/windows.joblinks-offsetfisico.txt
 
 
             # windows.kpcrs (Print KPCR structure for each processor)
@@ -979,9 +979,9 @@
               echo "    Aplicando el plugin windows.mbrscan..."
               echo ""
               # Simple
-                vol -r pretty -f "$cRutaAlArchivoDeDump" windows.mbrscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/txt/windows.mbrscan.txt
+                vol -r pretty -f "$cRutaAlArchivoDeDump" windows.mbrscan        | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/txt/windows.mbrscan.txt
               # Completo
-                vol --full -r pretty -f "$cRutaAlArchivoDeDump" windows.mbrscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/txt/windows.mbrscan-full.txt
+                vol -r pretty -f "$cRutaAlArchivoDeDump" windows.mbrscan --full | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/txt/windows.mbrscan-full.txt
 
             # windows.memmap (Prints the memory map)
               # Argumentos:
@@ -1025,9 +1025,9 @@
               echo "    Aplicando el plugin windows.netscan..."
               echo ""
               # Sin corruptos
-                vol -r pretty -f "$cRutaAlArchivoDeDump" windows.netscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/txt/windows.netscan.txt
+                vol -r pretty -f "$cRutaAlArchivoDeDump" windows.netscan                   | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/txt/windows.netscan.txt
               # Con corruptos
-                vol --include-corrupt -r pretty -f "$cRutaAlArchivoDeDump" windows.netscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/txt/windows.netscan-corrupt.txt
+                vol -r pretty -f "$cRutaAlArchivoDeDump" windows.netscan --include-corrupt | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/txt/windows.netscan-corrupt.txt
 
             # windows.netstat (Traverses network tracking structures present in a particular windows memory image)
               # Argumentos:
@@ -1036,9 +1036,9 @@
               echo "    Aplicando el plugin windows.netstat..."
               echo ""
               # Sin corruptos
-                vol -r pretty -f "$cRutaAlArchivoDeDump" windows.netstat | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/txt/windows.netstat.txt
+                vol -r pretty -f "$cRutaAlArchivoDeDump" windows.netstat                   | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/txt/windows.netstat.txt
               # Con corruptos
-                vol -r pretty -f "$cRutaAlArchivoDeDump" windows.netstat | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/txt/windows.netstat-corrupt.txt
+                vol -r pretty -f "$cRutaAlArchivoDeDump" windows.netstat --include-corrupt | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/txt/windows.netstat-corrupt.txt
 
             # windows.orphan_kernel_threads (Lists process threads)
               echo ""
@@ -1096,9 +1096,9 @@
               echo "    Aplicando el plugin windows.pslist..."
               echo ""
               # Offset virtual
-                vol -r pretty -f "$cRutaAlArchivoDeDump" windows.pslist | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/txt/windows.pslist-offsetvirtual.txt
+                vol -r pretty -f "$cRutaAlArchivoDeDump" windows.pslist            | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/txt/windows.pslist-offsetvirtual.txt
               # Offset físico
-                vol --physical -r pretty -f "$cRutaAlArchivoDeDump" windows.pslist | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/txt/windows.pslist-offsetfisico.txt
+                vol -r pretty -f "$cRutaAlArchivoDeDump" windows.pslist --physical | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/txt/windows.pslist-offsetfisico.txt
 
             # windows.psscan (Scans for processes present in a particular windows memory image)
               # Argumentos:
@@ -1109,9 +1109,9 @@
               echo "    Aplicando el plugin windows.psscan..."
               echo ""
               # Offset virtual
-                vol -r pretty -f "$cRutaAlArchivoDeDump" windows.psscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/txt/windows.psscan-offsetvirtual.txt
+                vol -r pretty -f "$cRutaAlArchivoDeDump" windows.psscan            | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/txt/windows.psscan-offsetvirtual.txt
               # Offset físico
-                vol --physical -r pretty -f "$cRutaAlArchivoDeDump" windows.psscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/txt/windows.psscan-offsetfisico.txt
+                vol -r pretty -f "$cRutaAlArchivoDeDump" windows.psscan --physical | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/txt/windows.psscan-offsetfisico.txt
 
             # windows.pstree (Plugin for listing processes in a tree based on their parent process ID)
               # Argumentos:
@@ -1121,9 +1121,9 @@
               echo "    Aplicando el plugin windows.pstree..."
               echo ""
               # Offset virtual
-                vol -r pretty -f "$cRutaAlArchivoDeDump" windows.pstree | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/txt/windows.pstree-offsetvirtual.txt
+                vol -r pretty -f "$cRutaAlArchivoDeDump" windows.pstree            | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/txt/windows.pstree-offsetvirtual.txt
               # Offset físico
-                vol --physical -r pretty -f "$cRutaAlArchivoDeDump" windows.pstree | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/txt/windows.pstree-offsetfisico.txt
+                vol -r pretty -f "$cRutaAlArchivoDeDump" windows.pstree --physical | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/txt/windows.pstree-offsetfisico.txt
 
             # windows.psxview (Lists all processes found via four of the methods described in "The Art of Memory Forensics," which may help identify processes that are trying to hide themselves. I recommend using -r pretty if you are looking at this plugin's output in a terminal)
               # Argumentos:
@@ -1132,9 +1132,9 @@
               echo "    Aplicando el plugin windows.psxview..."
               echo ""
               # Offsets virtuales
-                vol -r pretty -f "$cRutaAlArchivoDeDump" windows.psxview | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/txt/windows.psxview-offsetsvirtuales.txt
+                vol -r pretty -f "$cRutaAlArchivoDeDump" windows.psxview                    | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/txt/windows.psxview-offsetsvirtuales.txt
               # Offsets físicos
-                vol --physical-offsets -r pretty -f "$cRutaAlArchivoDeDump" windows.psxview | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/txt/windows.psxview-offsetsfisicos.txt
+                vol -r pretty -f "$cRutaAlArchivoDeDump" windows.psxview --physical-offsets | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/txt/windows.psxview-offsetsfisicos.txt
 
             # windows.registry.certificates (Lists the certificates in the registry's Certificate Store)
               # Argumentos:
@@ -1338,9 +1338,9 @@
               echo "    Aplicando el plugin windows.verinfo..."
               echo ""
               # Normal
-                vol -r pretty -f "$cRutaAlArchivoDeDump" windows.verinfo | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/txt/windows.verinfo-normal.txt
+                vol -r pretty -f "$cRutaAlArchivoDeDump" windows.verinfo             | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/txt/windows.verinfo-normal.txt
               # Extensivo
-                vol --extensive -r pretty -f "$cRutaAlArchivoDeDump" windows.verinfo | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/txt/windows.verinfo-extensivo.txt
+                vol -r pretty -f "$cRutaAlArchivoDeDump" windows.verinfo --extensive | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/txt/windows.verinfo-extensivo.txt
 
             # windows.virtmap (Lists virtual mapped sections)
               echo ""
@@ -1426,7 +1426,7 @@
               echo "    Aplicando el plugin windows.bigpools..."
               echo ""
               # En uso
-                vol -r csv -f "$cRutaAlArchivoDeDump" windows.bigpools | grep -v "Volatility 3"             > "$cCarpetaDondeGuardar"/csv/windows.bigpools-enuso.csv
+                vol -r csv -f "$cRutaAlArchivoDeDump" windows.bigpools             | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/csv/windows.bigpools-enuso.csv
               # En uso y libres
                 vol -r csv -f "$cRutaAlArchivoDeDump" windows.bigpools --show-free | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/csv/windows.bigpools-enusoylibres.csv
 
@@ -1598,9 +1598,9 @@
               echo "    Aplicando el plugin windows.joblinks..."
               echo ""
               # Offset virtual
-                vol -r csv -f "$cRutaAlArchivoDeDump" windows.joblinks | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/csv/windows.joblinks-offsetvirtual.csv
+                vol -r csv -f "$cRutaAlArchivoDeDump" windows.joblinks            | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/csv/windows.joblinks-offsetvirtual.csv
               # Offset físico
-                vol --physical -r csv -f "$cRutaAlArchivoDeDump" windows.joblinks | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/csv/windows.joblinks-offsetfisico.csv
+                vol -r csv -f "$cRutaAlArchivoDeDump" windows.joblinks --physical | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/csv/windows.joblinks-offsetfisico.csv
 
             # windows.kpcrs (Print KPCR structure for each processor)
               echo ""
@@ -1629,9 +1629,9 @@
               echo "    Aplicando el plugin windows.mbrscan..."
               echo ""
               # Simple
-                vol -r csv -f "$cRutaAlArchivoDeDump" windows.mbrscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/csv/windows.mbrscan.csv
+                vol -r csv -f "$cRutaAlArchivoDeDump" windows.mbrscan        | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/csv/windows.mbrscan.csv
               # Completo
-                vol --full -r csv -f "$cRutaAlArchivoDeDump" windows.mbrscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/csv/windows.mbrscan-full.csv
+                vol -r csv -f "$cRutaAlArchivoDeDump" windows.mbrscan --full | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/csv/windows.mbrscan-full.csv
 
             # windows.memmap (Prints the memory map)
               # Argumentos:
@@ -1675,9 +1675,9 @@
               echo "    Aplicando el plugin windows.netscan..."
               echo ""
               # Sin corruptos
-                vol -r csv -f "$cRutaAlArchivoDeDump" windows.netscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/csv/windows.netscan.csv
+                vol -r csv -f "$cRutaAlArchivoDeDump" windows.netscan                   | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/csv/windows.netscan.csv
               # Con corruptos
-                vol --include-corrupt -r csv -f "$cRutaAlArchivoDeDump" windows.netscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/csv/windows.netscan-corrupt.csv
+                vol -r csv -f "$cRutaAlArchivoDeDump" windows.netscan --include-corrupt | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/csv/windows.netscan-corrupt.csv
 
             # windows.netstat (Traverses network tracking structures present in a particular windows memory image)
               # Argumentos:
@@ -1686,9 +1686,9 @@
               echo "    Aplicando el plugin windows.netstat..."
               echo ""
               # Sin corruptos
-                vol -r csv -f "$cRutaAlArchivoDeDump" windows.netstat | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/csv/windows.netstat.csv
+                vol -r csv -f "$cRutaAlArchivoDeDump" windows.netstat                   | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/csv/windows.netstat.csv
               # Con corruptos
-                vol -r csv -f "$cRutaAlArchivoDeDump" windows.netstat | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/csv/windows.netstat-corrupt.csv
+                vol -r csv -f "$cRutaAlArchivoDeDump" windows.netstat --include-corrupt | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/csv/windows.netstat-corrupt.csv
 
             # windows.orphan_kernel_threads (Lists process threads)
               echo ""
@@ -1746,9 +1746,9 @@
               echo "    Aplicando el plugin windows.pslist..."
               echo ""
               # Offset virtual
-                vol -r csv -f "$cRutaAlArchivoDeDump" windows.pslist | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/csv/windows.pslist-offsetvirtual.csv
+                vol -r csv -f "$cRutaAlArchivoDeDump" windows.pslist            | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/csv/windows.pslist-offsetvirtual.csv
               # Offset físico
-                vol --physical -r csv -f "$cRutaAlArchivoDeDump" windows.pslist | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/csv/windows.pslist-offsetfisico.csv
+                vol -r csv -f "$cRutaAlArchivoDeDump" windows.pslist --physical | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/csv/windows.pslist-offsetfisico.csv
 
             # windows.psscan (Scans for processes present in a particular windows memory image)
               # Argumentos:
@@ -1759,9 +1759,9 @@
               echo "    Aplicando el plugin windows.psscan..."
               echo ""
               # Offset virtual
-                vol -r csv -f "$cRutaAlArchivoDeDump" windows.psscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/csv/windows.psscan-offsetvirtual.csv
+                vol -r csv -f "$cRutaAlArchivoDeDump" windows.psscan            | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/csv/windows.psscan-offsetvirtual.csv
               # Offset físico
-                vol --physical -r csv -f "$cRutaAlArchivoDeDump" windows.psscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/csv/windows.psscan-offsetfisico.csv
+                vol -r csv -f "$cRutaAlArchivoDeDump" windows.psscan --physical | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/csv/windows.psscan-offsetfisico.csv
 
             # windows.pstree (Plugin for listing processes in a tree based on their parent process ID)
               # Argumentos:
@@ -1771,9 +1771,9 @@
               echo "    Aplicando el plugin windows.pstree..."
               echo ""
               # Offset virtual
-                vol -r csv -f "$cRutaAlArchivoDeDump" windows.pstree | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/csv/windows.pstree-offsetvirtual.csv
+                vol -r csv -f "$cRutaAlArchivoDeDump" windows.pstree            | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/csv/windows.pstree-offsetvirtual.csv
               # Offset físico
-                vol --physical -r csv -f "$cRutaAlArchivoDeDump" windows.pstree | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/csv/windows.pstree-offsetfisico.csv
+                vol -r csv -f "$cRutaAlArchivoDeDump" windows.pstree --physical | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/csv/windows.pstree-offsetfisico.csv
 
             # windows.psxview (Lists all processes found via four of the methods described in "The Art of Memory Forensics," which may help identify processes that are trying to hide themselves. I recommend using -r pretty if you are looking at this plugin's output in a terminal)
               # Argumentos:
@@ -1782,9 +1782,9 @@
               echo "    Aplicando el plugin windows.psxview..."
               echo ""
               # Offsets virtuales
-                vol -r csv -f "$cRutaAlArchivoDeDump" windows.psxview | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/csv/windows.psxview-offsetsvirtuales.csv
+                vol -r csv -f "$cRutaAlArchivoDeDump" windows.psxview                    | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/csv/windows.psxview-offsetsvirtuales.csv
               # Offsets físicos
-                vol --physical-offsets -r csv -f "$cRutaAlArchivoDeDump" windows.psxview | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/csv/windows.psxview-offsetsfisicos.csv
+                vol -r csv -f "$cRutaAlArchivoDeDump" windows.psxview --physical-offsets | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/csv/windows.psxview-offsetsfisicos.csv
 
             # windows.registry.certificates (Lists the certificates in the registry's Certificate Store)
               # Argumentos:
@@ -1952,7 +1952,6 @@
               echo ""
               vol -r csv -f "$cRutaAlArchivoDeDump" windows.unloadedmodules | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/csv/windows.unloadedmodules.csv
 
-
             # windows.vadinfo (Lists process memory ranges)
               # Argumentos:
               #   --address ADDRESS - Process virtual memory address to include (all other address ranges are excluded).
@@ -1989,9 +1988,9 @@
               echo "    Aplicando el plugin windows.verinfo..."
               echo ""
               # Normal
-                vol -r csv -f "$cRutaAlArchivoDeDump" windows.verinfo | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/csv/windows.verinfo-normal.csv
+                vol -r csv -f "$cRutaAlArchivoDeDump" windows.verinfo             | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/csv/windows.verinfo-normal.csv
               # Extensivo
-                vol --extensive -r csv -f "$cRutaAlArchivoDeDump" windows.verinfo | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/csv/windows.verinfo-extensivo.csv
+                vol -r csv -f "$cRutaAlArchivoDeDump" windows.verinfo --extensive | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/csv/windows.verinfo-extensivo.csv
 
             # windows.virtmap (Lists virtual mapped sections)
               echo ""
@@ -2077,7 +2076,7 @@
               echo "    Aplicando el plugin windows.bigpools..."
               echo ""
               # En uso
-                vol -r json -f "$cRutaAlArchivoDeDump" windows.bigpools | grep -v "Volatility 3"             > "$cCarpetaDondeGuardar"/json/windows.bigpools-enuso.json
+                vol -r json -f "$cRutaAlArchivoDeDump" windows.bigpools             | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/json/windows.bigpools-enuso.json
               # En uso y libres
                 vol -r json -f "$cRutaAlArchivoDeDump" windows.bigpools --show-free | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/json/windows.bigpools-enusoylibres.json
 
@@ -2249,9 +2248,9 @@
               echo "    Aplicando el plugin windows.joblinks..."
               echo ""
               # Offset virtual
-                vol -r json -f "$cRutaAlArchivoDeDump" windows.joblinks | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/json/windows.joblinks-offsetvirtual.json
+                vol -r json -f "$cRutaAlArchivoDeDump" windows.joblinks            | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/json/windows.joblinks-offsetvirtual.json
               # Offset físico
-                vol --physical -r json -f "$cRutaAlArchivoDeDump" windows.joblinks | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/json/windows.joblinks-offsetfisico.json
+                vol -r json -f "$cRutaAlArchivoDeDump" windows.joblinks --physical | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/json/windows.joblinks-offsetfisico.json
 
             # windows.kpcrs (Print KPCR structure for each processor)
               echo ""
@@ -2280,9 +2279,9 @@
               echo "    Aplicando el plugin windows.mbrscan..."
               echo ""
               # Simple
-                vol -r json -f "$cRutaAlArchivoDeDump" windows.mbrscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/json/windows.mbrscan.json
+                vol -r json -f "$cRutaAlArchivoDeDump" windows.mbrscan        | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/json/windows.mbrscan.json
               # Completo
-                vol --full -r json -f "$cRutaAlArchivoDeDump" windows.mbrscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/json/windows.mbrscan-full.json
+                vol -r json -f "$cRutaAlArchivoDeDump" windows.mbrscan --full | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/json/windows.mbrscan-full.json
 
             # windows.memmap (Prints the memory map)
               # Argumentos:
@@ -2326,9 +2325,9 @@
               echo "    Aplicando el plugin windows.netscan..."
               echo ""
               # Sin corruptos
-                vol -r json -f "$cRutaAlArchivoDeDump" windows.netscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/json/windows.netscan.json
+                vol -r json -f "$cRutaAlArchivoDeDump" windows.netscan                   | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/json/windows.netscan.json
               # Con corruptos
-                vol --include-corrupt -r json -f "$cRutaAlArchivoDeDump" windows.netscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/json/windows.netscan-corrupt.json
+                vol -r json -f "$cRutaAlArchivoDeDump" windows.netscan --include-corrupt | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/json/windows.netscan-corrupt.json
 
             # windows.netstat (Traverses network tracking structures present in a particular windows memory image)
               # Argumentos:
@@ -2337,9 +2336,9 @@
               echo "    Aplicando el plugin windows.netstat..."
               echo ""
               # Sin corruptos
-                vol -r json -f "$cRutaAlArchivoDeDump" windows.netstat | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/json/windows.netstat.json
+                vol -r json -f "$cRutaAlArchivoDeDump" windows.netstat                   | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/json/windows.netstat.json
               # Con corruptos
-                vol -r json -f "$cRutaAlArchivoDeDump" windows.netstat | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/json/windows.netstat-corrupt.json
+                vol -r json -f "$cRutaAlArchivoDeDump" windows.netstat --include-corrupt | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/json/windows.netstat-corrupt.json
 
             # windows.orphan_kernel_threads (Lists process threads)
               echo ""
@@ -2399,9 +2398,9 @@
               echo "    Aplicando el plugin windows.pslist..."
               echo ""
               # Offset virtual
-                vol -r json -f "$cRutaAlArchivoDeDump" windows.pslist | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/json/windows.pslist-offsetvirtual.json
+                vol -r json -f "$cRutaAlArchivoDeDump" windows.pslist            | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/json/windows.pslist-offsetvirtual.json
               # Offset físico
-                vol --physical -r json -f "$cRutaAlArchivoDeDump" windows.pslist | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/json/windows.pslist-offsetfisico.json
+                vol -r json -f "$cRutaAlArchivoDeDump" windows.pslist --physical | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/json/windows.pslist-offsetfisico.json
 
             # windows.psscan (Scans for processes present in a particular windows memory image)
               # Argumentos:
@@ -2412,9 +2411,9 @@
               echo "    Aplicando el plugin windows.psscan..."
               echo ""
               # Offset virtual
-                vol -r json -f "$cRutaAlArchivoDeDump" windows.psscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/json/windows.psscan-offsetvirtual.json
+                vol -r json -f "$cRutaAlArchivoDeDump" windows.psscan            | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/json/windows.psscan-offsetvirtual.json
               # Offset físico
-                vol --physical -r json -f "$cRutaAlArchivoDeDump" windows.psscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/json/windows.psscan-offsetfisico.json
+                vol -r json -f "$cRutaAlArchivoDeDump" windows.psscan --physical | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/json/windows.psscan-offsetfisico.json
 
             # windows.pstree (Plugin for listing processes in a tree based on their parent process ID)
               # Argumentos:
@@ -2424,9 +2423,9 @@
               echo "    Aplicando el plugin windows.pstree..."
               echo ""
               # Offset virtual
-                vol -r json -f "$cRutaAlArchivoDeDump" windows.pstree | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/json/windows.pstree-offsetvirtual.json
+                vol -r json -f "$cRutaAlArchivoDeDump" windows.pstree            | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/json/windows.pstree-offsetvirtual.json
               # Offset físico
-                vol --physical -r json -f "$cRutaAlArchivoDeDump" windows.pstree | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/json/windows.pstree-offsetfisico.json
+                vol -r json -f "$cRutaAlArchivoDeDump" windows.pstree --physical | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/json/windows.pstree-offsetfisico.json
 
             # windows.psxview (Lists all processes found via four of the methods described in "The Art of Memory Forensics," which may help identify processes that are trying to hide themselves. I recommend using -r pretty if you are looking at this plugin's output in a terminal)
               # Argumentos:
@@ -2435,9 +2434,9 @@
               echo "    Aplicando el plugin windows.psxview..."
               echo ""
               # Offsets virtuales
-                vol -r json -f "$cRutaAlArchivoDeDump" windows.psxview | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/json/windows.psxview-offsetsvirtuales.json
+                vol -r json -f "$cRutaAlArchivoDeDump" windows.psxview                    | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/json/windows.psxview-offsetsvirtuales.json
               # Offsets físicos
-                vol --physical-offsets -r json -f "$cRutaAlArchivoDeDump" windows.psxview | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/json/windows.psxview-offsetsfisicos.json
+                vol -r json -f "$cRutaAlArchivoDeDump" windows.psxview --physical-offsets | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/json/windows.psxview-offsetsfisicos.json
 
             # windows.registry.certificates (Lists the certificates in the registry's Certificate Store)
               # Argumentos:
@@ -2641,9 +2640,9 @@
               echo "    Aplicando el plugin windows.verinfo..."
               echo ""
               # Normal
-                vol -r json -f "$cRutaAlArchivoDeDump" windows.verinfo | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/json/windows.verinfo-normal.json
+                vol -r json -f "$cRutaAlArchivoDeDump" windows.verinfo             | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/json/windows.verinfo-normal.json
               # Extensivo
-                vol --extensive -r json -f "$cRutaAlArchivoDeDump" windows.verinfo | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/json/windows.verinfo-extensivo.json
+                vol -r json -f "$cRutaAlArchivoDeDump" windows.verinfo --extensive | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/json/windows.verinfo-extensivo.json
 
             # windows.virtmap (Lists virtual mapped sections)
               echo ""
