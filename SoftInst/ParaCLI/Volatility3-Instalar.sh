@@ -369,7 +369,7 @@
                 python3 -m pip install pyinstaller
                 
                 python3 -m pip install distorm3
-                python3 -m pip install pycrypto
+                python3 -m pip install pycryptodome
                 python3 -m pip install pillow
                 python3 -m pip install openpyxl
                 python3 -m pip install ujson
