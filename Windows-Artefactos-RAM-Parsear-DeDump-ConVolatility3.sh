@@ -167,6 +167,21 @@
             for key in "${!aOffsetsArchivosImagenes[@]}"; do
               vol --quiet -f "$cRutaAlArchivoDeDump" -o "$cCarpetaDondeGuardar"/Archivos/Individuales/Imagenes/ windows.dumpfiles --virtaddr $key
             done
+          # Eliminar archivos con hash duplicado
+            declare -A aHashesImagenes
+            find "$cCarpetaDondeGuardar"/Archivos/Individuales/Imagenes/ -type f | while read -r vArchivo; do
+              # Calcular el hash del archivo (usa sha256sum o md5sum según prefieras)
+                vHash=$(sha256sum "$vArchivo" | sed 's/ .*//')
+              # Verificar si el hash ya existe en el array
+                if [[ -v aHashesImagenes["$vHash"] ]]; then
+                  # Si el hash ya existe, eliminar el archivo duplicado
+                  echo "Eliminando duplicado: $vArchivo (hash: $vHash)"
+                  rm -f "$vArchivo"
+                else
+                  # Si el hash no existe, guardar el archivo en el array
+                  aHashesImagenes["$vHash"]="$vArchivo"
+                fi
+            done
 
         ;;
 
@@ -189,18 +204,18 @@
               vol --quiet -f "$cRutaAlArchivoDeDump" -o "$cCarpetaDondeGuardar"/Archivos/Individuales/Documentos/ windows.dumpfiles --virtaddr $key
             done
           # Eliminar archivos con hash duplicado
-            declare -A aHashes
+            declare -A aHashesDocuementos
             find "$cCarpetaDondeGuardar"/Archivos/Individuales/Documentos/ -type f | while read -r vArchivo; do
               # Calcular el hash del archivo (usa sha256sum o md5sum según prefieras)
-                vHash=$(sha256sum "$vArchivo" | awk '{print $1}')
+                vHash=$(sha256sum "$vArchivo" | sed 's/ .*//')
               # Verificar si el hash ya existe en el array
-                if [[ -v aHashes["$vHash"] ]]; then
+                if [[ -v aHashesDocumentos["$vHash"] ]]; then
                   # Si el hash ya existe, eliminar el archivo duplicado
                   echo "Eliminando duplicado: $vArchivo (hash: $vHash)"
                   rm -f "$vArchivo"
                 else
                   # Si el hash no existe, guardar el archivo en el array
-                  aHashes["$vHash"]="$vArchivo"
+                  aHashesDocumentos["$vHash"]="$vArchivo"
                 fi
             done
 
@@ -224,6 +239,21 @@
             for key in "${!aOffsetsArchivosScripts[@]}"; do
               vol --quiet -f "$cRutaAlArchivoDeDump" -o "$cCarpetaDondeGuardar"/Archivos/Individuales/Scripts/ windows.dumpfiles --virtaddr $key
             done
+          # Eliminar archivos con hash duplicado
+            declare -A aHashesScripts
+            find "$cCarpetaDondeGuardar"/Archivos/Individuales/Scripts/ -type f | while read -r vArchivo; do
+              # Calcular el hash del archivo (usa sha256sum o md5sum según prefieras)
+                vHash=$(sha256sum "$vArchivo" | sed 's/ .*//')
+              # Verificar si el hash ya existe en el array
+                if [[ -v aHashesScripts["$vHash"] ]]; then
+                  # Si el hash ya existe, eliminar el archivo duplicado
+                  echo "Eliminando duplicado: $vArchivo (hash: $vHash)"
+                  rm -f "$vArchivo"
+                else
+                  # Si el hash no existe, guardar el archivo en el array
+                  aHashesScripts["$vHash"]="$vArchivo"
+                fi
+            done
 
         ;;
 
@@ -244,6 +274,21 @@
           # Recorrer el array e ir guardando los offsets
             for key in "${!aOffsetsArchivosOtros[@]}"; do
               vol --quiet -f "$cRutaAlArchivoDeDump" -o "$cCarpetaDondeGuardar"/Archivos/Individuales/Otros/ windows.dumpfiles --virtaddr $key
+            done
+          # Eliminar archivos con hash duplicado
+            declare -A aHashesOtros
+            find "$cCarpetaDondeGuardar"/Archivos/Individuales/Otros/ -type f | while read -r vArchivo; do
+              # Calcular el hash del archivo (usa sha256sum o md5sum según prefieras)
+                vHash=$(sha256sum "$vArchivo" | sed 's/ .*//')
+              # Verificar si el hash ya existe en el array
+                if [[ -v aHashesOtros["$vHash"] ]]; then
+                  # Si el hash ya existe, eliminar el archivo duplicado
+                  echo "Eliminando duplicado: $vArchivo (hash: $vHash)"
+                  rm -f "$vArchivo"
+                else
+                  # Si el hash no existe, guardar el archivo en el array
+                  aHashesOtros["$vHash"]="$vArchivo"
+                fi
             done
 
         ;;
