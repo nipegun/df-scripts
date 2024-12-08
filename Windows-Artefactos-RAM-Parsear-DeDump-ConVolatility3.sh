@@ -157,14 +157,14 @@
           # Guardar todas las líneas con las imágenes encontradas
             cat "$cCarpetaDondeGuardar"/tab/windows.filescan.tab | grep -a -i --color -E '\.(jpg|jpeg|png|bmp|webp)$' > "$cCarpetaDondeGuardar"/tab/windows.filescan-imagenes.tab
           # Crear el array asociativo y meter dentro todos los offsets y los archivos
-            declare -A aOffsetsArchivos
+            declare -A aOffsetsArchivosImagenes
             while IFS=$'\t' read -r key value; do
-              aOffsetsArchivos["$key"]="$value"
+              aOffsetsArchivosImagenes["$key"]="$value"
             done < "$cCarpetaDondeGuardar"/tab/windows.filescan-imagenes.tab
           # Crear la carpeta donde guardar las imagenes
             mkdir -p "$cCarpetaDondeGuardar"/Archivos/Individuales/Imagenes/
           # Recorrer el array e ir guardando los offsets
-            for key in "${!aOffsetsArchivos[@]}"; do
+            for key in "${!aOffsetsArchivosImagenes[@]}"; do
               vol --quiet -f "$cRutaAlArchivoDeDump" -o "$cCarpetaDondeGuardar"/Archivos/Individuales/Imagenes/ windows.dumpfiles --virtaddr $key
             done
 
@@ -178,14 +178,14 @@
           # Guardar todas las líneas con las imágenes encontradas
             cat "$cCarpetaDondeGuardar"/tab/windows.filescan.tab | grep -a -i --color -E '\.(doc|docx|odt|xls|xlsx|ods|pdf)$' > "$cCarpetaDondeGuardar"/tab/windows.filescan-documentos.tab
           # Crear el array asociativo y meter dentro todos los offsets y los archivos
-            declare -A aOffsetsArchivos
+            declare -A aOffsetsArchivosDocumentos
             while IFS=$'\t' read -r key value; do
-              aOffsetsArchivos["$key"]="$value"
+              aOffsetsArchivosDocumentos["$key"]="$value"
             done < "$cCarpetaDondeGuardar"/tab/windows.filescan-documentos.tab
           # Crear la carpeta donde guardar las imagenes
             mkdir -p "$cCarpetaDondeGuardar"/Archivos/Individuales/Documentos/
           # Recorrer el array e ir guardando los offsets
-            for key in "${!aOffsetsArchivos[@]}"; do
+            for key in "${!aOffsetsArchivosDocumentos[@]}"; do
               vol --quiet -f "$cRutaAlArchivoDeDump" -o "$cCarpetaDondeGuardar"/Archivos/Individuales/Documentos/ windows.dumpfiles --virtaddr $key
             done
 
@@ -199,14 +199,14 @@
           # Guardar todas las líneas con las imágenes encontradas
             cat "$cCarpetaDondeGuardar"/tab/windows.filescan.tab | grep -a -i --color -E '\.(sh|bat|ps1|py)$' > "$cCarpetaDondeGuardar"/tab/windows.filescan-scripts.tab
           # Crear el array asociativo y meter dentro todos los offsets y los archivos
-            declare -A aOffsetsArchivos
+            declare -A aOffsetsArchivosScripts
             while IFS=$'\t' read -r key value; do
-              aOffsetsArchivos["$key"]="$value"
+              aOffsetsArchivosScripts["$key"]="$value"
             done < "$cCarpetaDondeGuardar"/tab/windows.filescan-scripts.tab
           # Crear la carpeta donde guardar las imagenes
             mkdir -p "$cCarpetaDondeGuardar"/Archivos/Individuales/Scripts/
           # Recorrer el array e ir guardando los offsets
-            for key in "${!aOffsetsArchivos[@]}"; do
+            for key in "${!aOffsetsArchivosScripts[@]}"; do
               vol --quiet -f "$cRutaAlArchivoDeDump" -o "$cCarpetaDondeGuardar"/Archivos/Individuales/Scripts/ windows.dumpfiles --virtaddr $key
             done
 
@@ -220,14 +220,14 @@
           # Guardar todas las líneas con las imágenes encontradas
             cat "$cCarpetaDondeGuardar"/tab/windows.filescan.tab | grep -a -i --color -E '\.(txt|txs)$' > "$cCarpetaDondeGuardar"/tab/windows.filescan-otros.tab
           # Crear el array asociativo y meter dentro todos los offsets y los archivos
-            declare -A aOffsetsArchivos
+            declare -A aOffsetsArchivosOtros
             while IFS=$'\t' read -r key value; do
-              aOffsetsArchivos["$key"]="$value"
+              aOffsetsArchivosOtros["$key"]="$value"
             done < "$cCarpetaDondeGuardar"/tab/windows.filescan-otros.tab
           # Crear la carpeta donde guardar las imagenes
             mkdir -p "$cCarpetaDondeGuardar"/Archivos/Individuales/Otros/
           # Recorrer el array e ir guardando los offsets
-            for key in "${!aOffsetsArchivos[@]}"; do
+            for key in "${!aOffsetsArchivosOtros[@]}"; do
               vol --quiet -f "$cRutaAlArchivoDeDump" -o "$cCarpetaDondeGuardar"/Archivos/Individuales/Otros/ windows.dumpfiles --virtaddr $key
             done
 
