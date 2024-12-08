@@ -211,7 +211,7 @@
               echo ""
               vol -f "$cRutaAlArchivoDeDump" windows.driverscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.driverscan.tab
 
-            # windows.dumfiles (Dumps cached file contents from Windows memory samples)
+            # windows.dumpfiles (Dumps cached file contents from Windows memory samples)
               # Argumentos:
               #  --pid PID           - Process ID to include (all other processes are excluded)
               #  --virtaddr VIRTADDR - Dump a single _FILE_OBJECT at this virtual address
@@ -219,12 +219,12 @@
               #  --filter FILTER     - Dump files matching regular expression FILTER
               #  --ignore-case       - Ignore case in filter match
               echo ""
-              echo "    Aplicando el plugin windows.dumfiles..."
+              echo "    Aplicando el plugin windows.dumpfiles..."
               echo ""
               mkdir -p "$cCarpetaDondeGuardar"/tab/Archivos/
               cd "$cCarpetaDondeGuardar"/tab/Archivos/
               for vExtens in "${aExtensionesAExtraer[@]}"; do
-                echo -e "\n  Extrayendo todos los archivos $vExtens...\n"
+                echo -e "\n      Extrayendo todos los archivos $vExtens...\n"
                 vol -f "$cRutaAlArchivoDeDump" windows.dumpfiles --filter \.$vExtens\$
               done
               cd ~/repos/python/volatility3
@@ -861,7 +861,7 @@
               echo ""
               vol -r pretty -f "$cRutaAlArchivoDeDump" windows.driverscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/txt/windows.driverscan.txt
 
-            # windows.dumfiles (Dumps cached file contents from Windows memory samples)
+            # windows.dumpfiles (Dumps cached file contents from Windows memory samples)
               # Argumentos:
               #  --pid PID           - Process ID to include (all other processes are excluded)
               #  --virtaddr VIRTADDR - Dump a single _FILE_OBJECT at this virtual address
@@ -869,12 +869,12 @@
               #  --filter FILTER     - Dump files matching regular expression FILTER
               #  --ignore-case       - Ignore case in filter match
               echo ""
-              echo "    Aplicando el plugin windows.dumfiles..."
+              echo "    Aplicando el plugin windows.dumpfiles..."
               echo ""
               mkdir -p "$cCarpetaDondeGuardar"/txt/Archivos/
               cd "$cCarpetaDondeGuardar"/txt/Archivos/
               for vExtens in "${aExtensionesAExtraer[@]}"; do
-                echo -e "\n  Extrayendo todos los archivos $vExtens...\n"
+                echo -e "\n      Extrayendo todos los archivos $vExtens...\n"
                 vol -f "$cRutaAlArchivoDeDump" windows.dumpfiles --filter \.$vExtens\$
               done
               cd ~/repos/python/volatility3
@@ -1512,7 +1512,7 @@
               echo ""
               vol -r csv -f "$cRutaAlArchivoDeDump" windows.driverscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/csv/windows.driverscan.csv
 
-            # windows.dumfiles (Dumps cached file contents from Windows memory samples)
+            # windows.dumpfiles (Dumps cached file contents from Windows memory samples)
               # Argumentos:
               #  --pid PID           - Process ID to include (all other processes are excluded)
               #  --virtaddr VIRTADDR - Dump a single _FILE_OBJECT at this virtual address
@@ -1520,12 +1520,12 @@
               #  --filter FILTER     - Dump files matching regular expression FILTER
               #  --ignore-case       - Ignore case in filter match
               echo ""
-              echo "    Aplicando el plugin windows.dumfiles..."
+              echo "    Aplicando el plugin windows.dumpfiles..."
               echo ""
               mkdir -p "$cCarpetaDondeGuardar"/csv/Archivos/
               cd "$cCarpetaDondeGuardar"/csv/Archivos/
               for vExtens in "${aExtensionesAExtraer[@]}"; do
-                echo -e "\n  Extrayendo todos los archivos $vExtens...\n"
+                echo -e "\n      Extrayendo todos los archivos $vExtens...\n"
                 vol -f "$cRutaAlArchivoDeDump" windows.dumpfiles --filter \.$vExtens\$
               done
               cd ~/repos/python/volatility3
@@ -2163,7 +2163,7 @@
               echo ""
               vol -r json -f "$cRutaAlArchivoDeDump" windows.driverscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/json/windows.driverscan.json
 
-            # windows.dumfiles (Dumps cached file contents from Windows memory samples)
+            # windows.dumpfiles (Dumps cached file contents from Windows memory samples)
               # Argumentos:
               #  --pid PID           - Process ID to include (all other processes are excluded)
               #  --virtaddr VIRTADDR - Dump a single _FILE_OBJECT at this virtual address
@@ -2171,12 +2171,12 @@
               #  --filter FILTER     - Dump files matching regular expression FILTER
               #  --ignore-case       - Ignore case in filter match
               echo ""
-              echo "    Aplicando el plugin windows.dumfiles..."
+              echo "    Aplicando el plugin windows.dumpfiles..."
               echo ""
               mkdir -p "$cCarpetaDondeGuardar"/json/Archivos/
               cd "$cCarpetaDondeGuardar"/json/Archivos/
               for vExtens in "${aExtensionesAExtraer[@]}"; do
-                echo -e "\n  Extrayendo todos los archivos $vExtens...\n"
+                echo -e "\n      Extrayendo todos los archivos $vExtens...\n"
                 vol -f "$cRutaAlArchivoDeDump" windows.dumpfiles --filter \.$vExtens\$
               done
               cd ~/repos/python/volatility3
