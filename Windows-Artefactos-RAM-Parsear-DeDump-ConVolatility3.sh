@@ -339,7 +339,7 @@
               echo ""
               echo "    Aplicando el plugin windows.memmap..."
               echo ""
-              vol -f "$cRutaAlArchivoDeDump" windows.memmap | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.memmap.tab
+              #vol -f "$cRutaAlArchivoDeDump" windows.memmap | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.memmap.tab
 
             # windows.modscan (Scans for modules present in a particular windows memory image)
               # Argumentos:
@@ -990,7 +990,7 @@
               echo ""
               echo "    Aplicando el plugin windows.memmap..."
               echo ""
-              vol -r pretty -f "$cRutaAlArchivoDeDump" windows.memmap | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/txt/windows.memmap.txt
+              #vol -r pretty -f "$cRutaAlArchivoDeDump" windows.memmap | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/txt/windows.memmap.txt
 
             # windows.modscan (Scans for modules present in a particular windows memory image)
               # Argumentos:
@@ -1640,7 +1640,7 @@
               echo ""
               echo "    Aplicando el plugin windows.memmap..."
               echo ""
-              vol -r csv -f "$cRutaAlArchivoDeDump" windows.memmap | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/csv/windows.memmap.csv
+              #vol -r csv -f "$cRutaAlArchivoDeDump" windows.memmap | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/csv/windows.memmap.csv
 
             # windows.modscan (Scans for modules present in a particular windows memory image)
               # Argumentos:
@@ -2290,7 +2290,7 @@
               echo ""
               echo "    Aplicando el plugin windows.memmap..."
               echo ""
-              vol -r json -f "$cRutaAlArchivoDeDump" windows.memmap | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/json/windows.memmap.json
+              #vol -r json -f "$cRutaAlArchivoDeDump" windows.memmap | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/json/windows.memmap.json
 
             # windows.modscan (Scans for modules present in a particular windows memory image)
               # Argumentos:
