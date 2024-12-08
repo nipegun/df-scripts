@@ -192,8 +192,8 @@
             done
           # Eliminar la extension .dat a todos los archivos
             find "$cCarpetaDondeGuardar"/Archivos/Individuales/Imagenes/ -type f -name "*.dat" | while IFS= read -r vArchivo; do
-              # Obtener la nueva ruta sin la extensión .vacb
-                vNuevoNombre="${vArchivo%.vacb}"
+              # Obtener la nueva ruta sin la extensión .dat
+                vNuevoNombre="${vArchivo%.dat}"
               # Renombrar el archivo
                 mv "$vArchivo" "$vNuevoNombre"
                 echo "Renombrado: $vArchivo -> $vNuevoNombre"
@@ -244,8 +244,8 @@
             done
           # Eliminar la extension .dat a todos los archivos
             find "$cCarpetaDondeGuardar"/Archivos/Individuales/Documentos/ -type f -name "*.dat" | while IFS= read -r vArchivo; do
-              # Obtener la nueva ruta sin la extensión .vacb
-                vNuevoNombre="${vArchivo%.vacb}"
+              # Obtener la nueva ruta sin la extensión .dat
+                vNuevoNombre="${vArchivo%.dat}"
               # Renombrar el archivo
                 mv "$vArchivo" "$vNuevoNombre"
                 echo "Renombrado: $vArchivo -> $vNuevoNombre"
@@ -296,8 +296,8 @@
             done
           # Eliminar la extension .dat a todos los archivos
             find "$cCarpetaDondeGuardar"/Archivos/Individuales/Scripts/ -type f -name "*.dat" | while IFS= read -r vArchivo; do
-              # Obtener la nueva ruta sin la extensión .vacb
-                vNuevoNombre="${vArchivo%.vacb}"
+              # Obtener la nueva ruta sin la extensión .dat
+                vNuevoNombre="${vArchivo%.dat}"
               # Renombrar el archivo
                 mv "$vArchivo" "$vNuevoNombre"
                 echo "Renombrado: $vArchivo -> $vNuevoNombre"
@@ -348,8 +348,8 @@
             done
           # Eliminar la extension .dat a todos los archivos
             find "$cCarpetaDondeGuardar"/Archivos/Individuales/Otros/ -type f -name "*.dat" | while IFS= read -r vArchivo; do
-              # Obtener la nueva ruta sin la extensión .vacb
-                vNuevoNombre="${vArchivo%.vacb}"
+              # Obtener la nueva ruta sin la extensión .dat
+                vNuevoNombre="${vArchivo%.dat}"
               # Renombrar el archivo
                 mv "$vArchivo" "$vNuevoNombre"
                 echo "Renombrado: $vArchivo -> $vNuevoNombre"
