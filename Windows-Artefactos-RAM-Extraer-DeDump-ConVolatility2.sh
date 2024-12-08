@@ -13,6 +13,8 @@
 #
 # Bajar y editar directamente el archivo en nano
 #   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Windows-Artefactos-RAM-Extraer-DeDump-ConVolatility2.sh | nano -
+#
+# Más info aquí: https://github.com/volatilityfoundation/volatility/wiki/Command-Reference
 # ----------
 
 # Definir constantes de color
