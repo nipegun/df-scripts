@@ -59,7 +59,8 @@
         echo ""
         echo -e "${cColorRojo}  El paquete git no está instalado. Iniciando su instalación...${cFinColor}"
         echo ""
-        sudo apt-get -y update && sudo apt-get -y install git
+        sudo apt-get -y update
+        sudo apt-get -y install git
         echo ""
       fi
     git clone https://github.com/volatilityfoundation/volatility3.git
@@ -80,7 +81,8 @@
       echo ""
       echo -e "${cColorRojo}  El paquete dialog no está instalado. Iniciando su instalación...${cFinColor}"
       echo ""
-      apt-get -y update && apt-get -y install dialog
+      apt-get -y update
+      apt-get -y install dialog
       echo ""
     fi
   menu=(dialog --checklist "Marca los formatos de salida que quieras obtener:" 22 60 16)
