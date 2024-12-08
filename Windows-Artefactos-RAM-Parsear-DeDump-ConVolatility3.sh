@@ -516,6 +516,12 @@
               vol -f "$cRutaAlArchivoDeDump" windows.handles | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.handles.tab
               #vol -f "$cRutaAlArchivoDeDump" windows.handles ‑‑pid "<PID>"
 
+            # windows.hashdump (Dumps user hashes from memory)
+              echo ""
+              echo "    Aplicando el plugin windows.hashdump..."
+              echo ""
+              vol -f "$cRutaAlArchivoDeDump" windows.hashdump | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.hashdump.tab
+
             # windows.hollowprocesses (Lists hollowed processes)
               # Argumentos:
               #   --pid [PID ...] - Process IDs to include (all other processes are excluded)
@@ -971,6 +977,20 @@
               echo ""
               vol -f "$cRutaAlArchivoDeDump" windows.virtmap | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.virtmap.tab
 
+            # windows.vadyarascan (Scans all the Virtual Address Descriptor memory maps using yara)
+              # Argumentos:
+              #   --insensitive                           - Makes the search case insensitive
+              #   --wide                                  - Match wide (unicode) strings
+              #   --yara-string YARA_STRING               - Yara rules (as a string)
+              #   --yara-file YARA_FILE                   - Yara rules (as a file)
+              #   --yara-compiled-file YARA_COMPILED_FILE - Yara compiled rules (as a file)
+              #   --max-size MAX_SIZE                     - Set the maximum size (default is 1GB)
+              #   --pid [PID ...]                         - Process IDs to include (all other processes are excluded)
+              echo ""
+              echo "    Aplicando el plugin windows.vadyarascan..."
+              echo ""
+              vol -f "$cRutaAlArchivoDeDump" windows.vadyarascan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.vadyarascan.tab
+
             # No windows
 
               # isinfo (Determines information about the currently available ISF files, or a specific one)
@@ -1174,6 +1194,12 @@
               echo ""
               vol -r pretty -f "$cRutaAlArchivoDeDump" windows.handles | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/txt/windows.handles.txt
               #vol -f "$cRutaAlArchivoDeDump" windows.handles ‑‑pid "<PID>"
+
+            # windows.hashdump (Dumps user hashes from memory)
+              echo ""
+              echo "    Aplicando el plugin windows.hashdump..."
+              echo ""
+              vol -r pretty -f "$cRutaAlArchivoDeDump" windows.hashdump | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.hashdump.txt
 
             # windows.hollowprocesses (Lists hollowed processes)
               # Argumentos:
@@ -1607,6 +1633,20 @@
               echo ""
               vol -r pretty -f "$cRutaAlArchivoDeDump" windows.virtmap | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/txt/windows.virtmap.txt
 
+            # windows.vadyarascan (Scans all the Virtual Address Descriptor memory maps using yara)
+              # Argumentos:
+              #   --insensitive                           - Makes the search case insensitive
+              #   --wide                                  - Match wide (unicode) strings
+              #   --yara-string YARA_STRING               - Yara rules (as a string)
+              #   --yara-file YARA_FILE                   - Yara rules (as a file)
+              #   --yara-compiled-file YARA_COMPILED_FILE - Yara compiled rules (as a file)
+              #   --max-size MAX_SIZE                     - Set the maximum size (default is 1GB)
+              #   --pid [PID ...]                         - Process IDs to include (all other processes are excluded)
+              echo ""
+              echo "    Aplicando el plugin windows.vadyarascan..."
+              echo ""
+              vol -r pretty -f "$cRutaAlArchivoDeDump" windows.vadyarascan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.vadyarascan.txt
+
             # No windows
 
               # isinfo (Determines information about the currently available ISF files, or a specific one)
@@ -1810,6 +1850,12 @@
               echo ""
               vol -r csv -f "$cRutaAlArchivoDeDump" windows.handles | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/csv/windows.handles.csv
               #vol -f "$cRutaAlArchivoDeDump" windows.handles ‑‑pid "<PID>"
+
+            # windows.hashdump (Dumps user hashes from memory)
+              echo ""
+              echo "    Aplicando el plugin windows.hashdump..."
+              echo ""
+              vol -r csv -f "$cRutaAlArchivoDeDump" windows.hashdump | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.hashdump.csv
 
             # windows.hollowprocesses (Lists hollowed processes)
               # Argumentos:
@@ -2242,6 +2288,20 @@
               echo ""
               vol -r csv -f "$cRutaAlArchivoDeDump" windows.virtmap | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/csv/windows.virtmap.csv
 
+            # windows.vadyarascan (Scans all the Virtual Address Descriptor memory maps using yara)
+              # Argumentos:
+              #   --insensitive                           - Makes the search case insensitive
+              #   --wide                                  - Match wide (unicode) strings
+              #   --yara-string YARA_STRING               - Yara rules (as a string)
+              #   --yara-file YARA_FILE                   - Yara rules (as a file)
+              #   --yara-compiled-file YARA_COMPILED_FILE - Yara compiled rules (as a file)
+              #   --max-size MAX_SIZE                     - Set the maximum size (default is 1GB)
+              #   --pid [PID ...]                         - Process IDs to include (all other processes are excluded)
+              echo ""
+              echo "    Aplicando el plugin windows.vadyarascan..."
+              echo ""
+              vol -r csv -f "$cRutaAlArchivoDeDump" windows.vadyarascan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.vadyarascan.csv
+
             # No windows
 
               # isinfo (Determines information about the currently available ISF files, or a specific one)
@@ -2445,6 +2505,12 @@
               echo ""
               vol -r json -f "$cRutaAlArchivoDeDump" windows.handles | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/json/windows.handles.json
               #vol -f "$cRutaAlArchivoDeDump" windows.handles ‑‑pid "<PID>"
+
+            # windows.hashdump (Dumps user hashes from memory)
+              echo ""
+              echo "    Aplicando el plugin windows.hashdump..."
+              echo ""
+              vol -r json -f "$cRutaAlArchivoDeDump" windows.hashdump | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.hashdump.json
 
             # windows.hollowprocesses (Lists hollowed processes)
               # Argumentos:
@@ -2878,6 +2944,20 @@
               echo "    Aplicando el plugin windows.virtmap..."
               echo ""
               vol -r json -f "$cRutaAlArchivoDeDump" windows.virtmap | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/json/windows.virtmap.json
+
+            # windows.vadyarascan (Scans all the Virtual Address Descriptor memory maps using yara)
+              # Argumentos:
+              #   --insensitive                           - Makes the search case insensitive
+              #   --wide                                  - Match wide (unicode) strings
+              #   --yara-string YARA_STRING               - Yara rules (as a string)
+              #   --yara-file YARA_FILE                   - Yara rules (as a file)
+              #   --yara-compiled-file YARA_COMPILED_FILE - Yara compiled rules (as a file)
+              #   --max-size MAX_SIZE                     - Set the maximum size (default is 1GB)
+              #   --pid [PID ...]                         - Process IDs to include (all other processes are excluded)
+              echo ""
+              echo "    Aplicando el plugin windows.vadyarascan..."
+              echo ""
+              vol -r json -f "$cRutaAlArchivoDeDump" windows.vadyarascan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.vadyarascan.json
 
             # No windows
 
