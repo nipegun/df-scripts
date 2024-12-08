@@ -121,6 +121,8 @@
                 sed -i '/Offset.*Name/d' "$cCarpetaDondeGuardar"/tab/windows.filescan.tab
               # Borrar todas las líneas vacias
                 sed -i '/^$/d' "$cCarpetaDondeGuardar"/tab/windows.filescan.tab
+              # Reemplazar las barras para adaptarlas al sistema de carpetas de Linux
+                sed -i 's|\\|/|g' "$cCarpetaDondeGuardar"/tab/windows.filescan.tab
 
           # Declarar un array asociativo
             declare -A aOffsetsArchivos
