@@ -1,0 +1,55 @@
+1. Información general del sistema
+
+    windows.info: Proporciona detalles sobre el perfil del sistema operativo detectado (versión, arquitectura, etc.).
+    windows.verinfo: Extrae la información de la versión del sistema operativo.
+
+2. Análisis de procesos
+
+    windows.pslist: Lista los procesos en ejecución con sus atributos básicos.
+    windows.pstree: Muestra la jerarquía de procesos en un árbol.
+    windows.psscan: Escanea la memoria para encontrar estructuras de procesos, incluidos ocultos o terminados.
+    windows.cmdline: Recupera las líneas de comando utilizadas para iniciar los procesos.
+    windows.envars: Enumera las variables de entorno de cada proceso.
+    windows.modules: Lista los módulos cargados por el kernel.
+
+3. Análisis de memoria
+
+    windows.vadinfo: Extrae información detallada de las estructuras VAD (Virtual Address Descriptor) de los procesos.
+    windows.vadwalk: Enumera las regiones de memoria virtual asignadas a los procesos.
+    windows.malfind: Detecta regiones sospechosas de memoria potencialmente usadas por malware.
+    windows.dlllist: Lista las DLL cargadas por cada proceso.
+
+4. Análisis de red
+
+    windows.netscan: Escanea y lista las conexiones de red activas y sockets.
+    windows.netstat: Proporciona estadísticas de red y conexiones.
+
+5. Análisis del sistema de archivos
+
+    windows.filescan: Escanea estructuras de archivos en la memoria.
+    windows.dumpfiles: Extrae archivos directamente de la memoria.
+    windows.mftparser: Analiza y extrae registros de la Tabla Maestra de Archivos (MFT).
+
+6. Análisis de seguridad
+
+    windows.hashdump: Extrae hashes de contraseñas del archivo SAM.
+    windows.ssdt: Lista las entradas de la tabla de descriptores del servicio del sistema (SSDT), incluyendo posibles hooks.
+    windows.callbacks: Enumera los callbacks registrados en el sistema, que podrían ser utilizados por malware.
+
+7. Análisis del registro de Windows
+
+    windows.registry.hivelist: Lista las claves del registro cargadas en memoria.
+    windows.registry.printkey: Muestra el contenido de una clave de registro específica.
+    windows.registry.hivescan: Escanea estructuras del registro en la memoria.
+
+8. Análisis gráfico (GUI)
+
+    windows.deskscan: Escanea y lista los escritorios activos en la memoria.
+    windows.clipboard: Extrae datos del portapapeles desde la memoria.
+
+9. Plugins específicos y avanzados
+
+    windows.bigpools: Lista los grandes grupos de memoria asignados por el kernel.
+    windows.driverscan: Escanea y lista controladores cargados en el kernel.
+    windows.svcscan: Busca y lista los servicios registrados, activos u ocultos.
+
