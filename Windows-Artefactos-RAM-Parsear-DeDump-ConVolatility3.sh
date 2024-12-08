@@ -337,7 +337,7 @@
             mkdir -p "$cCarpetaDondeGuardar"/Archivos/Individuales/LogsYEventos/
           # Recorrer el array e ir guardando los offsets
             for key in "${!aOffsetsArchivosLogsYEventos[@]}"; do
-              vol --quiet -f "$cRutaAlArchivoDeDump" -o "$cCarpetaDondeGuardar"/Archivos/Individuales/LogsYEventos/ windows.dumpfiles --virtaddr $key -n
+              vol --quiet -f "$cRutaAlArchivoDeDump" -o "$cCarpetaDondeGuardar"/Archivos/Individuales/LogsYEventos/ windows.dumpfiles --virtaddr $key
             done
           # Eliminar archivos con hash duplicado
             declare -A aHashesLogsYEventos
