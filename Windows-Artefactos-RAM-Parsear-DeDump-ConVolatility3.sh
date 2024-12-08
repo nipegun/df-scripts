@@ -129,6 +129,12 @@
               # Reemplazar las barras para adaptarlas al sistema de carpetas de Linux
                 sed -i 's|\\|/|g' "$cCarpetaDondeGuardar"/tab/windows.filescan.tab
 
+# Buscar documentos
+  #cat "$cCarpetaDondeGuardar"/tab/windows.filescan.tab | grep -a -i --color -E '\.(doc|docx|pdf|odt)$'
+# Buscar fotos
+  #cat "$cCarpetaDondeGuardar"/tab/windows.filescan.tab | grep -a -i --color -E '\.(jpg|jpeg|png|bmp|webp)$'
+
+
           # Crear el array asociativo y meter dentro todos los offsets y los archivos
             declare -A aOffsetsArchivos
             while IFS=$'\t' read -r key value; do
