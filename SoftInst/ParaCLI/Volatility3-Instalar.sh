@@ -141,6 +141,10 @@
                 
               # Entrar al entorno virtual
                 source ~/repos/python/volatility3/venv/bin/activate
+              # Instalar symbols
+                curl -L https://downloads.volatilityfoundation.org/volatility3/symbols/windows.zip -o ~/repos/python/volatility3/volatility3/symbols/windows.zip
+                curl -L https://downloads.volatilityfoundation.org/volatility3/symbols/mac.zip     -o ~/repos/python/volatility3/volatility3/symbols/mac.zip
+                curl -L https://downloads.volatilityfoundation.org/volatility3/symbols/linux.zip   -o ~/repos/python/volatility3/volatility3/symbols/linux.zip
               # Instalar requerimientos
                 python3 -m pip install wheel
                 python3 -m pip install distorm3
