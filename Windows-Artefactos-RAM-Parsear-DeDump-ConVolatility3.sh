@@ -90,15 +90,16 @@
       1 "Simular el sistema de carpetas y archivos de dentro del dump" on
       2 "  Extraer archivos individuales de imagen"                    on
       3 "  Extraer archivos individuales de documentos"                on
-      4 "  Extraer archivos individuales de otro tipo"                 on
-      5 "Parsear datos hacia archivos tabulados"                       on
-      6 "Parsear datos hacia archivos txt"                             off
-      7 "Parsear datos hacia archivos csv"                             off
-      8 "Parsear datos hacia archivos json"                            off
-      9 "Buscar IPs privadas de clase A"                               off
-     10 "Buscar IPs privadas de clase B"                               off
-     11 "Buscar IPs privadas de clase C"                               off
-     12 "Extraer el sistema de carpetas y archivos de dentro del dump" off
+      4 "  Extraer archivos individuales de scripts"                   on
+      5 "  Extraer archivos individuales de otro tipo"                 on
+      6 "Parsear datos hacia archivos tabulados"                       on
+      7 "Parsear datos hacia archivos txt"                             off
+      8 "Parsear datos hacia archivos csv"                             off
+      9 "Parsear datos hacia archivos json"                            off
+     10 "Buscar IPs privadas de clase A"                               off
+     11 "Buscar IPs privadas de clase B"                               off
+     12 "Buscar IPs privadas de clase C"                               off
+     13 "Extraer el sistema de carpetas y archivos de dentro del dump" off
     )
   choices=$("${menu[@]}" "${opciones[@]}" 2>&1 >/dev/tty)
   #clear
@@ -153,8 +154,19 @@
           echo ""
           echo "  Extrayendo archivos individuales de imágenes..."
           echo ""
-          cat "$cCarpetaDondeGuardar"/tab/windows.filescan.tab | grep -a -i --color -E '\.(jpg|jpeg|png|bmp|webp)$'
-
+          # Guardar todas las líneas con las imágenes encontradas
+            cat "$cCarpetaDondeGuardar"/tab/windows.filescan.tab | grep -a -i --color -E '\.(jpg|jpeg|png|bmp|webp)$' > "$cCarpetaDondeGuardar"/tab/windows.filescan-imagenes.tab
+          # Crear el array asociativo y meter dentro todos los offsets y los archivos
+            declare -A aOffsetsArchivos
+            while IFS=$'\t' read -r key value; do
+              aOffsetsArchivos["$key"]="$value"
+            done < "$cCarpetaDondeGuardar"/tab/windows.filescan-imagenes.tab
+          # Crear la carpeta donde guardar las imagenes
+            mkdir -p "$cCarpetaDondeGuardar"/Archivos/Individuales/Imagenes/
+          # Recorrer el array e ir guardando los offsets
+            for key in "${!aOffsetsArchivos[@]}"; do
+              vol --quiet -f "$cRutaAlArchivoDeDump" -o "$cCarpetaDondeGuardar"/Archivos/Individuales/Imagenes/ windows.dumpfiles --virtaddr $key
+            done
 
         ;;
 
@@ -163,85 +175,65 @@
           echo ""
           echo "  Extrayendo archivos individuales de documentos..."
           echo ""
-          cat "$cCarpetaDondeGuardar"/tab/windows.filescan.tab | grep -a -i --color -E '\.(doc|docx|pdf|odt)$'
+          # Guardar todas las líneas con las imágenes encontradas
+            cat "$cCarpetaDondeGuardar"/tab/windows.filescan.tab | grep -a -i --color -E '\.(doc|docx|odt|xls|xlsx|ods|pdf)$' > "$cCarpetaDondeGuardar"/tab/windows.filescan-documentos.tab
+          # Crear el array asociativo y meter dentro todos los offsets y los archivos
+            declare -A aOffsetsArchivos
+            while IFS=$'\t' read -r key value; do
+              aOffsetsArchivos["$key"]="$value"
+            done < "$cCarpetaDondeGuardar"/tab/windows.filescan-documentos.tab
+          # Crear la carpeta donde guardar las imagenes
+            mkdir -p "$cCarpetaDondeGuardar"/Archivos/Individuales/Documentos/
+          # Recorrer el array e ir guardando los offsets
+            for key in "${!aOffsetsArchivos[@]}"; do
+              vol --quiet -f "$cRutaAlArchivoDeDump" -o "$cCarpetaDondeGuardar"/Archivos/Individuales/Documentos/ windows.dumpfiles --virtaddr $key
+            done
 
         ;;
 
         4)
 
           echo ""
-          echo "  Extrayendo archivos individuales de otro tipo..."
+          echo "  Extrayendo archivos individuales scripts..."
           echo ""
-
-        ;;
-
-        2)
-
-          echo ""
-          echo "  Extrayendo el sistema carpetas y archivos de dentro del dump..."
-          echo ""
-
-          # Crear carpetas
-            mkdir -p "$cCarpetaDondeGuardar"/tab
-            mkdir -p "$cCarpetaDondeGuardar"/Archivos/Reales
-
-          # Entrar en el entorno virtual de python
-            source ~/repos/python/volatility3/venv/bin/activate
-
-          # Parsear datos
-
-            # windows.filescan (Scans for file objects present in a particular windows memory image)
-              echo ""
-              echo "    Aplicando el plugin windows.filescan..."
-              echo ""
-              vol -f "$cRutaAlArchivoDeDump" windows.filescan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.filescan.tab
-              # Borrar la línea con las palabras Offset y Name
-                sed -i '/Offset.*Name/d' "$cCarpetaDondeGuardar"/tab/windows.filescan.tab
-              # Borrar todas las líneas vacias
-                sed -i '/^$/d' "$cCarpetaDondeGuardar"/tab/windows.filescan.tab
-              # Reemplazar las barras para adaptarlas al sistema de carpetas de Linux
-                sed -i 's|\\|/|g' "$cCarpetaDondeGuardar"/tab/windows.filescan.tab
-
+          # Guardar todas las líneas con las imágenes encontradas
+            cat "$cCarpetaDondeGuardar"/tab/windows.filescan.tab | grep -a -i --color -E '\.(sh|bat|ps1|py)$' > "$cCarpetaDondeGuardar"/tab/windows.filescan-scripts.tab
           # Crear el array asociativo y meter dentro todos los offsets y los archivos
             declare -A aOffsetsArchivos
             while IFS=$'\t' read -r key value; do
               aOffsetsArchivos["$key"]="$value"
-            done < "$cCarpetaDondeGuardar"/tab/windows.filescan.tab
-
-          # Recorrer el array e ir creando archivos
+            done < "$cCarpetaDondeGuardar"/tab/windows.filescan-scripts.tab
+          # Crear la carpeta donde guardar las imagenes
+            mkdir -p "$cCarpetaDondeGuardar"/Archivos/Individuales/Scripts/
+          # Recorrer el array e ir guardando los offsets
             for key in "${!aOffsetsArchivos[@]}"; do
-              mkdir -p "$cCarpetaDondeGuardar"/Archivos/Reales/"$(dirname "${aOffsetsArchivos[$key]}")" \
-              && cd "$cCarpetaDondeGuardar"/Archivos/Reales/"$(dirname "${aOffsetsArchivos[$key]}")" \
-              && vol --quiet -f "$cRutaAlArchivoDeDump" -o "$cCarpetaDondeGuardar"/Archivos/Reales/"$(dirname "${aOffsetsArchivos[$key]}")" windows.dumpfiles --virtaddr $key
+              vol --quiet -f "$cRutaAlArchivoDeDump" -o "$cCarpetaDondeGuardar"/Archivos/Individuales/Scripts/ windows.dumpfiles --virtaddr $key
             done
-
-            # windows.dumpfiles (Dumps cached file contents from Windows memory samples)
-              # Argumentos:
-              #  --pid PID           - Process ID to include (all other processes are excluded)
-              #  --virtaddr VIRTADDR - Dump a single _FILE_OBJECT at this virtual address
-              #  --physaddr PHYSADDR - Dump a single _FILE_OBJECT at this physical address
-              #  --filter FILTER     - Dump files matching regular expression FILTER
-              #  --ignore-case       - Ignore case in filter match
-      #        echo ""
-     #         echo "    Aplicando el plugin windows.dumpfiles..."
-          #    echo ""
-         #     mkdir -p "$cCarpetaDondeGuardar"/Archivos/
-        #      cd "$cCarpetaDondeGuardar"/Archivos/
-       #       for vExtens in "${aExtensionesAExtraer[@]}"; do
-      #          echo -e "\n      Extrayendo todos los archivos $vExtens...\n"
-     #           vol -f "$cRutaAlArchivoDeDump" windows.dumpfiles --filter \.$vExtens\$
-     #         done
-    #          cd ~/repos/python/volatility3
-   #           dd if=file.None.0xfffffa8000d06e10.dat of=img.png bs=1 skip=0
-              #vol -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.dumpfiles ‑‑pid "<PID>" 
-              #vol -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.dumpfiles
-              #vol -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.dumpfiles ‑‑virtaddr "<offset>"
-              #vol -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.dumpfiles ‑‑physaddr "<offset>"   
-              #vol -f "$cRutaAlArchivoDeDump" -o "$cCarpetaDondeGuardar"/Archivos windows.dumpfiles --virtaddr 0xe70f57293860
 
         ;;
 
-        3)
+        5)
+
+          echo ""
+          echo "  Extrayendo archivos individuales de otro tipo..."
+          echo ""
+          # Guardar todas las líneas con las imágenes encontradas
+            cat "$cCarpetaDondeGuardar"/tab/windows.filescan.tab | grep -a -i --color -E '\.(txt|txs)$' > "$cCarpetaDondeGuardar"/tab/windows.filescan-otros.tab
+          # Crear el array asociativo y meter dentro todos los offsets y los archivos
+            declare -A aOffsetsArchivos
+            while IFS=$'\t' read -r key value; do
+              aOffsetsArchivos["$key"]="$value"
+            done < "$cCarpetaDondeGuardar"/tab/windows.filescan-otros.tab
+          # Crear la carpeta donde guardar las imagenes
+            mkdir -p "$cCarpetaDondeGuardar"/Archivos/Individuales/Otros/
+          # Recorrer el array e ir guardando los offsets
+            for key in "${!aOffsetsArchivos[@]}"; do
+              vol --quiet -f "$cRutaAlArchivoDeDump" -o "$cCarpetaDondeGuardar"/Archivos/Individuales/Otros/ windows.dumpfiles --virtaddr $key
+            done
+
+        ;;
+
+        6)
 
           echo ""
           echo "  Parseando hacia archivos tabulados..."
@@ -870,7 +862,7 @@
 
         ;;
 
-        4)
+        7)
 
           echo ""
           echo "  Parseando hacia archivos txt..."
@@ -1529,7 +1521,7 @@
 
         ;;
 
-        5)
+        8)
 
           echo ""
           echo "  Parseando hacia archivos csv..."
@@ -2187,7 +2179,7 @@
 
         ;;
 
-        6)
+        9)
 
           echo ""
           echo "  Parseando hacia archivos json..."
@@ -2847,7 +2839,7 @@
 
         ;;
 
-        7)
+       10)
 
           echo ""
           echo "  Buscando IPs privadas de clase A..."
@@ -2856,7 +2848,7 @@
 
         ;;
 
-        8)
+       11)
 
           echo ""
           echo "  Buscando IPs privadas de clase B..."
@@ -2865,12 +2857,78 @@
 
         ;;
 
-        9)
+       12)
 
           echo ""
           echo "  Buscando IPs privadas de clase C..."
           echo ""
           strings "$cRutaAlArchivoDeDump" | grep -Eo '192\.168\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])' | sort -n | uniq
+
+        ;;
+
+       13)
+
+          echo ""
+          echo "  Extrayendo el sistema carpetas y archivos de dentro del dump..."
+          echo ""
+
+          # Crear carpetas
+            mkdir -p "$cCarpetaDondeGuardar"/tab
+            mkdir -p "$cCarpetaDondeGuardar"/Archivos/Reales
+
+          # Entrar en el entorno virtual de python
+            source ~/repos/python/volatility3/venv/bin/activate
+
+          # Parsear datos
+
+            # windows.filescan (Scans for file objects present in a particular windows memory image)
+              echo ""
+              echo "    Aplicando el plugin windows.filescan..."
+              echo ""
+              vol -f "$cRutaAlArchivoDeDump" windows.filescan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.filescan.tab
+              # Borrar la línea con las palabras Offset y Name
+                sed -i '/Offset.*Name/d' "$cCarpetaDondeGuardar"/tab/windows.filescan.tab
+              # Borrar todas las líneas vacias
+                sed -i '/^$/d' "$cCarpetaDondeGuardar"/tab/windows.filescan.tab
+              # Reemplazar las barras para adaptarlas al sistema de carpetas de Linux
+                sed -i 's|\\|/|g' "$cCarpetaDondeGuardar"/tab/windows.filescan.tab
+
+          # Crear el array asociativo y meter dentro todos los offsets y los archivos
+            declare -A aOffsetsArchivos
+            while IFS=$'\t' read -r key value; do
+              aOffsetsArchivos["$key"]="$value"
+            done < "$cCarpetaDondeGuardar"/tab/windows.filescan.tab
+
+          # Recorrer el array e ir creando archivos
+            for key in "${!aOffsetsArchivos[@]}"; do
+              mkdir -p "$cCarpetaDondeGuardar"/Archivos/Reales/"$(dirname "${aOffsetsArchivos[$key]}")" \
+              && cd "$cCarpetaDondeGuardar"/Archivos/Reales/"$(dirname "${aOffsetsArchivos[$key]}")" \
+              && vol --quiet -f "$cRutaAlArchivoDeDump" -o "$cCarpetaDondeGuardar"/Archivos/Reales/"$(dirname "${aOffsetsArchivos[$key]}")" windows.dumpfiles --virtaddr $key
+            done
+
+            # windows.dumpfiles (Dumps cached file contents from Windows memory samples)
+              # Argumentos:
+              #  --pid PID           - Process ID to include (all other processes are excluded)
+              #  --virtaddr VIRTADDR - Dump a single _FILE_OBJECT at this virtual address
+              #  --physaddr PHYSADDR - Dump a single _FILE_OBJECT at this physical address
+              #  --filter FILTER     - Dump files matching regular expression FILTER
+              #  --ignore-case       - Ignore case in filter match
+      #        echo ""
+     #         echo "    Aplicando el plugin windows.dumpfiles..."
+          #    echo ""
+         #     mkdir -p "$cCarpetaDondeGuardar"/Archivos/
+        #      cd "$cCarpetaDondeGuardar"/Archivos/
+       #       for vExtens in "${aExtensionesAExtraer[@]}"; do
+      #          echo -e "\n      Extrayendo todos los archivos $vExtens...\n"
+     #           vol -f "$cRutaAlArchivoDeDump" windows.dumpfiles --filter \.$vExtens\$
+     #         done
+    #          cd ~/repos/python/volatility3
+   #           dd if=file.None.0xfffffa8000d06e10.dat of=img.png bs=1 skip=0
+              #vol -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.dumpfiles ‑‑pid "<PID>" 
+              #vol -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.dumpfiles
+              #vol -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.dumpfiles ‑‑virtaddr "<offset>"
+              #vol -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.dumpfiles ‑‑physaddr "<offset>"   
+              #vol -f "$cRutaAlArchivoDeDump" -o "$cCarpetaDondeGuardar"/Archivos windows.dumpfiles --virtaddr 0xe70f57293860
 
         ;;
 
