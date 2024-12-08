@@ -100,7 +100,8 @@
                   echo ""
                   echo -e "${cColorRojo}  El paquete git no está instalado. Iniciando su instalación...${cFinColor}"
                   echo ""
-                  sudo apt-get -y update && sudo apt-get -y install git
+                  sudo apt-get -y update
+                  sudo apt-get -y install git
                   echo ""
                 fi
               git clone https://github.com/volatilityfoundation/volatility.git
@@ -121,7 +122,8 @@
                       echo ""
                       echo -e "${cColorRojo}  El paquete git no está instalado. Iniciando su instalación...${cFinColor}"
                       echo ""
-                      sudo apt-get -y update && sudo apt-get -y install git
+                      sudo apt-get -y update
+                      sudo apt-get -y install git
                       echo ""
                     fi
                   curl -sL https://raw.githubusercontent.com/nipegun/d-scripts/refs/heads/master/SoftInst/ParaCLI/Python2-Instalar.sh | sudo bash
@@ -231,7 +233,8 @@
                       echo ""
                       echo -e "${cColorRojo}  El paquete git no está instalado. Iniciando su instalación...${cFinColor}"
                       echo ""
-                      sudo apt-get -y update && sudo apt-get -y install git
+                      sudo apt-get -y update
+                      sudo apt-get -y install git
                       echo ""
                     fi
                   curl -sL https://raw.githubusercontent.com/nipegun/d-scripts/refs/heads/master/SoftInst/ParaCLI/Python2-Instalar.sh | sudo bash
@@ -285,7 +288,8 @@
                       echo ""
                       echo -e "${cColorRojo}  El paquete git no está instalado. Iniciando su instalación...${cFinColor}"
                       echo ""
-                      sudo apt-get -y update && sudo apt-get -y install git
+                      sudo apt-get -y update
+                      sudo apt-get -y install git
                       echo ""
                     fi
                   curl -sL https://raw.githubusercontent.com/nipegun/d-scripts/refs/heads/master/SoftInst/ParaCLI/Python2-Instalar.sh | sudo bash
@@ -322,7 +326,8 @@
                     echo ""
                     echo -e "${cColorRojo}  El paquete git no está instalado. Iniciando su instalación...${cFinColor}"
                     echo ""
-                    sudo apt-get -y update && sudo apt-get -y install git
+                    sudo apt-get -y update
+                    sudo apt-get -y install git
                     echo ""
                   fi
                 git clone https://github.com/volatilityfoundation/volatility.git
@@ -469,7 +474,8 @@
                     echo ""
                     echo -e "${cColorRojo}  El paquete git no está instalado. Iniciando su instalación...${cFinColor}"
                     echo ""
-                    apt-get -y update && apt-get -y install git
+                    apt-get -y update
+                    apt-get -y install git
                     echo ""
                   fi
                   git clone https://github.com/volatilityfoundation/volatility.git
@@ -526,7 +532,8 @@
         echo ""
         echo -e "${cColorRojo}  El paquete git no está instalado. Iniciando su instalación...${cFinColor}"
         echo ""
-        apt-get -y update && apt-get -y install git
+        apt-get -y update
+        apt-get -y install git
         echo ""
       fi
       git clone https://github.com/volatilityfoundation/volatility.git
