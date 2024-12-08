@@ -3246,7 +3246,7 @@
               # Verificar si el nombre del archivo contiene "ImageSectionObject"
                 if [[ "$vArchivo" == *"ImageSectionObject"* ]]; then
                   # Obtener la nueva ruta sin la extensión .dat
-                    vNuevoNombre="${vArchivo%.dat}"
+                    vNuevoNombre="${vArchivo%.img}"
                   # Renombrar el archivo
                     mv "$vArchivo" "$vNuevoNombre"
                 fi
