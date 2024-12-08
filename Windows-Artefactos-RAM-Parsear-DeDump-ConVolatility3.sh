@@ -192,6 +192,7 @@
               echo "    Aplicando el plugin windows.dlllist..."
               echo ""
               vol -f "$cRutaAlArchivoDeDump" windows.dlllist | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.dlllist.tab
+              #vol -f "$cRutaAlArchivoDeDump" windows.dlllist ‑‑pid "<PID>"
 
             # windows.driverirp (List IRPs for drivers in a particular windows memory image)
               echo ""
@@ -229,6 +230,10 @@
               done
               cd ~/repos/python/volatility3
               dd if=file.None.0xfffffa8000d06e10.dat of=img.png bs=1 skip=0
+              #vol -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.dumpfiles ‑‑pid "<PID>" 
+              #vol -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.dumpfiles
+              #vol -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.dumpfiles ‑‑virtaddr "<offset>"
+              #vol -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.dumpfiles ‑‑physaddr "<offset>"
 
             # windows.envars (Display process environment variables)
               # Argumentos:
@@ -267,6 +272,7 @@
               echo "    Aplicando el plugin windows.handles..."
               echo ""
               vol -f "$cRutaAlArchivoDeDump" windows.handles | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.handles.tab
+              #vol -f "$cRutaAlArchivoDeDump" windows.handles ‑‑pid "<PID>"
 
             # windows.hollowprocesses (Lists hollowed processes)
               # Argumentos:
@@ -340,6 +346,7 @@
               echo "    Aplicando el plugin windows.memmap..."
               echo ""
               #vol -f "$cRutaAlArchivoDeDump" windows.memmap | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.memmap.tab
+              #vol -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.memmap ‑‑dump ‑‑pid "<PID>"
 
             # windows.modscan (Scans for modules present in a particular windows memory image)
               # Argumentos:
@@ -523,6 +530,7 @@
               echo "    Aplicando el plugin windows.registry.printkey..."
               echo ""
               vol -f "$cRutaAlArchivoDeDump" windows.registry.printkey | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.registry.printkey.tab
+              #vol -f "$cRutaAlArchivoDeDump" windows.registry.printkey ‑‑key "Software\Microsoft\Windows\CurrentVersion" | grep -v "Volatility 3"
 
             # windows.registry.userassist (Print userassist registry keys and information)
               # Argumentos:
@@ -842,6 +850,7 @@
               echo "    Aplicando el plugin windows.dlllist..."
               echo ""
               vol -r pretty -f "$cRutaAlArchivoDeDump" windows.dlllist | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/txt/windows.dlllist.txt
+              #vol -f "$cRutaAlArchivoDeDump" windows.dlllist ‑‑pid "<PID>"
 
             # windows.driverirp (List IRPs for drivers in a particular windows memory image)
               echo ""
@@ -879,6 +888,10 @@
               done
               cd ~/repos/python/volatility3
               dd if=file.None.0xfffffa8000d06e10.dat of=img.png bs=1 skip=0
+              #vol -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.dumpfiles ‑‑pid "<PID>" 
+              #vol -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.dumpfiles
+              #vol -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.dumpfiles ‑‑virtaddr "<offset>"
+              #vol -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.dumpfiles ‑‑physaddr "<offset>"
 
             # windows.envars (Display process environment variables)
               # Argumentos:
@@ -917,6 +930,7 @@
               echo "    Aplicando el plugin windows.handles..."
               echo ""
               vol -r pretty -f "$cRutaAlArchivoDeDump" windows.handles | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/txt/windows.handles.txt
+              #vol -f "$cRutaAlArchivoDeDump" windows.handles ‑‑pid "<PID>"
 
             # windows.hollowprocesses (Lists hollowed processes)
               # Argumentos:
@@ -991,6 +1005,7 @@
               echo "    Aplicando el plugin windows.memmap..."
               echo ""
               #vol -r pretty -f "$cRutaAlArchivoDeDump" windows.memmap | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/txt/windows.memmap.txt
+              #vol -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.memmap ‑‑dump ‑‑pid "<PID>"
 
             # windows.modscan (Scans for modules present in a particular windows memory image)
               # Argumentos:
@@ -1174,6 +1189,7 @@
               echo "    Aplicando el plugin windows.registry.printkey..."
               echo ""
               vol -r pretty -f "$cRutaAlArchivoDeDump" windows.registry.printkey | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/txt/windows.registry.printkey.txt
+              #vol -f "$cRutaAlArchivoDeDump" windows.registry.printkey ‑‑key "Software\Microsoft\Windows\CurrentVersion" | grep -v "Volatility 3"
 
             # windows.registry.userassist (Print userassist registry keys and information)
               # Argumentos:
@@ -1493,6 +1509,7 @@
               echo "    Aplicando el plugin windows.dlllist..."
               echo ""
               vol -r csv -f "$cRutaAlArchivoDeDump" windows.dlllist | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/csv/windows.dlllist.csv
+              #vol -f "$cRutaAlArchivoDeDump" windows.dlllist ‑‑pid "<PID>"
 
             # windows.driverirp (List IRPs for drivers in a particular windows memory image)
               echo ""
@@ -1530,6 +1547,10 @@
               done
               cd ~/repos/python/volatility3
               dd if=file.None.0xfffffa8000d06e10.dat of=img.png bs=1 skip=0
+              #vol -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.dumpfiles ‑‑pid "<PID>" 
+              #vol -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.dumpfiles
+              #vol -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.dumpfiles ‑‑virtaddr "<offset>"
+              #vol -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.dumpfiles ‑‑physaddr "<offset>"
 
             # windows.envars (Display process environment variables)
               # Argumentos:
@@ -1568,6 +1589,7 @@
               echo "    Aplicando el plugin windows.handles..."
               echo ""
               vol -r csv -f "$cRutaAlArchivoDeDump" windows.handles | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/csv/windows.handles.csv
+              #vol -f "$cRutaAlArchivoDeDump" windows.handles ‑‑pid "<PID>"
 
             # windows.hollowprocesses (Lists hollowed processes)
               # Argumentos:
@@ -1641,6 +1663,7 @@
               echo "    Aplicando el plugin windows.memmap..."
               echo ""
               #vol -r csv -f "$cRutaAlArchivoDeDump" windows.memmap | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/csv/windows.memmap.csv
+              #vol -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.memmap ‑‑dump ‑‑pid "<PID>"
 
             # windows.modscan (Scans for modules present in a particular windows memory image)
               # Argumentos:
@@ -1824,6 +1847,7 @@
               echo "    Aplicando el plugin windows.registry.printkey..."
               echo ""
               vol -r csv -f "$cRutaAlArchivoDeDump" windows.registry.printkey | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/csv/windows.registry.printkey.csv
+              #vol -f "$cRutaAlArchivoDeDump" windows.registry.printkey ‑‑key "Software\Microsoft\Windows\CurrentVersion" | grep -v "Volatility 3"
 
             # windows.registry.userassist (Print userassist registry keys and information)
               # Argumentos:
@@ -2143,6 +2167,7 @@
               echo "    Aplicando el plugin windows.dlllist..."
               echo ""
               vol -r json -f "$cRutaAlArchivoDeDump" windows.dlllist | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/json/windows.dlllist.json
+              #vol -f "$cRutaAlArchivoDeDump" windows.dlllist ‑‑pid "<PID>"
 
             # windows.driverirp (List IRPs for drivers in a particular windows memory image)
               echo ""
@@ -2180,6 +2205,10 @@
               done
               cd ~/repos/python/volatility3
               dd if=file.None.0xfffffa8000d06e10.dat of=img.png bs=1 skip=0
+              #vol -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.dumpfiles ‑‑pid "<PID>" 
+              #vol -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.dumpfiles
+              #vol -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.dumpfiles ‑‑virtaddr "<offset>"
+              #vol -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.dumpfiles ‑‑physaddr "<offset>"
 
             # windows.envars (Display process environment variables)
               # Argumentos:
@@ -2218,6 +2247,7 @@
               echo "    Aplicando el plugin windows.handles..."
               echo ""
               vol -r json -f "$cRutaAlArchivoDeDump" windows.handles | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/json/windows.handles.json
+              #vol -f "$cRutaAlArchivoDeDump" windows.handles ‑‑pid "<PID>"
 
             # windows.hollowprocesses (Lists hollowed processes)
               # Argumentos:
@@ -2291,6 +2321,7 @@
               echo "    Aplicando el plugin windows.memmap..."
               echo ""
               #vol -r json -f "$cRutaAlArchivoDeDump" windows.memmap | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/json/windows.memmap.json
+              #vol -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.memmap ‑‑dump ‑‑pid "<PID>"
 
             # windows.modscan (Scans for modules present in a particular windows memory image)
               # Argumentos:
@@ -2476,6 +2507,7 @@
               echo "    Aplicando el plugin windows.registry.printkey..."
               echo ""
               vol -r json -f "$cRutaAlArchivoDeDump" windows.registry.printkey | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/json/windows.registry.printkey.json
+              #vol -f "$cRutaAlArchivoDeDump" windows.registry.printkey ‑‑key "Software\Microsoft\Windows\CurrentVersion" | grep -v "Volatility 3"
 
             # windows.registry.userassist (Print userassist registry keys and information)
               # Argumentos:
@@ -2703,24 +2735,4 @@
       esac
 
     done
-
-# ProcDump (Dumpea .exes y DLLs asociadas)
-#  ~/scripts/python/volatility3/vol.py -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.dumpfiles ‑‑pid "<PID>" 
-# MemDump
-#  ~/scripts/python/volatility3/vol.py -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.memmap ‑‑dump ‑‑pid "<PID>"
-# Handles (Dumpea PID, process, offset, handlevalue, type, grantedaccess, name)
-#  ~/scripts/python/volatility3/vol.py -f "$cRutaAlArchivoDeDump" windows.handles ‑‑pid "<PID>"
-# DLLs (PID, process, base, size, name, path, loadtime, file output)
-#  ~/scripts/python/volatility3/vol.py -f "$cRutaAlArchivoDeDump" windows.dlllist ‑‑pid "<PID>"
-
-
-
-  # Registry printkey
-#    ~/scripts/python/volatility3/vol.py -f "$cRutaAlArchivoDeDump" windows.registry.printkey > "$cCarpetaDondeGuardar"/windows.registry.printkey.txt
-#    ~/scripts/python/volatility3/vol.py -f "$cRutaAlArchivoDeDump" windows.registry.printkey ‑‑key "Software\Microsoft\Windows\CurrentVersion"
-
-  # FileDump
-#    ~/scripts/python/volatility3/vol.py -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.dumpfiles
-#    ~/scripts/python/volatility3/vol.py -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.dumpfiles ‑‑virtaddr "<offset>"
-#    ~/scripts/python/volatility3/vol.py -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.dumpfiles ‑‑physaddr "<offset>"
 
