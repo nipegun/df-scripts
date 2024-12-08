@@ -85,10 +85,11 @@
     fi
   menu=(dialog --checklist "Marca los formatos de salida que quieras obtener:" 22 60 16)
     opciones=(
-      1 "Parsear hacia archivos tabulados" on
-      2 "Parsear hacia archivos txt"       off
-      3 "Parsear hacia archivos csv"       off
-      4 "Parsear hacia archivos json"      off
+      1 "Extraer el sistema de archivos de dentro del dump" on
+      2 "Parsear datos hacia archivos tabulados"            on
+      3 "Parsear datos hacia archivos txt"                  off
+      4 "Parsear datos hacia archivos csv"                  off
+      5 "Parsear datos hacia archivos json"                 off
     )
   choices=$("${menu[@]}" "${opciones[@]}" 2>&1 >/dev/tty)
   #clear
@@ -98,6 +99,66 @@
       case $choice in
 
         1)
+
+          echo ""
+          echo "  Extrayendo el sistema de archivo de la RAM..."
+          echo ""
+
+          # Crear carpeta
+            mkdir -p "$cCarpetaDondeGuardar"/tab
+
+          # Parsear datos
+
+            # windows.filescan (Scans for file objects present in a particular windows memory image)
+              echo ""
+              echo "    Aplicando el plugin windows.filescan..."
+              echo ""
+              vol -f "$cRutaAlArchivoDeDump" windows.filescan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.filescan.tab
+
+          # Declarar un array asociativo
+            declare -A aOffsetsArchivos
+
+          # Leer el archivo línea por línea
+            while IFS=$'\t' read -r key value; do
+              aOffsetsArchivos["$key"]="$value"
+            done < "$cCarpetaDondeGuardar"/tab/windows.filescan.tab
+
+          # Mostrar el contenido del array
+            for key in "${!aOffsetsArchivos[@]}"; do
+              echo "Clave: $key, Valor: ${aOffsetsArchivos[$key]}"
+            done
+
+        ;;
+
+        6)
+
+            # windows.dumpfiles (Dumps cached file contents from Windows memory samples)
+              # Argumentos:
+              #  --pid PID           - Process ID to include (all other processes are excluded)
+              #  --virtaddr VIRTADDR - Dump a single _FILE_OBJECT at this virtual address
+              #  --physaddr PHYSADDR - Dump a single _FILE_OBJECT at this physical address
+              #  --filter FILTER     - Dump files matching regular expression FILTER
+              #  --ignore-case       - Ignore case in filter match
+              echo ""
+              echo "    Aplicando el plugin windows.dumpfiles..."
+              echo ""
+              mkdir -p "$cCarpetaDondeGuardar"/Archivos/
+              cd "$cCarpetaDondeGuardar"/Archivos/
+              for vExtens in "${aExtensionesAExtraer[@]}"; do
+                echo -e "\n      Extrayendo todos los archivos $vExtens...\n"
+                vol -f "$cRutaAlArchivoDeDump" windows.dumpfiles --filter \.$vExtens\$
+              done
+              cd ~/repos/python/volatility3
+              dd if=file.None.0xfffffa8000d06e10.dat of=img.png bs=1 skip=0
+              #vol -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.dumpfiles ‑‑pid "<PID>" 
+              #vol -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.dumpfiles
+              #vol -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.dumpfiles ‑‑virtaddr "<offset>"
+              #vol -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.dumpfiles ‑‑physaddr "<offset>"   
+              #vol -f "$cRutaAlArchivoDeDump" -o "$cCarpetaDondeGuardar"/Archivos windows.dumpfiles --virtaddr 0xe70f57293860
+
+        ;;
+
+        2)
 
           echo ""
           echo "  Parseando hacia archivos tabulados..."
@@ -212,29 +273,6 @@
               echo ""
               vol -f "$cRutaAlArchivoDeDump" windows.driverscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.driverscan.tab
 
-            # windows.dumpfiles (Dumps cached file contents from Windows memory samples)
-              # Argumentos:
-              #  --pid PID           - Process ID to include (all other processes are excluded)
-              #  --virtaddr VIRTADDR - Dump a single _FILE_OBJECT at this virtual address
-              #  --physaddr PHYSADDR - Dump a single _FILE_OBJECT at this physical address
-              #  --filter FILTER     - Dump files matching regular expression FILTER
-              #  --ignore-case       - Ignore case in filter match
-              echo ""
-              echo "    Aplicando el plugin windows.dumpfiles..."
-              echo ""
-              mkdir -p "$cCarpetaDondeGuardar"/tab/Archivos/
-              cd "$cCarpetaDondeGuardar"/tab/Archivos/
-              for vExtens in "${aExtensionesAExtraer[@]}"; do
-                echo -e "\n      Extrayendo todos los archivos $vExtens...\n"
-                vol -f "$cRutaAlArchivoDeDump" windows.dumpfiles --filter \.$vExtens\$
-              done
-              cd ~/repos/python/volatility3
-              dd if=file.None.0xfffffa8000d06e10.dat of=img.png bs=1 skip=0
-              #vol -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.dumpfiles ‑‑pid "<PID>" 
-              #vol -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.dumpfiles
-              #vol -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.dumpfiles ‑‑virtaddr "<offset>"
-              #vol -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.dumpfiles ‑‑physaddr "<offset>"
-
             # windows.envars (Display process environment variables)
               # Argumentos:
               #   --pid [PID ...] - Filter on specific process IDs
@@ -243,12 +281,6 @@
               echo "    Aplicando el plugin windows.envars..."
               echo ""
               vol -f "$cRutaAlArchivoDeDump" windows.envars | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.envars.tab
-
-            # windows.filescan (Scans for file objects present in a particular windows memory image)
-              echo ""
-              echo "    Aplicando el plugin windows.filescan..."
-              echo ""
-              vol -f "$cRutaAlArchivoDeDump" windows.filescan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.filescan.tab
 
             # windows.getservicesids (Lists process token sids)
               echo ""
@@ -755,7 +787,7 @@
 
         ;;
 
-        2)
+        3)
 
           echo ""
           echo "  Parseando hacia archivos txt..."
@@ -1414,7 +1446,7 @@
 
         ;;
 
-        3)
+        4)
 
           echo ""
           echo "  Parseando hacia archivos csv..."
@@ -2072,7 +2104,7 @@
 
         ;;
 
-        4)
+        5)
 
           echo ""
           echo "  Parseando hacia archivos json..."
