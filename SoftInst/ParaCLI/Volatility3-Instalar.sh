@@ -116,7 +116,6 @@
               echo ""
               echo "  Creando el entorno virtual de python e instalando dentro..."
               echo ""
-
               cd ~/repos/python/volatility3/
               # Comprobar si el paquete python3-venv está instalado. Si no lo está, instalarlo.
                 if [[ $(dpkg-query -s python3-venv 2>/dev/null | grep installed) == "" ]]; then
@@ -138,17 +137,29 @@
                 echo 'echo -e "        vol -f $HOME/Descargas/Evidencia.raw windows.info\n"' >> ~/repos/python/volatility3/venv/bin/activate
                 echo 'echo -e "      Obtener info de linux:\n"'                              >> ~/repos/python/volatility3/venv/bin/activate
                 echo 'echo -e "        vol -f $HOME/Descargas/Evidencia.raw linux.info\n"'   >> ~/repos/python/volatility3/venv/bin/activate
-                
+              # Instalar symbols
+                # Comprobar si el paquete unzip está instalado. Si no lo está, instalarlo.
+                  if [[ $(dpkg-query -s unzip 2>/dev/null | grep installed) == "" ]]; then
+                    echo ""
+                    echo -e "${cColorRojo}  El paquete unzip no está instalado. Iniciando su instalación...${cFinColor}"
+                    echo ""
+                    sudo apt-get -y update
+                    sudo apt-get -y install unzip
+                    echo ""
+                  fi
+                curl -L https://downloads.volatilityfoundation.org/volatility3/symbols/windows.zip -o /tmp/vol3-windows-symbols.zip
+                unzip /tmp/vol3-windows-symbols.zip -d ~/repos/python/volatility3/volatility3/symbols/
+                curl -L https://downloads.volatilityfoundation.org/volatility3/symbols/linux.zip   -o /tmp/vol3-linux-symbols.zip
+                unzip /tmp/vol3-linux-symbols.zip   -d ~/repos/python/volatility3/volatility3/symbols/
+                curl -L https://downloads.volatilityfoundation.org/volatility3/symbols/mac.zip     -o /tmp/vol3-mac-symbols.zip
+                mkdir -p ~/repos/python/volatility3/volatility3/symbols/mac/
+                unzip /tmp/vol3-mac-symbols.zip -d ~/repos/python/volatility3/volatility3/symbols/mac/
               # Entrar al entorno virtual
                 source ~/repos/python/volatility3/venv/bin/activate
-              # Instalar symbols
-                curl -L https://downloads.volatilityfoundation.org/volatility3/symbols/windows.zip -o ~/repos/python/volatility3/volatility3/symbols/windows.zip
-                curl -L https://downloads.volatilityfoundation.org/volatility3/symbols/mac.zip     -o ~/repos/python/volatility3/volatility3/symbols/mac.zip
-                curl -L https://downloads.volatilityfoundation.org/volatility3/symbols/linux.zip   -o ~/repos/python/volatility3/volatility3/symbols/linux.zip
               # Instalar requerimientos
                 python3 -m pip install wheel
                 python3 -m pip install distorm3
-                python3 -m pip install pycrypto
+                python3 -m pip install pycryptodome
                 python3 -m pip install pillow
                 python3 -m pip install openpyxl
                 python3 -m pip install ujson
