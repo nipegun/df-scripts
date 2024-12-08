@@ -68,7 +68,8 @@
           echo ""
           echo -e "${cColorRojo}  El paquete dialog no está instalado. Iniciando su instalación...${cFinColor}"
           echo ""
-          sudo apt-get -y update && sudo apt-get -y install dialog
+          sudo apt-get -y update
+          sudo apt-get -y install dialog
           echo ""
         fi
       menu=(dialog --checklist "Marca las opciones que quieras instalar:" 22 96 16)
@@ -405,7 +406,8 @@
         echo ""
         echo -e "${cColorRojo}  El paquete dialog no está instalado. Iniciando su instalación...${cFinColor}"
         echo ""
-        sudo apt-get -y update && sudo apt-get -y install dialog
+        sudo apt-get -y update
+        sudo apt-get -y install dialog
         echo ""
       fi
 
