@@ -147,6 +147,15 @@
               && touch "$cCarpetaDondeGuardar"/Archivos/Simulados/"${aOffsetsArchivos[$key]}"
             done
 
+          # Corregir algunos errores en carpetas
+            # Borrar todas las carpetas y archivos que empiecen por un caracter oriental
+              find "$cCarpetaDondeGuardar"/Archivos/Simulados/ -type d -name "$(printf '[\u4E00-\u9FFF]*')" -exec rm -rf {} +
+              find "$cCarpetaDondeGuardar"/Archivos/Simulados/ -type f -name "$(printf '[\u4E00-\u9FFF]*')" -exec rm -rf {} +
+            # Eliminar de la raíz todas las carpetas y archivos que no empiecen por $
+              find "$cCarpetaDondeGuardar"/Archivos/Simulados/ -maxdepth 1 -type f ! -name '\$*' -exec rm -f {} +
+            # Copiar el contenido de la carpeta Users de ?? sobre Users
+              find "$cCarpetaDondeGuardar"/Archivos/Simulados/?? -type d -name 'Users' -exec cp -r -v {} "$cCarpetaDondeGuardar"/Archivos/Simulados/ \;
+
         ;;
 
         2)
@@ -339,21 +348,21 @@
                 fi
             done
           # Eliminar la extension .vacb a todos los archivos
-            find "$cCarpetaDondeGuardar"/Archivos/Individuales/Otros/ -type f -name "*.vacb" | while IFS= read -r vArchivo; do
-              # Obtener la nueva ruta sin la extensión .vacb
-                vNuevoNombre="${vArchivo%.vacb}"
-              # Renombrar el archivo
-                mv "$vArchivo" "$vNuevoNombre"
-                echo "Renombrado: $vArchivo -> $vNuevoNombre"
-            done
+        #    find "$cCarpetaDondeGuardar"/Archivos/Individuales/Otros/ -type f -name "*.vacb" | while IFS= read -r vArchivo; do
+        #      # Obtener la nueva ruta sin la extensión .vacb
+        #        vNuevoNombre="${vArchivo%.vacb}"
+        #      # Renombrar el archivo
+        #        mv "$vArchivo" "$vNuevoNombre"
+        #        echo "Renombrado: $vArchivo -> $vNuevoNombre"
+        #    done
           # Eliminar la extension .dat a todos los archivos
-            find "$cCarpetaDondeGuardar"/Archivos/Individuales/Otros/ -type f -name "*.dat" | while IFS= read -r vArchivo; do
-              # Obtener la nueva ruta sin la extensión .dat
-                vNuevoNombre="${vArchivo%.dat}"
-              # Renombrar el archivo
-                mv "$vArchivo" "$vNuevoNombre"
-                echo "Renombrado: $vArchivo -> $vNuevoNombre"
-            done
+         #   find "$cCarpetaDondeGuardar"/Archivos/Individuales/Otros/ -type f -name "*.dat" | while IFS= read -r vArchivo; do
+         #     # Obtener la nueva ruta sin la extensión .dat
+         #       vNuevoNombre="${vArchivo%.dat}"
+         #     # Renombrar el archivo
+         #       mv "$vArchivo" "$vNuevoNombre"
+         #       echo "Renombrado: $vArchivo -> $vNuevoNombre"
+         #   done
 
         ;;
 
@@ -683,9 +692,21 @@
               echo "    Aplicando el plugin windows.pslist..."
               echo ""
               # Offset virtual
-                vol -f "$cRutaAlArchivoDeDump" windows.pslist            | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.pslist-offsetvirtual.tab
+                vol -f "$cRutaAlArchivoDeDump" windows.pslist            | grep -v "Volatility 3" | sort -n > "$cCarpetaDondeGuardar"/tab/windows.pslist-offsetvirtual-pid-ppid.tab
+                sed -i '/^$/d' "$cCarpetaDondeGuardar"/tab/windows.pslist-offsetvirtual-pid-ppid.tab
+                cut -f2 "$cCarpetaDondeGuardar"/tab/windows.pslist-offsetvirtual-pid-ppid.tab > /tmp/vArchivoTemporalConColumna2.txt
+                cut --complement -f2 "$cCarpetaDondeGuardar"/tab/windows.pslist-offsetvirtual-pid-ppid.tab > /tmp/vArchivoTemporalConRestoDeColumnas.txt
+                paste /tmp/vArchivoTemporalConColumna2.txt /tmp/vArchivoTemporalConRestoDeColumnas.txt > /tmp/vArchivoTemporal.txt
+                cat /tmp/vArchivoTemporal.txt | sort -n > "$cCarpetaDondeGuardar"/tab/windows.pslist-offsetvirtual-ppid-pid.tab
+                sed -i '/^$/d' "$cCarpetaDondeGuardar"/tab/windows.pslist-offsetvirtual-ppid-pid.tab
               # Offset físico
-                vol -f "$cRutaAlArchivoDeDump" windows.pslist --physical | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.pslist-offsetfisico.tab
+                vol -f "$cRutaAlArchivoDeDump" windows.pslist --physical | grep -v "Volatility 3" | sort -n > "$cCarpetaDondeGuardar"/tab/windows.pslist-offsetfisico-pid-ppid.tab
+                sed -i '/^$/d' "$cCarpetaDondeGuardar"/tab/windows.pslist-offsetfisico-pid-ppid.tab
+                cut -f2 "$cCarpetaDondeGuardar"/tab/windows.pslist-offsetfisico-pid-ppid.tab > /tmp/vArchivoTemporalConColumna2.txt
+                cut --complement -f2 "$cCarpetaDondeGuardar"/tab/windows.pslist-offsetfisico-pid-ppid.tab > /tmp/vArchivoTemporalConRestoDeColumnas.txt
+                paste /tmp/vArchivoTemporalConColumna2.txt /tmp/vArchivoTemporalConRestoDeColumnas.txt > /tmp/vArchivoTemporal.txt
+                cat /tmp/vArchivoTemporal.txt | sort -n > "$cCarpetaDondeGuardar"/tab/windows.pslist-offsetfisico-ppid-pid.tab
+                sed -i '/^$/d' "$cCarpetaDondeGuardar"/tab/windows.pslist-offsetfisico-ppid-pid.tab
 
             # windows.psscan (Scans for processes present in a particular windows memory image)
               # Argumentos:
@@ -696,9 +717,21 @@
               echo "    Aplicando el plugin windows.psscan..."
               echo ""
               # Offset virtual
-                vol -f "$cRutaAlArchivoDeDump" windows.psscan            | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.psscan-offsetvirtual.tab
+                vol -f "$cRutaAlArchivoDeDump" windows.psscan            | grep -v "Volatility 3" | sort -n > "$cCarpetaDondeGuardar"/tab/windows.psscan-offsetvirtual-pid-ppid.tab
+                sed -i '/^$/d' "$cCarpetaDondeGuardar"/tab/windows.psscan-offsetvirtual-pid-ppid.tab
+                cut -f2 "$cCarpetaDondeGuardar"/tab/windows.psscan-offsetvirtual-pid-ppid.tab > /tmp/vArchivoTemporalConColumna2.txt
+                cut --complement -f2 "$cCarpetaDondeGuardar"/tab/windows.psscan-offsetvirtual-pid-ppid.tab > /tmp/vArchivoTemporalConRestoDeColumnas.txt
+                paste /tmp/vArchivoTemporalConColumna2.txt /tmp/vArchivoTemporalConRestoDeColumnas.txt > /tmp/vArchivoTemporal.txt
+                cat /tmp/vArchivoTemporal.txt | sort -n > "$cCarpetaDondeGuardar"/tab/windows.psscan-offsetvirtual-ppid-pid.tab
+                sed -i '/^$/d' "$cCarpetaDondeGuardar"/tab/windows.psscan-offsetvirtual-ppid-pid.tab
               # Offset físico
-                vol -f "$cRutaAlArchivoDeDump" windows.psscan --physical | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.psscan-offsetfisico.tab
+                vol -f "$cRutaAlArchivoDeDump" windows.psscan --physical | grep -v "Volatility 3" | sort -n > "$cCarpetaDondeGuardar"/tab/windows.psscan-offsetfisico-pid-ppid.tab
+                sed -i '/^$/d' "$cCarpetaDondeGuardar"/tab/windows.psscan-offsetfisico-pid-ppid.tab
+                cut -f2 "$cCarpetaDondeGuardar"/tab/windows.psscan-offsetfisico-pid-ppid.tab > /tmp/vArchivoTemporalConColumna2.txt
+                cut --complement -f2 "$cCarpetaDondeGuardar"/tab/windows.psscan-offsetfisico-pid-ppid.tab > /tmp/vArchivoTemporalConRestoDeColumnas.txt
+                paste /tmp/vArchivoTemporalConColumna2.txt /tmp/vArchivoTemporalConRestoDeColumnas.txt > /tmp/vArchivoTemporal.txt
+                cat /tmp/vArchivoTemporal.txt | sort -n > "$cCarpetaDondeGuardar"/tab/windows.psscan-offsetfisico-ppid-pid.tab
+                sed -i '/^$/d' "$cCarpetaDondeGuardar"/tab/windows.psscan-offsetfisico-ppid-pid.tab
 
             # windows.pstree (Plugin for listing processes in a tree based on their parent process ID)
               # Argumentos:
