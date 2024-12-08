@@ -68,7 +68,8 @@
           echo ""
           echo -e "${cColorRojo}  El paquete dialog no está instalado. Iniciando su instalación...${cFinColor}"
           echo ""
-          sudo apt-get -y update && sudo apt-get -y install dialog
+          sudo apt-get -y update
+          sudo apt-get -y install dialog
           echo ""
         fi
       menu=(dialog --checklist "Marca como quieres instalar la herramienta:" 22 70 16)
@@ -102,7 +103,8 @@
                     echo ""
                     echo -e "${cColorRojo}  El paquete git no está instalado. Iniciando su instalación...${cFinColor}"
                     echo ""
-                    sudo apt-get -y update && sudo apt-get -y install git
+                    sudo apt-get -y update
+                    sudo apt-get -y install git
                     echo ""
                   fi
                 git clone https://github.com/rowingdude/analyzeMFT.git
@@ -121,7 +123,8 @@
                   echo ""
                   echo -e "${cColorRojo}  El paquete python3-venv no está instalado. Iniciando su instalación...${cFinColor}"
                   echo ""
-                  sudo apt-get -y update && sudo apt-get -y install python3-venv
+                  sudo apt-get -y update
+                  sudo apt-get -y install python3-venv
                   echo ""
                 fi
               python3 -m venv venv
@@ -203,7 +206,8 @@
                   echo ""
                   echo -e "${cColorRojo}  El paquete python3-setuptools no está instalado. Iniciando su instalación...${cFinColor}"
                   echo ""
-                  sudo apt-get -y update && sudo apt-get -y install python3-setuptools
+                  sudo apt-get -y update
+                  sudo apt-get -y install python3-setuptools
                   echo ""
                 fi
               cd ~/repos/python/analyzeMFT/
