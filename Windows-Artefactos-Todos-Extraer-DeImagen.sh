@@ -44,7 +44,8 @@ if [ $# -ne $cCantParamEsperados ]
         echo ""
         echo -e "${cColorRojo}  El paquete dialog no está instalado. Iniciando su instalación...${cFinColor}"
         echo ""
-        apt-get -y update && apt-get -y install dialog
+        apt-get -y update
+        apt-get -y install dialog
         echo ""
       fi
 
