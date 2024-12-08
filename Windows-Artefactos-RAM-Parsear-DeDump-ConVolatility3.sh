@@ -117,6 +117,10 @@
               echo "    Aplicando el plugin windows.filescan..."
               echo ""
               vol -f "$cRutaAlArchivoDeDump" windows.filescan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.filescan.tab
+              # Borrar la línea con las palabras Offset y Name
+                sed -i '/Offset.*Name/d' "$cCarpetaDondeGuardar"/tab/windows.filescan.tab
+              # Borrar todas las líneas vacias
+                sed -i '/^$/d' "$cCarpetaDondeGuardar"/tab/windows.filescan.tab
 
           # Declarar un array asociativo
             declare -A aOffsetsArchivos
