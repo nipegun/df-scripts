@@ -1,0 +1,58 @@
+
+
+# Obtener información del sistema operativo
+  vol -f archivo.dmp windows.info.Info
+
+# Obtener hashes comunes de Windows (SAM+SYSTEM)
+  vol -f archivo.dmp windows.hashdump.Hashdump
+
+# Obtener hashes de caché de dominio dentro del registro
+  vol -f archivo.dmp windows.cachedump.Cachedump
+
+# Obtener secretos LSA
+  vol -f archivo.dmp windows.lsadump.Lsadump
+
+# Obtener árbol de procesos (no ocultos)
+  vol -f archivo.dmp windows.pstree.PsTree
+
+# Obtener lista de procesos (EPROCESS)
+  vol -f archivo.dmp windows.pslist.PsList
+
+# Obtener lista de procesos ocultos (malware)
+  vol -f archivo.dmp windows.psscan.PsScan
+
+# Volcar la memoria de un proceso específico:
+  vol -f archivo.dmp windows.dumpfiles.DumpFiles --pid <pid>
+
+# mostrar los argumentos de la línea de comandos de los procesos:
+  vol -f archivo.dmp windows.cmdline.CmdLine
+
+# obtener las variables de entorno de cada proceso en ejecución:
+  vol -f archivo.dmp windows.envars.Envars
+
+# Obtener privilegios habilitados de algunos procesos
+  vol -f archivo.dmp windows.privileges.Privs --pid <pid>
+
+# Obtener todos los procesos con privilegios interesantes
+  vol -f archivo.dmp windows.privileges.Privs | grep "SeImpersonatePrivilege\|SeAssignPrimaryPrivilege\|SeTcbPrivilege\|SeBackupPrivilege\|SeRestorePrivilege\|SeCreateTokenPrivilege\|SeLoadDriverPrivilege\|SeTakeOwnershipPrivilege\|SeDebugPrivilege"
+
+# Obtener SIDs de procesos
+  vol -f archivo.dmp windows.getsids.GetSIDs --pid <pid>
+
+# Obtener el SID de servicios
+  vol -f archivo.dmp windows.getservicesids.GetServiceSIDs
+
+# Conocer los handles que un proceso tiene abiertos hacia otros archivos, claves, hilos, procesos, etc.:
+  vol -f archivo.dmp windows.handles.Handles --pid <pid>
+
+# listar las DLLs utilizadas por cada proceso:
+  vol -f archivo.dmp windows.dlllist.DllList --pid <pid>
+
+# verificar a qué proceso pertenece una cadena específica:
+  strings archivo.dmp > /tmp/strings.txt
+  vol -f archivo.dmp windows.strings.Strings --strings-file /tmp/strings.txt
+
+# Buscar cadenas dentro de procesos utilizando el módulo yarascan:
+  vol -f archivo.dmp windows.vadyarascan.VadYaraScan --yara-rules "https://" --pid 3692 3840 3976 3312 3084 2784
+  vol -f archivo.dmp yarascan.YaraScan --yara-rules "https://"
+
