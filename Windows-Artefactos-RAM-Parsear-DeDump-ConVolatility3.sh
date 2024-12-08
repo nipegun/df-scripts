@@ -134,7 +134,8 @@
 
           # Recorrer el array e ir creando archivos
             for key in "${!aOffsetsArchivos[@]}"; do
-              mkdir -p "$cCarpetaDondeGuardar"/Archivos/Simulados/"$(dirname "${aOffsetsArchivos[$key]}")" && touch "$cCarpetaDondeGuardar"/Archivos/"${aOffsetsArchivos[$key]}"
+              mkdir -p "$cCarpetaDondeGuardar"/Archivos/Simulados/"$(dirname "${aOffsetsArchivos[$key]}")" \
+              && touch "$cCarpetaDondeGuardar"/Archivos/Simulados/"${aOffsetsArchivos[$key]}"
             done
 
         ;;
@@ -176,7 +177,7 @@
             for key in "${!aOffsetsArchivos[@]}"; do
               mkdir -p "$cCarpetaDondeGuardar"/Archivos/Reales/"$(dirname "${aOffsetsArchivos[$key]}")" \
               && cd "$cCarpetaDondeGuardar"/Archivos/Reales/"$(dirname "${aOffsetsArchivos[$key]}")" \
-              && vol -f "$cRutaAlArchivoDeDump" -o "$cCarpetaDondeGuardar"/Archivos/"$(dirname "${aOffsetsArchivos[$key]}")" windows.dumpfiles --virtaddr $key
+              && vol -f "$cRutaAlArchivoDeDump" -o "$cCarpetaDondeGuardar"/Archivos/Reales/"$(dirname "${aOffsetsArchivos[$key]}")" windows.dumpfiles --virtaddr $key
             done
 
             # windows.dumpfiles (Dumps cached file contents from Windows memory samples)
