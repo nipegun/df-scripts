@@ -182,6 +182,22 @@
                   aHashesImagenes["$vHash"]="$vArchivo"
                 fi
             done
+          # Eliminar la extension .vacb a todos los archivos
+            find "$cCarpetaDondeGuardar"/Archivos/Individuales/Imagenes/ -type f -name "*.vacb" | while IFS= read -r vArchivo; do
+              # Obtener la nueva ruta sin la extensión .vacb
+                vNuevoNombre="${vArchivo%.vacb}"
+              # Renombrar el archivo
+                mv "$vArchivo" "$vNuevoNombre"
+                echo "Renombrado: $vArchivo -> $vNuevoNombre"
+            done
+          # Eliminar la extension .dat a todos los archivos
+            find "$cCarpetaDondeGuardar"/Archivos/Individuales/Imagenes/ -type f -name "*.dat" | while IFS= read -r vArchivo; do
+              # Obtener la nueva ruta sin la extensión .vacb
+                vNuevoNombre="${vArchivo%.vacb}"
+              # Renombrar el archivo
+                mv "$vArchivo" "$vNuevoNombre"
+                echo "Renombrado: $vArchivo -> $vNuevoNombre"
+            done
 
         ;;
 
@@ -226,6 +242,14 @@
                 mv "$vArchivo" "$vNuevoNombre"
                 echo "Renombrado: $vArchivo -> $vNuevoNombre"
             done
+          # Eliminar la extension .dat a todos los archivos
+            find "$cCarpetaDondeGuardar"/Archivos/Individuales/Documentos/ -type f -name "*.dat" | while IFS= read -r vArchivo; do
+              # Obtener la nueva ruta sin la extensión .vacb
+                vNuevoNombre="${vArchivo%.vacb}"
+              # Renombrar el archivo
+                mv "$vArchivo" "$vNuevoNombre"
+                echo "Renombrado: $vArchivo -> $vNuevoNombre"
+            done
 
         ;;
 
@@ -262,6 +286,22 @@
                   aHashesScripts["$vHash"]="$vArchivo"
                 fi
             done
+          # Eliminar la extension .vacb a todos los archivos
+            find "$cCarpetaDondeGuardar"/Archivos/Individuales/Scripts/ -type f -name "*.vacb" | while IFS= read -r vArchivo; do
+              # Obtener la nueva ruta sin la extensión .vacb
+                vNuevoNombre="${vArchivo%.vacb}"
+              # Renombrar el archivo
+                mv "$vArchivo" "$vNuevoNombre"
+                echo "Renombrado: $vArchivo -> $vNuevoNombre"
+            done
+          # Eliminar la extension .dat a todos los archivos
+            find "$cCarpetaDondeGuardar"/Archivos/Individuales/Scripts/ -type f -name "*.dat" | while IFS= read -r vArchivo; do
+              # Obtener la nueva ruta sin la extensión .vacb
+                vNuevoNombre="${vArchivo%.vacb}"
+              # Renombrar el archivo
+                mv "$vArchivo" "$vNuevoNombre"
+                echo "Renombrado: $vArchivo -> $vNuevoNombre"
+            done
 
         ;;
 
@@ -297,6 +337,22 @@
                   # Si el hash no existe, guardar el archivo en el array
                   aHashesOtros["$vHash"]="$vArchivo"
                 fi
+            done
+          # Eliminar la extension .vacb a todos los archivos
+            find "$cCarpetaDondeGuardar"/Archivos/Individuales/Otros/ -type f -name "*.vacb" | while IFS= read -r vArchivo; do
+              # Obtener la nueva ruta sin la extensión .vacb
+                vNuevoNombre="${vArchivo%.vacb}"
+              # Renombrar el archivo
+                mv "$vArchivo" "$vNuevoNombre"
+                echo "Renombrado: $vArchivo -> $vNuevoNombre"
+            done
+          # Eliminar la extension .dat a todos los archivos
+            find "$cCarpetaDondeGuardar"/Archivos/Individuales/Otros/ -type f -name "*.dat" | while IFS= read -r vArchivo; do
+              # Obtener la nueva ruta sin la extensión .vacb
+                vNuevoNombre="${vArchivo%.vacb}"
+              # Renombrar el archivo
+                mv "$vArchivo" "$vNuevoNombre"
+                echo "Renombrado: $vArchivo -> $vNuevoNombre"
             done
 
         ;;
