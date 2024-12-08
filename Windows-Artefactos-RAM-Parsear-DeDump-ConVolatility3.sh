@@ -1123,6 +1123,9 @@
               #   --yara-compiled-file YARA_COMPILED_FILE - Yara compiled rules (as a file)
               #   --max-size MAX_SIZE                     - Set the maximum size (default is 1GB)
               #   --pid [PID ...]                         - Process IDs to include (all other processes are excluded)
+              #
+              # Notas: Este módulo nos permite buscar cadenas dentro de un proceso, de esta forma:
+              # vol -f file.dmp windows.vadyarascan.VadYaraScan --yara-rules "https://" --pid 3692 3840 3976 3312 3084 2784
               echo ""
               echo "    Aplicando el plugin windows.vadyarascan..."
               echo ""
