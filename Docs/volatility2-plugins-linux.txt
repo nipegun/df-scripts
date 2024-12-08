@@ -1,0 +1,65 @@
+1. Información general del sistema
+
+    linux_banner: Obtiene la versión del kernel de Linux desde la memoria.
+    linux_cpuinfo: Muestra información sobre el CPU extraída de la memoria.
+    linux_dmesg: Extrae el contenido del log de mensajes del kernel (dmesg).
+    linux_pslist: Lista los procesos en ejecución.
+    linux_pstree: Muestra los procesos en forma de árbol jerárquico.
+    linux_psscan: Escanea procesos en la memoria, incluyendo procesos ocultos o terminados.
+    linux_proc_maps: Lista las regiones de memoria asignadas a los procesos.
+    linux_proc_maps_rb: Igual que linux_proc_maps, pero utiliza estructuras red-black tree.
+    linux_lsof: Lista archivos abiertos por procesos en ejecución.
+
+2. Análisis de memoria y módulos del kernel
+
+    linux_kmsg: Extrae mensajes del kernel.
+    linux_lsmod: Lista los módulos cargados en el kernel.
+    linux_moddump: Extrae y guarda módulos del kernel desde la memoria.
+    linux_bash: Recupera el historial de comandos ejecutados en la consola Bash.
+    linux_pidhashtable: Lista la tabla hash de procesos del sistema.
+    linux_vma_cache: Extrae información de cachés asociadas a procesos.
+
+3. Análisis de red
+
+    linux_netstat: Lista las conexiones de red activas (sockets TCP y UDP).
+    linux_ifconfig: Muestra la configuración de interfaces de red.
+    linux_arp: Recupera la tabla ARP.
+    linux_route_cache: Extrae información de la caché de enrutamiento.
+
+4. Análisis de archivos y discos
+
+    linux_mount: Lista los sistemas de archivos montados.
+    linux_find_file: Busca archivos en el sistema de archivos.
+    linux_tmpfs: Recupera información sobre sistemas de archivos temporales (tmpfs).
+    linux_parse_elffile: Analiza y extrae información de archivos ELF en la memoria.
+
+5. Análisis de usuarios y sesiones
+
+    linux_bash_env: Extrae variables de entorno de sesiones Bash.
+    linux_bash_hash: Recupera el contenido del archivo de hash de comandos Bash.
+    linux_envvars: Lista las variables de entorno de los procesos.
+    linux_slabinfo: Muestra estadísticas sobre los slabs (estructuras de memoria del kernel).
+
+6. Análisis de malware y seguridad
+
+    linux_check_creds: Busca credenciales compartidas o reutilizadas entre procesos.
+    linux_dynamic_env: Detecta configuraciones dinámicas en la memoria que puedan ser maliciosas.
+    linux_library_list: Lista bibliotecas compartidas cargadas por los procesos.
+    linux_hidden_modules: Detecta módulos de kernel ocultos.
+    linux_volshell: Proporciona un shell interactivo para explorar artefactos de Linux en memoria.
+
+7. Análisis de estructuras internas
+
+    linux_kernel_open: Identifica archivos abiertos por el kernel.
+    linux_pidhashtable: Lista procesos desde la tabla hash de PID.
+    linux_tty: Extrae la información de terminales (tty).
+    linux_plthook: Detecta hooks en las tablas PLT (Procedure Linkage Table).
+    linux_vma_cache: Analiza las cachés de áreas de memoria virtual asociadas con procesos.
+
+8. Plugins especializados
+
+    linux_elfs: Extrae binarios ELF encontrados en memoria.
+    linux_threads: Muestra los hilos ejecutados por cada proceso.
+    linux_yarascan: Escanea la memoria en busca de patrones utilizando reglas YARA.
+    linux_dump_map: Dump de regiones específicas de memoria de un proceso.
+    linux_iomem: Muestra el mapa de memoria de dispositivos (/proc/iomem).
