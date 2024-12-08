@@ -49,7 +49,8 @@ if [ $# -ne $cCantArgumEsperados ]
           echo ""
           echo -e "${cColorRojo}  El paquete sleuthkit no está instalado. Iniciando su instalación...${cFinColor}"
           echo ""
-          sudo apt-get -y update && sudo apt-get -y install sleuthkit
+          sudo apt-get -y update
+          sudo apt-get -y install sleuthkit
           echo ""
         fi
       vOffset=$(mmls "$1" | grep NTFS | sed 's-  - -g' | sed 's-  - -g' | cut -d' ' -f3 | sed 's/^0*//')
