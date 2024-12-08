@@ -78,7 +78,8 @@
         echo ""
         echo -e "${cColorRojo}    El paquete curl no está instalado. Iniciando su instalación...${cFinColor}"
         echo ""
-        apt-get -y update && apt-get -y install curl
+        apt-get -y update
+        apt-get -y install curl
         echo ""
       fi
     curl -L https://github.com/hvdwolf/jExifToolGUI/releases/download/$vUltVerGuitHub/jexiftoolgui-$vUltVerGuitHub.deb -o /root/SoftInst/jExifToolGUI/jExifToolGUI.deb
