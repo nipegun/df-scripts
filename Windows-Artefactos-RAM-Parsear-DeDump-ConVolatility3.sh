@@ -104,8 +104,9 @@
           echo "  Extrayendo el sistema carpetas y archivos de dentro del dump..."
           echo ""
 
-          # Crear carpeta
+          # Crear carpetas
             mkdir -p "$cCarpetaDondeGuardar"/tab
+            mkdir -p "$cCarpetaDondeGuardar"/Archivos
 
           # Entrar en el entorno virtual de python
             source ~/repos/python/volatility3/venv/bin/activate
@@ -134,7 +135,8 @@
 
           # Mostrar el contenido del array
             for key in "${!aOffsetsArchivos[@]}"; do
-              echo "Clave: $key, Valor: ${aOffsetsArchivos[$key]}"
+              #echo "Clave: $key, Valor: ${aOffsetsArchivos[$key]}"
+              vol -f "$cRutaAlArchivoDeDump" -o "$cCarpetaDondeGuardar"/Archivos windows.dumpfiles --virtaddr $key
             done
 
         ;;
