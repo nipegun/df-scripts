@@ -76,7 +76,8 @@
           echo ""
           echo -e "${cColorRojo}  El paquete dialog no está instalado. Iniciando su instalación...${cFinColor}"
           echo ""
-          sudo apt-get -y update && sudo apt-get -y install dialog
+          sudo apt-get -y update
+          sudo apt-get -y install dialog
           echo ""
         fi
       menu=(dialog --timeout 10 --checklist "Marca como quieres instalar la herramienta:" 22 70 16)
@@ -133,7 +134,8 @@
                     echo ""
                     echo -e "${cColorRojo}  El paquete git no está instalado. Iniciando su instalación...${cFinColor}"
                     echo ""
-                    sudo apt-get -y update && sudo apt-get -y install git
+                    sudo apt-get -y update
+                    sudo apt-get -y install git
                     echo ""
                   fi
                 git clone https://github.com/keydet89/RegRipper4.0.git
