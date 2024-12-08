@@ -92,7 +92,7 @@
       4 "  Extraer archivos individuales de scripts"                   on
       5 "  Extraer archivos individuales de logs y eventos"            on
       6 "Crear la carpeta para archivos tabulados"                     on
-      7 "  INFOWINDOWS: w.envars, w.hashdump, w.info, w.verinfo"                                                                                on
+      7 "  INFOWINDOWS: w.envars, w.hashdump, w.info"                                                                                           on
       8 "  RED: w.netscan, w.netstat"                                                                                                           on
       9 "  REGISTRO: w.r.certificates w.r.getcellroutine w.r.hivelist w.r.hivescan w.r.printkey w.r.userassist"                                 on
      10 "  TAREAS: w.cmdline, w.cmdscan, w.consoles, w.joblinks, w.scheduled_tasks"                                                             on
@@ -387,7 +387,7 @@
         7)
 
           echo ""
-          echo "  Aplicando w.envars, w.hashdump, w.info, w.verinfo..."
+          echo "  Aplicando w.envars, w.hashdump, w.info..."
           echo ""
 
           # Entrar en el entorno virtual de python
@@ -415,17 +415,6 @@
               echo "    Aplicando el plugin windows.info..."
               echo ""
               vol -f "$cRutaAlArchivoDeDump" windows.info | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.info.tab
-
-            # windows.verinfo (Lists version information from PE files)
-              # Argumenots:
-              #   --extensive - Search physical layer for version information
-              echo ""
-              echo "    Aplicando el plugin windows.verinfo..."
-              echo ""
-              # Normal
-                vol -f "$cRutaAlArchivoDeDump" windows.verinfo             | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.verinfo-normal.tab
-              # Extensivo
-                vol -f "$cRutaAlArchivoDeDump" windows.verinfo --extensive | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.verinfo-extensivo.tab
 
           # Salir del entorno virtual
             deactivate
@@ -1107,6 +1096,17 @@
               echo "    Aplicando el plugin windows.vadwalk..."
               echo ""
               vol -f "$cRutaAlArchivoDeDump" windows.vadwalk | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.vadwalk.tab
+
+            # windows.verinfo (Lists version information from PE files)
+              # Argumenots:
+              #   --extensive - Search physical layer for version information
+              echo ""
+              echo "    Aplicando el plugin windows.verinfo..."
+              echo ""
+              # Normal
+                vol -f "$cRutaAlArchivoDeDump" windows.verinfo             | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.verinfo-normal.tab
+              # Extensivo
+                vol -f "$cRutaAlArchivoDeDump" windows.verinfo --extensive | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.verinfo-extensivo.tab
 
             # windows.virtmap (Lists virtual mapped sections)
               echo ""
