@@ -56,3 +56,7 @@
   vol -f archivo.dmp windows.vadyarascan.VadYaraScan --yara-rules "https://" --pid 3692 3840 3976 3312 3084 2784
   vol -f archivo.dmp yarascan.YaraScan --yara-rules "https://"
   vol -f archivo.dmp windows.vadyarascan --pid 3112 --insensitive --yara-string log
+
+Videos:
+
+https://www.youtube.com/watch?v=Uk3DEgY5Ue8
