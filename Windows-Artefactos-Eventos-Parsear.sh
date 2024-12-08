@@ -46,7 +46,8 @@ if [ $# -ne $cCantParamEsperados ]
           echo ""
           echo -e "${cColorRojo}  El paquete dialog no está instalado. Iniciando su instalación...${cFinColor}"
           echo ""
-          sudo apt-get -y update && sudo apt-get -y install dialog
+          sudo apt-get -y update
+          sudo apt-get -y install dialog
           echo ""
         fi
       menu=(dialog --checklist "Marca las opciones que quieras instalar:" 22 96 16)
@@ -83,7 +84,8 @@ if [ $# -ne $cCantParamEsperados ]
                   echo ""
                   echo -e "${cColorRojo}  El paquete libevtx-utils no está instalado. Iniciando su instalación...${cFinColor}"
                   echo ""
-                  sudo apt-get -y update && sudo apt-get -y install libevtx-utils
+                  sudo apt-get -y update
+                  sudo apt-get -y install libevtx-utils
                   echo ""
                 fi
               # Recorrer la carpeta e ir convirtiendo
@@ -202,7 +204,8 @@ if [ $# -ne $cCantParamEsperados ]
                             echo ""
                             echo -e "${cColorRojo}    El paquete xmlstarlet no está instalado. Iniciando su instalación...${cFinColor}"
                             echo ""
-                            sudo apt-get -y update && sudo apt-get -y install xmlstarlet
+                            sudo apt-get -y update
+                            sudo apt-get -y install xmlstarlet
                             echo ""
                           fi
                         system_time=$(xmlstarlet sel -t -v "//TimeCreated/@SystemTime" "$file" 2>/dev/null)
@@ -283,7 +286,8 @@ if [ $# -ne $cCantParamEsperados ]
                   echo ""
                   echo -e "${cColorRojo}  El paquete libxml2-utils no está instalado. Iniciando su instalación...${cFinColor}"
                   echo ""
-                  sudo apt-get -y update && sudo apt-get -y install libxml2-utils
+                  sudo apt-get -y update
+                  sudo apt-get -y install libxml2-utils
                   echo ""
                 fi
               sudo xmllint --xpath '//*[Data[@Name="SubjectUserSid" and text()='"'$vSIDDelUsuario'"']]/parent::*' "$vCarpetaDondeGuardar"/OriginalesEnXML/*  > "$vCarpetaDondeGuardar"/TodosLosEventosDelUsuario.xml 2> /dev/null
@@ -333,7 +337,8 @@ if [ $# -ne $cCantParamEsperados ]
                             echo ""
                             echo -e "${cColorRojo}    El paquete xmlstarlet no está instalado. Iniciando su instalación...${cFinColor}"
                             echo ""
-                            sudo apt-get -y update && sudo apt-get -y install xmlstarlet
+                            sudo apt-get -y update
+                            sudo apt-get -y install xmlstarlet
                             echo ""
                           fi
                         system_time=$(xmlstarlet sel -t -v "//TimeCreated/@SystemTime" "$file" 2>/dev/null)
