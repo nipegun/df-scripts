@@ -85,11 +85,12 @@
     fi
   menu=(dialog --checklist "Marca los formatos de salida que quieras obtener:" 22 60 16)
     opciones=(
-      1 "Extraer el sistema de carpetas y archivos de dentro del dump" on
-      2 "Parsear datos hacia archivos tabulados"                       on
-      3 "Parsear datos hacia archivos txt"                             off
-      4 "Parsear datos hacia archivos csv"                             off
-      5 "Parsear datos hacia archivos json"                            off
+      1 "Recrear el sistema de carpetas y archivos de dentro del dump" off
+      2 "Extraer el sistema de carpetas y archivos de dentro del dump" on
+      3 "Parsear datos hacia archivos tabulados"                       on
+      4 "Parsear datos hacia archivos txt"                             off
+      5 "Parsear datos hacia archivos csv"                             off
+      6 "Parsear datos hacia archivos json"                            off
     )
   choices=$("${menu[@]}" "${opciones[@]}" 2>&1 >/dev/tty)
   #clear
@@ -101,12 +102,12 @@
         1)
 
           echo ""
-          echo "  Extrayendo el sistema carpetas y archivos de dentro del dump..."
+          echo "  Recrear el sistema carpetas y archivos de dentro del dump..."
           echo ""
 
           # Crear carpetas
             mkdir -p "$cCarpetaDondeGuardar"/tab
-            mkdir -p "$cCarpetaDondeGuardar"/Archivos
+            mkdir -p "$cCarpetaDondeGuardar"/Archivos/Simulados
 
           # Entrar en el entorno virtual de python
             source ~/repos/python/volatility3/venv/bin/activate
@@ -125,24 +126,58 @@
               # Reemplazar las barras para adaptarlas al sistema de carpetas de Linux
                 sed -i 's|\\|/|g' "$cCarpetaDondeGuardar"/tab/windows.filescan.tab
 
-          # Declarar un array asociativo
+          # Crear el array asociativo y meter dentro todos los offsets y los archivos
             declare -A aOffsetsArchivos
-
-          # Leer el archivo línea por línea
             while IFS=$'\t' read -r key value; do
               aOffsetsArchivos["$key"]="$value"
             done < "$cCarpetaDondeGuardar"/tab/windows.filescan.tab
 
-          # Mostrar el contenido del array
+          # Recorrer el array e ir creando archivos
             for key in "${!aOffsetsArchivos[@]}"; do
-              #echo "Clave: $key, Valor: ${aOffsetsArchivos[$key]}"
-              #vol -f "$cRutaAlArchivoDeDump" -o "$cCarpetaDondeGuardar"/Archivos windows.dumpfiles --virtaddr $key
-              mkdir -p "$cCarpetaDondeGuardar"/Archivos/"$(dirname "${aOffsetsArchivos[$key]}")" && touch "$cCarpetaDondeGuardar"/Archivos/"${aOffsetsArchivos[$key]}"
+              mkdir -p "$cCarpetaDondeGuardar"/Archivos/Simulados/"$(dirname "${aOffsetsArchivos[$key]}")" && touch "$cCarpetaDondeGuardar"/Archivos/"${aOffsetsArchivos[$key]}"
             done
 
         ;;
 
-        6)
+        2)
+
+          echo ""
+          echo "  Extrayendo el sistema carpetas y archivos de dentro del dump..."
+          echo ""
+
+          # Crear carpetas
+            mkdir -p "$cCarpetaDondeGuardar"/tab
+            mkdir -p "$cCarpetaDondeGuardar"/Archivos/Reales
+
+          # Entrar en el entorno virtual de python
+            source ~/repos/python/volatility3/venv/bin/activate
+
+          # Parsear datos
+
+            # windows.filescan (Scans for file objects present in a particular windows memory image)
+              echo ""
+              echo "    Aplicando el plugin windows.filescan..."
+              echo ""
+              vol -f "$cRutaAlArchivoDeDump" windows.filescan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.filescan.tab
+              # Borrar la línea con las palabras Offset y Name
+                sed -i '/Offset.*Name/d' "$cCarpetaDondeGuardar"/tab/windows.filescan.tab
+              # Borrar todas las líneas vacias
+                sed -i '/^$/d' "$cCarpetaDondeGuardar"/tab/windows.filescan.tab
+              # Reemplazar las barras para adaptarlas al sistema de carpetas de Linux
+                sed -i 's|\\|/|g' "$cCarpetaDondeGuardar"/tab/windows.filescan.tab
+
+          # Crear el array asociativo y meter dentro todos los offsets y los archivos
+            declare -A aOffsetsArchivos
+            while IFS=$'\t' read -r key value; do
+              aOffsetsArchivos["$key"]="$value"
+            done < "$cCarpetaDondeGuardar"/tab/windows.filescan.tab
+
+          # Recorrer el array e ir creando archivos
+            for key in "${!aOffsetsArchivos[@]}"; do
+              mkdir -p "$cCarpetaDondeGuardar"/Archivos/Reales/"$(dirname "${aOffsetsArchivos[$key]}")" \
+              && cd "$cCarpetaDondeGuardar"/Archivos/Reales/"$(dirname "${aOffsetsArchivos[$key]}")" \
+              && vol -f "$cRutaAlArchivoDeDump" -o "$cCarpetaDondeGuardar"/Archivos/"$(dirname "${aOffsetsArchivos[$key]}")" windows.dumpfiles --virtaddr $key
+            done
 
             # windows.dumpfiles (Dumps cached file contents from Windows memory samples)
               # Argumentos:
@@ -151,17 +186,17 @@
               #  --physaddr PHYSADDR - Dump a single _FILE_OBJECT at this physical address
               #  --filter FILTER     - Dump files matching regular expression FILTER
               #  --ignore-case       - Ignore case in filter match
-              echo ""
-              echo "    Aplicando el plugin windows.dumpfiles..."
-              echo ""
-              mkdir -p "$cCarpetaDondeGuardar"/Archivos/
-              cd "$cCarpetaDondeGuardar"/Archivos/
-              for vExtens in "${aExtensionesAExtraer[@]}"; do
-                echo -e "\n      Extrayendo todos los archivos $vExtens...\n"
-                vol -f "$cRutaAlArchivoDeDump" windows.dumpfiles --filter \.$vExtens\$
-              done
-              cd ~/repos/python/volatility3
-              dd if=file.None.0xfffffa8000d06e10.dat of=img.png bs=1 skip=0
+      #        echo ""
+     #         echo "    Aplicando el plugin windows.dumpfiles..."
+          #    echo ""
+         #     mkdir -p "$cCarpetaDondeGuardar"/Archivos/
+        #      cd "$cCarpetaDondeGuardar"/Archivos/
+       #       for vExtens in "${aExtensionesAExtraer[@]}"; do
+      #          echo -e "\n      Extrayendo todos los archivos $vExtens...\n"
+     #           vol -f "$cRutaAlArchivoDeDump" windows.dumpfiles --filter \.$vExtens\$
+     #         done
+    #          cd ~/repos/python/volatility3
+   #           dd if=file.None.0xfffffa8000d06e10.dat of=img.png bs=1 skip=0
               #vol -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.dumpfiles ‑‑pid "<PID>" 
               #vol -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.dumpfiles
               #vol -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.dumpfiles ‑‑virtaddr "<offset>"
@@ -170,7 +205,7 @@
 
         ;;
 
-        2)
+        3)
 
           echo ""
           echo "  Parseando hacia archivos tabulados..."
@@ -799,7 +834,7 @@
 
         ;;
 
-        3)
+        4)
 
           echo ""
           echo "  Parseando hacia archivos txt..."
@@ -1458,7 +1493,7 @@
 
         ;;
 
-        4)
+        5)
 
           echo ""
           echo "  Parseando hacia archivos csv..."
@@ -2116,7 +2151,7 @@
 
         ;;
 
-        5)
+        6)
 
           echo ""
           echo "  Parseando hacia archivos json..."
