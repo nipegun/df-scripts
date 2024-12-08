@@ -85,7 +85,7 @@
       apt-get -y install dialog
       echo ""
     fi
-  menu=(dialog --checklist "Marca los formatos de salida que quieras obtener:" 22 70 16)
+  menu=(dialog --checklist "Marca los formatos de salida que quieras obtener:" 22 80 16)
     opciones=(
       1 "Simular el sistema de carpetas y archivos de dentro del dump" on
       2 "  Extraer archivos individuales de imagen"                    on
@@ -991,29 +991,6 @@
               echo ""
               vol -r pretty -f "$cRutaAlArchivoDeDump" windows.driverscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/txt/windows.driverscan.txt
 
-            # windows.dumpfiles (Dumps cached file contents from Windows memory samples)
-              # Argumentos:
-              #  --pid PID           - Process ID to include (all other processes are excluded)
-              #  --virtaddr VIRTADDR - Dump a single _FILE_OBJECT at this virtual address
-              #  --physaddr PHYSADDR - Dump a single _FILE_OBJECT at this physical address
-              #  --filter FILTER     - Dump files matching regular expression FILTER
-              #  --ignore-case       - Ignore case in filter match
-              echo ""
-              echo "    Aplicando el plugin windows.dumpfiles..."
-              echo ""
-              mkdir -p "$cCarpetaDondeGuardar"/txt/Archivos/
-              cd "$cCarpetaDondeGuardar"/txt/Archivos/
-              for vExtens in "${aExtensionesAExtraer[@]}"; do
-                echo -e "\n      Extrayendo todos los archivos $vExtens...\n"
-                vol -f "$cRutaAlArchivoDeDump" windows.dumpfiles --filter \.$vExtens\$
-              done
-              cd ~/repos/python/volatility3
-              dd if=file.None.0xfffffa8000d06e10.dat of=img.png bs=1 skip=0
-              #vol -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.dumpfiles ‑‑pid "<PID>" 
-              #vol -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.dumpfiles
-              #vol -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.dumpfiles ‑‑virtaddr "<offset>"
-              #vol -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.dumpfiles ‑‑physaddr "<offset>"
-
             # windows.envars (Display process environment variables)
               # Argumentos:
               #   --pid [PID ...] - Filter on specific process IDs
@@ -1650,29 +1627,6 @@
               echo ""
               vol -r csv -f "$cRutaAlArchivoDeDump" windows.driverscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/csv/windows.driverscan.csv
 
-            # windows.dumpfiles (Dumps cached file contents from Windows memory samples)
-              # Argumentos:
-              #  --pid PID           - Process ID to include (all other processes are excluded)
-              #  --virtaddr VIRTADDR - Dump a single _FILE_OBJECT at this virtual address
-              #  --physaddr PHYSADDR - Dump a single _FILE_OBJECT at this physical address
-              #  --filter FILTER     - Dump files matching regular expression FILTER
-              #  --ignore-case       - Ignore case in filter match
-              echo ""
-              echo "    Aplicando el plugin windows.dumpfiles..."
-              echo ""
-              mkdir -p "$cCarpetaDondeGuardar"/csv/Archivos/
-              cd "$cCarpetaDondeGuardar"/csv/Archivos/
-              for vExtens in "${aExtensionesAExtraer[@]}"; do
-                echo -e "\n      Extrayendo todos los archivos $vExtens...\n"
-                vol -f "$cRutaAlArchivoDeDump" windows.dumpfiles --filter \.$vExtens\$
-              done
-              cd ~/repos/python/volatility3
-              dd if=file.None.0xfffffa8000d06e10.dat of=img.png bs=1 skip=0
-              #vol -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.dumpfiles ‑‑pid "<PID>" 
-              #vol -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.dumpfiles
-              #vol -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.dumpfiles ‑‑virtaddr "<offset>"
-              #vol -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.dumpfiles ‑‑physaddr "<offset>"
-
             # windows.envars (Display process environment variables)
               # Argumentos:
               #   --pid [PID ...] - Filter on specific process IDs
@@ -2308,29 +2262,6 @@
               echo ""
               vol -r json -f "$cRutaAlArchivoDeDump" windows.driverscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/json/windows.driverscan.json
 
-            # windows.dumpfiles (Dumps cached file contents from Windows memory samples)
-              # Argumentos:
-              #  --pid PID           - Process ID to include (all other processes are excluded)
-              #  --virtaddr VIRTADDR - Dump a single _FILE_OBJECT at this virtual address
-              #  --physaddr PHYSADDR - Dump a single _FILE_OBJECT at this physical address
-              #  --filter FILTER     - Dump files matching regular expression FILTER
-              #  --ignore-case       - Ignore case in filter match
-              echo ""
-              echo "    Aplicando el plugin windows.dumpfiles..."
-              echo ""
-              mkdir -p "$cCarpetaDondeGuardar"/json/Archivos/
-              cd "$cCarpetaDondeGuardar"/json/Archivos/
-              for vExtens in "${aExtensionesAExtraer[@]}"; do
-                echo -e "\n      Extrayendo todos los archivos $vExtens...\n"
-                vol -f "$cRutaAlArchivoDeDump" windows.dumpfiles --filter \.$vExtens\$
-              done
-              cd ~/repos/python/volatility3
-              dd if=file.None.0xfffffa8000d06e10.dat of=img.png bs=1 skip=0
-              #vol -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.dumpfiles ‑‑pid "<PID>" 
-              #vol -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.dumpfiles
-              #vol -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.dumpfiles ‑‑virtaddr "<offset>"
-              #vol -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.dumpfiles ‑‑physaddr "<offset>"
-
             # windows.envars (Display process environment variables)
               # Argumentos:
               #   --pid [PID ...] - Filter on specific process IDs
@@ -2917,10 +2848,10 @@
             for key in "${!aOffsetsArchivos[@]}"; do
               mkdir -p "$cCarpetaDondeGuardar"/Archivos/Reales/"$(dirname "${aOffsetsArchivos[$key]}")" \
               && cd "$cCarpetaDondeGuardar"/Archivos/Reales/"$(dirname "${aOffsetsArchivos[$key]}")" \
-              && vol --quiet -f "$cRutaAlArchivoDeDump" -o "$cCarpetaDondeGuardar"/Archivos/Reales/"$(dirname "${aOffsetsArchivos[$key]}")" windows.dumpfiles --virtaddr $key
+              && vol --quiet -f "$cRutaAlArchivoDeDump" -o "$cCarpetaDondeGuardar"/Archivos/Reales/"$(dirname "${aOffsetsArchivos[$key]}")" windows. --virtaddr $key
             done
 
-            # windows.dumpfiles (Dumps cached file contents from Windows memory samples)
+            # windows. (Dumps cached file contents from Windows memory samples)
               # Argumentos:
               #  --pid PID           - Process ID to include (all other processes are excluded)
               #  --virtaddr VIRTADDR - Dump a single _FILE_OBJECT at this virtual address
