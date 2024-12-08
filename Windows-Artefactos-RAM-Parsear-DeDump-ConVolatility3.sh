@@ -85,15 +85,18 @@
     fi
   menu=(dialog --checklist "Marca los formatos de salida que quieras obtener:" 22 60 16)
     opciones=(
-      1 "Recrear el sistema de carpetas y archivos de dentro del dump" on
-      2 "Extraer el sistema de carpetas y archivos de dentro del dump" off
-      3 "Parsear datos hacia archivos tabulados"                       on
-      4 "Parsear datos hacia archivos txt"                             off
-      5 "Parsear datos hacia archivos csv"                             off
-      6 "Parsear datos hacia archivos json"                            off
-      7 "Buscar IPs privadas de clase A"                               off
-      8 "Buscar IPs privadas de clase B"                               off
-      9 "Buscar IPs privadas de clase C"                               off
+      1 "Simular el sistema de carpetas y archivos de dentro del dump" on
+      2 "  Extraer archivos individuales de imagen"                    on
+      3 "  Extraer archivos individuales de documentos"                on
+      4 "  Extraer archivos individuales de otro tipo"                 on
+      5 "Parsear datos hacia archivos tabulados"                       on
+      6 "Parsear datos hacia archivos txt"                             off
+      7 "Parsear datos hacia archivos csv"                             off
+      8 "Parsear datos hacia archivos json"                            off
+      9 "Buscar IPs privadas de clase A"                               off
+     10 "Buscar IPs privadas de clase B"                               off
+     11 "Buscar IPs privadas de clase C"                               off
+     12 "Extraer el sistema de carpetas y archivos de dentro del dump" off
     )
   choices=$("${menu[@]}" "${opciones[@]}" 2>&1 >/dev/tty)
   #clear
@@ -105,7 +108,7 @@
         1)
 
           echo ""
-          echo "  Recrear el sistema carpetas y archivos de dentro del dump..."
+          echo "  Simular el sistema carpetas y archivos de dentro del dump..."
           echo ""
 
           # Crear carpetas
@@ -129,12 +132,6 @@
               # Reemplazar las barras para adaptarlas al sistema de carpetas de Linux
                 sed -i 's|\\|/|g' "$cCarpetaDondeGuardar"/tab/windows.filescan.tab
 
-# Buscar documentos
-  #cat "$cCarpetaDondeGuardar"/tab/windows.filescan.tab | grep -a -i --color -E '\.(doc|docx|pdf|odt)$'
-# Buscar fotos
-  #cat "$cCarpetaDondeGuardar"/tab/windows.filescan.tab | grep -a -i --color -E '\.(jpg|jpeg|png|bmp|webp)$'
-
-
           # Crear el array asociativo y meter dentro todos los offsets y los archivos
             declare -A aOffsetsArchivos
             while IFS=$'\t' read -r key value; do
@@ -146,6 +143,33 @@
               mkdir -p "$cCarpetaDondeGuardar"/Archivos/Simulados/"$(dirname "${aOffsetsArchivos[$key]}")" \
               && touch "$cCarpetaDondeGuardar"/Archivos/Simulados/"${aOffsetsArchivos[$key]}"
             done
+
+        ;;
+
+        2)
+
+          echo ""
+          echo "  Extrayendo archivos individuales de imágenes..."
+          echo ""
+          cat "$cCarpetaDondeGuardar"/tab/windows.filescan.tab | grep -a -i --color -E '\.(jpg|jpeg|png|bmp|webp)$'
+
+
+        ;;
+
+        3)
+
+          echo ""
+          echo "  Extrayendo archivos individuales de documentos..."
+          echo ""
+          cat "$cCarpetaDondeGuardar"/tab/windows.filescan.tab | grep -a -i --color -E '\.(doc|docx|pdf|odt)$'
+
+        ;;
+
+        4)
+
+          echo ""
+          echo "  Extrayendo archivos individuales de otro tipo..."
+          echo ""
 
         ;;
 
