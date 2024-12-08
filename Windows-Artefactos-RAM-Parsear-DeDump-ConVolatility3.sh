@@ -107,6 +107,9 @@
           # Crear carpeta
             mkdir -p "$cCarpetaDondeGuardar"/tab
 
+          # Entrar en el entorno virtual de python
+            source ~/repos/python/volatility3/venv/bin/activate
+
           # Parsear datos
 
             # windows.filescan (Scans for file objects present in a particular windows memory image)
