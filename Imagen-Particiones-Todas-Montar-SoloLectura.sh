@@ -50,7 +50,8 @@
             echo ""
             echo -e "${cColorRojo}  El paquete sleuthkit no está instalado. Iniciando su instalación...${cFinColor}"
             echo ""
-            sudo apt-get -y update && sudo apt-get -y install sleuthkit
+            sudo apt-get -y update
+            sudo apt-get -y install sleuthkit
             echo ""
           fi
         vBytesPorSector=$(mmls "$1" | grep ector | grep - | cut -d'-' -f1 | sed 's- -\n-g' | grep ^[0-9])
@@ -62,7 +63,8 @@
             echo ""
             echo -e "${cColorRojo}  El paquete fdisk no está instalado. Iniciando su instalación...${cFinColor}"
             echo ""
-            sudo apt-get -y update && sudo apt-get -y install fdisk
+            sudo apt-get -y update
+            sudo apt-get -y install fdisk
             echo ""
           fi
         for vOffset in $(sudo fdisk -l -o Device,Start "$1" | grep ^/ | rev | cut -d' ' -f1 | rev); do
@@ -83,7 +85,8 @@
             echo ""
             echo -e "${cColorRojo}  El paquete util-linux no está instalado. Iniciando su instalación...${cFinColor}"
             echo ""
-            sudo apt-get -y update && sudo apt-get -y install util-linux
+            sudo apt-get -y update
+            sudo apt-get -y install util-linux
             echo ""
           fi
         for vIndice in "${!aNuevosOffsets[@]}"; do
