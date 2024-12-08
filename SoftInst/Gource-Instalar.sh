@@ -79,7 +79,8 @@
         echo ""
         echo -e "${cColorRojo}  El paquete dialog no está instalado. Iniciando su instalación...${cFinColor}"
         echo ""
-        apt-get -y update && apt-get -y install dialog
+        apt-get -y update
+        apt-get -y install dialog
         echo ""
       fi
 
@@ -109,7 +110,8 @@
                   echo ""
                   echo -e "${cColorRojo}  El paquete curl no está instalado. Iniciando su instalación...${cFinColor}"
                   echo ""
-                  apt-get -y update && apt-get -y install curl
+                  apt-get -y update
+                  apt-get -y install curl
                   echo ""
                 fi
               vUltVersCodFuente=$(curl -sL https://github.com/acaudwell/Gource/releases/latest/ | sed 's/gource-/\n/g' | grep ^[0..9] | head -n1 | cut -d' ' -f1)
