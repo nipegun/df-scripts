@@ -85,7 +85,7 @@
       apt-get -y install dialog
       echo ""
     fi
-  menu=(dialog --checklist "Marca los formatos de salida que quieras obtener:" 22 60 16)
+  menu=(dialog --checklist "Marca los formatos de salida que quieras obtener:" 22 70 16)
     opciones=(
       1 "Simular el sistema de carpetas y archivos de dentro del dump" on
       2 "  Extraer archivos individuales de imagen"                    on
