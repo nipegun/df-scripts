@@ -189,17 +189,18 @@
               vol --quiet -f "$cRutaAlArchivoDeDump" -o "$cCarpetaDondeGuardar"/Archivos/Individuales/Documentos/ windows.dumpfiles --virtaddr $key
             done
           # Eliminar archivos con hash duplicado
+            declare -A aHashes
             find "$cCarpetaDondeGuardar"/Archivos/Individuales/Documentos/ -type f | while read -r vArchivo; do
               # Calcular el hash del archivo (usa sha256sum o md5sum según prefieras)
-                vHash=$(md5sum "$vArchivo" | awk '{print $1}')
+                vHash=$(sha256sum "$vArchivo" | awk '{print $1}')
               # Verificar si el hash ya existe en el array
-                if [[ -v hashes["$vHash"] ]]; then
+                if [[ -v aHashes["$vHash"] ]]; then
                   # Si el hash ya existe, eliminar el archivo duplicado
                   echo "Eliminando duplicado: $vArchivo (hash: $vHash)"
                   rm -f "$vArchivo"
                 else
                   # Si el hash no existe, guardar el archivo en el array
-                  hashes["$vHash"]="$vArchivo"
+                  aHashes["$vHash"]="$vArchivo"
                 fi
             done
 
