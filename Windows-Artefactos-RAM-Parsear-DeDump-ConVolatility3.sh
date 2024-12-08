@@ -3225,6 +3225,50 @@
                 fi
             done
 
+          # Eliminar del nombre del archivo todo antes del . de DataSectionObject
+            find "$cCarpetaDondeGuardar"/Archivos/Reales/ -type f | while IFS= read -r vArchivo; do
+              # Extraer el nombre del archivo
+                vNombreArchivo=$(basename "$vArchivo")
+              # Verificar si el nombre contiene "DataSectionObject."
+                if [[ "$vNombreArchivo" == *"DataSectionObject."* ]]; then
+                  # Eliminar todo lo anterior a "DataSectionObject." (incluido)
+                    vNuevoNombre="${vNombreArchivo#*DataSectionObject.}"
+                  # Obtener la ruta completa del nuevo nombre
+                    vDirectorio=$(dirname "$vArchivo")
+                    vRutaNueva="$vDirectorio/$vNuevoNombre"
+                  # Renombrar el archivo
+                    mv "$vArchivo" "$vRutaNueva"
+                fi
+            done
+
+          # Eliminar la extension .img a todos los archivos
+            find "$cCarpetaDondeGuardar"/Archivos/Reales/ -type f -name "*.img" | while IFS= read -r vArchivo; do
+              # Verificar si el nombre del archivo contiene "ImageSectionObject"
+                if [[ "$vArchivo" == *"ImageSectionObject"* ]]; then
+                  # Obtener la nueva ruta sin la extensión .dat
+                    vNuevoNombre="${vArchivo%.dat}"
+                  # Renombrar el archivo
+                    mv "$vArchivo" "$vNuevoNombre"
+                fi
+            done
+
+          # Eliminar del nombre del archivo todo antes del . de ImageSectionObject
+            find "$cCarpetaDondeGuardar"/Archivos/Reales/ -type f | while IFS= read -r vArchivo; do
+              # Extraer el nombre del archivo
+                vNombreArchivo=$(basename "$vArchivo")
+              # Verificar si el nombre contiene "ImageSectionObject."
+                if [[ "$vNombreArchivo" == *"ImageSectionObject."* ]]; then
+                  # Eliminar todo lo anterior a "ImageSectionObject." (incluido)
+                    vNuevoNombre="${vNombreArchivo#*ImageSectionObject.}"
+                  # Obtener la ruta completa del nuevo nombre
+                    vDirectorio=$(dirname "$vArchivo")
+                    vRutaNueva="$vDirectorio/$vNuevoNombre"
+                  # Renombrar el archivo
+                    mv "$vArchivo" "$vRutaNueva"
+                fi
+            done
+
+
             # windows. (Dumps cached file contents from Windows memory samples)
               # Argumentos:
               #  --pid PID           - Process ID to include (all other processes are excluded)
