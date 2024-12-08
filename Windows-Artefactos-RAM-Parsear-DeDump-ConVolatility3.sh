@@ -84,7 +84,7 @@
       apt-get -y install dialog
       echo ""
     fi
-  menu=(dialog --checklist "Marca los formatos de salida que quieras obtener:" 22 120 16)
+  menu=(dialog --checklist "Marca los formatos de salida que quieras obtener:" 22 130 16)
     opciones=(
       1 "Simular el sistema de carpetas y archivos de dentro del dump" on
       2 "  Extraer archivos individuales de imagen"                    on
@@ -99,7 +99,7 @@
      11 "  PROCESOS: w.getsids, w.handles, w.hollowprocesses, w.processghosting, w.pslist, w.psscan, w.pstree, w.psxview, w.strings, w.threads" on
      12 "  LÍNEA DE TIEMPO: w.mbrscan, timeliner"                                                                                               on
      13 "  HARDWARE: w.devicetree, w.ssdt"                                                                                                      on
-     14 "  RESTO: ..."                                                                                                                          on
+     14 "  RESTO: ..."                                                                                                                          off
      15 "Parsear datos hacia archivos txt"                             off
      16 "Parsear datos hacia archivos csv"                             off
      17 "Parsear datos hacia archivos json"                            off
