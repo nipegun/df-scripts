@@ -13,6 +13,8 @@
 #
 # Bajar y editar directamente el archivo en nano
 #   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Windows-Artefactos-RAM-Parsear-DeDump-ConVolatility3.sh | nano -
+#
+# Más info aquí: https://volatility3.readthedocs.io/en/latest/
 # ----------
 
 # Definir las extensiones de los archivos a extraer
