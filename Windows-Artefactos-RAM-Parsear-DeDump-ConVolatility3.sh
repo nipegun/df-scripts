@@ -136,7 +136,8 @@
           # Mostrar el contenido del array
             for key in "${!aOffsetsArchivos[@]}"; do
               #echo "Clave: $key, Valor: ${aOffsetsArchivos[$key]}"
-              vol -f "$cRutaAlArchivoDeDump" -o "$cCarpetaDondeGuardar"/Archivos windows.dumpfiles --virtaddr $key
+              #vol -f "$cRutaAlArchivoDeDump" -o "$cCarpetaDondeGuardar"/Archivos windows.dumpfiles --virtaddr $key
+              mkdir -p "$cCarpetaDondeGuardar"/Archivos/"$(dirname ${aOffsetsArchivos[$key]})" && touch ${aOffsetsArchivos[$key]}
             done
 
         ;;
