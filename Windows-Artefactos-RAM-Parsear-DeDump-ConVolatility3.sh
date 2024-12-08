@@ -218,6 +218,14 @@
                   aHashesDocumentos["$vHash"]="$vArchivo"
                 fi
             done
+          # Eliminar la extension .vacb a todos los archivos
+            find "$cCarpetaDondeGuardar"/Archivos/Individuales/Documentos/ -type f -name "*.vacb" | while IFS= read -r vArchivo; do
+              # Obtener la nueva ruta sin la extensión .vacb
+                vNuevoNombre="${vArchivo%.vacb}"
+              # Renombrar el archivo
+                mv "$vArchivo" "$vNuevoNombre"
+                echo "Renombrado: $vArchivo -> $vNuevoNombre"
+            done
 
         ;;
 
