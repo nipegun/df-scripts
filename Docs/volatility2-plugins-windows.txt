@@ -1,0 +1,86 @@
+1. Análisis de procesos y estructuras del sistema
+
+    pslist: Lista los procesos en ejecución.
+    pstree: Muestra los procesos en forma de árbol.
+    psscan: Encuentra procesos, incluso terminados o escondidos.
+    dlllist: Lista las DLL cargadas por los procesos.
+    handles: Muestra los objetos abiertos por los procesos.
+    cmdline: Extrae las líneas de comando asociadas a los procesos.
+    envars: Muestra las variables de entorno de los procesos.
+    getsids: Enumera los SIDs (identificadores de seguridad) de cada proceso.
+    privs: Enumera los privilegios habilitados de cada proceso.
+    modules: Lista los módulos cargados por el kernel.
+    modscan: Busca módulos del kernel en la memoria.
+    ssdt: Lista las entradas de la tabla SSDT (System Service Descriptor Table).
+    callbacks: Lista callbacks registrados en el sistema.
+    threads: Muestra los hilos asociados a los procesos.
+    thrdscan: Escanea y lista estructuras de hilos, incluidos ocultos.
+    memmap: Muestra un mapa de la memoria de un proceso.
+
+2. Análisis de memoria
+
+    malfind: Detecta regiones sospechosas en la memoria.
+    vadinfo: Enumera las estructuras de asignación de memoria virtual (VAD).
+    vadtree: Muestra la estructura VAD como un árbol.
+    procdump: Extrae la memoria de un proceso específico.
+    memdump: Dump completo de memoria de un proceso.
+
+3. Análisis de red
+
+    connscan: Escanea conexiones TCP en memoria.
+    netscan: Lista conexiones TCP, UDP y sockets.
+    sockets: Enumera los sockets abiertos.
+
+4. Análisis del sistema de archivos
+
+    filescan: Escanea estructuras de archivos en memoria.
+    mftparser: Analiza y extrae registros de la MFT (NTFS).
+    dumpfiles: Extrae archivos encontrados en memoria.
+    shellbags: Extrae y analiza artefactos de navegación del explorador de archivos.
+
+5. Análisis del registro de Windows
+
+    hivelist: Lista claves del registro cargadas en memoria.
+    hivescan: Escanea estructuras del registro.
+    printkey: Muestra el contenido de una clave de registro.
+    hashdump: Extrae hashes de contraseñas de la base de datos SAM.
+    userassist: Lista programas ejecutados por el usuario, obtenidos del registro.
+    shimcache: Extrae información de la caché Shim.
+    auditpol: Extrae políticas de auditoría configuradas en el sistema.
+
+6. Análisis de malware
+
+    apihooks: Detecta hooks en funciones API.
+    svcscan: Lista servicios del sistema, incluidos ocultos.
+    driverirp: Lista direcciones IRP asociadas a los controladores.
+    ldrmodules: Muestra inconsistencias en las listas de módulos cargados.
+    idt: Lista las tablas de descriptores de interrupciones (IDT).
+    gdt: Lista la tabla de descriptores globales (GDT).
+    driverirp: Examina las tablas IRP (I/O Request Packet) de controladores.
+    ssdt: Detecta hooks en la tabla SSDT.
+    modscan: Busca módulos cargados del kernel, incluidos los ocultos.
+    devicetree: Enumera dispositivos del sistema.
+
+7. Análisis del entorno gráfico (GUI)
+
+    windows: Lista las ventanas gráficas creadas por las aplicaciones.
+    deskscan: Escanea y lista escritorios en memoria.
+    atomscan: Lista las tablas de átomos en el sistema.
+
+8. Análisis de eventos y estructuras internas
+
+    timeliner: Genera una línea de tiempo de eventos del sistema.
+    eventhooks: Lista eventos del sistema con hooks registrados.
+    symlinkscan: Busca enlaces simbólicos en memoria.
+    sessions: Lista sesiones activas y cerradas en el sistema.
+    driverscan: Escanea controladores del kernel en memoria.
+    vadwalk: Extrae información detallada sobre regiones de memoria VAD.
+
+9. Otros plugins especializados
+
+    imageinfo: Proporciona detalles del dump de memoria (versión de Windows, arquitectura, etc.).
+    kdbgscan: Detecta la estructura KDBG para identificar perfiles correctos.
+    bioskbd: Extrae información del teclado desde la memoria.
+    clipboard: Extrae datos del portapapeles.
+    threads: Detalla los hilos ejecutados por un proceso.
+    mutantscan: Escanea mutexes en la memoria.
