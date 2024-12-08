@@ -191,7 +191,7 @@
           # Eliminar archivos con hash duplicado
             find "$cCarpetaDondeGuardar"/Archivos/Individuales/Documentos/ -type f | while read -r vArchivo; do
               # Calcular el hash del archivo (usa sha256sum o md5sum según prefieras)
-                vHash=$(sha256sum "$vArchivo" | awk '{print $1}')
+                vHash=$(md5sum "$vArchivo" | awk '{print $1}')
               # Verificar si el hash ya existe en el array
                 if [[ -v hashes["$vHash"] ]]; then
                   # Si el hash ya existe, eliminar el archivo duplicado
