@@ -184,7 +184,7 @@
 
             ;;
 
-            4)
+            3)
 
               echo ""
               echo "  Compilando y guardando en /home/$USER/bin/..."
