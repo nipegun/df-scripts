@@ -13,6 +13,8 @@
   # Esteganografía
     apt-get -y install steghide
 
+# Otras herramientas de terminal
+  apt-get -y install tshark
 
 # Software del repo
   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/SoftInst/ParaCLI/AnalyzeMFT-Instalar.sh | bash
