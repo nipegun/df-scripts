@@ -131,10 +131,18 @@
              echo "    Creando el archivo .json con los símbolos del kernel"
              echo ""
              vVersKernel="$(uname -r)"
-             /tmp/dwarf2json linux --elf "/boot/vmlinuz-$vVersKernel" > "/tmp/Debian_$vVersKernel-DeBoot.json"
-             /tmp/dwarf2json linux --elf "/boot/vmlinuz-$vVersKernel" --system-map "/boot/System.map-$vVersKernel" > "/tmp/Debian_$vVersKernel-SystemMap-DeBoot.json"
-             /tmp/dwarf2json linux --elf "/usr/lib/debug/boot/vmlinux-$vVersKernel" > "/tmp/Debian_$vVersKernel-DeDebug.json"
-             /tmp/dwarf2json linux --elf "/usr/lib/debug/boot/vmlinux-$vVersKernel" --system-map "/usr/lib/debug/boot/System.map-$vVersKernel" > "/tmp/Debian_$vVersKernel-SystemMap-DeDebug.json"
+             # Kernel en ejecución
+               curl https://raw.githubusercontent.com/torvalds/linux/master/scripts/extract-vmlinux -o /tmp/extract-vmlinux
+               chmod +x /tmp/extract-vmlinux
+               extract-vmlinux /boot/vmlinuz-$vVersKernel > /tmp/kernel
+               # Extraer el mapa de símbolos del kernel en ejecución:
+                 cat /proc/kallsyms > /tmp/System.map
+               # Extraer los módulos cargados:
+                 lsmod > /tmp/modules
+               /tmp/dwarf2json linux --elf /tmp/kernel --system-map  /tmp/System.map > "/tmp/Debian_$vVersKernel-DeBoot.json"
+             # Kernel debug
+               /tmp/dwarf2json linux --elf "/usr/lib/debug/boot/vmlinux-$vVersKernel" > "/tmp/Debian_$vVersKernel-DeDebug.json"
+               /tmp/dwarf2json linux --elf "/usr/lib/debug/boot/vmlinux-$vVersKernel" --system-map "/usr/lib/debug/boot/System.map-$vVersKernel" > "/tmp/Debian_$vVersKernel-SystemMap-DeDebug.json"
 
           ;;
 
