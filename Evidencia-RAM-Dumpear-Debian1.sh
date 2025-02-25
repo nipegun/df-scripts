@@ -28,29 +28,47 @@
   cFinColor='\033[0m'
 
 # Actualizar lista de paquetes disponibles en los repositorios
+  echo ""
+  echo "  Actualizando la lista de paquetes disponibles en los repositorios..."
+  echo ""
   sudo apt -y update
 
 # Instalar paquetes necesarios
+  echo ""
+  echo "  Instalando paquetes necesarios..."
+  echo ""
   sudo apt -y install git
   sudo apt -y install build-essential
   sudo apt -y install linux-headers-$(uname -r)
-
-# Clonar el repo de LiME
-  cd ~/
-  git clone https://github.com/504ensicsLabs/LiME.git
-
-# Compilar LiME
-  cd LiME/src
-  sudo make
-
-# Volcar la RAM
-  sudo insmod lime-$(uname -r).ko "path=/tmp/RAMDump.lime format=raw"
-
-# Crear el archivo json con los símbolos del kernel
   sudo apt -y install linux-image-$(uname -r)-dbg
   sudo apt -y install linux-headers-$(uname -r)
   sudo apt -y install dwarfdump
   sudo apt -y install zip
+  sudo apt -y install curl
   curl -L https://github.com/volatilityfoundation/dwarf2json/releases/download/v0.9.0/dwarf2json-linux-amd64 -o /tmp/dwarf2json
+  chmod +x /tmp/dwarf2json
+
+# Clonar el repo de LiME
+  echo ""
+  echo "  Clonando el repositorio de LiME..."
+  echo ""
+  cd ~/
+  git clone https://github.com/504ensicsLabs/LiME.git
+
+# Compilar LiME
+  echo ""
+  echo "  Compilando LiME..."
+  echo ""
+  cd LiME/src
+  sudo make
+
+# Volcar la RAM
+  echo ""
+  echo "  Volcando la RAM..."
+  echo ""
+  sudo insmod lime-$(uname -r).ko "path=/tmp/RAMDump.lime format=raw"
+
+# Crear el archivo json con los símbolos del kernel
+
   /tmp/dwarf2json linux --elf /usr/lib/debug/boot/vmlinux-$(uname -r) --system-map /usr/lib/debug/boot/vmlinux-$(uname -r) > /tmp/output.json
 
