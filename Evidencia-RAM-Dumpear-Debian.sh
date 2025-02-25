@@ -131,8 +131,8 @@
              echo "    Creando el archivo .json con los símbolos del kernel"
              echo ""
              vVersKernel="$(uname -r)"
-             /tmp/dwarf2json linux --elf "/boot/vmlinux-$vVersKernel" > "/tmp/Debian_$vVersKernel-DeBoot.json"
-             /tmp/dwarf2json linux --elf "/boot/vmlinux-$vVersKernel" --system-map "/boot/System.map-$vVersKernel" > "/tmp/Debian_$vVersKernel-SystemMap-DeBoot.json"
+             /tmp/dwarf2json linux --elf "/boot/vmlinuz-$vVersKernel" > "/tmp/Debian_$vVersKernel-DeBoot.json"
+             /tmp/dwarf2json linux --elf "/boot/vmlinuz-$vVersKernel" --system-map "/boot/System.map-$vVersKernel" > "/tmp/Debian_$vVersKernel-SystemMap-DeBoot.json"
              /tmp/dwarf2json linux --elf "/usr/lib/debug/boot/vmlinux-$vVersKernel" > "/tmp/Debian_$vVersKernel-DeDebug.json"
              /tmp/dwarf2json linux --elf "/usr/lib/debug/boot/vmlinux-$vVersKernel" --system-map "/usr/lib/debug/boot/System.map-$vVersKernel" > "/tmp/Debian_$vVersKernel-SystemMap-DeDebug.json"
 
