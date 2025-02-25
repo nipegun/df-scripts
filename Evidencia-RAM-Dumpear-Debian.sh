@@ -16,6 +16,9 @@
 #
 # Bajar y editar directamente el archivo en nano
 #   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Evidencia-RAM-Dumpear-Debian.sh | nano -
+#
+# Enlace interesante para descargar símbolos: https://github.com/Abyss-W4tcher/volatility3-symbols/
+#
 # ----------
 
 # Definir constantes de color
@@ -128,8 +131,10 @@
              echo "    Creando el archivo .json con los símbolos del kernel"
              echo ""
              vVersKernel="$(uname -r)"
-             /tmp/dwarf2json linux --elf "/usr/lib/debug/boot/vmlinux-$vVersKernel" > "/tmp/Debian_$vVersKernel.json"
-             /tmp/dwarf2json linux --elf "/usr/lib/debug/boot/vmlinux-$vVersKernel" --system-map "/usr/lib/debug/boot/System.map-$vVersKernel" > "/tmp/Debian_$vVersKernel-SystemMap.json"
+             /tmp/dwarf2json linux --elf "/boot/vmlinux-$vVersKernel" > "/tmp/Debian_$vVersKernel-DeBoot.json"
+             /tmp/dwarf2json linux --elf "/boot/vmlinux-$vVersKernel" --system-map "/boot/System.map-$vVersKernel" > "/tmp/Debian_$vVersKernel-SystemMap-DeBoot.json"
+             /tmp/dwarf2json linux --elf "/usr/lib/debug/boot/vmlinux-$vVersKernel" > "/tmp/Debian_$vVersKernel-DeDebug.json"
+             /tmp/dwarf2json linux --elf "/usr/lib/debug/boot/vmlinux-$vVersKernel" --system-map "/usr/lib/debug/boot/System.map-$vVersKernel" > "/tmp/Debian_$vVersKernel-SystemMap-DeDebug.json"
 
           ;;
 
