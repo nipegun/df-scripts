@@ -53,6 +53,7 @@
   echo "  Clonando el repositorio de LiME..."
   echo ""
   cd ~/
+  sudo rm -rf ~/LiME/
   git clone https://github.com/504ensicsLabs/LiME.git
 
 # Compilar LiME
