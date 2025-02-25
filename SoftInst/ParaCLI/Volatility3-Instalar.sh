@@ -16,6 +16,13 @@
 #
 # Bajar y editar directamente el archivo en nano
 #   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/SoftInst/ParaCLI/Volatility3-Instalar.sh | nano -
+#
+# Instalación rápida de volatility3
+#   sudo apt -y install python3-pip
+#   pip3 install volatility3 --user --break-system-packages
+#  
+#   export VOLATILITY_SYMBOL_PATH=~/.local/lib/python3.11/site-packages/volatility3/symbols/
+#   source ~/.bashrc
 # ----------
 
 # Definir constantes de color
