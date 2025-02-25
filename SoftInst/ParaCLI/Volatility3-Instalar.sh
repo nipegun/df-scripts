@@ -170,6 +170,9 @@
                 python3 -m pip install .
               # Salir del entorno virtual
                 deactivate
+              # Instalar símbolos
+                vCarpetaPython=$(ls ~/repos/python/volatility3/venv/lib/)
+                cp -rfv ~/repos/python/volatility3/volatility3/symbols/* ~/repos/python/volatility3/venv/lib/"$vCarpetaPython"/site-packages/volatility3/symbols/
               # Notificar fin de instalación en el entorno virtual
                 echo ""
                 echo -e "${cColorVerde}    Entorno virtual preparado. volatility3 se puede ejecutar desde el venv de la siguiente forma:${cFinColor}"
