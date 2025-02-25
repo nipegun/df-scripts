@@ -33,45 +33,103 @@
   echo ""
   sudo apt -y update
 
-# Instalar paquetes necesarios
-  echo ""
-  echo "  Instalando paquetes necesarios..."
-  echo ""
-  sudo apt -y install git
-  sudo apt -y install build-essential
-  sudo apt -y install linux-headers-$(uname -r)
-  sudo apt -y install linux-image-$(uname -r)-dbg
-  sudo apt -y install linux-headers-$(uname -r)
-  sudo apt -y install dwarfdump
-  sudo apt -y install zip
-  sudo apt -y install curl
-  curl -L https://github.com/volatilityfoundation/dwarf2json/releases/download/v0.9.0/dwarf2json-linux-amd64 -o /tmp/dwarf2json
-  chmod +x /tmp/dwarf2json
+# Crear el menú
+  # Comprobar si el paquete dialog está instalado. Si no lo está, instalarlo.
+    if [[ $(dpkg-query -s dialog 2>/dev/null | grep installed) == "" ]]; then
+      echo ""
+      echo -e "${cColorRojo}  El paquete dialog no está instalado. Iniciando su instalación...${cFinColor}"
+      echo ""
+      sudo apt-get -y update
+      sudo apt-get -y install dialog
+      echo ""
+    fi
+  menu=(dialog --checklist "Marca las opciones que quieras instalar:" 22 96 16)
+    opciones=(
+      1 "Volcar RAM"                                                    off
+      2 "Crear archivo Dwarf ..no disponible..."                        off
+      3 "Crear JSON con símbolos del Kernel iniciado (Para Volatility)" off
+    )
+  choices=$("${menu[@]}" "${opciones[@]}" 2>&1 >/dev/tty)
+    for choice in $choices
+      do
+        case $choice in
 
-# Clonar el repo de LiME
-  echo ""
-  echo "  Clonando el repositorio de LiME..."
-  echo ""
-  cd ~/
-  sudo rm -rf ~/LiME/
-  git clone https://github.com/504ensicsLabs/LiME.git
+          1)
 
-# Compilar LiME
-  echo ""
-  echo "  Compilando LiME..."
-  echo ""
-  cd LiME/src
-  sudo make
+            echo ""
+            echo "  Dumpeando RAM..."
+            echo ""
 
-# Volcar la RAM
-  echo ""
-  echo "  Volcando la RAM..."
-  echo ""
-  sudo insmod lime-$(uname -r).ko "path=/tmp/RAMDump.lime format=raw"
+            # Instalar paquetes necesarios
+              echo ""
+              echo "    Instalando paquetes necesarios..."
+              echo ""
+              sudo apt -y install git
+              sudo apt -y install build-essential
+              sudo apt -y install linux-headers-$(uname -r)
 
-# Crear el archivo json con los símbolos del kernel
-  echo ""
-  echo "  Creando el archivo .json con los símbolos del kernel"
-  echo ""
-  /tmp/dwarf2json linux --elf /usr/lib/debug/boot/vmlinux-$(uname -r) --system-map /usr/lib/debug/boot/vmlinux-$(uname -r) > /tmp/output.json
+            # Clonar el repo de LiME
+              echo ""
+              echo "    Clonando el repositorio de LiME..."
+              echo ""
+              cd ~/
+              sudo rm -rf ~/LiME/
+              git clone https://github.com/504ensicsLabs/LiME.git
+
+            # Compilar LiME
+              echo ""
+              echo "    Compilando LiME..."
+              echo ""
+              cd LiME/src
+              sudo make
+
+            # Volcar la RAM
+              echo ""
+              echo "    Volcando la RAM..."
+              echo ""
+              sudo insmod lime-$(uname -r).ko "path=/tmp/RAMDump.lime format=raw"
+
+            # Notificar fin del volcado
+              if [ -f  /tmp/RAMDump.lime ]; then
+                echo ""
+                echo "    RAM Volcada al archivo /tmp/RAMDump.lime"
+                echo ""
+              fi
+
+          ;;
+
+          2)
+
+            echo ""
+            echo "  Creando archivo DWARF..."
+            echo ""
+
+          ;;
+
+          3)
+
+            echo ""
+            echo "  Creando JSON con símbolos del kernel booteado (para Volatility)..."
+            echo ""
+
+            # Instalar paquetes necesarios
+              sudo apt -y install linux-image-$(uname -r)-dbg
+              sudo apt -y install linux-headers-$(uname -r)
+              sudo apt -y install dwarfdump
+              sudo apt -y install zip
+              sudo apt -y install curl
+              curl -L https://github.com/volatilityfoundation/dwarf2json/releases/download/v0.9.0/dwarf2json-linux-amd64 -o /tmp/dwarf2json
+              chmod +x /tmp/dwarf2json
+
+           # Crear el archivo json con los símbolos del kernel
+             echo ""
+             echo "    Creando el archivo .json con los símbolos del kernel"
+             echo ""
+             /tmp/dwarf2json linux --elf /usr/lib/debug/boot/vmlinux-$(uname -r) --system-map /usr/lib/debug/boot/vmlinux-$(uname -r) > /tmp/Debian_$(uname -r).json
+
+          ;;
+
+      esac
+
+  done
 
