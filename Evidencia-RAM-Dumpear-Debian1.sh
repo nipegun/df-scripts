@@ -44,7 +44,7 @@
   sudo make
 
 # Volcar la RAM
-  sudo insmod lime-*.ko "path=/tmp/RAMDump.lime format=raw"
+  sudo insmod lime-$(uname -r).ko "path=/tmp/RAMDump.lime format=raw"
 
 # Crear el archivo json con los símbolos del kernel
   sudo apt -y install linux-image-$(uname -r)-dbg
