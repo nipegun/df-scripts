@@ -64,6 +64,7 @@
               echo ""
               echo "    Instalando paquetes necesarios..."
               echo ""
+              sudo apt-get -y update
               sudo apt -y install git
               sudo apt -y install build-essential
               sudo apt -y install linux-headers-$(uname -r)
@@ -113,6 +114,7 @@
             echo ""
 
             # Instalar paquetes necesarios
+              sudo apt-get -y update
               sudo apt -y install linux-image-$(uname -r)-dbg
               sudo apt -y install linux-headers-$(uname -r)
               sudo apt -y install dwarfdump
