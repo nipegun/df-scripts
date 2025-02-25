@@ -69,6 +69,8 @@
   sudo insmod lime-$(uname -r).ko "path=/tmp/RAMDump.lime format=raw"
 
 # Crear el archivo json con los símbolos del kernel
-
+  echo ""
+  echo "  Creando el archivo .json con los símbolos del kernel"
+  echo ""
   /tmp/dwarf2json linux --elf /usr/lib/debug/boot/vmlinux-$(uname -r) --system-map /usr/lib/debug/boot/vmlinux-$(uname -r) > /tmp/output.json
 
