@@ -128,15 +128,15 @@
                 fi
               python3 -m venv venv
               # Crear el mensaje para mostrar cuando se entra al entorno virtual
-                echo ''                                                                      >> ~/repos/python/volatility3/venv/bin/activate
-                echo 'echo -e "\n  Activando el entorno virtual de volatility3... \n"'       >> ~/repos/python/volatility3/venv/bin/activate
-                echo 'echo -e "    Forma de uso:\n"'                                         >> ~/repos/python/volatility3/venv/bin/activate
-                echo 'echo -e "      vol -f [RutaAlArchivoDeDump] [Plugin]\n"'               >> ~/repos/python/volatility3/venv/bin/activate
-                echo 'echo -e "    Comandos rápidos:\n"'                                     >> ~/repos/python/volatility3/venv/bin/activate
-                echo 'echo -e "      Obtener info de windows:\n"'                            >> ~/repos/python/volatility3/venv/bin/activate
-                echo 'echo -e "        vol -f $HOME/Descargas/Evidencia.raw windows.info\n"' >> ~/repos/python/volatility3/venv/bin/activate
-                echo 'echo -e "      Obtener info de linux:\n"'                              >> ~/repos/python/volatility3/venv/bin/activate
-                echo 'echo -e "        vol -f $HOME/Descargas/Evidencia.raw linux.info\n"'   >> ~/repos/python/volatility3/venv/bin/activate
+                echo ''                                                                           >> ~/repos/python/volatility3/venv/bin/activate
+                echo 'echo -e "\n  Activando el entorno virtual de volatility3... \n"'            >> ~/repos/python/volatility3/venv/bin/activate
+                echo 'echo -e "    Forma de uso:\n"'                                              >> ~/repos/python/volatility3/venv/bin/activate
+                echo 'echo -e "      vol -vvv -f [RutaAlArchivoDeDump] [Plugin]\n"'               >> ~/repos/python/volatility3/venv/bin/activate
+                echo 'echo -e "    Comandos rápidos:\n"'                                          >> ~/repos/python/volatility3/venv/bin/activate
+                echo 'echo -e "      Obtener info de windows:\n"'                                 >> ~/repos/python/volatility3/venv/bin/activate
+                echo 'echo -e "        vol -vvv -f $HOME/Descargas/Evidencia.raw windows.info\n"' >> ~/repos/python/volatility3/venv/bin/activate
+                echo 'echo -e "      Obtener info de linux:\n"'                                   >> ~/repos/python/volatility3/venv/bin/activate
+                echo 'echo -e "        vol -vvv -f $HOME/Descargas/Evidencia.raw linux.info\n"'   >> ~/repos/python/volatility3/venv/bin/activate
               # Instalar symbols
                 # Comprobar si el paquete unzip está instalado. Si no lo está, instalarlo.
                   if [[ $(dpkg-query -s unzip 2>/dev/null | grep installed) == "" ]]; then
@@ -179,7 +179,7 @@
                 echo ""
                 echo -e "${cColorVerde}      source ~/repos/python/volatility3/venv/bin/activate${cFinColor}"
                 echo ""
-                echo -e "${cColorVerde}        vol      [Parámetros]${cFinColor}"
+                echo -e "${cColorVerde}        vol -vvv -f [RutaAlArchivo] [Plugin]${cFinColor}"
                 echo -e "${cColorVerde}        volshell [Parámetros]${cFinColor}"
                 echo ""
                 echo -e "${cColorVerde}      deactivate${cFinColor}"
@@ -293,11 +293,11 @@
                 echo ""
                 echo -e "${cColorVerde}      Si al instalar has marcado 'Agregar /home/$USER/.local/bin/ al path', simplemente ejecuta:${cFinColor}"
                 echo ""
-                echo -e "${cColorVerde}        vol [Parámetros]${cFinColor}"
+                echo -e "${cColorVerde}        vol -vvv -f [RutaAlArchivo] [Plugins] ${cFinColor}"
                 echo ""
                 echo -e "${cColorVerde}      Si al instalar NO has marcado 'Agregar /home/$USER/.local/bin/ al path', ejecuta:${cFinColor}"
                 echo ""
-                echo -e "${cColorVerde}       ~/.local/bin/vol [Parámetros]${cFinColor}"
+                echo -e "${cColorVerde}       ~/.local/bin/vol -vvv -f [RutaAlArchivo] [Plugins] ${cFinColor}"
                 echo ""
 
             ;;
@@ -442,7 +442,7 @@
                 echo -e "${cColorVerde}    La instalación ha finalizado. Se han copiado las herramientas a /usr/bin/ ${cFinColor}"
                 echo -e "${cColorVerde}    Puedes ejecutarlas de la siguiente forma: ${cFinColor}"
                 echo ""
-                echo -e "${cColorVerde}      volatility3 [Parámetros]${cFinColor}"
+                echo -e "${cColorVerde}      volatility3 -vvv -f [RutaAlArchivo] [Plugins] ${cFinColor}"
                 echo ""
 
             ;;
@@ -550,12 +550,12 @@
                 echo ""
                 echo "  Los binarios deben ser ejecutados con precaución. Es mejor correr los scripts directamente con python, de la siguiente manera:"
                 echo ""
-                echo "    ~/scripts/python/volatility3/vol.py [Argumentos]"
+                echo "    ~/scripts/python/volatility3/vol.py  -vvv -f [RutaAlArchivo] [Plugins] "
                 echo ""
                 echo "    O, si se quiere ejecutar dentro del entorno virtual:"
                 echo ""
                 echo "      source ~/PythonVirtualEnvironments/volatility3/bin/activate"
-                echo "      ~/scripts/python/volatility3/vol.py [Argumentos]"
+                echo "      ~/scripts/python/volatility3/vol.py  -vvv -f [RutaAlArchivo] [Plugins] "
                 echo "      deactivate"
                 echo ""
 
