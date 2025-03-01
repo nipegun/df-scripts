@@ -54,7 +54,7 @@
 # Definir constantes
   cRutaAlArchivoBinario="$1"
   cCarpetaDelArchivoBinario="$(echo "$cRutaAlArchivoBinario" | rev | cut -d'/' -f2- | rev)"
-  cCarpetaDondeGuardar="$(echo "$cCarpetaDelArchivoBinario""/DatosDelBinario/")"
+  cCarpetaDondeGuardar="$(echo "$cCarpetaDelArchivoBinario""/InfoDelBinario/")"
   cNombreDeArchivo="$(basename "$cRutaAlArchivoBinario")"
 
 echo "$cRutaAlArchivoBinario"
@@ -63,6 +63,39 @@ echo "$cNombreDeArchivo"
 
 # Crear carpeta
   sudo mkdir -p "$cCarpetaDondeGuardar"
+
+# Obtener info del elf
+  # Comprobar si el paquete binutils está instalado. Si no lo está, instalarlo.
+    if [[ $(dpkg-query -s binutils 2>/dev/null | grep installed) == "" ]]; then
+      echo ""
+      echo -e "${cColorRojo}    El paquete binutils no está instalado. Iniciando su instalación...${cFinColor}"
+      echo ""
+      sudo apt-get -y update
+      sudo apt-get -y install binutils
+      echo ""
+    fi 
+  file "$vRuta""$vNomArchivoBinario" > "$cCarpetaDondeGuardar""$cNombreDeArchivo".file
+
+# Obtener info del elf
+  readelf -a "$vRuta""$vNomArchivoBinario" > "$cCarpetaDondeGuardar""$cNombreDeArchivo".readelf
+
+# Pasar a Assembler
+  objdump -d -M intel --source "$vRuta""$vNomArchivoBinario" > "$cCarpetaDondeGuardar""$cNombreDeArchivo".objdump
+
+# Obtener cadenas
+  # Comprobar si el paquete strings está instalado. Si no lo está, instalarlo.
+    if [[ $(dpkg-query -s strings 2>/dev/null | grep installed) == "" ]]; then
+      echo ""
+      echo -e "${cColorRojo}    El paquete strings no está instalado. Iniciando su instalación...${cFinColor}"
+      echo ""
+      sudo apt-get -y update
+      sudo apt-get -y install strings
+      echo ""
+    fi 
+  strings "$vRuta""$vNomArchivoBinario" > "$cCarpetaDondeGuardar""$cNombreDeArchivo".strings
+
+# Hexa
+  hexdump -C "$vRuta""$vNomArchivoBinario" > "$cCarpetaDondeGuardar""$cNombreDeArchivo".hexdump
 
 # Reparar permisos
   sudo chown $USER:$USER "$cCarpetaDondeGuardar" -R
