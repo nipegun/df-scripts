@@ -102,9 +102,9 @@
   # info
     sudo modinfo "$cCarpetaDondeGuardar"/CasoDeSerMódulo/"$cNombreDeArchivo".ko > "$cCarpetaDondeGuardar"/CasoDeSerMódulo/"$cNombreDeArchivo".ko.modinfo.txt
   # Ver qué símbolos exporta
-    nm -D "$cCarpetaDondeGuardar"/CasoDeSerMódulo/"$cNombreDeArchivo".ko > "$cCarpetaDondeGuardar"/CasoDeSerMódulo/"$cNombreDeArchivo".ko.simbolosqueexporta.txt
+    sudo nm -D "$cCarpetaDondeGuardar"/CasoDeSerMódulo/"$cNombreDeArchivo".ko > "$cCarpetaDondeGuardar"/CasoDeSerMódulo/"$cNombreDeArchivo".ko.simbolosqueexporta.txt
   # Ver qué dependencias tiene (por si hace falta enlazarlo)
-    ldd "$cCarpetaDondeGuardar"/CasoDeSerMódulo/"$cNombreDeArchivo".ko > "$cCarpetaDondeGuardar"/CasoDeSerMódulo/"$cNombreDeArchivo".ko.dependencias.txt
+    sudo ldd "$cCarpetaDondeGuardar"/CasoDeSerMódulo/"$cNombreDeArchivo".ko > "$cCarpetaDondeGuardar"/CasoDeSerMódulo/"$cNombreDeArchivo".ko.dependencias.txt
 
 # Reparar permisos
   sudo chown $USER:$USER "$cCarpetaDondeGuardar" -R
