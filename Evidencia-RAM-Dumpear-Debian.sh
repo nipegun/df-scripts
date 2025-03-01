@@ -16,7 +16,7 @@
 #
 # Bajar y editar directamente el archivo en nano
 #   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Evidencia-RAM-Dumpear-Debian.sh | nano -
-#
+#https://github.com/Abyss-W4tcher/volatility2-profiles/tree/master/Debian/amd64
 # Enlace interesante para descargar símbolos: https://github.com/Abyss-W4tcher/volatility3-symbols/
 #
 # ----------
@@ -48,9 +48,10 @@
     fi
   menu=(dialog --checklist "Marca las opciones que quieras instalar:" 22 96 16)
     opciones=(
-      1 "Volcar RAM"                                                    off
-      2 "Crear archivo Dwarf ..no disponible..."                        off
-      3 "Crear JSON con símbolos del Kernel iniciado (Para Volatility)" off
+      1 "Volcar RAM"                                                   off
+      2 "Crear archivo Dwarf ..no disponible..."                       off
+      3 "Crear JSON con símbolos del Kernel iniciado para Volatility3" off
+      4 "Crear perfil para Volatility2"                                off
     )
   choices=$("${menu[@]}" "${opciones[@]}" 2>&1 >/dev/tty)
     for choice in $choices
@@ -143,6 +144,49 @@
              # Kernel debug
                /tmp/dwarf2json linux --elf "/usr/lib/debug/boot/vmlinux-$vVersKernel" > "/tmp/Debian_$vVersKernel-DeDebug.json"
                /tmp/dwarf2json linux --elf "/usr/lib/debug/boot/vmlinux-$vVersKernel" --system-map "/usr/lib/debug/boot/System.map-$vVersKernel" > "/tmp/Debian_$vVersKernel-SystemMap-DeDebug.json"
+
+            # Notificar fin de creación de los archívos de símbolos
+              echo ""
+              echo "  Creación de simbolos para Volatility3, finalizada"
+              echo ""
+              echo "  Recuerda que puedes descargar perfiles de Volatility2 para Debian aquí:"
+              echo ""
+              echo "    https://github.com/Abyss-W4tcher/volatility3-symbols/tree/master/Debian/amd64"
+              echo ""
+
+          ;;
+
+          4)
+
+            echo ""
+            echo "  Creando perfil para Volatility2..."
+            echo ""
+            sudo apt-get -y update
+            sudo apt-get -y install git
+            sudo apt-get -y install build-essential
+            sudo apt-get -y install linux-headers-$(uname -r)
+            sudo apt-get -y install linux-image-$(uname -r)-dbg
+            sudo apt-get -y install make
+            sudo apt-get -y install zip
+            sudo apt-get -y install dwarfdump
+            cd /tmp
+            git clone https://github.com/volatilityfoundation/volatility.git
+            cd volatility/tools/linux
+            echo 'MODULE_LICENSE("GPL");' >> module.c
+            make
+            mkdir -p /tmp/profile
+            cp module.dwarf /tmp/profile/module.dwarf
+            cp /usr/lib/debug/boot/System.map-&(uname -r) /tmp/profile/System.map-&(uname -r)
+            cd /tmp/profile
+            zip /tmp/Debian_$(uname -r).zip module.dwarf System.map-&(uname -r)
+            
+            echo ""
+            echo "  Archivo /tmp/Debian_$(uname -r).zip creado."
+            echo ""
+            echo "  Recuerda que puedes descargar perfiles de Volatility2 para Debian aquí:"
+            echo ""
+            echo "    https://github.com/Abyss-W4tcher/volatility2-profiles/tree/master/Debian/amd64"
+            echo ""
 
           ;;
 
