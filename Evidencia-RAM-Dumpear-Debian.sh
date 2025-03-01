@@ -174,14 +174,12 @@
             cd volatility/tools/linux
             echo 'MODULE_LICENSE("GPL");' >> module.c
             make
-            mkdir -p /tmp/profile
-            cp module.dwarf /tmp/profile/module.dwarf
-            cp /usr/lib/debug/boot/System.map-&(uname -r) /tmp/profile/System.map-&(uname -r)
-            cd /tmp/profile
-            zip /tmp/Debian_$(uname -r).zip module.dwarf System.map-&(uname -r)
-            
+            zip /tmp/Debian_$(uname -r).zip module.dwarf /usr/lib/debug/boot/System.map-&(uname -r)
+
             echo ""
-            echo "  Archivo /tmp/Debian_$(uname -r).zip creado."
+            echo "  Archivo /tmp/Debian_$(uname -r).zip creado. Deberás meterlo en:"
+            echo ""
+            echo "    /CarpetaDeVolatility/plugins/overlays/linux/"
             echo ""
             echo "  Recuerda que puedes descargar perfiles de Volatility2 para Debian aquí:"
             echo ""
