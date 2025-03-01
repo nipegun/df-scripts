@@ -9,10 +9,10 @@
 # Script de NiPeGun para obtener datos sobre binarios de Linux
 #
 # Ejecución remota (puede requerir permisos sudo):
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Evidencia-Binarios-Linux-ObtenerInfo.sh | bash -s Parámetro1 Parámetro2
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Evidencia-Binarios-Linux-ObtenerInfo.sh | bash -s [RutaAlArchivoBinario]
 #
 # Ejecución remota como root (para sistemas sin sudo):
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Evidencia-Binarios-Linux-ObtenerInfo.sh | sed 's-sudo--g' | bash -s Parámetro1 Parámetro2
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Evidencia-Binarios-Linux-ObtenerInfo.sh | sed 's-sudo--g' | bash -s [RutaAlArchivoBinario]
 #
 # Bajar y editar directamente el archivo en nano
 #   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Evidencia-Binarios-Linux-ObtenerInfo.sh | nano -
