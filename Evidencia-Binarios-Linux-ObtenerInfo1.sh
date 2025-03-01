@@ -58,7 +58,7 @@
   cNombreDeArchivo="$(basename "$cRutaAlArchivoBinario")"
 
 # Crear carpeta
-  sudo mkdir -p "$cCarpetaDondeGuardar"
+  sudo mkdir -p "$cCarpetaDondeGuardar"/SiMóduloDelKernel/
   sudo chown $USER:$USER "$cCarpetaDondeGuardar"
 
 # Obtener info del elf
@@ -97,14 +97,13 @@
     hexdump -C "$cRutaAlArchivoBinario" > "$cCarpetaDondeGuardar""$cNombreDeArchivo".hexdump.txt
 
 # Ver si es módulo
-  sudo mkdir -p "$cCarpetaDondeGuardar"/CasoDeSerMódulo/
-  cp "$cRutaAlArchivoBinario" "$cCarpetaDondeGuardar"/CasoDeSerMódulo/"$cNombreDeArchivo".ko
+  cp "$cRutaAlArchivoBinario" "$cCarpetaDondeGuardar"/SiMóduloDelKernel/"$cNombreDeArchivo".ko
   # info
-    sudo modinfo "$cCarpetaDondeGuardar"/CasoDeSerMódulo/"$cNombreDeArchivo".ko > "$cCarpetaDondeGuardar"/CasoDeSerMódulo/"$cNombreDeArchivo".ko.modinfo.txt
+    sudo modinfo "$cCarpetaDondeGuardar"/SiMóduloDelKernel/"$cNombreDeArchivo".ko > "$cCarpetaDondeGuardar"/SiMóduloDelKernel/"$cNombreDeArchivo".ko.modinfo.txt
   # Ver qué símbolos exporta
-    sudo nm -D "$cCarpetaDondeGuardar"/CasoDeSerMódulo/"$cNombreDeArchivo".ko > "$cCarpetaDondeGuardar"/CasoDeSerMódulo/"$cNombreDeArchivo".ko.simbolosqueexporta.txt
+    sudo nm -D "$cCarpetaDondeGuardar"/SiMóduloDelKernel/"$cNombreDeArchivo".ko > "$cCarpetaDondeGuardar"/SiMóduloDelKernel/"$cNombreDeArchivo".ko.simbolosqueexporta.txt
   # Ver qué dependencias tiene (por si hace falta enlazarlo)
-    sudo ldd "$cCarpetaDondeGuardar"/CasoDeSerMódulo/"$cNombreDeArchivo".ko > "$cCarpetaDondeGuardar"/CasoDeSerMódulo/"$cNombreDeArchivo".ko.dependencias.txt
+    sudo ldd "$cCarpetaDondeGuardar"/SiMóduloDelKernel/"$cNombreDeArchivo".ko > "$cCarpetaDondeGuardar"/SiMóduloDelKernel/"$cNombreDeArchivo".ko.dependencias.txt
 
 # Reparar permisos
   sudo chown $USER:$USER "$cCarpetaDondeGuardar" -R
