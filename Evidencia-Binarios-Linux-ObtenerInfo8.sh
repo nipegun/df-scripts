@@ -96,6 +96,16 @@
   # hexdump
     hexdump -C "$cRutaAlArchivoBinario" > "$cCarpetaDondeGuardar""$cNombreDeArchivo".hexdump.txt
 
+# Ver si es módulo
+  sudo mkdir -p "$cCarpetaDondeGuardar"/CasoDeSerMódulo/
+  cp "$cRutaAlArchivoBinario" "$cCarpetaDondeGuardar"/CasoDeSerMódulo/"$cNombreDeArchivo".ko
+  # info
+    sudo modinfo "$cCarpetaDondeGuardar"/CasoDeSerMódulo/"$cNombreDeArchivo".ko > "$cCarpetaDondeGuardar"/CasoDeSerMódulo/"$cNombreDeArchivo".ko.modinfo.txt
+  # Ver qué símbolos exporta
+    nm -D "$cCarpetaDondeGuardar"/CasoDeSerMódulo/"$cNombreDeArchivo".ko > "$cCarpetaDondeGuardar"/CasoDeSerMódulo/"$cNombreDeArchivo".ko.simbolosqueexporta.txt
+  # Ver qué dependencias tiene (por si hace falta enlazarlo)
+    ldd "$cCarpetaDondeGuardar"/CasoDeSerMódulo/"$cNombreDeArchivo".ko > "$cCarpetaDondeGuardar"/CasoDeSerMódulo/"$cNombreDeArchivo".ko.dependencias.txt
+
 # Reparar permisos
   sudo chown $USER:$USER "$cCarpetaDondeGuardar" -R
 
