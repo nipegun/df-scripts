@@ -63,6 +63,7 @@ echo "$cNombreDeArchivo"
 
 # Crear carpeta
   sudo mkdir -p "$cCarpetaDondeGuardar"
+  sudo chown $USER:$USER "$cCarpetaDondeGuardar"
 
 # Obtener info del elf
 
@@ -76,7 +77,7 @@ echo "$cNombreDeArchivo"
         sudo apt-get -y install file
         echo ""
       fi 
-    file "$vRuta""$vNomArchivoBinario" | sudo tee "$cCarpetaDondeGuardar""$cNombreDeArchivo".file
+    file "$vRuta""$vNomArchivoBinario" > "$cCarpetaDondeGuardar""$cNombreDeArchivo".file
 
   # readelf
     # Comprobar si el paquete binutils está instalado. Si no lo está, instalarlo.
@@ -88,16 +89,16 @@ echo "$cNombreDeArchivo"
         sudo apt-get -y install binutils
         echo ""
       fi
-    readelf -a "$vRuta""$vNomArchivoBinario" | sudo tee "$cCarpetaDondeGuardar""$cNombreDeArchivo".readelf
+    readelf -a "$vRuta""$vNomArchivoBinario" > "$cCarpetaDondeGuardar""$cNombreDeArchivo".readelf
 
   # objdump
-    objdump -d -M intel --source "$vRuta""$vNomArchivoBinario" | sudo tee "$cCarpetaDondeGuardar""$cNombreDeArchivo".objdump
+    objdump -d -M intel --source "$vRuta""$vNomArchivoBinario" > "$cCarpetaDondeGuardar""$cNombreDeArchivo".objdump
 
   # strings
-    strings "$vRuta""$vNomArchivoBinario" | sudo tee "$cCarpetaDondeGuardar""$cNombreDeArchivo".strings
+    strings "$vRuta""$vNomArchivoBinario" > "$cCarpetaDondeGuardar""$cNombreDeArchivo".strings
 
   # hexdump
-    hexdump -C "$vRuta""$vNomArchivoBinario" | sudo tee "$cCarpetaDondeGuardar""$cNombreDeArchivo".hexdump
+    hexdump -C "$vRuta""$vNomArchivoBinario" > "$cCarpetaDondeGuardar""$cNombreDeArchivo".hexdump
 
 # Reparar permisos
   sudo chown $USER:$USER "$cCarpetaDondeGuardar" -R
