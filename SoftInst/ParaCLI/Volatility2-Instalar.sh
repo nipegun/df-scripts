@@ -80,6 +80,7 @@
           4 "  Instalar en /home/$USER/.local/bin/"                           off
           5 "    Agregar /home/$USER/.local/bin/ al path"                     off
           6 "Clonar repo, crear venv, compilar e instalar a nivel de sistema" off
+          7 "Instalación rápida (Beta)"                                       off
         )
       choices=$("${menu[@]}" "${opciones[@]}" 2>&1 >/dev/tty)
 
@@ -387,6 +388,75 @@
                 echo -e "${cColorVerde}    Puedes ejecutarlas de la siguiente forma: ${cFinColor}"
                 echo ""
                 echo -e "${cColorVerde}      volatility2 [Parámetros]${cFinColor}"
+                echo ""
+
+            ;;
+
+            7)
+
+              echo ""
+              echo "  Instalación rápida, beta..."
+              echo ""
+
+              mkdir -p ~/VirtualEnvs/
+              cd ~/VirtualEnvs/
+              rm -rf ~/VirtualEnvs/volatility2/
+              # Comprobar si el paquete git está instalado. Si no lo está, instalarlo.
+                if [[ $(dpkg-query -s git 2>/dev/null | grep installed) == "" ]]; then
+                  echo ""
+                  echo -e "${cColorRojo}  El paquete git no está instalado. Iniciando su instalación...${cFinColor}"
+                  echo ""
+                  sudo apt-get -y update
+                  sudo apt-get -y install git
+                  echo ""
+                fi
+              git clone https://github.com/volatilityfoundation/volatility.git
+              mv ~/VirtualEnvs/volatility/ ~/VirtualEnvs/volatility2/
+              /usr/local/bin/virtualenv -p /usr/local/bin/python2.7 volatility2
+              # Crear el mensaje para mostrar cuando se entra al entorno virtual
+                echo ''                                                                                        >> ~/VirtualEnvs/volatility2/bin/activate
+                echo 'echo -e "\n  Activando el entorno virtual de Volatility2... \n"'                         >> ~/VirtualEnvs/volatility2/bin/activate
+                echo 'echo -e "    Forma de uso:\n"'                                                           >> ~/VirtualEnvs/volatility2/bin/activate
+                echo 'echo -e "      vol.py -f [RutaAlArchivoDeDump] [Plugin]\n"'                              >> ~/VirtualEnvs/volatility2/bin/activate
+                echo 'echo -e "    Comandos rápidos:\n"'                                                       >> ~/VirtualEnvs/volatility2/bin/activate
+                echo 'echo -e "      Obtener info de la imagen:\n"'                                            >> ~/VirtualEnvs/volatility2/bin/activate
+                echo 'echo -e "        vol.py -f $HOME/Descargas/Evidencia.raw imageinfo\n"'                   >> ~/VirtualEnvs/volatility2/bin/activate
+                echo 'echo -e "      Aplicar un perfil y un plugin:\n"'                                        >> ~/VirtualEnvs/volatility2/bin/activate
+                echo 'echo -e "        vol.py -f $HOME/Descargas/Evidencia.raw --profile=Win7SP1x86 pslist\n"' >> ~/VirtualEnvs/volatility2/bin/activate
+
+              # Entrar al entorno virtual
+                source ~/VirtualEnvs/volatility2/bin/activate
+
+              # Instalar dependencias
+                cd ~/VirtualEnvs/volatility2
+                pip2 install -U wheel
+                pip2 install -U setuptools
+                pip2 install -U distorm3
+                pip2 install -U pycrypto
+                pip2 install -U pillow
+                pip2 install -U openpyxl
+                pip2 install -U ujson
+                pip2 install -U pytz
+                pip2 install -U ipython
+                pip2 install -U capstone
+                pip2 install -U yara-python
+                
+                python2 setup.py install
+                #sudo ln -s /usr/local/lib/python2.7/dist-packages/usr/lib/libyara.so /usr/lib/libyara.so
+                #sudo ln -s /usr/local/lib/python2.7/dist-packages/usr/lib/libyara.so /usr/local/lib/libyara.so
+
+              # Desactivar el entorno virtual
+                deactivate
+
+              # Notificar fin de instalación en el entorno virtual
+                echo ""
+                echo -e "${cColorVerde}    Entorno virtual preparado. volatility2 se puede ejecutar desde el entorno virtual de la siguiente forma:${cFinColor}"
+                echo ""
+                echo -e "${cColorVerde}      source ~/VirtualEnvs/volatility2/bin/activate ${cFinColor}"
+                echo ""
+                echo -e "${cColorVerde}        vol.py [Parámetros]${cFinColor}"
+                echo ""
+                echo -e "${cColorVerde}      deactivate${cFinColor}"
                 echo ""
 
             ;;
