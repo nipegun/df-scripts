@@ -9,17 +9,56 @@
 # Script de NiPeGun para obtener datos sobre binarios de Linux
 #
 # Ejecución remota (puede requerir permisos sudo):
-#   curl -sL x | bash
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Evidencia-Binarios-Linux-ObtenerInfo.sh | bash -s Parámetro1 Parámetro2
 #
 # Ejecución remota como root (para sistemas sin sudo):
-#   curl -sL x | sed 's-sudo--g' | bash
-#
-# Ejecución remota sin caché:
-#   curl -sL -H 'Cache-Control: no-cache, no-store' x | bash
-#
-# Ejecución remota con parámetros:
-#   curl -sL x | bash -s Parámetro1 Parámetro2
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Evidencia-Binarios-Linux-ObtenerInfo.sh | sed 's-sudo--g' | bash -s Parámetro1 Parámetro2
 #
 # Bajar y editar directamente el archivo en nano
-#   curl -sL x | nano -
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Evidencia-Binarios-Linux-ObtenerInfo.sh | nano -
 # ----------
+
+# Definir constantes de color
+  cColorAzul="\033[0;34m"
+  cColorAzulClaro="\033[1;34m"
+  cColorVerde='\033[1;32m'
+  cColorRojo='\033[1;31m'
+  # Para el color rojo también:
+    #echo "$(tput setaf 1)Mensaje en color rojo. $(tput sgr 0)"
+  cFinColor='\033[0m'
+
+# Definir la cantidad de argumentos esperados
+  cCantParamEsperados=1
+
+# Comprobar que se hayan pasado la cantidad de parámetros correctos. Abortar el script si no.
+  if [ $# -ne $cCantParamEsperados ]
+    then
+      echo ""
+      echo -e "${cColorRojo}  Mal uso del script. El uso correcto sería: ${cFinColor}"
+      echo "    $0 [RutaAlArchivoBinario] [CarpetaDondeGuardar]"
+      echo ""
+      echo "  Ejemplo:"
+      echo "    $0 '/tmp/binario' '/home/pepito'"
+      echo ""
+      exit
+  fi
+
+# Comprobar que exista el archivo
+  if [ ! -f "$1" ]; then
+    echo ""
+    echo -e "${cColorRojo}    El archivo pasado como parámetro no existe. Abortando... ${cFinColor}"
+    echo ""
+    exit
+  fi
+
+# Definir constantes
+  cRutaAlArchivoBinario="$1"
+  cCarpetaDondeGuardar="$(echo "$cRutaAlArchivoBinario""/DatosDelBinario/")"
+  cNombreDeArchivo="$(basename "$cRutaAlArchivoBinario")"
+
+# Crear carpeta
+  sudo mkdir -p "$cCarpetaDondeGuardar"
+
+# Reparar permisos
+  sudo chown $USER:$USER "$cCarpetaDondeGuardar" -R
+
