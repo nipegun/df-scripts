@@ -56,6 +56,10 @@
   cCarpetaDondeGuardar="$(echo "$cRutaAlArchivoBinario""/DatosDelBinario/")"
   cNombreDeArchivo="$(basename "$cRutaAlArchivoBinario")"
 
+echo "$cRutaAlArchivoBinario"
+echo "$cCarpetaDondeGuardar"
+echo "$cNombreDeArchivo"
+
 # Crear carpeta
   sudo mkdir -p "$cCarpetaDondeGuardar"
 
