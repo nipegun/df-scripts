@@ -77,7 +77,7 @@ echo "$cNombreDeArchivo"
         sudo apt-get -y install file
         echo ""
       fi 
-    file "$vRuta""$vNomArchivoBinario" > "$cCarpetaDondeGuardar""$cNombreDeArchivo".file
+    file "$cRutaAlArchivoBinario" > "$cCarpetaDondeGuardar""$cNombreDeArchivo".file
 
   # readelf
     # Comprobar si el paquete binutils está instalado. Si no lo está, instalarlo.
@@ -89,16 +89,16 @@ echo "$cNombreDeArchivo"
         sudo apt-get -y install binutils
         echo ""
       fi
-    readelf -a "$vRuta""$vNomArchivoBinario" > "$cCarpetaDondeGuardar""$cNombreDeArchivo".readelf
+    readelf -a "$cRutaAlArchivoBinario" > "$cCarpetaDondeGuardar""$cNombreDeArchivo".readelf
 
   # objdump
-    objdump -d -M intel --source "$vRuta""$vNomArchivoBinario" > "$cCarpetaDondeGuardar""$cNombreDeArchivo".objdump
+    objdump -d -M intel --source "$cRutaAlArchivoBinario" > "$cCarpetaDondeGuardar""$cNombreDeArchivo".objdump
 
   # strings
-    strings "$vRuta""$vNomArchivoBinario" > "$cCarpetaDondeGuardar""$cNombreDeArchivo".strings
+    strings "$cRutaAlArchivoBinario" > "$cCarpetaDondeGuardar""$cNombreDeArchivo".strings
 
   # hexdump
-    hexdump -C "$vRuta""$vNomArchivoBinario" > "$cCarpetaDondeGuardar""$cNombreDeArchivo".hexdump
+    hexdump -C "$cRutaAlArchivoBinario" > "$cCarpetaDondeGuardar""$cNombreDeArchivo".hexdump
 
 # Reparar permisos
   sudo chown $USER:$USER "$cCarpetaDondeGuardar" -R
