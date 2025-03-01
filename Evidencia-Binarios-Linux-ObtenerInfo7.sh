@@ -57,10 +57,6 @@
   cCarpetaDondeGuardar="$(echo "$cCarpetaDelArchivoBinario""/InfoDelBinario/")"
   cNombreDeArchivo="$(basename "$cRutaAlArchivoBinario")"
 
-echo "$cRutaAlArchivoBinario"
-echo "$cCarpetaDondeGuardar"
-echo "$cNombreDeArchivo"
-
 # Crear carpeta
   sudo mkdir -p "$cCarpetaDondeGuardar"
   sudo chown $USER:$USER "$cCarpetaDondeGuardar"
@@ -103,3 +99,7 @@ echo "$cNombreDeArchivo"
 # Reparar permisos
   sudo chown $USER:$USER "$cCarpetaDondeGuardar" -R
 
+# Notificar fin de ejecución del script
+  echo ""
+  echo "  Ejecución del script, finalizada..."
+  echo ""
