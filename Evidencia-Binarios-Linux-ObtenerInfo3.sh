@@ -53,7 +53,8 @@
 
 # Definir constantes
   cRutaAlArchivoBinario="$1"
-  cCarpetaDondeGuardar="$(echo "$cRutaAlArchivoBinario""/DatosDelBinario/")"
+  cCarpetaDelArchivoBinario="$(echo "$cRutaAlArchivoBinario" | rev | cut -d'/' -f2- | rev)"
+  cCarpetaDondeGuardar="$(echo "$cCarpetaDelArchivoBinario""/DatosDelBinario/")"
   cNombreDeArchivo="$(basename "$cRutaAlArchivoBinario")"
 
 echo "$cRutaAlArchivoBinario"
