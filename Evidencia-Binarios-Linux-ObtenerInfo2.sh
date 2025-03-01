@@ -97,7 +97,7 @@
     hexdump -C "$cRutaAlArchivoBinario" > "$cCarpetaDondeGuardar""$cNombreDeArchivo".hexdump.txt
 
 # Ver si es módulo
-  cp "$cRutaAlArchivoBinario" "$cCarpetaDondeGuardar"/SiMóduloDelKernel/"$cNombreDeArchivo".ko
+  sudo cp "$cRutaAlArchivoBinario" "$cCarpetaDondeGuardar"/SiMóduloDelKernel/"$cNombreDeArchivo".ko
   # info
     sudo modinfo "$cCarpetaDondeGuardar"/SiMóduloDelKernel/"$cNombreDeArchivo".ko > "$cCarpetaDondeGuardar"/SiMóduloDelKernel/"$cNombreDeArchivo".ko.modinfo.txt
   # Ver qué símbolos exporta
