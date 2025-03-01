@@ -59,7 +59,7 @@
 
 # Crear carpeta
   sudo mkdir -p "$cCarpetaDondeGuardar"/SiMóduloDelKernel/
-  sudo chown $USER:$USER "$cCarpetaDondeGuardar"
+  sudo chown $USER:$USER "$cCarpetaDondeGuardar" -R
 
 # Obtener info del elf
 
