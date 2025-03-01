@@ -73,7 +73,7 @@
         sudo apt-get -y install file
         echo ""
       fi 
-    file "$cRutaAlArchivoBinario" > "$cCarpetaDondeGuardar""$cNombreDeArchivo".file.txt
+    file "$cRutaAlArchivoBinario" &> "$cCarpetaDondeGuardar""$cNombreDeArchivo".file.txt
 
   # readelf
     # Comprobar si el paquete binutils está instalado. Si no lo está, instalarlo.
@@ -85,25 +85,26 @@
         sudo apt-get -y install binutils
         echo ""
       fi
-    readelf -a "$cRutaAlArchivoBinario" > "$cCarpetaDondeGuardar""$cNombreDeArchivo".readelf.txt
+    readelf -a "$cRutaAlArchivoBinario"                   &> "$cCarpetaDondeGuardar""$cNombreDeArchivo".readelf.txt
 
   # objdump
-    objdump -d -M intel --source "$cRutaAlArchivoBinario" > "$cCarpetaDondeGuardar""$cNombreDeArchivo".objdump.txt
+    objdump -d -M intel --source "$cRutaAlArchivoBinario" &> "$cCarpetaDondeGuardar""$cNombreDeArchivo".objdump.txt
 
   # strings
-    strings "$cRutaAlArchivoBinario" > "$cCarpetaDondeGuardar""$cNombreDeArchivo".strings.txt
+    strings "$cRutaAlArchivoBinario"                      &> "$cCarpetaDondeGuardar""$cNombreDeArchivo".strings.txt
 
   # hexdump
-    hexdump -C "$cRutaAlArchivoBinario" > "$cCarpetaDondeGuardar""$cNombreDeArchivo".hexdump.txt
+    hexdump -C "$cRutaAlArchivoBinario"                   &> "$cCarpetaDondeGuardar""$cNombreDeArchivo".hexdump.txt
+
 
 # Ver si es módulo
   sudo cp "$cRutaAlArchivoBinario" "$cCarpetaDondeGuardar"/SiMóduloDelKernel/"$cNombreDeArchivo".ko
   # info
-    sudo modinfo "$cCarpetaDondeGuardar"/SiMóduloDelKernel/"$cNombreDeArchivo".ko > "$cCarpetaDondeGuardar"/SiMóduloDelKernel/"$cNombreDeArchivo".ko.modinfo.txt
+    sudo modinfo "$cCarpetaDondeGuardar"/SiMóduloDelKernel/"$cNombreDeArchivo".ko &> "$cCarpetaDondeGuardar"/SiMóduloDelKernel/"$cNombreDeArchivo".ko.modinfo.txt
   # Ver qué símbolos exporta
-    sudo nm -D "$cCarpetaDondeGuardar"/SiMóduloDelKernel/"$cNombreDeArchivo".ko > "$cCarpetaDondeGuardar"/SiMóduloDelKernel/"$cNombreDeArchivo".ko.simbolosqueexporta.txt
+    sudo nm -D "$cCarpetaDondeGuardar"/SiMóduloDelKernel/"$cNombreDeArchivo".ko   &> "$cCarpetaDondeGuardar"/SiMóduloDelKernel/"$cNombreDeArchivo".ko.simbolosqueexporta.txt
   # Ver qué dependencias tiene (por si hace falta enlazarlo)
-    sudo ldd "$cCarpetaDondeGuardar"/SiMóduloDelKernel/"$cNombreDeArchivo".ko > "$cCarpetaDondeGuardar"/SiMóduloDelKernel/"$cNombreDeArchivo".ko.dependencias.txt
+    sudo ldd "$cCarpetaDondeGuardar"/SiMóduloDelKernel/"$cNombreDeArchivo".ko     &> "$cCarpetaDondeGuardar"/SiMóduloDelKernel/"$cNombreDeArchivo".ko.dependencias.txt
 
 # Reparar permisos
   sudo chown $USER:$USER "$cCarpetaDondeGuardar" -R
