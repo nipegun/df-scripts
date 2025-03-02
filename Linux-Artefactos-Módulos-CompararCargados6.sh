@@ -28,10 +28,10 @@
   cFinColor='\033[0m'
 
 # Módulos en /cat/proc/ (cargados dinámicamente en el kernel)
-  sudo cat /proc/modules | cut -d' ' -f1 | sort | sudo tee /tmp/modules.proc
+  sudo cat /proc/modules | cut -d' ' -f1 | sort > /tmp/modules.proc
 
 # Módulos en /sys/module/ (todos los módulos conocidos por el sistema)
-  sudo ls -1 /sys/module/ | sort | sudo tee /tmp/modules.sys
+  sudo ls -1 /sys/module/ | sort > /tmp/modules.sys
 
 # Listar en columnas
   sudo sdiff /tmp/modules.proc /tmp/modules.sys
