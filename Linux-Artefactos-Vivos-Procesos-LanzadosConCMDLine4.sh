@@ -33,26 +33,6 @@
     cmd=$(tr '\0' ' ' < "$pid/cmdline" 2>/dev/null)
     
     if [[ -n "$cmd" ]]; then
-        echo "El proceso $pid_num se lanzó con: $cmd" | sort -n
+        echo "El proceso $pid_num se ejecutó con: $cmd"
     fi
-  done
-
-for pid in /proc/[0-9]*; do
-    pid_num=${pid##*/}
-    cmd=$(tr '\0' ' ' < "$pid/cmdline" 2>/dev/null)
-    ps_output=$(ps -p "$pid_num" -o comm= 2>/dev/null)
-    
-    if [[ -n "$cmd" ]] && [[ -z "$ps_output" ]]; then
-        echo "[POSIBLE PROCESO OCULTO] PID: $pid_num - CMD: $cmd"
-    fi
-done
-
-
-for pid in /proc/[0-9]*; do
-    pid_num=${pid##*/}
-    cmd=$(tr '\0' ' ' < "$pid/cmdline" 2>/dev/null)
-    
-    if [[ -n "$cmd" ]]; then
-        echo "$pid_num $cmd"
-    fi
-done | sort -n
+  done | sort -n
