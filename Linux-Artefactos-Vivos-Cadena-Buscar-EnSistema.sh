@@ -9,13 +9,13 @@
 # Script de NiPeGun para buscar y mostrar cadenas imprimibles específicas en todos los archivos del sistema Debian
 #
 # Ejecución remota (puede requerir permisos sudo):
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Linux-Artefactos-Cadena-Buscar-EnSistema.sh | bash
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Linux-Artefactos-Vivos-Cadena-Buscar-EnSistema.sh | bash
 #
 # Ejecución remota como root (para sistemas sin sudo):
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Linux-Artefactos-Cadena-Buscar-EnSistema.sh | sed 's-sudo--g' | bash
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Linux-Artefactos-Vivos-Cadena-Buscar-EnSistema.sh | sed 's-sudo--g' | bash
 #
 # Bajar y editar directamente el archivo en nano
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Linux-Artefactos-Cadena-Buscar-EnSistema.sh | nano -
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Linux-Artefactos-Vivos-Cadena-Buscar-EnSistema.sh | nano -
 # ----------
 
 # Definir constantes de color
