@@ -36,6 +36,6 @@
     if [[ -n "$cmd" ]]; then
         echo "El proceso $pid_num se ejecutó con: $cmd"
     fi
-  done | sort -n
+  done | sort -n -k1,1
   echo ""
 
