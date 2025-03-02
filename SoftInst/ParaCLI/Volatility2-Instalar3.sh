@@ -195,7 +195,7 @@
                 cd ~/repos/python/volatility2/
 
               # Compilar
-                pip2 install -U pyinstaller==3.4
+                pip2 install -U pyinstaller==3.3
                 pyinstaller --onefile vol.py
 
              # Desactivar el entorno virtual
