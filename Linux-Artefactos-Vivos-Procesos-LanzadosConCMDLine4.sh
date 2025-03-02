@@ -28,6 +28,7 @@
   cFinColor='\033[0m'
 
 # Recorrer todo /proc/
+  echo ""
   for pid in /proc/[0-9]*; do
     pid_num=${pid##*/}
     cmd=$(tr '\0' ' ' < "$pid/cmdline" 2>/dev/null)
@@ -36,3 +37,5 @@
         echo "El proceso $pid_num se ejecutó con: $cmd"
     fi
   done | sort -n
+  echo ""
+
