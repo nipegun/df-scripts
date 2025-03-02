@@ -33,7 +33,7 @@
     cmd=$(tr '\0' ' ' < "$pid/cmdline" 2>/dev/null)
     
     if [[ -n "$cmd" ]]; then
-        echo "El proceso $pid_num se lanzó con: $cmd"
+        echo "El proceso $pid_num se lanzó con: $cmd" | sort -n
     fi
   done
 
