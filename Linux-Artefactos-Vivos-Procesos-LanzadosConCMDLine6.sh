@@ -46,3 +46,13 @@ for pid in /proc/[0-9]*; do
         echo "[POSIBLE PROCESO OCULTO] PID: $pid_num - CMD: $cmd"
     fi
 done
+
+
+for pid in /proc/[0-9]*; do
+    pid_num=${pid##*/}
+    cmd=$(tr '\0' ' ' < "$pid/cmdline" 2>/dev/null)
+    
+    if [[ -n "$cmd" ]]; then
+        echo "$pid_num $cmd"
+    fi
+done | sort -n
