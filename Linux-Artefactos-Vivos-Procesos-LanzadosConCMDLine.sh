@@ -9,13 +9,13 @@
 # Script de NiPeGun para buscar y mostrar cadenas imprimibles específicas en todos los archivos del sistema Debian
 #
 # Ejecución remota (puede requerir permisos sudo):
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Linux-Artefactos-Vivos-CMDLine-Buscar-EnSistema.sh | bash
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Linux-Artefactos-Vivos-Procesos-LanzadosConCMDLine.sh | bash
 #
 # Ejecución remota como root (para sistemas sin sudo):
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Linux-Artefactos-Vivos-CMDLine-Buscar-EnSistema.sh | sed 's-sudo--g' | bash
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Linux-Artefactos-Vivos-Procesos-LanzadosConCMDLine.sh | sed 's-sudo--g' | bash
 #
 # Bajar y editar directamente el archivo en nano
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Linux-Artefactos-Vivos-CMDLine-Buscar-EnSistema.sh | nano -
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Linux-Artefactos-Vivos-Procesos-LanzadosConCMDLine.sh | nano -
 # ----------
 
 # Definir constantes de color
@@ -29,8 +29,9 @@
 
 # Recorrer todo /proc/
   for pid in /proc/[0-9]*; do
-    echo "PID: ${pid##*/}"
-    cat "$pid/cmdline" 2>/dev/null || echo "[No disponible]"
-    echo
+    cmd=$(cat "$pid/cmdline" 2>/dev/null)
+    if [[ -n "$cmd" ]]; then
+        echo "PID: ${pid##*/} - CMD: $cmd"
+    fi
   done
 
