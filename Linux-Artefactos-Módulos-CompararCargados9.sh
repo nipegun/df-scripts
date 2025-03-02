@@ -27,13 +27,11 @@
     #echo "$(tput setaf 1)Mensaje en color rojo. $(tput sgr 0)"
   cFinColor='\033[0m'
 
-# Módulos en /cat/proc/
-  cat /proc/modules | cut -d' ' -f1 | sort > /tmp/modules.proc
+# Módulos en /cat/proc/ (cargados dinámicamente en el kernel)
+  sudo cat /proc/modules | cut -d' ' -f1 | sort > /tmp/modules.proc
 
-# Módulos en /sys/module/
-  ls -1 /sys/module/ | sort | > /tmp/modules.sys
+# Módulos en /sys/module/ (todos los módulos conocidos por el sistema)
+  sudo ls -1 /sys/module/ | sort | > /tmp/modules.sys
 
-# lsmod
-  lsmod | cut -d' ' -f1 | sort > /tmp/modules.lsmod
-
-
+# Listar en columnas
+  sudo sdiff /tmp/modules.proc /tmp/modules.sys
