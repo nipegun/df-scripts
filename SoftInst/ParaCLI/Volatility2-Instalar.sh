@@ -164,7 +164,7 @@
                 pip2 install -U ipython
                 pip2 install -U capstone
                 pip2 install -U yara-python
-                pip2 install .
+                #pip2 install .
                 #sudo ln -s /usr/local/lib/python2.7/dist-packages/usr/lib/libyara.so /usr/lib/libyara.so
                 #sudo ln -s /usr/local/lib/python2.7/dist-packages/usr/lib/libyara.so /usr/local/lib/libyara.so
 
@@ -195,7 +195,7 @@
                 cd ~/repos/python/volatility2/
 
               # Compilar
-                pip2 install -U pyinstaller==3.6
+                pip2 install -U pyinstaller==3.4
                 pyinstaller --onefile vol.py
 
              # Desactivar el entorno virtual
