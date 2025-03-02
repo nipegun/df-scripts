@@ -28,10 +28,10 @@
   cFinColor='\033[0m'
 
 # Módulos en /cat/proc/
-  cat /proc/modules/ | cut -d' ' -f1 | sort > /tmp/modules.proc
+  cat /proc/modules | cut -d' ' -f1 | sort > /tmp/modules.proc
 
 # Módulos en /sys/module/
-  ls -1 /sys/mnodule/ | sort | > /tmp/modules.sys
+  ls -1 /sys/module/ | sort | > /tmp/modules.sys
 
 # lsmod
   lsmod | cut -d' ' -f1 | sort > /tmp/modules.lsmod
