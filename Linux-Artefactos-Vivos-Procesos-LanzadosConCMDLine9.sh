@@ -29,9 +29,13 @@
 
 # Recorrer todo /proc/
   for pid in /proc/[0-9]*; do
+    pid_num=${pid##*/}
     cmd=$(cat "$pid/cmdline" 2>/dev/null)
-    if [[ -n "$cmd" ]]; then
-        echo "PID: ${pid##*/} - CMD: $cmd"
+    ps_output=$(ps -p "$pid_num" -o comm= 2>/dev/null)
+    
+    if [[ -n "$cmd" ]] && [[ -z "$ps_output" ]]; then
+        echo "[POSIBLE PROCESO OCULTO] PID: $pid_num - CMD: $cmd"
     fi
   done
+
 
