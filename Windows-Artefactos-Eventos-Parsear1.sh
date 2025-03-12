@@ -52,21 +52,21 @@ if [ $# -ne $cCantParamEsperados ]
         fi
       menu=(dialog --checklist "Marca las opciones que quieras instalar:" 22 96 16)
         opciones=(
-          1 "Parsear cada archivo .evtx original a .xml" on
-          2 "Parsear cada archivo .evtx original a .txt" on
-          3 "Unificando en un único archivo todos los archivos XML parseados" on
-          4 "  Crear un único archivo con todos los eventos ordenados por fecha" off
+          1 "Parsear cada archivo .evtx original a .xml"                                     on
+          2 "Parsear cada archivo .evtx original a .txt"                                     on
+          3 "Unificar en un único archivo todos los archivos XML parseados"                  on
+          4 "  Crear un único archivo con todos los eventos ordenados por fecha"             off
           5 "  Crear un único archivo con todos los eventos del usuario ordenados por fecha" on
-          6 "Convertir los eventos a formato plaso" on
-          7 "  Parsear el plaso al formato dynamic"   off
-          8 "  Parsear el plaso al formato json"      off
-          9 "  Parsear el plaso al formato json_line" off
-         10 "  Parsear el plaso al formato l2tcsv"    off
-         11 "  Parsear el plaso al formato l2ttln"    off
-         12 "  Parsear el plaso al formato rawpy"     off
-         13 "  Parsear el plaso al formato tln"       off
-         14 "  Parsear el plaso al formato xlsx"      off
-         15 "  Otros..."                              off
+          6 "Convertir los eventos a formato plaso"                                          on
+          7 "  Parsear el plaso al formato dynamic"                                          off
+          8 "  Parsear el plaso al formato json"                                             off
+          9 "  Parsear el plaso al formato json_line"                                        off
+         10 "  Parsear el plaso al formato l2tcsv"                                           off
+         11 "  Parsear el plaso al formato l2ttln"                                           off
+         12 "  Parsear el plaso al formato rawpy"                                            off
+         13 "  Parsear el plaso al formato tln"                                              off
+         14 "  Parsear el plaso al formato xlsx"                                             off
+         15 "  Otros..."                                                                     off
         )
       choices=$("${menu[@]}" "${opciones[@]}" 2>&1 >/dev/tty)
 
@@ -351,7 +351,7 @@ if [ $# -ne $cCantParamEsperados ]
                   echo "    Agregando los mensajes de evento a cada archivo .xml..."
                   echo ""
                   # Descargar el CSV con los eventos:
-                    #curl -sL https://raw.githubusercontent.com/nipegun/dicts/refs/heads/main/windows/eventos-en-es.csv -o /tmp/eventos-en-es.csv
+                    curl -sL https://raw.githubusercontent.com/nipegun/dicts/refs/heads/main/windows/eventos-en-es.csv -o /tmp/eventos-en-es.csv
                     cp ~/scripts/df-scripts/EventosWindows/eventos-en-es.csv /tmp/eventos-en-es.csv
                   # Declarar arrays para guardar los mensajes
                     declare -A aMensajesEng
