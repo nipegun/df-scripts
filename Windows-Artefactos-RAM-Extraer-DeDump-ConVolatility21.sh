@@ -56,13 +56,13 @@
   echo "      $vPerfilesSugeridos"
 
 # Guardar todos los perfiles en un archivo
-  mkdir -p /tmp/volatility2/
-  vol.py --info | grep "A Profile" | cut -d' ' -f1 > /tmp/volatility2/Volatility2-TodosLosPerfiles.txt
+  mkdir -p ~/volatility2/
+  vol.py --info | grep "A Profile" | cut -d' ' -f1 > ~/volatility2/Volatility2-TodosLosPerfiles.txt
 # Guardar los perfiles sugeridos en un archivo
   vol.py -f "$cRutaAlArchivoDeDump" imageinfo | grep uggested | cut -d':' -f2 | sed 's-,--g' | sed "s- -\n-" | sed 's- -|-g' | sed 's/|/\n/g' | sed 's-  --g' | sed 's- --g' | sed '/^$/d' > /tmp/Volatility2-PerfilesSugeridos.txt
-  sed -i '/^$/d' /tmp/volatility2/Volatility2-PerfilesSugeridos.txt
+  sed -i '/^$/d' ~/volatility2/Volatility2-PerfilesSugeridos.txt
 # Guardar todos los plugins en un archivo
-  vol.py -h | sed "s-\t-|-g" | grep "^||" | sed 's-|--g' | cut -d' ' -f1 > /tmp/volatility2/Volatility2-Plugins.txt
+  vol.py -h | sed "s-\t-|-g" | grep "^||" | sed 's-|--g' | cut -d' ' -f1 > ~/volatility2/Volatility2-Plugins.txt
 
 # Obtener la versión correcta del sistema operativo
   while IFS= read -r vPerfil; do
@@ -70,7 +70,7 @@
     echo "  Intentando obtener la versión correcta del SO desde el registro usando el perfil $vPerfil..."
     echo ""
     vol.py -f "$cRutaAlArchivoDeDump" --profile="$vPerfil" printkey -K "Microsoft\\Windows NT\\CurrentVersion" | grep -a BuildLab
-  done < /tmp/volatility2/Volatility2-PerfilesSugeridos.txt
+  done < ~/volatility2/Volatility2-PerfilesSugeridos.txt
 
 # Parsear con todos los perfiles sugeridos
   while IFS= read -r vPerfil; do
@@ -81,8 +81,8 @@
       while IFS= read -r vPlugin; do
         echo "    Aplicando el plugin $vPlugin..."
         vol.py -f "$cRutaAlArchivoDeDump" --profile="$vPerfil" "$vPlugin" > "$cCarpetaDondeGuardar"/"$vPerfil"-"$vPlugin".txt 2>/dev/null
-      done < /tmp/volatility2/Volatility2-Plugins.txt
-  done < /tmp/volatility2/Volatility2-PerfilesSugeridos.txt
+      done < ~/volatility2/Volatility2-Plugins.txt
+  done < ~/volatility2/Volatility2-PerfilesSugeridos.txt
 
 
 
