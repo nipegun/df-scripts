@@ -9,7 +9,7 @@
 # Script de NiPeGun para usar volatility 2para extraer la RAM de todos los procesos
 #
 # Ejecución remota con parámetros:
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Windows-Artefactos-RAM-Vol2-Extraer-RAM-DeTodosLosProcesos.sh | sudo bash -s [RutaAlArchivoConDump] [RutaALaCarpetaDestino]
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Windows-Artefactos-RAM-Vol2-Extraer-RAM-DeTodosLosProcesos.sh | bash -s [RutaAlArchivoConDump] [RutaALaCarpetaDestino]
 #
 # Bajar y editar directamente el archivo en nano
 #   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Windows-Artefactos-RAM-Vol2-Extraer-RAM-DeTodosLosProcesos.sh | nano -
