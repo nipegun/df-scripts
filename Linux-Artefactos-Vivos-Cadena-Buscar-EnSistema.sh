@@ -27,7 +27,7 @@
     #echo "$(tput setaf 1)Mensaje en color rojo. $(tput sgr 0)"
   cFinColor='\033[0m'
 
-#RM\{[^\}]+\}
+# expresion regular RM\{[^\}]+\}
 
 find / -type f -exec sh -c 'strings "$1" | grep -q "RM{" && echo "Coincidencia de RM{ en: $1"' _ {} \; 2>/dev/null
 echo ""
