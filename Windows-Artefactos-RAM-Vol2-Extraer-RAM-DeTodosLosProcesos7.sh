@@ -65,7 +65,6 @@
   vPerfil=$(cat ~/volatility2/Volatility2-PerfilesSugeridos.txt | grep 19041)
   vol.py -f "$cRutaAlArchivoDeDump" --profile="$vPerfil" pslist | tr -s ' ' | cut -d' ' -f3 | grep ^[0-9] | sort -n | uniq | grep -v ^0 > ~/volatility2/Volatility2-TodosLosProcesos.txt
 # Extraer los ejecutables de todos los procesos
-  while IFS= read -r vPerfil; do
     echo ""
     echo "  Extrayendo los ejecutables de todos los procesos..."
     echo ""
@@ -74,7 +73,6 @@
       vol.py -f "$cRutaAlArchivoDeDump" --profile="$vPerfil" procdump -p $vNumProceso -D "$cCarpetaDondeGuardar"/Proceso$vNumProceso/
     done < ~/volatility2/Volatility2-TodosLosProcesos.txt
 # Extraer la memoria de todos todos los procesos
-  while IFS= read -r vPerfil; do
     echo ""
     echo "  Extrayendo la memoria de todos los procesos..."
     echo ""
@@ -83,7 +81,6 @@
       vol.py -f "$cRutaAlArchivoDeDump" --profile="$vPerfil" memdump -p $vNumProceso -D "$cCarpetaDondeGuardar"/Proceso$vNumProceso/
     done < ~/volatility2/Volatility2-TodosLosProcesos.txt
 # Extraer las dll de todos los procesos
-  while IFS= read -r vPerfil; do
     echo ""
     echo "  Extrayendo los ejecutables de todos los procesos..."
     echo ""
