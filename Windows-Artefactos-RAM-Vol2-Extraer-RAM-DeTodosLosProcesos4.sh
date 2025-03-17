@@ -6,7 +6,7 @@
 # No tienes que aceptar ningún tipo de términos de uso o licencia para utilizarlo o modificarlo porque va sin CopyLeft.
 
 # ----------
-# Script de NiPeGun para usar volatility 2para extraer la RAM de todos los procesos
+# Script de NiPeGun para usar volatility2 para extraer la RAM de todos los procesos
 #
 # Ejecución remota con parámetros:
 #   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Windows-Artefactos-RAM-Vol2-Extraer-RAM-DeTodosLosProcesos.sh | bash -s [RutaAlArchivoConDump] [RutaALaCarpetaDestino]
@@ -60,6 +60,11 @@
   vol.py --info | grep "A Profile" | cut -d' ' -f1 > ~/volatility2/Volatility2-TodosLosPerfiles.txt
 # Guardar los perfiles sugeridos en un archivo
   vol.py -f "$cRutaAlArchivoDeDump" imageinfo | grep uggested | cut -d':' -f2 | sed 's-,--g' | sed "s- -\n-" | sed 's- -|-g' | sed 's/|/\n/g' | sed 's-  --g' | sed 's- --g' | sed '/^$/d' > ~/volatility2/Volatility2-PerfilesSugeridos-Temp.txt
-  cat ~/volatility2/Volatility2-PerfilesSugeridos-Temp.txt | sed '/^$/d' | sed '/^(/d' | sed '/^with/d' | sort -n | head -n1 > ~/volatility2/Volatility2-PerfilesSugeridos.txt
-# Guardar todos los plugins en un archivo
-  vol.py -h | sed "s-\t-|-g" | grep "^||" | sed 's-|--g' | cut -d' ' -f1 > ~/volatility2/Volatility2-Plugins.txt
+  cat ~/volatility2/Volatility2-PerfilesSugeridos-Temp.txt | sed '/^$/d' | sed '/^(/d' | sed '/^with/d' | sort -n > ~/volatility2/Volatility2-PerfilesSugeridos.txt
+# Obtener la versión correcta del sistema operativo
+  while IFS= read -r vPerfil; do
+    echo ""
+    echo "  Intentando obtener la versión correcta del SO desde el registro usando el perfil $vPerfil..."
+    echo ""
+    vol.py -f "$cRutaAlArchivoDeDump" --profile="$vPerfil" printkey -K "Microsoft\\Windows NT\\CurrentVersion" | grep -a BuildLab
+  done < ~/volatility2/Volatility2-PerfilesSugeridos.txt
