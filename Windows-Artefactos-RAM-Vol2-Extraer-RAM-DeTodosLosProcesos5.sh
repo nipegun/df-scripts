@@ -60,11 +60,37 @@
   vol.py --info | grep "A Profile" | cut -d' ' -f1 > ~/volatility2/Volatility2-TodosLosPerfiles.txt
 # Guardar los perfiles sugeridos en un archivo
   vol.py -f "$cRutaAlArchivoDeDump" imageinfo | grep uggested | cut -d':' -f2 | sed 's-,--g' | sed "s- -\n-" | sed 's- -|-g' | sed 's/|/\n/g' | sed 's-  --g' | sed 's- --g' | sed '/^$/d' > ~/volatility2/Volatility2-PerfilesSugeridos-Temp.txt
-  cat ~/volatility2/Volatility2-PerfilesSugeridos-Temp.txt | sed '/^$/d' | sed '/^(/d' | sed '/^with/d' | sort -n > ~/volatility2/Volatility2-PerfilesSugeridos.txt
+  cat ~/volatility2/Volatility2-PerfilesSugeridos-Temp.txt | sed '/^$/d' | sed '/^(/d' | sed '/^with/d' | sed 's-)--g' | sort -n > ~/volatility2/Volatility2-PerfilesSugeridos.txt
 # Obtener la versión correcta del sistema operativo
+  vPerfil=$(cat ~/volatility2/Volatility2-PerfilesSugeridos.txt | grep 19041)
+  vol.py -f "$cRutaAlArchivoDeDump" --profile="$vPerfil" pslist | tr -s ' ' | cut -d' ' -f3 | grep ^[0-9] | sort -n | uniq | grep -v ^0 > ~/volatility2/Volatility2-TodosLosProcesos.txt
+# Extraer los ejecutables de todos los procesos
   while IFS= read -r vPerfil; do
     echo ""
-    echo "  Intentando obtener la versión correcta del SO desde el registro usando el perfil $vPerfil..."
+    echo "  Extrayendo los ejecutables de todos los procesos..."
     echo ""
-    vol.py -f "$cRutaAlArchivoDeDump" --profile="$vPerfil" printkey -K "Microsoft\\Windows NT\\CurrentVersion" | grep -a BuildLab
-  done < ~/volatility2/Volatility2-PerfilesSugeridos.txt
+    while IFS= read -r vNumProceso; do
+      mkdir -p "$cCarpetaDondeGuardar"/Proceso$vNumProceso/
+      vol.py -f "$cRutaAlArchivoDeDump" --profile="$vPerfil" procdump -p $vNumProceso -D "$cCarpetaDondeGuardar"/Proceso$vNumProceso/
+    done < ~/volatility2/Volatility2-TodosLosProcesos.txt
+# Extraer la memoria de todos todos los procesos
+  while IFS= read -r vPerfil; do
+    echo ""
+    echo "  Extrayendo la memoria de todos los procesos..."
+    echo ""
+    while IFS= read -r vNumProceso; do
+      mkdir -p "$cCarpetaDondeGuardar"/Proceso$vNumProceso/
+      vol.py -f "$cRutaAlArchivoDeDump" --profile="$vPerfil" memdump -p $vNumProceso -D "$cCarpetaDondeGuardar"/Proceso$vNumProceso/
+    done < ~/volatility2/Volatility2-TodosLosProcesos.txt
+# Extraer las dll de todos los procesos
+  while IFS= read -r vPerfil; do
+    echo ""
+    echo "  Extrayendo los ejecutables de todos los procesos..."
+    echo ""
+    while IFS= read -r vNumProceso; do
+      mkdir -p "$cCarpetaDondeGuardar"/Proceso$vNumProceso/
+      vol.py -f "$cRutaAlArchivoDeDump" --profile="$vPerfil" dlldump -p $vNumProceso -D "$cCarpetaDondeGuardar"/Proceso$vNumProceso/
+    done < ~/volatility2/Volatility2-TodosLosProcesos.txt
+# Extraer módulos del kernel en memoria.
+  mkdir -p "$cCarpetaDondeGuardar"/ModulosDelKernel/
+  vol.py -f "$cRutaAlArchivoDeDump" --profile="$vPerfil" moddump -D mkdir -p "$cCarpetaDondeGuardar"/ModulosDelKernel/
