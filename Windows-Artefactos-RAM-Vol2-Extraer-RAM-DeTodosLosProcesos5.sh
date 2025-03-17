@@ -93,4 +93,4 @@
     done < ~/volatility2/Volatility2-TodosLosProcesos.txt
 # Extraer módulos del kernel en memoria.
   mkdir -p "$cCarpetaDondeGuardar"/ModulosDelKernel/
-  vol.py -f "$cRutaAlArchivoDeDump" --profile="$vPerfil" moddump -D mkdir -p "$cCarpetaDondeGuardar"/ModulosDelKernel/
+  vol.py -f "$cRutaAlArchivoDeDump" --profile="$vPerfil" moddump -D "$cCarpetaDondeGuardar"/ModulosDelKernel/
