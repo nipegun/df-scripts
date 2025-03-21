@@ -27,32 +27,17 @@ vArchivoPCAPNG="$1"
 echo "timestamp,src_ip,src_port,dst_ip,dst_port,proto,appproto,length,info"
 
 tshark -r "$vArchivoPCAPNG" -T fields \
-  -e frame.time -e ip.src -e tcp.srcport -e udp.srcport \
+  -e frame.time_iso -e ip.src -e tcp.srcport -e udp.srcport \
   -e ip.dst -e tcp.dstport -e udp.dstport \
   -e frame.protocols -e frame.len -e _ws.col.Info \
   -E separator=, -E quote=n -E header=n | \
-awk -F, 'BEGIN {
-  # Crear mapa de meses en inglés a número
-  split("Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec", m);
-  for (i = 1; i <= 12; i++) {
-    month_map[m[i]] = sprintf("%02d", i);
-  }
-}
-{
-  # Ejemplo original de $1: "Nov 29, 2025 11:23:17.136319000 CET"
-  split($1, a, " ");
-  split(a[3], b, ":");
-  split(a[2], d, ",");
+awk -F, '{
+  # $1 = timestamp ISO 8601: 2025-11-29T11:23:17.136319000+0100
+  split($1, datetime, "T")
+  split(datetime[1], fecha, "-")
+  split(datetime[2], hora, "+")  # quitamos zona horaria si la hay
 
-  year = a[4];
-  month = month_map[a[1]];
-  day = d[1];
-  time = b[1] ":" b[2] ":" b[3];
-
-  split($1, z, "\\."); nanoseg = (length(z) > 1) ? z[2] : "000000000";
-  tz = a[5];
-
-  ts = "a" year "m" month "d" day "@" time "." nanoseg tz;
+  ts = "a" fecha[1] "m" fecha[2] "d" fecha[3] "@" hora[1]
 
   src_ip = ($2 != "") ? $2 : "-";
   src_port = ($3 != "") ? $3 : (($4 != "") ? $4 : "-");
