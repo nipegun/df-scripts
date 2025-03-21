@@ -26,13 +26,34 @@ vArchivoPCAPNG="$1"
 # Imprimir cabecera
 echo "timestamp,src_ip,src_port,dst_ip,dst_port,proto,appproto,length,info"
 
-tshark -r  "$vArchivoPCAPNG" -T fields     \
+tshark -r "$vArchivoPCAPNG" -T fields \
   -e frame.time -e ip.src -e tcp.srcport -e udp.srcport \
   -e ip.dst -e tcp.dstport -e udp.dstport \
   -e frame.protocols -e frame.len -e _ws.col.Info \
   -E separator=, -E quote=n -E header=n | \
-awk -F, '{
-  ts = ($1 != "") ? $1 : "-";
+awk -F, 'BEGIN {
+  # Crear mapa de meses en inglés a número
+  split("Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec", m);
+  for (i = 1; i <= 12; i++) {
+    month_map[m[i]] = sprintf("%02d", i);
+  }
+}
+{
+  # Ejemplo original de $1: "Nov 29, 2025 11:23:17.136319000 CET"
+  split($1, a, " ");
+  split(a[3], b, ":");
+  split(a[2], d, ",");
+
+  year = a[4];
+  month = month_map[a[1]];
+  day = d[1];
+  time = b[1] ":" b[2] ":" b[3];
+
+  split($1, z, "\\."); nanoseg = (length(z) > 1) ? z[2] : "000000000";
+  tz = a[5];
+
+  ts = "a" year "m" month "d" day "@" time "." nanoseg tz;
+
   src_ip = ($2 != "") ? $2 : "-";
   src_port = ($3 != "") ? $3 : (($4 != "") ? $4 : "-");
   dst_ip = ($5 != "") ? $5 : "-";
