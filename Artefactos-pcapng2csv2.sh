@@ -31,10 +31,14 @@ tshark -r  $vArchivoPCAPNG -T fields \
   -E separator=, -E quote=n -E header=n | \
 awk -F, '{
   protos = $11;
-  split(protos, arr, ":");
-  proto = (length(arr) > 0) ? toupper(arr[length(arr)]) : "-";
+  proto = "-";
+  if (protos ~ /tcp/) proto = "TCP";
+  else if (protos ~ /udp/) proto = "UDP";
+  else if (protos ~ /icmp/) proto = "ICMP";
+  else if (protos ~ /arp/) proto = "ARP";
+  else if (protos ~ /lldp/) proto = "LLDP";
 
-  if ($1 != "" || $4 != "") {
+  if (proto == "TCP" || proto == "UDP") {
     src_ip = ($1 != "") ? $1 : "-";
     dst_ip = ($4 != "") ? $4 : "-";
     src_port = ($2 != "") ? $2 : (($3 != "") ? $3 : "-");
@@ -53,8 +57,8 @@ awk -F, '{
     dst_port = "-";
   }
   else {
-    src_ip = "-";
-    dst_ip = "-";
+    src_ip = ($1 != "") ? $1 : "-";
+    dst_ip = ($4 != "") ? $4 : "-";
     src_port = "-";
     dst_port = "-";
   }
