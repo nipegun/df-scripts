@@ -23,6 +23,9 @@ cFinColor='\033[0m'
 
 vArchivoPCAPNG="$1"
 
+# Imprimir cabecera
+echo "src_ip,src_port,dst_ip,dst_port,proto,appproto,length,info"
+  
 tshark -r  $vArchivoPCAPNG -T fields     \
   -e ip.src -e tcp.srcport -e udp.srcport \
   -e ip.dst -e tcp.dstport -e udp.dstport \
