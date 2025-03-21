@@ -29,13 +29,13 @@ tshark -r "$vArchivoPCAPNG" -T fields \
   -e frame.time -e ip.src -e tcp.srcport -e udp.srcport \
   -e ip.dst -e tcp.dstport -e udp.dstport \
   -e frame.protocols -e frame.len -e _ws.col.Info \
-  -E separator='|||' -E quote=n -E header=n | \
+  -E separator="|||" -E quote=n -E header=n | \
 awk -F"\\|\\|\\|" 'BEGIN {
   split("Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec", m);
   for (i = 1; i <= 12; i++) month[m[i]] = sprintf("%02d", i);
 }
 {
-  # Parseo del timestamp tipo: Mar 18, 2025 11:23:17.072948000 CET
+  # Parsear timestamp tipo: Mar 18, 2025 11:23:17.072948000 CET
   regex = "([A-Z][a-z]{2}) ([0-9]{1,2}), ([0-9]{4}) ([0-9]{2}:[0-9]{2}:[0-9]{2}\\.\\d+) ([A-Z]+)"
   if ($1 ~ regex) {
     match($1, regex, parts)
