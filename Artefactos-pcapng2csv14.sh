@@ -21,23 +21,38 @@ cColorVerde='\033[1;32m'
 cColorRojo='\033[1;31m'
 cFinColor='\033[0m'
 
+#!/bin/bash
+
 vArchivoPCAPNG="$1"
 
 # Imprimir cabecera
 echo "timestamp,src_ip,src_port,dst_ip,dst_port,proto,appproto,length,info"
 
 tshark -r "$vArchivoPCAPNG" -T fields \
-  -e frame.time_iso -e ip.src -e tcp.srcport -e udp.srcport \
+  -e frame.time -e ip.src -e tcp.srcport -e udp.srcport \
   -e ip.dst -e tcp.dstport -e udp.dstport \
   -e frame.protocols -e frame.len -e _ws.col.Info \
   -E separator=, -E quote=n -E header=n | \
-awk -F, '{
-  # $1 = timestamp ISO 8601: 2025-11-29T11:23:17.136319000+0100
-  split($1, datetime, "T")
-  split(datetime[1], fecha, "-")
-  split(datetime[2], hora, "+")  # quitamos zona horaria si la hay
-
-  ts = "a" fecha[1] "m" fecha[2] "d" fecha[3] "@" hora[1]
+awk -F, 'BEGIN {
+  # Crear mapa de meses
+  split("Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec", m);
+  for (i = 1; i <= 12; i++) month[m[i]] = sprintf("%02d", i);
+}
+{
+  # Ejemplo: Nov 29, 2025 11:23:17.136319000 CET
+  # $1 = "Nov 29, 2025 11:23:17.136319000 CET"
+  regex = "([A-Z][a-z]{2}) ([0-9]{1,2}), ([0-9]{4}) ([0-9]{2}:[0-9]{2}:[0-9]{2}\\.\\d+) ([A-Z]+)"
+  if ($1 ~ regex) {
+    match($1, regex, parts)
+    mes = month[parts[1]]
+    dia = sprintf("%02d", parts[2])
+    anio = parts[3]
+    hora = parts[4]
+    zona = parts[5]
+    ts = "a" anio "m" mes "d" dia "@" hora zona
+  } else {
+    ts = "-"
+  }
 
   src_ip = ($2 != "") ? $2 : "-";
   src_port = ($3 != "") ? $3 : (($4 != "") ? $4 : "-");
