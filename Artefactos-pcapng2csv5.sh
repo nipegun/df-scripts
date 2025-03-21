@@ -23,13 +23,15 @@ cFinColor='\033[0m'
 
 vArchivoPCAPNG="$1"
 
-tshark -r  $vArchivoPCAPNG -T fields \
+tshark -r  $vArchivoPCAPNG -T fields      \
   -e ip.src -e tcp.srcport -e udp.srcport \
   -e ip.dst -e tcp.dstport -e udp.dstport \
-  -e frame.protocols \
+  -e frame.protocols -e _ws.col.Info      \
   -E separator=, -E quote=n -E header=n | \
 awk -F, '{
   protos = $7;
+  info = ($8 != "") ? $8 : "-";
+
   proto = "-";
   appproto = "-";
 
@@ -47,5 +49,8 @@ awk -F, '{
   src_port = ($2 != "") ? $2 : (($3 != "") ? $3 : "-");
   dst_port = ($5 != "") ? $5 : (($6 != "") ? $6 : "-");
 
-  print src_ip "," src_port "," dst_ip "," dst_port "," proto "," appproto;
+  # Escapar comas en info para que no rompa formato CSV
+  gsub(/,/, " ", info);
+
+  print src_ip "," src_port "," dst_ip "," dst_port "," proto "," appproto "," info;
 }'
