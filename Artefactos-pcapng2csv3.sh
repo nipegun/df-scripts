@@ -26,42 +26,26 @@ vArchivoPCAPNG="$1"
 tshark -r  $vArchivoPCAPNG -T fields \
   -e ip.src -e tcp.srcport -e udp.srcport \
   -e ip.dst -e tcp.dstport -e udp.dstport \
-  -e arp.src.proto_ipv4 -e arp.dst.proto_ipv4 \
-  -e icmp.type -e frame.protocols \
+  -e frame.protocols \
   -E separator=, -E quote=n -E header=n | \
 awk -F, '{
-  protos = $11;
+  protos = $7;
   proto = "-";
+  appproto = "-";
+
   if (protos ~ /tcp/) proto = "TCP";
   else if (protos ~ /udp/) proto = "UDP";
-  else if (protos ~ /icmp/) proto = "ICMP";
-  else if (protos ~ /arp/) proto = "ARP";
-  else if (protos ~ /lldp/) proto = "LLDP";
 
-  if (proto == "TCP" || proto == "UDP") {
-    src_ip = ($1 != "") ? $1 : "-";
-    dst_ip = ($4 != "") ? $4 : "-";
-    src_port = ($2 != "") ? $2 : (($3 != "") ? $3 : "-");
-    dst_port = ($5 != "") ? $5 : (($6 != "") ? $6 : "-");
-  }
-  else if (proto == "ARP") {
-    src_ip = ($7 != "") ? $7 : "-";
-    dst_ip = ($8 != "") ? $8 : "-";
-    src_port = "-";
-    dst_port = "-";
-  }
-  else if (proto == "ICMP") {
-    src_ip = ($1 != "") ? $1 : "-";
-    dst_ip = ($4 != "") ? $4 : "-";
-    src_port = "ICMP-" (($9 != "") ? $9 : "?");
-    dst_port = "-";
-  }
-  else {
-    src_ip = ($1 != "") ? $1 : "-";
-    dst_ip = ($4 != "") ? $4 : "-";
-    src_port = "-";
-    dst_port = "-";
-  }
+  if (protos ~ /s7comm/) appproto = "S7COMM";
+  else if (protos ~ /cipio/) appproto = "CIPIO";
+  else if (protos ~ /vnc/) appproto = "VNC";
+  else if (protos ~ /lldp/) appproto = "LLDP";
+  else if (protos ~ /arp/) appproto = "ARP";
 
-  print src_ip "," src_port "," dst_ip "," dst_port "," proto;
+  src_ip = ($1 != "") ? $1 : "-";
+  dst_ip = ($4 != "") ? $4 : "-";
+  src_port = ($2 != "") ? $2 : (($3 != "") ? $3 : "-");
+  dst_port = ($5 != "") ? $5 : (($6 != "") ? $6 : "-");
+
+  print src_ip "," src_port "," dst_ip "," dst_port "," proto "," appproto;
 }'
