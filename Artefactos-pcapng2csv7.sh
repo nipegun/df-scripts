@@ -23,11 +23,11 @@ cFinColor='\033[0m'
 
 vArchivoPCAPNG="$1"
 
-tshark -r  $vArchivoPCAPNG -T fields              \
-  -e ip.src -e tcp.srcport -e udp.srcport         \
-  -e ip.dst -e tcp.dstport -e udp.dstport         \
+tshark -r  $vArchivoPCAPNG -T fields           \
+  -e ip.src -e tcp.srcport -e udp.srcport \
+  -e ip.dst -e tcp.dstport -e udp.dstport \
   -e frame.protocols -e frame.len -e _ws.col.Info \
-  -E separator=, -E quote=n -E header=n |         \
+  -E separator=, -E quote=n -E header=n | \
 awk -F, '{
   protos = $7;
   length = ($8 != "") ? $8 : "-";
