@@ -30,7 +30,7 @@ tshark -r "$vArchivoPCAPNG" -T fields \
   -e frame.time -e ip.src -e tcp.srcport -e udp.srcport \
   -e ip.dst -e tcp.dstport -e udp.dstport \
   -e frame.protocols -e frame.len -e _ws.col.Info \
-  -E separator=||| -E quote=n -E header=n | \
+  -E separator='|||' -E quote=n -E header=n | \
 awk -F"\\|\\|\\|" 'BEGIN {
   # Crear mapa de meses
   split("Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec", m);
