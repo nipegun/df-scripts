@@ -24,17 +24,22 @@ cFinColor='\033[0m'
 vArchivoPCAPNG="$1"
 
 # Imprimir cabecera
-echo "src_ip,src_port,dst_ip,dst_port,proto,appproto,length,info"
-  
-tshark -r  $vArchivoPCAPNG -T fields     \
-  -e ip.src -e tcp.srcport -e udp.srcport \
+echo "timestamp,src_ip,src_port,dst_ip,dst_port,proto,appproto,length,info"
+
+tshark -r  "$vArchivoPCAPNG" -T fields     \
+  -e frame.time -e ip.src -e tcp.srcport -e udp.srcport \
   -e ip.dst -e tcp.dstport -e udp.dstport \
   -e frame.protocols -e frame.len -e _ws.col.Info \
   -E separator=, -E quote=n -E header=n | \
 awk -F, '{
-  protos = $7;
-  pkt_len = ($8 != "") ? $8 : "-";
-  info = ($9 != "") ? $9 : "-";
+  ts = ($1 != "") ? $1 : "-";
+  src_ip = ($2 != "") ? $2 : "-";
+  src_port = ($3 != "") ? $3 : (($4 != "") ? $4 : "-");
+  dst_ip = ($5 != "") ? $5 : "-";
+  dst_port = ($6 != "") ? $6 : (($7 != "") ? $7 : "-");
+  protos = $8;
+  pkt_len = ($9 != "") ? $9 : "-";
+  info = ($10 != "") ? $10 : "-";
 
   proto = "-";
   appproto = "-";
@@ -48,12 +53,7 @@ awk -F, '{
   else if (protos ~ /lldp/) appproto = "LLDP";
   else if (protos ~ /arp/) appproto = "ARP";
 
-  src_ip = ($1 != "") ? $1 : "-";
-  dst_ip = ($4 != "") ? $4 : "-";
-  src_port = ($2 != "") ? $2 : (($3 != "") ? $3 : "-");
-  dst_port = ($5 != "") ? $5 : (($6 != "") ? $6 : "-");
-
   gsub(/,/, " ", info);
 
-  print src_ip "," src_port "," dst_ip "," dst_port "," proto "," appproto "," pkt_len ",\"" info "\"";
+  print ts "," src_ip "," src_port "," dst_ip "," dst_port "," proto "," appproto "," pkt_len ",\"" info "\"";
 }'
