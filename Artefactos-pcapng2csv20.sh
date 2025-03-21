@@ -27,7 +27,7 @@ vArchivoPCAPNG="$1"
 echo "timestamp,src_ip,src_port,dst_ip,dst_port,proto,appproto,length,info"
 
 tshark -r  "$vArchivoPCAPNG" -T fields     \
-  -e frame.time -e ip.src -e tcp.srcport -e udp.srcport \
+  -e frame.time.epoch -e ip.src -e tcp.srcport -e udp.srcport \
   -e ip.dst -e tcp.dstport -e udp.dstport \
   -e frame.protocols -e frame.len -e _ws.col.Info \
   -E separator=, -E quote=n -E header=n | \
