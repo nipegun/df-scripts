@@ -195,22 +195,32 @@
 
               # Copiar el binario a /usr/bin
                 mkdir ~/bin/
-                cp -f ~/repos/python/plaso/plaso/scripts/dist/image_export ~/bin/
-                cp -f ~/repos/python/plaso/plaso/scripts/dist/log2timeline ~/bin/
-                cp -f ~/repos/python/plaso/plaso/scripts/dist/pinfo        ~/bin/
-                cp -f ~/repos/python/plaso/plaso/scripts/dist/psort        ~/bin/
-                cp -f ~/repos/python/plaso/plaso/scripts/dist/psteal       ~/bin/
+                cp -vf ~/repos/python/plaso/plaso/scripts/dist/image_export ~/bin/plaso-image_export
+                cp -vf ~/repos/python/plaso/plaso/scripts/dist/log2timeline ~/bin/plaso-log2timeline
+                cp -vf ~/repos/python/plaso/plaso/scripts/dist/pinfo        ~/bin/plaso-pinfo
+                cp -vf ~/repos/python/plaso/plaso/scripts/dist/psort        ~/bin/plaso-psort
+                cp -vf ~/repos/python/plaso/plaso/scripts/dist/psteal       ~/bin/plaso-psteal
 
               # Notificar fin de ejecución del script
                 echo ""
                 echo "  El script ha finalizado. plaso se ha descargado, compilado e instalado."
                 echo ""
-                echo "    Puedes encontrar el binario en ~/bin/plaso"
+                echo "    Puedes encontrar los binarios compilados en ~/bin/plaso-*"
                 echo ""
-                echo "  El binario debe ser usado con precaución. Es mejor correr el script directamente con python, de la siguiente manera:"
+                echo "  Los binarios deben ser utilizados con precaución. Es mejor correr los scripts de dentro del entorno virtual, de la siguiente manera:"
                 echo ""
-                echo "    source ~/PythonVirtualEnvironments/plaso/bin/activate"
-                echo "    python3 ~/scripts/python/analyzeMFT/plaso.py [Argumentos]"
+                echo "    source ~/repos/python/plaso/venv/bin/activate"
+                echo ""
+                echo "      image_export [Parámetros]"
+                echo "      log2timeline [Parámetros]"
+                echo "      normalizer   [Parámetros]"
+                echo "      psort        [Parámetros]"
+                echo "      psteal       [Parámetros]"
+                echo "      pinfo        [Parámetros]"
+                echo "      stats        [Parámetros]"
+                echo "      validator    [Parámetros]"
+                echo "      xattr        [Parámetros]"
+                echo ""
                 echo "    deactivate"
                 echo ""
 
