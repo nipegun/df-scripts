@@ -57,9 +57,9 @@ if [ $# -ne $cCantParamEsperados ]
           3 "Unificar en un único archivo todos los archivos XML parseados"                  on
           4 "  Crear un único archivo con todos los eventos ordenados por fecha"             on
           5 "  Crear un único archivo con todos los eventos del usuario ordenados por fecha" off
-          6 "Convertir los eventos a formato plaso"                                          off
+          6 "Convertir los eventos a formato plaso"                                          on
           7 "  Parsear el plaso al formato dynamic"                                          off
-          8 "  Parsear el plaso al formato json"                                             off
+          8 "  Parsear el plaso al formato json"                                             on
           9 "  Parsear el plaso al formato json_line"                                        off
          10 "  Parsear el plaso al formato l2tcsv"                                           off
          11 "  Parsear el plaso al formato l2ttln"                                           off
