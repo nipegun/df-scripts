@@ -418,13 +418,17 @@ if [ $# -ne $cCantParamEsperados ]
               echo ""
               echo "  Convirtiendo los eventos al formato plaso..."
               echo ""
-              if [ -f ~/bin/plaso-log2timeline ]; then
-                sudo ~/bin/plaso-log2timeline $vCarpetaDelCaso/Eventos/Originales/ --storage-file "$vCarpetaDondeGuardar"/TimeLineDeEventos.plaso
-              else
-                echo ""
-                echo -e "${cColorRojo}    El binario ~/bin/plaso-log2timeline no existe. Abortando.${cFinColor}"
-                echo ""
-              fi
+              # Tratar de ejecutar con el binario
+                if [ -f ~/bin/plaso-log2timeline ]; then
+                  sudo ~/bin/plaso-log2timeline $vCarpetaDelCaso/Eventos/Originales/ --storage-file "$vCarpetaDondeGuardar"/TimeLineDeEventos.plaso
+                else
+                  echo ""
+                  echo -e "${cColorRojo}    El binario ~/bin/plaso-log2timeline no existe. Intentando ejecutar desde el entorno virtual...${cFinColor}"
+                  echo ""
+                  source ~/repos/python/plaso/venv/bin/activate
+                    log2timeline $vCarpetaDelCaso/Eventos/Originales/ --storage-file "$vCarpetaDondeGuardar"/TimeLineDeEventos.plaso
+                  deactivate
+                fi
 
             ;;
 
@@ -433,14 +437,17 @@ if [ $# -ne $cCantParamEsperados ]
               echo ""
               echo "    Parseando el plaso a formato dynamic..."
               echo ""
-              if [ -f ~/bin/plaso-psort ]; then
-                sudo ~/bin/plaso-psort "$vCarpetaDondeGuardar"/TimeLineDeEventos.plaso -o dynamic -w "$vCarpetaDondeGuardar"/TimeLineDeEventos.txt
-              else
-                echo ""
-                echo -e "${cColorRojo}      El binario ~/bin/plaso-psort no existe. Abortando.${cFinColor}"
-                echo ""
-              fi
-              
+              # Tratar de ejecutar con el binario
+                if [ -f ~/bin/plaso-psort ]; then
+                  sudo ~/bin/plaso-psort "$vCarpetaDondeGuardar"/TimeLineDeEventos.plaso -o dynamic -w "$vCarpetaDondeGuardar"/TimeLineDeEventos.txt
+                else
+                  echo ""
+                  echo -e "${cColorRojo}      El binario ~/bin/plaso-psort no existe. Intentando ejecutar desde el entorno virtual...${cFinColor}"
+                  echo ""
+                  source ~/repos/python/plaso/venv/bin/activate
+                    psort "$vCarpetaDondeGuardar"/TimeLineDeEventos.plaso -o dynamic -w "$vCarpetaDondeGuardar"/TimeLineDeEventos.txt
+                  deactivate
+                fi
 
             ;;
 
@@ -449,13 +456,17 @@ if [ $# -ne $cCantParamEsperados ]
               echo ""
               echo "    Parseando el plaso a formato json..."
               echo ""
-              if [ -f ~/bin/plaso-psort ]; then
-                sudo ~/bin/plaso-psort "$vCarpetaDondeGuardar"/TimeLineDeEventos.plaso -o json -w "$vCarpetaDondeGuardar"/TimeLineDeEventos.json
-              else
-                echo ""
-                echo -e "${cColorRojo}      El binario ~/bin/plaso-psort no existe. Abortando.${cFinColor}"
-                echo ""
-              fi
+              # Tratar de ejecutar con el binario
+                if [ -f ~/bin/plaso-psort ]; then
+                  sudo ~/bin/plaso-psort "$vCarpetaDondeGuardar"/TimeLineDeEventos.plaso -o json -w "$vCarpetaDondeGuardar"/TimeLineDeEventos.json
+                else
+                  echo ""
+                  echo -e "${cColorRojo}      El binario ~/bin/plaso-psort no existe. Intentando ejecutar desde el entorno virtual...${cFinColor}"
+                  echo ""
+                  source ~/repos/python/plaso/venv/bin/activate
+                    psort "$vCarpetaDondeGuardar"/TimeLineDeEventos.plaso -o json -w "$vCarpetaDondeGuardar"/TimeLineDeEventos.json
+                  deactivate
+                fi
 
             ;;
 
@@ -464,13 +475,17 @@ if [ $# -ne $cCantParamEsperados ]
               echo ""
               echo "    Parseando el plaso a formato json_line..."
               echo ""
-              if [ -f ~/bin/plaso-psort ]; then
-                sudo ~/bin/plaso-psort "$vCarpetaDondeGuardar"/TimeLineDeEventos.plaso -o json_line -w "$vCarpetaDondeGuardar"/TimeLineDeEventos.json_line 
-              else
-                echo ""
-                echo -e "${cColorRojo}      El binario ~/bin/plaso-psort no existe. Abortando.${cFinColor}"
-                echo ""
-              fi
+              # Tratar de ejecutar con el binario
+                if [ -f ~/bin/plaso-psort ]; then
+                  sudo ~/bin/plaso-psort "$vCarpetaDondeGuardar"/TimeLineDeEventos.plaso -o json_line -w "$vCarpetaDondeGuardar"/TimeLineDeEventos.json_line 
+                else
+                  echo ""
+                  echo -e "${cColorRojo}      El binario ~/bin/plaso-psort no existe. Intentando ejecutar desde el entorno virtual...${cFinColor}"
+                  echo ""
+                  source ~/repos/python/plaso/venv/bin/activate
+                    psort "$vCarpetaDondeGuardar"/TimeLineDeEventos.plaso -o json_line -w "$vCarpetaDondeGuardar"/TimeLineDeEventos.json_line 
+                  deactivate
+                fi
 
             ;;
 
@@ -479,13 +494,17 @@ if [ $# -ne $cCantParamEsperados ]
               echo ""
               echo "    Parseando el plaso a formato l2tcsv..."
               echo ""
-              if [ -f ~/bin/plaso-psort ]; then
-                sudo ~/bin/plaso-psort "$vCarpetaDondeGuardar"/TimeLineDeEventos.plaso -o l2tcsv -w "$vCarpetaDondeGuardar"/TimeLineDeEventos.l2tcsv
-              else
-                echo ""
-                echo -e "${cColorRojo}      El binario ~/bin/plaso-psort no existe. Abortando.${cFinColor}"
-                echo ""
-              fi
+              # Tratar de ejecutar con el binario
+                if [ -f ~/bin/plaso-psort ]; then
+                  sudo ~/bin/plaso-psort "$vCarpetaDondeGuardar"/TimeLineDeEventos.plaso -o l2tcsv -w "$vCarpetaDondeGuardar"/TimeLineDeEventos.l2tcsv
+                else
+                  echo ""
+                  echo -e "${cColorRojo}      El binario ~/bin/plaso-psort no existe. Intentando ejecutar desde el entorno virtual...${cFinColor}"
+                  echo ""
+                  source ~/repos/python/plaso/venv/bin/activate
+                    psort "$vCarpetaDondeGuardar"/TimeLineDeEventos.plaso -o l2tcsv -w "$vCarpetaDondeGuardar"/TimeLineDeEventos.l2tcsv
+                  deactivate
+                fi
 
             ;;
 
@@ -494,13 +513,17 @@ if [ $# -ne $cCantParamEsperados ]
               echo ""
               echo "    Parseando el plaso a formato l2ttln..."
               echo ""
-              if [ -f ~/bin/plaso-psort ]; then
-                sudo ~/bin/plaso-psort "$vCarpetaDondeGuardar"/TimeLineDeEventos.plaso -o l2ttln -w "$vCarpetaDondeGuardar"/TimeLineDeEventos.l2ttln
-              else
-                echo ""
-                echo -e "${cColorRojo}      El binario ~/bin/plaso-psort no existe. Abortando.${cFinColor}"
-                echo ""
-              fi
+              # Tratar de ejecutar con el binario
+                if [ -f ~/bin/plaso-psort ]; then
+                  sudo ~/bin/plaso-psort "$vCarpetaDondeGuardar"/TimeLineDeEventos.plaso -o l2ttln -w "$vCarpetaDondeGuardar"/TimeLineDeEventos.l2ttln
+                else
+                  echo ""
+                  echo -e "${cColorRojo}      El binario ~/bin/plaso-psort no existe. Intentando ejecutar desde el entorno virtual...${cFinColor}"
+                  echo ""
+                  source ~/repos/python/plaso/venv/bin/activate
+                    psort "$vCarpetaDondeGuardar"/TimeLineDeEventos.plaso -o l2ttln -w "$vCarpetaDondeGuardar"/TimeLineDeEventos.l2ttln
+                  deactivate
+                fi
 
             ;;
 
@@ -509,13 +532,17 @@ if [ $# -ne $cCantParamEsperados ]
               echo ""
               echo "    Parseando el plaso a formato rawpy..."
               echo ""
-              if [ -f ~/bin/plaso-psort ]; then
-                sudo ~/bin/plaso-psort "$vCarpetaDondeGuardar"/TimeLineDeEventos.plaso -o rawpy -w "$vCarpetaDondeGuardar"/TimeLineDeEventos.rawpy
-              else
-                echo ""
-                echo -e "${cColorRojo}      El binario ~/bin/plaso-psort no existe. Abortando.${cFinColor}"
-                echo ""
-              fi
+              # Tratar de ejecutar con el binario
+                if [ -f ~/bin/plaso-psort ]; then
+                  sudo ~/bin/plaso-psort "$vCarpetaDondeGuardar"/TimeLineDeEventos.plaso -o rawpy -w "$vCarpetaDondeGuardar"/TimeLineDeEventos.rawpy
+                else
+                  echo ""
+                  echo -e "${cColorRojo}      El binario ~/bin/plaso-psort no existe. Intentando ejecutar desde el entorno virtual...${cFinColor}"
+                  echo ""
+                  source ~/repos/python/plaso/venv/bin/activate
+                    psort "$vCarpetaDondeGuardar"/TimeLineDeEventos.plaso -o rawpy -w "$vCarpetaDondeGuardar"/TimeLineDeEventos.rawpy
+                  deactivate
+                fi
 
             ;;
 
@@ -524,13 +551,17 @@ if [ $# -ne $cCantParamEsperados ]
               echo ""
               echo "    Parseando el plaso a formato tln..."
               echo ""
-              if [ -f ~/bin/plaso-psort ]; then
-                sudo ~/bin/plaso-psort "$vCarpetaDondeGuardar"/TimeLineDeEventos.plaso -o tln -w "$vCarpetaDondeGuardar"/TimeLineDeEventos.tln
-              else
-                echo ""
-                echo -e "${cColorRojo}      El binario ~/bin/plaso-psort no existe. Abortando.${cFinColor}"
-                echo ""
-              fi
+              # Tratar de ejecutar con el binario
+                if [ -f ~/bin/plaso-psort ]; then
+                  sudo ~/bin/plaso-psort "$vCarpetaDondeGuardar"/TimeLineDeEventos.plaso -o tln -w "$vCarpetaDondeGuardar"/TimeLineDeEventos.tln
+                else
+                  echo ""
+                  echo -e "${cColorRojo}      El binario ~/bin/plaso-psort no existe. Intentando ejecutar desde el entorno virtual...${cFinColor}"
+                  echo ""
+                  source ~/repos/python/plaso/venv/bin/activate
+                    psort "$vCarpetaDondeGuardar"/TimeLineDeEventos.plaso -o tln -w "$vCarpetaDondeGuardar"/TimeLineDeEventos.tln
+                  deactivate
+                fi
 
             ;;
 
@@ -539,13 +570,17 @@ if [ $# -ne $cCantParamEsperados ]
               echo ""
               echo "    Parseando el plaso a formato xlsx..."
               echo ""
-              if [ -f ~/bin/plaso-psort ]; then
-                sudo ~/bin/plaso-psort "$vCarpetaDondeGuardar"/TimeLineDeEventos.plaso -o xlsx -w "$vCarpetaDondeGuardar"/TimeLineDeEventos.xlsx
-              else
-                echo ""
-                echo -e "${cColorRojo}      El binario ~/bin/plaso-psort no existe. Abortando.${cFinColor}"
-                echo ""
-              fi
+              # Tratar de ejecutar con el binario
+                if [ -f ~/bin/plaso-psort ]; then
+                  sudo ~/bin/plaso-psort "$vCarpetaDondeGuardar"/TimeLineDeEventos.plaso -o xlsx -w "$vCarpetaDondeGuardar"/TimeLineDeEventos.xlsx
+                else
+                  echo ""
+                  echo -e "${cColorRojo}      El binario ~/bin/plaso-psort no existe. Intentando ejecutar desde el entorno virtual...${cFinColor}"
+                  echo ""
+                  source ~/repos/python/plaso/venv/bin/activate
+                    psort "$vCarpetaDondeGuardar"/TimeLineDeEventos.plaso -o xlsx -w "$vCarpetaDondeGuardar"/TimeLineDeEventos.xlsx
+                  deactivate
+                fi
 
             ;;
 
