@@ -418,6 +418,8 @@ if [ $# -ne $cCantParamEsperados ]
               echo ""
               echo "  Convirtiendo los eventos al formato plaso..."
               echo ""
+              # Borrar primero el archivo anterior
+                rm -f "$vCarpetaDondeGuardar"/TimeLineDeEventos.plaso 2> /dev/null
               # Tratar de ejecutar con el binario
                 if [ -f ~/bin/plaso-log2timeline ]; then
                   sudo ~/bin/plaso-log2timeline $vCarpetaDelCaso/Eventos/Originales/ --storage-file "$vCarpetaDondeGuardar"/TimeLineDeEventos.plaso
@@ -437,6 +439,8 @@ if [ $# -ne $cCantParamEsperados ]
               echo ""
               echo "    Parseando el plaso a formato dynamic..."
               echo ""
+              # Borrar primero el archivo anterior
+                rm -f "$vCarpetaDondeGuardar"/TimeLineDeEventos.txt 2> /dev/null
               # Tratar de ejecutar con el binario
                 if [ -f ~/bin/plaso-psort ]; then
                   sudo ~/bin/plaso-psort "$vCarpetaDondeGuardar"/TimeLineDeEventos.plaso -o dynamic -w "$vCarpetaDondeGuardar"/TimeLineDeEventos.txt
@@ -456,6 +460,8 @@ if [ $# -ne $cCantParamEsperados ]
               echo ""
               echo "    Parseando el plaso a formato json..."
               echo ""
+              # Borrar primero el archivo anterior
+                rm -f "$vCarpetaDondeGuardar"/TimeLineDeEventos.json 2> /dev/null
               # Tratar de ejecutar con el binario
                 if [ -f ~/bin/plaso-psort ]; then
                   sudo ~/bin/plaso-psort "$vCarpetaDondeGuardar"/TimeLineDeEventos.plaso -o json -w "$vCarpetaDondeGuardar"/TimeLineDeEventos.json
@@ -475,9 +481,11 @@ if [ $# -ne $cCantParamEsperados ]
               echo ""
               echo "    Parseando el plaso a formato json_line..."
               echo ""
+              # Borrar primero el archivo anterior
+                rm -f "$vCarpetaDondeGuardar"/TimeLineDeEventos.json_line 2> /dev/null
               # Tratar de ejecutar con el binario
                 if [ -f ~/bin/plaso-psort ]; then
-                  sudo ~/bin/plaso-psort "$vCarpetaDondeGuardar"/TimeLineDeEventos.plaso -o json_line -w "$vCarpetaDondeGuardar"/TimeLineDeEventos.json_line 
+                  sudo ~/bin/plaso-psort "$vCarpetaDondeGuardar"/TimeLineDeEventos.plaso -o json_line -w "$vCarpetaDondeGuardar"/TimeLineDeEventos.json_line
                 else
                   echo ""
                   echo -e "${cColorRojo}      El binario ~/bin/plaso-psort no existe. Intentando ejecutar desde el entorno virtual...${cFinColor}"
@@ -494,6 +502,8 @@ if [ $# -ne $cCantParamEsperados ]
               echo ""
               echo "    Parseando el plaso a formato l2tcsv..."
               echo ""
+              # Borrar primero el archivo anterior
+                rm -f "$vCarpetaDondeGuardar"/TimeLineDeEventos.l2tcsv 2> /dev/null
               # Tratar de ejecutar con el binario
                 if [ -f ~/bin/plaso-psort ]; then
                   sudo ~/bin/plaso-psort "$vCarpetaDondeGuardar"/TimeLineDeEventos.plaso -o l2tcsv -w "$vCarpetaDondeGuardar"/TimeLineDeEventos.l2tcsv
@@ -513,6 +523,8 @@ if [ $# -ne $cCantParamEsperados ]
               echo ""
               echo "    Parseando el plaso a formato l2ttln..."
               echo ""
+              # Borrar primero el archivo anterior
+                rm -f "$vCarpetaDondeGuardar"/TimeLineDeEventos.l2ttln 2> /dev/null
               # Tratar de ejecutar con el binario
                 if [ -f ~/bin/plaso-psort ]; then
                   sudo ~/bin/plaso-psort "$vCarpetaDondeGuardar"/TimeLineDeEventos.plaso -o l2ttln -w "$vCarpetaDondeGuardar"/TimeLineDeEventos.l2ttln
@@ -532,6 +544,8 @@ if [ $# -ne $cCantParamEsperados ]
               echo ""
               echo "    Parseando el plaso a formato rawpy..."
               echo ""
+              # Borrar primero el archivo anterior
+                rm -f "$vCarpetaDondeGuardar"/TimeLineDeEventos.rawpy 2> /dev/null
               # Tratar de ejecutar con el binario
                 if [ -f ~/bin/plaso-psort ]; then
                   sudo ~/bin/plaso-psort "$vCarpetaDondeGuardar"/TimeLineDeEventos.plaso -o rawpy -w "$vCarpetaDondeGuardar"/TimeLineDeEventos.rawpy
@@ -551,6 +565,8 @@ if [ $# -ne $cCantParamEsperados ]
               echo ""
               echo "    Parseando el plaso a formato tln..."
               echo ""
+              # Borrar primero el archivo anterior
+                rm -f "$vCarpetaDondeGuardar"/TimeLineDeEventos.tln 2> /dev/null
               # Tratar de ejecutar con el binario
                 if [ -f ~/bin/plaso-psort ]; then
                   sudo ~/bin/plaso-psort "$vCarpetaDondeGuardar"/TimeLineDeEventos.plaso -o tln -w "$vCarpetaDondeGuardar"/TimeLineDeEventos.tln
@@ -570,6 +586,8 @@ if [ $# -ne $cCantParamEsperados ]
               echo ""
               echo "    Parseando el plaso a formato xlsx..."
               echo ""
+              # Borrar primero el archivo anterior
+                rm -f "$vCarpetaDondeGuardar"/TimeLineDeEventos.xlsx 2> /dev/null
               # Tratar de ejecutar con el binario
                 if [ -f ~/bin/plaso-psort ]; then
                   sudo ~/bin/plaso-psort "$vCarpetaDondeGuardar"/TimeLineDeEventos.plaso -o xlsx -w "$vCarpetaDondeGuardar"/TimeLineDeEventos.xlsx
