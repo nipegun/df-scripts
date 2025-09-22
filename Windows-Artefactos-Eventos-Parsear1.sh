@@ -422,13 +422,13 @@ if [ $# -ne $cCantParamEsperados ]
                 rm -f "$vCarpetaDondeGuardar"/TodosLosEventosJuntos.plaso 2> /dev/null
               # Tratar de ejecutar con el binario
                 if [ -f ~/bin/plaso-log2timeline ]; then
-                  sudo ~/bin/plaso-log2timeline $vCarpetaDelCaso/Eventos/Originales/ --storage-file "$vCarpetaDondeGuardar"/TodosLosEventosJuntos.plaso
+                  sudo ~/bin/plaso-log2timeline "$vCarpetaConEventosRecolectados"/ --storage-file "$vCarpetaDondeGuardar"/TodosLosEventosJuntos.plaso
                 else
                   echo ""
                   echo -e "${cColorRojo}    El binario ~/bin/plaso-log2timeline no existe. Intentando ejecutar desde el entorno virtual...${cFinColor}"
                   echo ""
                   source ~/repos/python/plaso/venv/bin/activate
-                    log2timeline $vCarpetaDelCaso/Eventos/Originales/ --storage-file "$vCarpetaDondeGuardar"/TodosLosEventosJuntos.plaso
+                    log2timeline "$vCarpetaConEventosRecolectados"/ --storage-file "$vCarpetaDondeGuardar"/TodosLosEventosJuntos.plaso
                   deactivate
                 fi
 
