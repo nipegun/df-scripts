@@ -254,14 +254,23 @@ if [ $# -ne $cCantParamEsperados ]
                         # Reemplazar el archivo original con el contenido actualizado
                           sudo mv "$vArchivoTemporal" "$vArchivoXML"
                     done
+                    # Notificar
+                      echo ""
+                      echo "    Se ha creado la carpeta "$vCarpetaDondeGuardar"/EventosIndividualesOrdenadosPorFecha/"
+                      echo "    y se han guardado dentro todos los archivos de eventos individuales con su correspondiente fecha en el nombre."
+                      echo ""
+                      echo "    Para buscar una cadena específica entre el texto de todos esos archivos, puedes hacer:"
+                      echo ""
+                      echo "      find "$vCarpetaDondeGuardar"/EventosIndividualesOrdenadosPorFecha/ -type f -name '*.xml' -exec grep -i cadena {} +"
+                      echo ""
                 # Crear un nuevo archivo xml con todos los eventos
                   echo ""
                   echo "    Agrupando todos los archivos .xml únicos en un archivo unificado final..."
-                  echo ""
-                  # Este cat da error de memoria
-                    #cat $(ls "$vCarpetaDondeGuardar"/EventosIndividualesOrdenadosPorFecha/* | sort) > "$vCarpetaDondeGuardar"/TodosLosEventosOrdenadosPorFecha.xml
-                  # Probando con car directo
-                    cat "$vCarpetaDondeGuardar"/EventosIndividualesOrdenadosPorFecha/20* > "$vCarpetaDondeGuardar"/TodosLosEventosOrdenadosPorFecha.xml
+                  echo ""head 
+                  # Probar con un bucle
+                    find "$vCarpetaDondeGuardar/EventosIndividualesOrdenadosPorFecha" -type f | sort | while read -r vArchivo; do
+                      cat "$vArchivo" >> "$vCarpetaDondeGuardar/TodosLosEventosOrdenadosPorFecha.xml"
+                    done
                   sudo sed -i -e 's-</Event>-</Event>\n-g' "$vCarpetaDondeGuardar"/TodosLosEventosOrdenadosPorFecha.xml
                   sudo sed -i '1i\<Events>' "$vCarpetaDondeGuardar"/TodosLosEventosOrdenadosPorFecha.xml # Agrega la apertura de la etiqueta raiz en la primera linea
                   sudo echo '</Events>' >>  "$vCarpetaDondeGuardar"/TodosLosEventosOrdenadosPorFecha.xml # Agrega el cierre de la etiqueta raíz en una nueva linea al final del archivo
