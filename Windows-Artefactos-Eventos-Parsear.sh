@@ -53,11 +53,11 @@ if [ $# -ne $cCantParamEsperados ]
       menu=(dialog --checklist "Marca las opciones que quieras instalar:" 22 96 16)
         opciones=(
           1 "Parsear cada archivo .evtx original a .xml"                                     on
-          2 "Parsear cada archivo .evtx original a .txt"                                     on
+          2 "Parsear cada archivo .evtx original a .txt"                                     off
           3 "Unificar en un único archivo todos los archivos XML parseados"                  on
-          4 "  Crear un único archivo con todos los eventos ordenados por fecha"             off
-          5 "  Crear un único archivo con todos los eventos del usuario ordenados por fecha" on
-          6 "Convertir los eventos a formato plaso"                                          on
+          4 "  Crear un único archivo con todos los eventos ordenados por fecha"             on
+          5 "  Crear un único archivo con todos los eventos del usuario ordenados por fecha" off
+          6 "Convertir los eventos a formato plaso"                                          off
           7 "  Parsear el plaso al formato dynamic"                                          off
           8 "  Parsear el plaso al formato json"                                             off
           9 "  Parsear el plaso al formato json_line"                                        off
