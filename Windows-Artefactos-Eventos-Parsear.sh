@@ -59,11 +59,11 @@ if [ $# -ne $cCantParamEsperados ]
           5 "  Crear un único archivo con todos los eventos del usuario ordenados por fecha" off
           6 "Convertir los eventos a formato plaso"                                          on
           7 "  Parsear el plaso al formato dynamic"                                          off
-          8 "  Parsear el plaso al formato json"                                             on
+          8 "  Parsear el plaso al formato json"                                             off
           9 "  Parsear el plaso al formato json_line"                                        off
          10 "  Parsear el plaso al formato l2tcsv"                                           off
          11 "  Parsear el plaso al formato l2ttln"                                           off
-         12 "  Parsear el plaso al formato rawpy"                                            off
+         12 "  Parsear el plaso al formato rawpy"                                            on
          13 "  Parsear el plaso al formato tln"                                              off
          14 "  Parsear el plaso al formato xlsx"                                             off
          15 "  Otros..."                                                                     off
@@ -491,7 +491,7 @@ if [ $# -ne $cCantParamEsperados ]
                   echo -e "${cColorRojo}      El binario ~/bin/plaso-psort no existe. Intentando ejecutar desde el entorno virtual...${cFinColor}"
                   echo ""
                   source ~/repos/python/plaso/venv/bin/activate
-                    psort "$vCarpetaDondeGuardar"/TimeLineDeEventos.plaso -o json_line -w "$vCarpetaDondeGuardar"/TimeLineDeEventos.json_line 
+                    psort "$vCarpetaDondeGuardar"/TimeLineDeEventos.plaso -o json_line -w "$vCarpetaDondeGuardar"/TimeLineDeEventos.json_line
                   deactivate
                 fi
 
