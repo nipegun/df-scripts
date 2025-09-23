@@ -92,15 +92,7 @@
   menu=(dialog --checklist "Marca los formatos de salida que quieras obtener:" 22 130 16)
     opciones=(
       1 "Obtener la versión del kernel"                                on
-      6 "Crear la carpeta para archivos tabulados"                     on
-      7 "  Plugins de análisis de procesos y usuarios"                 on
-      8 "  Plugins de sistema y kernel"                                on
-      9 "  Plugins de módulos y librerías"                             on
-     10 "  Plugins de análisis de malware"                             on
-     11 "  Plugins de red"                                             on
-     12 "  Plugins de memoria y page cache"                            on
-     13 "  Plugins de entorno, ELF y librerías"                        on
-     14 "  RESTO: ..."                                   off
+      7 "  Aplicar todos los plugins"                 on
      15 "Parsear datos hacia archivos txt"                             off
      16 "Parsear datos hacia archivos csv"                             off
      17 "Parsear datos hacia archivos json"                            off
@@ -128,17 +120,6 @@
             ~/repos/python/volatility3/volatility3/symbols/linux/Debian_5.10.0-35-amd64.json.xz
         ;;
 
-        6)
-
-          echo ""
-          echo "  Crear la carpeta para archivos tabulados..."
-          echo ""
-
-          # Crear carpeta
-            mkdir -p "$cCarpetaDondeGuardar"/tab
-
-        ;;
-
         7)
 
           echo ""
@@ -149,6 +130,9 @@
             source ~/repos/python/volatility3/venv/bin/activate
 
           # Aplicar plugins
+
+            # Crear carpeta para los archivos tabulados
+              mkdir -p "$cCarpetaDondeGuardar"/tab
 
             # linux.bash.Bash (Extrae el historial de comandos de procesos bash encontrados en memoria)
               echo ""
