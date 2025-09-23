@@ -143,7 +143,7 @@
                 echo 'echo -e "      Obtener info de windows:\n"'                                 >> ~/repos/python/volatility3/venv/bin/activate
                 echo 'echo -e "        vol -vvv -f $HOME/Descargas/Evidencia.raw windows.info\n"' >> ~/repos/python/volatility3/venv/bin/activate
                 echo 'echo -e "      Obtener info de linux:\n"'                                   >> ~/repos/python/volatility3/venv/bin/activate
-                echo 'echo -e "        vol -vvv -f $HOME/Descargas/Evidencia.raw linux.info\n"'   >> ~/repos/python/volatility3/venv/bin/activate
+                echo 'echo -e "        vol -vvv -f $HOME/Descargas/Evidencia.raw linux.banner\n"'   >> ~/repos/python/volatility3/venv/bin/activate
               # Instalar symbols
                 # Comprobar si el paquete unzip está instalado. Si no lo está, instalarlo.
                   if [[ $(dpkg-query -s unzip 2>/dev/null | grep installed) == "" ]]; then
