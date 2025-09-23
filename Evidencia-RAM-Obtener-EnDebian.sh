@@ -9,13 +9,13 @@
 # Script de NiPeGun para obtener evidencia forense de un dispositivo
 #
 # Ejecución remota (puede requerir permisos sudo):
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Evidencia-RAM-Dumpear-Debian.sh | bash
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Evidencia-RAM-Obtener-EnDebian.sh | bash
 #
 # Ejecución remota como root (para sistemas sin sudo):
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Evidencia-RAM-Dumpear-Debian.sh | sudo 's-sudo--g' | bash
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Evidencia-RAM-Obtener-EnDebian.sh | sudo 's-sudo--g' | bash
 #
 # Bajar y editar directamente el archivo en nano
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Evidencia-RAM-Dumpear-Debian.sh | nano -
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Evidencia-RAM-Obtener-EnDebian.sh | nano -
 #https://github.com/Abyss-W4tcher/volatility2-profiles/tree/master/Debian/amd64
 # Enlace interesante para descargar símbolos: https://github.com/Abyss-W4tcher/volatility3-symbols/
 #
