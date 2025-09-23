@@ -14,7 +14,12 @@
 # Bajar y editar directamente el archivo en nano
 #   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Linux-Artefactos-RAM-Extraer-DeDump-ConVolatility3.sh | nano -
 #
-# Más info aquí: https://volatility3.readthedocs.io/en/latest/        https://book.hacktricks.xyz/generic-methodologies-and-resources/basic-forensic-methodology/memory-dump-analysis/volatility-cheatsheet
+# Más info aquí:
+#  https://volatility3.readthedocs.io/en/latest/
+#  https://book.hacktricks.xyz/generic-methodologies-and-resources/basic-forensic-methodology/memory-dump-analysis/volatility-cheatsheet
+#
+# Descarga de símbolos para Linux:
+#  https://github.com/Abyss-W4tcher/volatility3-symbols/
 # ----------
 
 # Definir constantes de color
@@ -86,6 +91,7 @@
     fi
   menu=(dialog --checklist "Marca los formatos de salida que quieras obtener:" 22 130 16)
     opciones=(
+      1 "Obtener la versión del kernel"                                on
       6 "Crear la carpeta para archivos tabulados"                     on
       7 "  Plugins de análisis de procesos y usuarios"                 on
       8 "  Plugins de sistema y kernel"                                on
@@ -109,6 +115,18 @@
   for choice in $choices
     do
       case $choice in
+
+        1)
+
+          echo ""
+          echo "  Obteniendo la versión del kernel..."
+          echo ""
+          vVersKernel=$(vol -q -f "$cRutaAlArchivoDeDump" banners.Banners | sed 's-Linux version -\n-g' | grep gcc | cut -d' ' -f1 | tail -n1)
+          vVersKernel=$(vol -q -f '/home/nipegun/Descargas/The_Tunnel_Without_Walls/memdump.mem' banners.Banners | sed 's-Linux version -\n-g' | grep gcc | cut -d' ' -f1 | tail -n1)
+          echo "$vVersKernel"
+          curl -sL https://raw.githubusercontent.com/Abyss-W4tcher/volatility3-symbols/refs/heads/master/Debian/amd64/5.10.0/35/Debian_5.10.0-35-amd64_5.10.237-1_amd64.json.xz -o \
+            ~/repos/python/volatility3/volatility3/symbols/linux/Debian_5.10.0-35-amd64.json.xz
+        ;;
 
         6)
 
