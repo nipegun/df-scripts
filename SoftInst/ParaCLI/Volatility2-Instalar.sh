@@ -118,7 +118,7 @@
                       sudo apt-get -y install git
                       echo ""
                     fi
-                  curl -sL https://raw.githubusercontent.com/nipegun/d-scripts/refs/heads/master/SoftInst/ParaCLI/Python2-Instalar.sh | sudo bash
+                  curl -sL https://raw.githubusercontent.com/nipegun/d-scripts/refs/heads/master/InstDeSoftware/ParaCLI/Python2-Instalar.sh | sudo bash
                 fi
               cd ~/repos/python/volatility2/
               # Eliminar el virtualenv actualmente instalado
