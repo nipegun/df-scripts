@@ -150,40 +150,53 @@
 
           # Parsear datos
 
-            # windows.envars (Display process environment variables)
-              # Argumentos:
-              #   --pid [PID ...] - Filter on specific process IDs
-              #   --silent        - Suppress common and non-persistent variables
+            # linux.bash.Bash (Extrae el historial de comandos de procesos bash encontrados en memoria)
               echo ""
-              echo "    Aplicando el plugin windows.envars..."
+              echo "    Aplicando el plugin linux.bash.Bash..."
               echo ""
-              vol -f "$cRutaAlArchivoDeDump" windows.envars | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.envars.tab
+              vol -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.bash.Bash | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/linux.bash.Bash.tab
 
-            # windows.hashdump (Dumps user hashes from memory)
+            # linux.psaux.PsAux (Lista procesos con sus argumentos de línea de comandos (ps aux))
               echo ""
-              echo "    Aplicando el plugin windows.hashdump..."
+              echo "    Aplicando el plugin linux.psaux.PsAux..."
               echo ""
-              vol -f "$cRutaAlArchivoDeDump" windows.hashdump | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.hashdump.tab
+              vol -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.psaux.PsAux | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/linux.psaux.PsAux.tab
 
-            # windows.info (Show OS & kernel details of the memory sample being analyzed)
+            # linux.pslist.PsList (Lista procesos activos según las estructuras enlazadas (task_struct))
               echo ""
-              echo "    Aplicando el plugin windows.info..."
+              echo "    Aplicando el plugin linux.pslist.PsList..."
               echo ""
-              vol -f "$cRutaAlArchivoDeDump" windows.info | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.info.tab
+              vol -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.pslist.PsList | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/linux.pslist.PsList.tab
 
-linux.bash.Bash → Extrae el historial de comandos de procesos bash encontrados en memoria.
-linux.psaux.PsAux → Lista procesos con sus argumentos de línea de comandos (ps aux).
-linux.pslist.PsList → Lista procesos activos según las estructuras enlazadas (task_struct).
-linux.psscan.PsScan → Escanea memoria buscando estructuras de procesos, incluso terminados u ocultos.
-linux.pstree.PsTree → Muestra procesos en formato jerárquico (árbol padre-hijo).
-linux.pscallstack.PsCallStack → Muestra el stack de llamadas de procesos.
-linux.proc.Maps → Extrae el mapeo de memoria de procesos (/proc/<pid>/maps).
-linux.ptrace.Ptrace → Enumera procesos que usan/reciben ptrace.
+            # linux.psscan.PsScan (Escanea memoria buscando estructuras de procesos, incluso terminados u ocultos)
+              echo ""
+              echo "    Aplicando el plugin linux.psscan.PsScan..."
+              echo ""
+              vol -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.psscan.PsScan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/linux.psscan.PsScan.tab
 
+            # linux.pstree.PsTree (Muestra procesos en formato jerárquico (árbol padre-hijo))
+              echo ""
+              echo "    Aplicando el plugin linux.pstree.PsTree..."
+              echo ""
+              vol -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.pstree.PsTree | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/linux.pstree.PsTree.tab
 
+            # linux.pscallstack.PsCallStack (Muestra el stack de llamadas de procesos)
+              echo ""
+              echo "    Aplicando el plugin linux.pscallstack.PsCallStack..."
+              echo ""
+              vol -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.pscallstack.PsCallStack | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/linux.pscallstack.PsCallStack.tab
 
+            # linux.proc.Maps (Extrae el mapeo de memoria de procesos (/proc/<pid>/maps))
+              echo ""
+              echo "    Aplicando el plugin linux.proc.Maps..."
+              echo ""
+              vol -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.proc.Maps | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/linux.proc.Maps.tab
 
-
+            # linux.ptrace.Ptrace (Enumera procesos que usan/reciben ptrace)
+              echo ""
+              echo "    Aplicando el plugin linux.ptrace.Ptrace..."
+              echo ""
+              vol -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.ptrace.Ptrace | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/linux.ptrace.Ptrace.tab
 
           # Salir del entorno virtual
             deactivate
