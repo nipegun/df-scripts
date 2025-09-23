@@ -92,7 +92,8 @@
   menu=(dialog --checklist "Marca los formatos de salida que quieras obtener:" 22 130 16)
     opciones=(
       1 "Obtener la versión del kernel"                                on
-      7 "  Aplicar todos los plugins"                 on
+      2 "  Descargar los símbolos para la versión del kernel obtenida" on
+      3 "  Aplicar todos los plugins"                                  on
      15 "Parsear datos hacia archivos txt"                             off
      16 "Parsear datos hacia archivos csv"                             off
      17 "Parsear datos hacia archivos json"                            off
@@ -120,7 +121,15 @@
             ~/repos/python/volatility3/volatility3/symbols/linux/Debian_5.10.0-35-amd64.json.xz
         ;;
 
-        7)
+        2)
+
+          echo ""
+          echo "  Descargando los símbolos para la versión del kernel obtenida..."
+          echo ""
+
+        ;;
+
+        3)
 
           echo ""
           echo "  Aplicando todos los plugins..."
