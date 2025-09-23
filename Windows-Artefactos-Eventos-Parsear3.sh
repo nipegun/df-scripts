@@ -572,8 +572,8 @@ if [ $# -ne $cCantParamEsperados ]
                 sed -i 's/<EventXML .*>/<EventXML>/g' "$vCarpetaDondeGuardar"/TimeLineDeTodosLosEventos.xml
               # Vaciar los atributos de la etiqueta EventData
                 sed -i 's/<EventData .*>/<EventData>/g' "$vCarpetaDondeGuardar"/TimeLineDeTodosLosEventos.xml
-              # Extraer sólo las lineas que contengan commandline y cmd
-                cat "$vCarpetaDondeGuardar"/TimeLineDeTodosLosEventos.xml | grep -v 'CommandLine=</Data>' | grep -v '<Data Name="CommandLine"/>' | grep -iE "commandline|cmd" > "$vCarpetaDondeGuardar"/CommandLine.txt
+              # Extraer sólo las lineas que contengan commandline y cmd y powershell
+                cat "$vCarpetaDondeGuardar"/TimeLineDeTodosLosEventos.xml | grep -v 'CommandLine=</Data>' | grep -v '<Data Name="CommandLine"/>' | grep -iE "commandline|cmd|powershell" > "$vCarpetaDondeGuardar"/CommandLine.txt
 
             ;;
 
