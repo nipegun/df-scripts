@@ -154,49 +154,49 @@
               echo ""
               echo "    Aplicando el plugin linux.bash.Bash..."
               echo ""
-              vol -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.bash.Bash | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/linux.bash.Bash.tab
+              vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.bash.Bash > "$cCarpetaDondeGuardar"/tab/linux.bash.Bash.tab
 
             # linux.psaux.PsAux (Lista procesos con sus argumentos de línea de comandos (ps aux))
               echo ""
               echo "    Aplicando el plugin linux.psaux.PsAux..."
               echo ""
-              vol -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.psaux.PsAux | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/linux.psaux.PsAux.tab
+              vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.psaux.PsAux > "$cCarpetaDondeGuardar"/tab/linux.psaux.PsAux.tab
 
             # linux.pslist.PsList (Lista procesos activos según las estructuras enlazadas (task_struct))
               echo ""
               echo "    Aplicando el plugin linux.pslist.PsList..."
               echo ""
-              vol -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.pslist.PsList | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/linux.pslist.PsList.tab
+              vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.pslist.PsList > "$cCarpetaDondeGuardar"/tab/linux.pslist.PsList.tab
 
             # linux.psscan.PsScan (Escanea memoria buscando estructuras de procesos, incluso terminados u ocultos)
               echo ""
               echo "    Aplicando el plugin linux.psscan.PsScan..."
               echo ""
-              vol -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.psscan.PsScan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/linux.psscan.PsScan.tab
+              vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.psscan.PsScan > "$cCarpetaDondeGuardar"/tab/linux.psscan.PsScan.tab
 
             # linux.pstree.PsTree (Muestra procesos en formato jerárquico (árbol padre-hijo))
               echo ""
               echo "    Aplicando el plugin linux.pstree.PsTree..."
               echo ""
-              vol -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.pstree.PsTree | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/linux.pstree.PsTree.tab
+              vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.pstree.PsTree > "$cCarpetaDondeGuardar"/tab/linux.pstree.PsTree.tab
 
             # linux.pscallstack.PsCallStack (Muestra el stack de llamadas de procesos)
               echo ""
               echo "    Aplicando el plugin linux.pscallstack.PsCallStack..."
               echo ""
-              vol -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.pscallstack.PsCallStack | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/linux.pscallstack.PsCallStack.tab
+              vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.pscallstack.PsCallStack > "$cCarpetaDondeGuardar"/tab/linux.pscallstack.PsCallStack.tab
 
             # linux.proc.Maps (Extrae el mapeo de memoria de procesos (/proc/<pid>/maps))
               echo ""
               echo "    Aplicando el plugin linux.proc.Maps..."
               echo ""
-              vol -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.proc.Maps | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/linux.proc.Maps.tab
+              vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.proc.Maps > "$cCarpetaDondeGuardar"/tab/linux.proc.Maps.tab
 
             # linux.ptrace.Ptrace (Enumera procesos que usan/reciben ptrace)
               echo ""
               echo "    Aplicando el plugin linux.ptrace.Ptrace..."
               echo ""
-              vol -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.ptrace.Ptrace | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/linux.ptrace.Ptrace.tab
+              vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.ptrace.Ptrace > "$cCarpetaDondeGuardar"/tab/linux.ptrace.Ptrace.tab
 
           # Salir del entorno virtual
             deactivate
@@ -214,27 +214,78 @@
 
           # Parsear datos
 
-            # windows.netscan (Scans for network objects present in a particular windows memory image)
-              # Argumentos:
-              #   --include-corrupt - Radically eases result validation. This will show partially overwritten data. WARNING: the results are likely to include garbage and/or corrupt data. Be cautious!
+            # x (x)
               echo ""
-              echo "    Aplicando el plugin windows.netscan..."
+              echo "    Aplicando el plugin x..."
               echo ""
-              # Sin corruptos
-                vol -f "$cRutaAlArchivoDeDump" windows.netscan                   | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.netscan.tab
-              # Con corruptos
-                vol -f "$cRutaAlArchivoDeDump" windows.netscan --include-corrupt | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.netscan-corrupt.tab
+              vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols x > "$cCarpetaDondeGuardar"/tab/x.tab
 
-            # windows.netstat (Traverses network tracking structures present in a particular windows memory image)
-              # Argumentos:
-              #   --include-corrupt - Radically eases result validation. This will show partially overwritten data. WARNING: the results are likely to include garbage and/or corrupt data. Be cautious!
+            # x (x)
               echo ""
-              echo "    Aplicando el plugin windows.netstat..."
+              echo "    Aplicando el plugin x..."
               echo ""
-              # Sin corruptos
-                vol -f "$cRutaAlArchivoDeDump" windows.netstat                   | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.netstat.tab
-              # Con corruptos
-                vol -f "$cRutaAlArchivoDeDump" windows.netstat --include-corrupt | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.netstat-corrupt.tab
+              vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols x > "$cCarpetaDondeGuardar"/tab/x.tab
+
+            # x (x)
+              echo ""
+              echo "    Aplicando el plugin x..."
+              echo ""
+              vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols x > "$cCarpetaDondeGuardar"/tab/x.tab
+
+            # x (x)
+              echo ""
+              echo "    Aplicando el plugin x..."
+              echo ""
+              vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols x > "$cCarpetaDondeGuardar"/tab/x.tab
+
+            # x (x)
+              echo ""
+              echo "    Aplicando el plugin x..."
+              echo ""
+              vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols x > "$cCarpetaDondeGuardar"/tab/x.tab
+
+            # x (x)
+              echo ""
+              echo "    Aplicando el plugin x..."
+              echo ""
+              vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols x > "$cCarpetaDondeGuardar"/tab/x.tab
+
+            # x (x)
+              echo ""
+              echo "    Aplicando el plugin x..."
+              echo ""
+              vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols x > "$cCarpetaDondeGuardar"/tab/x.tab
+
+            # x (x)
+              echo ""
+              echo "    Aplicando el plugin x..."
+              echo ""
+              vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols x > "$cCarpetaDondeGuardar"/tab/x.tab
+
+            # x (x)
+              echo ""
+              echo "    Aplicando el plugin x..."
+              echo ""
+              vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols x > "$cCarpetaDondeGuardar"/tab/x.tab
+
+            # x (x)
+              echo ""
+              echo "    Aplicando el plugin x..."
+              echo ""
+              vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols x > "$cCarpetaDondeGuardar"/tab/x.tab
+
+            # x (x)
+              echo ""
+              echo "    Aplicando el plugin x..."
+              echo ""
+              vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols x > "$cCarpetaDondeGuardar"/tab/x.tab
+
+            # x (x)
+              echo ""
+              echo "    Aplicando el plugin x..."
+              echo ""
+              vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols x > "$cCarpetaDondeGuardar"/tab/x.tab
+
 
 
 
@@ -270,53 +321,42 @@ linux.vmcoreinfo.VMCoreInfo → Muestra datos de la estructura vmcoreinfo.
 
           # Parsear datos
 
-            # windows.registry.certificates (Lists the certificates in the registry's Certificate Store)
-              # Argumentos:
-              #   --dump - Extract listed certificates
+            # x (x)
               echo ""
-              echo "    Aplicando el plugin windows.registry.certificates..."
+              echo "    Aplicando el plugin x..."
               echo ""
-              vol -f "$cRutaAlArchivoDeDump" windows.registry.certificates | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.registry.certificates.tab
+              vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols x > "$cCarpetaDondeGuardar"/tab/x.tab
 
-            # windows.registry.getcellroutine (Reports registry hives with a hooked GetCellRoutine handler)
+            # x (x)
               echo ""
-              echo "    Aplicando el plugin windows.registry.getcellroutine..."
+              echo "    Aplicando el plugin x..."
               echo ""
-              vol -f "$cRutaAlArchivoDeDump" windows.registry.getcellroutine | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.registry.getcellroutine.tab
+              vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols x > "$cCarpetaDondeGuardar"/tab/x.tab
 
-            # windows.registry.hivelist (Lists the registry hives present in a particular memory image)
-              # Argumentos:
-              #   --filter FILTER - String to filter hive names returned
-              #   --dump          - Extract listed registry hives
+            # x (x)
               echo ""
-              echo "    Aplicando el plugin windows.registry.hivelist..."
+              echo "    Aplicando el plugin x..."
               echo ""
-              vol -f "$cRutaAlArchivoDeDump" windows.registry.hivelist | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.registry.hivelist.tab
+              vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols x > "$cCarpetaDondeGuardar"/tab/x.tab
 
-            # windows.registry.hivescan (Scans for registry hives present in a particular windows memory image)
+            # x (x)
               echo ""
-              echo "    Aplicando el plugin windows.registry.hivescan..."
+              echo "    Aplicando el plugin x..."
               echo ""
-              vol -f "$cRutaAlArchivoDeDump" windows.registry.hivescan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.registry.hivescan.tab
+              vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols x > "$cCarpetaDondeGuardar"/tab/x.tab
 
-            # windows.registry.printkey (Lists the registry keys under a hive or specific key value)
-              # Argumentos:
-              #   --offset OFFSET - Hive Offset
-              #   --key KEY       - Key to start from
-              #   --recurse       - Recurses through keys
+            # x (x)
               echo ""
-              echo "    Aplicando el plugin windows.registry.printkey..."
+              echo "    Aplicando el plugin x..."
               echo ""
-              vol -f "$cRutaAlArchivoDeDump" windows.registry.printkey | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.registry.printkey.tab
-              #vol -f "$cRutaAlArchivoDeDump" windows.registry.printkey ‑‑key "Software\Microsoft\Windows\CurrentVersion" | grep -v "Volatility 3"
+              vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols x > "$cCarpetaDondeGuardar"/tab/x.tab
 
-            # windows.registry.userassist (Print userassist registry keys and information)
-              # Argumentos:
-              #   --offset OFFSET - Hive Offset
+            # x (x)
               echo ""
-              echo "    Aplicando el plugin windows.registry.userassist..."
+              echo "    Aplicando el plugin x..."
               echo ""
-              vol -f "$cRutaAlArchivoDeDump" windows.registry.userassist | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.registry.userassist.tab
+              vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols x > "$cCarpetaDondeGuardar"/tab/x.tab
+
 
 
 linux.lsmod.Lsmod → Lista módulos cargados (similar a lsmod).
@@ -344,49 +384,48 @@ linux.malware.modxview.Modxview → Versión enfocada en detección de rootkits.
 
           # Parsear datos
 
-            # windows.cmdline (Lists process command line arguments)
-              # Argumentos:
-              #   --pid [PID ...] - Process IDs to include (all other processes are excluded)
+            # x (x)
               echo ""
-              echo "    Aplicando el plugin windows.cmdline..."
+              echo "    Aplicando el plugin x..."
               echo ""
-              vol -f "$cRutaAlArchivoDeDump" windows.cmdline | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.cmdline.tab
+              vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols x > "$cCarpetaDondeGuardar"/tab/x.tab
 
-            # windows.cmdscan (Looks for Windows Command History lists)
-              # Argumentos:
-              #   --no-registry                   - Don't search the registry for possible values of CommandHistorySize
-              #   --max-history [MAX_HISTORY ...] - CommandHistorySize values to search for.
+            # x (x)
               echo ""
-              echo "    Aplicando el plugin windows.cmdscan..."
+              echo "    Aplicando el plugin x..."
               echo ""
-              vol -f "$cRutaAlArchivoDeDump" windows.cmdscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.cmdscan.tab
+              vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols x > "$cCarpetaDondeGuardar"/tab/x.tab
 
-            # windows.consoles (Looks for Windows console buffers)
-              # Argumentos:
-              #   --no-registry                   - Don't search the registry for possible values of CommandHistorySize and HistoryBufferMax
-              #   --max-history [MAX_HISTORY ...] - CommandHistorySize values to search for.
-              #   --max-buffers [MAX_BUFFERS ...] - HistoryBufferMax values to search for.
+            # x (x)
               echo ""
-              echo "    Aplicando el plugin windows.consoles..."
+              echo "    Aplicando el plugin x..."
               echo ""
-              vol -f "$cRutaAlArchivoDeDump" windows.consoles | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.consoles.tab
+              vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols x > "$cCarpetaDondeGuardar"/tab/x.tab
 
-            # windows.joblinks (Print process job link information)
-             # Argumentos:
-              #   --physical - Display physical offset instead of virtual
+            # x (x)
               echo ""
-              echo "    Aplicando el plugin windows.joblinks..."
+              echo "    Aplicando el plugin x..."
               echo ""
-              # Offset virtual
-                vol -f "$cRutaAlArchivoDeDump" windows.joblinks            | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.joblinks-offsetvirtual.tab
-              # Offset físico
-                vol -f "$cRutaAlArchivoDeDump" windows.joblinks --physical | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.joblinks-offsetfisico.tab
+              vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols x > "$cCarpetaDondeGuardar"/tab/x.tab
 
-            # windows.scheduled_tasks (Decodes scheduled task information from the Windows registry, including information about triggers, actions, run times, and creation times)
+            # x (x)
               echo ""
-              echo "    Aplicando el plugin windows.scheduled_tasks..."
+              echo "    Aplicando el plugin x..."
               echo ""
-              vol -f "$cRutaAlArchivoDeDump" windows.scheduled_tasks | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.scheduled_tasks.tab
+              vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols x > "$cCarpetaDondeGuardar"/tab/x.tab
+
+            # x (x)
+              echo ""
+              echo "    Aplicando el plugin x..."
+              echo ""
+              vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols x > "$cCarpetaDondeGuardar"/tab/x.tab
+
+            # x (x)
+              echo ""
+              echo "    Aplicando el plugin x..."
+              echo ""
+              vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols x > "$cCarpetaDondeGuardar"/tab/x.tab
+
 
 
 
@@ -397,7 +436,6 @@ linux.malware.hidden_modules.Hidden_modules → Idem hidden_modules pero marcado
 linux.malware.keyboard_notifiers.Keyboard_notifiers → Busca hooks de teclado sospechosos (keyloggers).
 linux.malware.netfilter.Netfilter → Busca hooks en Netfilter usados para ocultar tráfico.
 linux.malware.tty_check.Tty_Check → Busca alteraciones sospechosas en TTYs.
-
 
           # Salir del entorno virtual
             deactivate
@@ -415,127 +453,30 @@ linux.malware.tty_check.Tty_Check → Busca alteraciones sospechosas en TTYs.
 
           # Parsear datos
 
-            # windows.getsids (Print the SIDs owning each process)
-              # Argumentos:
-              #   --pid [PID ...] - Filter on specific process IDs
+            # x (x)
               echo ""
-              echo "    Aplicando el plugin windows.getsids..."
+              echo "    Aplicando el plugin x..."
               echo ""
-              vol -f "$cRutaAlArchivoDeDump" windows.getsids | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.getsids.tab
+              vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols x > "$cCarpetaDondeGuardar"/tab/x.tab
 
-            # windows.handles (Lists process open handles)
-              # Argumentos:
-              #   --pid [PID ...] - Process IDs to include (all other processes are excluded)
-              #   --offset OFFSET - Process offset in the physical address space
+            # x (x)
               echo ""
-              echo "    Aplicando el plugin windows.handles..."
+              echo "    Aplicando el plugin x..."
               echo ""
-              vol -f "$cRutaAlArchivoDeDump" windows.handles | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.handles.tab
-              #vol -f "$cRutaAlArchivoDeDump" windows.handles ‑‑pid "<PID>"
+              vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols x > "$cCarpetaDondeGuardar"/tab/x.tab
 
-            # windows.hollowprocesses (Lists hollowed processes)
-              # Argumentos:
-              #   --pid [PID ...] - Process IDs to include (all other processes are excluded)
+            # x (x)
               echo ""
-              echo "    Aplicando el plugin windows.hollowprocesses..."
+              echo "    Aplicando el plugin x..."
               echo ""
-              vol -f "$cRutaAlArchivoDeDump" windows.hollowprocesses | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.hollowprocesses.tab
+              vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols x > "$cCarpetaDondeGuardar"/tab/x.tab
 
-            # windows.processghosting (Lists processes whose DeletePending bit is set or whose FILE_OBJECT is set to 0)
+            # x (x)
               echo ""
-              echo "    Aplicando el plugin windows.processghosting..."
+              echo "    Aplicando el plugin x..."
               echo ""
-              vol -f "$cRutaAlArchivoDeDump" windows.processghosting | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.processghosting.tab
+              vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols x > "$cCarpetaDondeGuardar"/tab/x.tab
 
-            # windows.pslist (Lists the processes present in a particular windows memory image)
-              # Argumentos:
-              #   --physical      - Display physical offsets instead of virtual
-              #   --pid [PID ...] - Process ID to include (all other processes are excluded)
-              #   --dump          - Extract listed processes
-              echo ""
-              echo "    Aplicando el plugin windows.pslist..."
-              echo ""
-              # Offset virtual
-                vol -f "$cRutaAlArchivoDeDump" windows.pslist            | grep -v "Volatility 3" | sort -n > "$cCarpetaDondeGuardar"/tab/windows.pslist-offsetvirtual-pid-ppid.tab
-                sed -i '/^$/d' "$cCarpetaDondeGuardar"/tab/windows.pslist-offsetvirtual-pid-ppid.tab
-                cut -f2 "$cCarpetaDondeGuardar"/tab/windows.pslist-offsetvirtual-pid-ppid.tab > /tmp/vArchivoTemporalConColumna2.txt
-                cut --complement -f2 "$cCarpetaDondeGuardar"/tab/windows.pslist-offsetvirtual-pid-ppid.tab > /tmp/vArchivoTemporalConRestoDeColumnas.txt
-                paste /tmp/vArchivoTemporalConColumna2.txt /tmp/vArchivoTemporalConRestoDeColumnas.txt > /tmp/vArchivoTemporal.txt
-                cat /tmp/vArchivoTemporal.txt | sort -n > "$cCarpetaDondeGuardar"/tab/windows.pslist-offsetvirtual-ppid-pid.tab
-                sed -i '/^$/d' "$cCarpetaDondeGuardar"/tab/windows.pslist-offsetvirtual-ppid-pid.tab
-              # Offset físico
-                vol -f "$cRutaAlArchivoDeDump" windows.pslist --physical | grep -v "Volatility 3" | sort -n > "$cCarpetaDondeGuardar"/tab/windows.pslist-offsetfisico-pid-ppid.tab
-                sed -i '/^$/d' "$cCarpetaDondeGuardar"/tab/windows.pslist-offsetfisico-pid-ppid.tab
-                cut -f2 "$cCarpetaDondeGuardar"/tab/windows.pslist-offsetfisico-pid-ppid.tab > /tmp/vArchivoTemporalConColumna2.txt
-                cut --complement -f2 "$cCarpetaDondeGuardar"/tab/windows.pslist-offsetfisico-pid-ppid.tab > /tmp/vArchivoTemporalConRestoDeColumnas.txt
-                paste /tmp/vArchivoTemporalConColumna2.txt /tmp/vArchivoTemporalConRestoDeColumnas.txt > /tmp/vArchivoTemporal.txt
-                cat /tmp/vArchivoTemporal.txt | sort -n > "$cCarpetaDondeGuardar"/tab/windows.pslist-offsetfisico-ppid-pid.tab
-                sed -i '/^$/d' "$cCarpetaDondeGuardar"/tab/windows.pslist-offsetfisico-ppid-pid.tab
-
-            # windows.psscan (Scans for processes present in a particular windows memory image)
-              # Argumentos:
-              #   --physical      - Display physical offsets instead of virtual
-              #   --pid [PID ...] - Process ID to include (all other processes are excluded)
-              #   --dump          - Extract listed processes
-              echo ""
-              echo "    Aplicando el plugin windows.psscan..."
-              echo ""
-              # Offset virtual
-                vol -f "$cRutaAlArchivoDeDump" windows.psscan            | grep -v "Volatility 3" | sort -n > "$cCarpetaDondeGuardar"/tab/windows.psscan-offsetvirtual-pid-ppid.tab
-                sed -i '/^$/d' "$cCarpetaDondeGuardar"/tab/windows.psscan-offsetvirtual-pid-ppid.tab
-                cut -f2 "$cCarpetaDondeGuardar"/tab/windows.psscan-offsetvirtual-pid-ppid.tab > /tmp/vArchivoTemporalConColumna2.txt
-                cut --complement -f2 "$cCarpetaDondeGuardar"/tab/windows.psscan-offsetvirtual-pid-ppid.tab > /tmp/vArchivoTemporalConRestoDeColumnas.txt
-                paste /tmp/vArchivoTemporalConColumna2.txt /tmp/vArchivoTemporalConRestoDeColumnas.txt > /tmp/vArchivoTemporal.txt
-                cat /tmp/vArchivoTemporal.txt | sort -n > "$cCarpetaDondeGuardar"/tab/windows.psscan-offsetvirtual-ppid-pid.tab
-                sed -i '/^$/d' "$cCarpetaDondeGuardar"/tab/windows.psscan-offsetvirtual-ppid-pid.tab
-              # Offset físico
-                vol -f "$cRutaAlArchivoDeDump" windows.psscan --physical | grep -v "Volatility 3" | sort -n > "$cCarpetaDondeGuardar"/tab/windows.psscan-offsetfisico-pid-ppid.tab
-                sed -i '/^$/d' "$cCarpetaDondeGuardar"/tab/windows.psscan-offsetfisico-pid-ppid.tab
-                cut -f2 "$cCarpetaDondeGuardar"/tab/windows.psscan-offsetfisico-pid-ppid.tab > /tmp/vArchivoTemporalConColumna2.txt
-                cut --complement -f2 "$cCarpetaDondeGuardar"/tab/windows.psscan-offsetfisico-pid-ppid.tab > /tmp/vArchivoTemporalConRestoDeColumnas.txt
-                paste /tmp/vArchivoTemporalConColumna2.txt /tmp/vArchivoTemporalConRestoDeColumnas.txt > /tmp/vArchivoTemporal.txt
-                cat /tmp/vArchivoTemporal.txt | sort -n > "$cCarpetaDondeGuardar"/tab/windows.psscan-offsetfisico-ppid-pid.tab
-                sed -i '/^$/d' "$cCarpetaDondeGuardar"/tab/windows.psscan-offsetfisico-ppid-pid.tab
-
-            # windows.pstree (Plugin for listing processes in a tree based on their parent process ID)
-              # Argumentos:
-              #   --physical      - Display physical offsets instead of virtual
-              #   --pid [PID ...] - Process ID to include (all other processes are excluded)
-              echo ""
-              echo "    Aplicando el plugin windows.pstree..."
-              echo ""
-              # Offset virtual
-                vol -f "$cRutaAlArchivoDeDump" windows.pstree            | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.pstree-offsetvirtual.tab
-              # Offset físico
-                vol -f "$cRutaAlArchivoDeDump" windows.pstree --physical | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.pstree-offsetfisico.tab
-
-            # windows.psxview (Lists all processes found via four of the methods described in "The Art of Memory Forensics," which may help identify processes that are trying to hide themselves. I recommend using -r pretty if you are looking at this plugin's output in a terminal)
-              # Argumentos:
-              # --physical-offsets - List processes with physical offsets instead of virtual offsets.
-              echo ""
-              echo "    Aplicando el plugin windows.psxview..."
-              echo ""
-              # Offsets virtuales
-                vol -f "$cRutaAlArchivoDeDump" windows.psxview                    | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.psxview-offsetsvirtuales.tab
-              # Offsets físicos
-                vol -f "$cRutaAlArchivoDeDump" windows.psxview --physical-offsets | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.psxview-offsetsfisicos.tab
-
-            # windows.strings (Reads output from the strings command and indicates which process(es) each string belongs to)
-              # Argumentos:
-              #   --pid [PID ...]             - Process ID to include (all other processes are excluded)
-              #   --strings-file STRINGS_FILE - Strings file
-              echo ""
-              echo "    Aplicando el plugin windows.strings..."
-              echo ""
-              vol -f "$cRutaAlArchivoDeDump" windows.strings | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.strings.tab
-
-            # windows.threads (Lists process threads)
-              # Argumentos:
-              #   --pid [PID ...] - Filter on specific process IDs
-              echo ""
-              echo "    Aplicando el plugin windows.threads..."
-              echo ""
-              vol -f "$cRutaAlArchivoDeDump" windows.threads | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.threads.tab
 
 linux.ip.Addr → Lista direcciones IP asociadas a interfaces de red.
 linux.ip.Link → Lista interfaces de red.
@@ -559,29 +500,29 @@ linux.sockstat.Sockstat → Extrae información de sockets en memoria.
 
           # Parsear datos
 
-            # windows.mbrscan (Scans for and parses potential Master Boot Records (MBRs))
-              # Argumentos:
-              #   --full - It analyzes and provides all the information in the partition entry and bootcode hexdump. (It returns a lot of information, so we recommend you render it in CSV.)
+            # x (x)
               echo ""
-              echo "    Aplicando el plugin windows.mbrscan..."
+              echo "    Aplicando el plugin x..."
               echo ""
-              # Simple
-                vol -f "$cRutaAlArchivoDeDump" windows.mbrscan        | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.mbrscan.tab
-              # Completo
-                vol -f "$cRutaAlArchivoDeDump" windows.mbrscan --full | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.mbrscan-full.tab
+              vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols x > "$cCarpetaDondeGuardar"/tab/x.tab
 
-            # No windows
+            # x (x)
+              echo ""
+              echo "    Aplicando el plugin x..."
+              echo ""
+              vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols x > "$cCarpetaDondeGuardar"/tab/x.tab
 
-              # timeliner (Runs all relevant plugins that provide time related information and orders the results by time)
-                # Argumentos:
-                #   --record-config                     - Whether to record the state of all the plugins once complete
-                #   --plugin-filter [PLUGIN-FILTER ...] - Only run plugins featuring this substring
-                #   --create-bodyfile                   - Whether to create a body file whilst producing results
-                echo ""
-                echo "    Aplicando el plugin timeliner..."
-                echo ""
-                vol -f "$cRutaAlArchivoDeDump" timeliner | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/timeliner.tab
+            # x (x)
+              echo ""
+              echo "    Aplicando el plugin x..."
+              echo ""
+              vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols x > "$cCarpetaDondeGuardar"/tab/x.tab
 
+            # x (x)
+              echo ""
+              echo "    Aplicando el plugin x..."
+              echo ""
+              vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols x > "$cCarpetaDondeGuardar"/tab/x.tab
 
 linux.pagecache.Files → Recupera archivos almacenados en el page cache.
 linux.pagecache.InodePages → Lista inodos en el page cache.
@@ -604,17 +545,24 @@ linux.pidhashtable.PIDHashTable → Lista procesos a partir de la PID hash table
 
           # Parsear datos
 
-            # windows.devicetree (Listing tree based on drivers and attached devices in a particular windows memory image)
+            # x (x)
               echo ""
-              echo "    Aplicando el plugin windows.devicetree..."
+              echo "    Aplicando el plugin x..."
               echo ""
-              vol -f "$cRutaAlArchivoDeDump" windows.devicetree | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.devicetree.tab
+              vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols x > "$cCarpetaDondeGuardar"/tab/x.tab
 
-            # windows.ssdt (Lists the system call table)
+            # x (x)
               echo ""
-              echo "    Aplicando el plugin windows.ssdt..."
+              echo "    Aplicando el plugin x..."
               echo ""
-              vol -f "$cRutaAlArchivoDeDump" windows.ssdt | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.ssdt.tab
+              vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols x > "$cCarpetaDondeGuardar"/tab/x.tab
+
+            # x (x)
+              echo ""
+              echo "    Aplicando el plugin x..."
+              echo ""
+              vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols x > "$cCarpetaDondeGuardar"/tab/x.tab
+
 
 linux.elfs.Elfs → Localiza y extrae binarios ELF de memoria.
 linux.envars.Envars → Extrae variables de entorno de procesos.
@@ -636,372 +584,12 @@ linux.lsof.Lsof → Lista archivos abiertos por procesos.
 
           # Parsear datos
 
-            # windows.amcache (Extract information on executed applications from the AmCache)
+            # x (x)
               echo ""
-              echo "    Aplicando el plugin windows.amcache..."
+              echo "    Aplicando el plugin x..."
               echo ""
-              vol -f "$cRutaAlArchivoDeDump" windows.amcache | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.amcache.tab
+              vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols x > "$cCarpetaDondeGuardar"/tab/x.tab
 
-            # windows.bigpools (List big page pools)
-              # Argumentos:
-              #   --tags TAGS - Comma separated list of pool tags to filter pools returned
-              #   --show-free - Show freed regions (otherwise only show allocations in use)
-              echo ""
-              echo "    Aplicando el plugin windows.bigpools..."
-              echo ""
-              # En uso
-                vol -f "$cRutaAlArchivoDeDump" windows.bigpools             | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.bigpools-enuso.tab
-              # En uso y libres
-                vol -f "$cRutaAlArchivoDeDump" windows.bigpools --show-free | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.bigpools-enusoylibres.tab
-
-            # windows.callbacks (Lists kernel callbacks and notification routines)
-              echo ""
-              echo "    Aplicando el plugin windows.callbacks..."
-              echo ""
-              vol -f "$cRutaAlArchivoDeDump" windows.callbacks | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.callbacks.tab
-
-            # windows.crashinfo (Lists the information from a Windows crash dump)
-              echo ""
-              echo "    Aplicando el plugin windows.crashinfo..."
-              echo ""
-              vol -f "$cRutaAlArchivoDeDump" windows.crashinfo | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.crashinfo.tab
-
-            # windows.debugregisters ()
-              echo ""
-              echo "    Aplicando el plugin windows.debugregisters..."
-              echo ""
-              vol -f "$cRutaAlArchivoDeDump" windows.debugregisters | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.debugregisters.tab
-
-            # windows.dlllist (Lists the loaded modules in a particular windows memory image)
-              # Argumentos:
-              #   --pid [PID ...] - Process IDs to include (all other processes are excluded)
-              #   --offset OFFSET - Process offset in the physical address space
-              #   --name NAME     - Specify a regular expression to match dll name(s)
-              #   --base BASE     - Specify a base virtual address in process memory
-              #   --ignore-case   - Specify case insensitivity for the regular expression name matching
-              #   --dump          - Extract listed DLLs
-              echo ""
-              echo "    Aplicando el plugin windows.dlllist..."
-              echo ""
-              vol -f "$cRutaAlArchivoDeDump" windows.dlllist | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.dlllist.tab
-              #vol -f "$cRutaAlArchivoDeDump" windows.dlllist ‑‑pid "<PID>"
-
-            # windows.driverirp (List IRPs for drivers in a particular windows memory image)
-              echo ""
-              echo "    Aplicando el plugin windows.driverirp..."
-              echo ""
-              vol -f "$cRutaAlArchivoDeDump" windows.driverirp | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.driverirp.tab
-
-            # windows.drivermodule (Determines if any loaded drivers were hidden by a rootkit)
-              echo ""
-              echo "    Aplicando el plugin windows.drivermodule..."
-              echo ""
-              vol -f "$cRutaAlArchivoDeDump" windows.drivermodule | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.drivermodule.tab
-
-            # windows.driverscan (Scans for drivers present in a particular windows memory image)
-              echo ""
-              echo "    Aplicando el plugin windows.driverscan..."
-              echo ""
-              vol -f "$cRutaAlArchivoDeDump" windows.driverscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.driverscan.tab
-
-            # windows.getservicesids (Lists process token sids)
-              echo ""
-              echo "    Aplicando el plugin windows.getservicesids..."
-              echo ""
-              vol -f "$cRutaAlArchivoDeDump" windows.getservicesids | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.getservicesids.tab
-
-            # windows.iat (Extract Import Address Table to list API (functions) used by a program contained in external libraries)
-              # Argumentos:
-              #   --pid [PID ...] - Process IDs to include (all other processes are excluded)
-              echo ""
-              echo "    Aplicando el plugin windows.iat..."
-              echo ""
-              vol -f "$cRutaAlArchivoDeDump" windows.iat | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.iat.tab
-
-            # windows.kpcrs (Print KPCR structure for each processor)
-              echo ""
-              echo "    Aplicando el plugin windows.kpcrs..."
-              echo ""
-              vol -f "$cRutaAlArchivoDeDump" windows.kpcrs | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.kpcrs.tab
-
-            # windows.ldrmodules (Lists the loaded modules in a particular windows memory image)
-              # Argumentos:
-              #   --pid [PID ...] - Process IDs to include (all other processes are excluded)
-              echo ""
-              echo "    Aplicando el plugin windows.ldrmodules..."
-              echo ""
-              vol -f "$cRutaAlArchivoDeDump" windows.ldrmodules | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.ldrmodules.tab
-
-            # windows.malfind (Lists process memory ranges that potentially contain injected code)
-              echo ""
-              echo "    Aplicando el plugin windows.malfind..."
-              echo ""
-              vol -f "$cRutaAlArchivoDeDump" windows.malfind | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.malfind.tab
-
-            # windows.memmap (Prints the memory map)
-              # Argumentos:
-              #   --pid PID - Process ID to include (all other processes are excluded)
-              #   --dump    - Extract listed memory segments
-              echo ""
-              echo "    Aplicando el plugin windows.memmap..."
-              echo ""
-              #vol -f "$cRutaAlArchivoDeDump" windows.memmap | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.memmap.tab
-              #vol -f "$cRutaAlArchivoDeDump" -o "/path/to/dir" windows.memmap ‑‑dump ‑‑pid "<PID>"
-
-            # windows.modscan (Scans for modules present in a particular windows memory image)
-              # Argumentos:
-              #   --dump      - Extract listed modules
-              #   --base BASE - Extract a single module with BASE address
-              #   --name NAME - module name/sub string
-              echo ""
-              echo "    Aplicando el plugin windows.modscan..."
-              echo ""
-              vol -f "$cRutaAlArchivoDeDump" windows.modscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.modscan.tab
-
-            # windows.modules (Lists the loaded kernel modules)
-              # Argumentos:
-              #   --dump      - Extract listed modules
-              #   --base BASE - Extract a single module with BASE address
-              #   --name NAME - module name/sub string
-              echo ""
-              echo "    Aplicando el plugin windows.modules..."
-              echo ""
-              vol -f "$cRutaAlArchivoDeDump" windows.modules | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.modules.tab
-
-            # windows.mutantscan (Scans for mutexes present in a particular windows memory image)
-              echo ""
-              echo "    Aplicando el plugin windows.mutantscan..."
-              echo ""
-              vol -f "$cRutaAlArchivoDeDump" windows.mutantscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.mutantscan.tab
-
-            # windows.orphan_kernel_threads (Lists process threads)
-              echo ""
-              echo "    Aplicando el plugin windows.orphan_kernel_threads..."
-              echo ""
-              vol -f "$cRutaAlArchivoDeDump" windows.orphan_kernel_threads | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.orphan_kernel_threads.tab
-
-            # windows.pe_symbols (Prints symbols in PE files in process and kernel memory)
-              # Argumentos:
-              #   --source {kernel,processes} - Where to resolve symbols.
-              #   --module MODULE             - Module in which to resolve symbols. Use "ntoskrnl.exe" to resolve in the base kernel executable.
-              #   --symbols [SYMBOLS ...]     - Symbol name to resolve
-              #   --addresses [ADDRESSES ...] - Address of symbol to resolve
-              echo ""
-              echo "    Aplicando el plugin windows.pe_symbols..."
-              echo ""
-              vol -f "$cRutaAlArchivoDeDump" windows.pe_symbols | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.pe_symbols.tab
-
-            # windows.pedump (Allows extracting PE Files from a specific address in a specific address space)
-              # Argumentos:
-              #   --pid [PID ...] - Process IDs to include (all other processes are excluded)
-              #   --base BASE     - Base address to reconstruct a PE file
-              #   --kernel-module - Extract from kernel address space.
-              echo ""
-              echo "    Aplicando el plugin windows.pedump..."
-              echo ""
-              vol -f "$cRutaAlArchivoDeDump" windows.pedump | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.pedump.tab
-
-            # windows.poolscanner (A generic pool scanner plugin)
-              echo ""
-              echo "    Aplicando el plugin windows.poolscanner..."
-              echo ""
-              vol -f "$cRutaAlArchivoDeDump" windows.poolscanner | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.poolscanner.tab
-
-            # windows.privileges (Lists process token privileges)
-              # Argumentos:
-              #   --pid [PID ...] - Filter on specific process IDs
-              echo ""
-              echo "    Aplicando el plugin windows.privileges..."
-              echo ""
-              vol -f "$cRutaAlArchivoDeDump" windows.privileges | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.privileges.tab
-
-            # windows.sessions (lists Processes with Session information extracted from Environmental Variables)
-              # Argumentos:
-              #   --pid [PID ...] - Process IDs to include (all other processes are excluded)
-              echo ""
-              echo "    Aplicando el plugin windows.sessions..."
-              echo ""
-              vol -f "$cRutaAlArchivoDeDump" windows.sessions | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.sessions.tab
-
-            # windows.shimcachemem (Reads Shimcache entries from the ahcache.sys AVL tree)
-              echo ""
-              echo "    Aplicando el plugin windows.shimcachemem..."
-              echo ""
-              vol -f "$cRutaAlArchivoDeDump" windows.shimcachemem | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.shimcachemem.tab
-
-            # windows.skeleton_key_check (Looks for signs of Skeleton Key malware)
-              echo ""
-              echo "    Aplicando el plugin windows.skeleton_key_check..."
-              echo ""
-              vol -f "$cRutaAlArchivoDeDump" windows.skeleton_key_check | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.skeleton_key_check.tab
-
-            # windows.statistics (Lists statistics about the memory space)
-              echo ""
-              echo "    Aplicando el plugin windows.statistics..."
-              echo ""
-              vol -f "$cRutaAlArchivoDeDump" windows.statistics | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.statistics.tab
-
-            # windows.suspicious_threads (Lists suspicious userland process threads)
-              # Argumentos:
-              #   --pid [PID ...] - Filter on specific process IDs
-              echo ""
-              echo "    Aplicando el plugin windows.suspicious_threads..."
-              echo ""
-              vol -f "$cRutaAlArchivoDeDump" windows.suspicious_threads | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.suspicious_threads.tab
-
-            # windows.svcdiff (Compares services found through list walking versus scanning to find rootkits)
-              echo ""
-              echo "    Aplicando el plugin windows.svcdiff..."
-              echo ""
-              vol -f "$cRutaAlArchivoDeDump" windows.svcdiff | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.svcdiff.tab
-
-            # windows.svclist (Lists services contained with the services.exe doubly linked list of services)
-              echo ""
-              echo "    Aplicando el plugin windows.svclist..."
-              echo ""
-              vol -f "$cRutaAlArchivoDeDump" windows.svclist | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.svclist.tab
-
-            # windows.svcscan (Scans for windows services)
-              echo ""
-              echo "    Aplicando el plugin windows.svcscan..."
-              echo ""
-              vol -f "$cRutaAlArchivoDeDump" windows.svcscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.svcscan.tab
-
-            # windows.symlinkscan (Scans for links present in a particular windows memory image)
-              echo ""
-              echo "    Aplicando el plugin windows.symlinkscan..."
-              echo ""
-              vol -f "$cRutaAlArchivoDeDump" windows.symlinkscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.symlinkscan.tab
-
-            # windows.thrdscan (Scans for windows threads)
-              echo ""
-              echo "    Aplicando el plugin windows.thrdscan..."
-              echo ""
-              vol -f "$cRutaAlArchivoDeDump" windows.thrdscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.thrdscan.tab
-
-            # windows.timers (Print kernel timers and associated module DPCs)
-              echo ""
-              echo "    Aplicando el plugin windows.timers..."
-              echo ""
-              vol -f "$cRutaAlArchivoDeDump" windows.timers | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.timers.tab
-
-            # windows.truecrypt (TrueCrypt Cached Passphrase Finder)
-              # Argumentos:
-              #   --min-length MIN-LENGTH - Minimum length of passphrases to identify
-              echo ""
-              echo "    Aplicando el plugin windows.truecrypt..."
-              echo ""
-              vol -f "$cRutaAlArchivoDeDump" windows.truecrypt | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.truecrypt.tab
-
-            # windows.unhooked_system_calls (Looks for signs of Skeleton Key malware)
-              echo ""
-              echo "    Aplicando el plugin windows.unhooked_system_calls..."
-              echo ""
-              vol -f "$cRutaAlArchivoDeDump" windows.unhooked_system_calls | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.unhooked_system_calls.tab
-
-            # windows.unloadedmodules (Lists the unloaded kernel modules)
-              echo ""
-              echo "    Aplicando el plugin windows.unloadedmodules..."
-              echo ""
-              vol -f "$cRutaAlArchivoDeDump" windows.unloadedmodules | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.unloadedmodules.tab
-
-            # windows.vadinfo (Lists process memory ranges)
-              # Argumentos:
-              #   --address ADDRESS - Process virtual memory address to include (all other address ranges are excluded).
-              #   --pid [PID ...]   - Filter on specific process IDs
-              #   --dump            - Extract listed memory ranges
-              #   --maxsize MAXSIZE - Maximum size for dumped VAD sections (all the bigger sections will be ignored)
-              echo ""
-              echo "    Aplicando el plugin windows.vadinfo..."
-              echo ""
-              vol -f "$cRutaAlArchivoDeDump" windows.vadinfo | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.vadinfo.tab
-
-            # windows.vadregexscan (Scans all virtual memory areas for tasks using RegEx)
-              # Argumentos:
-              #   --pid [PID ...]   - Filter on specific process IDs
-              #   --pattern PATTERN - RegEx pattern
-              #   --maxsize MAXSIZE - Maximum size in bytes for displayed context
-              echo ""
-              echo "    Aplicando el plugin windows.vadregexscan..."
-              echo ""
-              vol -f "$cRutaAlArchivoDeDump" windows.vadregexscan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.vadregexscan.tab
-
-            # windows.vadwalk (Walk the VAD tree)
-              # Argumentos:
-              #   --pid [PID ...] - Process IDs to include (all other processes are excluded)
-              echo ""
-              echo "    Aplicando el plugin windows.vadwalk..."
-              echo ""
-              vol -f "$cRutaAlArchivoDeDump" windows.vadwalk | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.vadwalk.tab
-
-            # windows.verinfo (Lists version information from PE files)
-              # Argumenots:
-              #   --extensive - Search physical layer for version information
-              echo ""
-              echo "    Aplicando el plugin windows.verinfo..."
-              echo ""
-              # Normal
-                vol -f "$cRutaAlArchivoDeDump" windows.verinfo             | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.verinfo-normal.tab
-              # Extensivo
-                vol -f "$cRutaAlArchivoDeDump" windows.verinfo --extensive | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.verinfo-extensivo.tab
-
-            # windows.virtmap (Lists virtual mapped sections)
-              echo ""
-              echo "    Aplicando el plugin windows.virtmap..."
-              echo ""
-              vol -f "$cRutaAlArchivoDeDump" windows.virtmap | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.virtmap.tab
-
-            # windows.vadyarascan (Scans all the Virtual Address Descriptor memory maps using yara)
-              # Argumentos:
-              #   --insensitive                           - Makes the search case insensitive
-              #   --wide                                  - Match wide (unicode) strings
-              #   --yara-string YARA_STRING               - Yara rules (as a string)
-              #   --yara-file YARA_FILE                   - Yara rules (as a file)
-              #   --yara-compiled-file YARA_COMPILED_FILE - Yara compiled rules (as a file)
-              #   --max-size MAX_SIZE                     - Set the maximum size (default is 1GB)
-              #   --pid [PID ...]                         - Process IDs to include (all other processes are excluded)
-              #
-              # Notas: Este módulo nos permite buscar cadenas dentro de un proceso, de esta forma:
-              # vol -f file.dmp windows.vadyarascan.VadYaraScan --yara-rules "https://" --pid 3692 3840 3976 3312 3084 2784
-              echo ""
-              echo "    Aplicando el plugin windows.vadyarascan..."
-              echo ""
-              vol -f "$cRutaAlArchivoDeDump" windows.vadyarascan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/windows.vadyarascan.tab
-
-            # No windows
-
-              # isinfo (Determines information about the currently available ISF files, or a specific one)
-                # Argumentos:
-                #   --filter [FILTER ...] - String that must be present in the file URI to display the ISF
-                #   --isf ISF             - Specific ISF file to process
-                #   --validate            - Validate against schema if possible
-                #   --live                - Traverse all files, rather than use the cache
-                echo ""
-                echo "    Aplicando el plugin isinfo..."
-                echo ""
-                vol -f "$cRutaAlArchivoDeDump" isfinfo | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/isfinfo.tab
-
-              # layerwriter (Runs the automagics and writes out the primary layer produced by the stacker)
-                # Argumentos:
-                #   --block-size BLOCK_SIZE - Size of blocks to copy over
-                #   --list                  - List available layers
-                #   --layers [LAYERS ...]   - Names of layers to write (defaults to the highest non-mapped layer)
-                echo ""
-                echo "    Aplicando el plugin layerwriter..."
-                echo ""
-                mkdir -p "$cCarpetaDondeGuardar"/tab/MemoryLayer/
-                cd "$cCarpetaDondeGuardar"/tab/MemoryLayer/
-                vol -f "$cRutaAlArchivoDeDump" layerwriter
-                cd ~/repos/python/volatility3
-
-              # regexscan.RegExScan (Scans kernel memory using RegEx patterns)
-                # Argumentos:
-                #   --pattern PATTERN - RegEx pattern
-                #   --maxsize MAXSIZE - Maximum size in bytes for displayed context
-                echo ""
-                echo "    Aplicando el plugin regexscan.RegExScan..."
-                echo ""
-                vol -f "$cRutaAlArchivoDeDump" regexscan.RegExScan | grep -v "Volatility 3" > "$cCarpetaDondeGuardar"/tab/regexscan.RegExScan.tab
 
 
 
