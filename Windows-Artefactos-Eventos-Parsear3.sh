@@ -566,6 +566,15 @@ if [ $# -ne $cCantParamEsperados ]
               # Agregar etiqueta raíz
                 sed -i '1i\<Events>' "$vCarpetaDondeGuardar"/TimeLineDeTodosLosEventos.xml # Agrega la apertura de la etiqueta raiz en la primera linea
                 echo '</Events>' >>  "$vCarpetaDondeGuardar"/TimeLineDeTodosLosEventos.xml # Agrega el cierre de la etiqueta raíz en una nueva linea al final del archivo
+              # Vaciar los atributos de la etiqueta Event
+                sed -i 's/<Event .*>/<Event>/g' "$vCarpetaDondeGuardar"/TimeLineDeTodosLosEventos.xml
+              # Vaciar los atributos de la etiqueta EventXML
+                sed -i 's/<EventXML .*>/<EventXML>/g' "$vCarpetaDondeGuardar"/TimeLineDeTodosLosEventos.xml
+              # Vaciar los atributos de la etiqueta EventData
+                sed -i 's/<EventData .*>/<EventData>/g' "$vCarpetaDondeGuardar"/TimeLineDeTodosLosEventos.xml
+              # Extraer sólo las lineas que contengan commandline y cmd
+                cat "$vCarpetaDondeGuardar"/TimeLineDeTodosLosEventos.xml | grep -v 'CommandLine=</Data>' | grep -v '<Data Name="CommandLine"/>' | grep -iE "commandline|cmd" > "$vCarpetaDondeGuardar"/CommandLine.txt
+
             ;;
 
            13)
