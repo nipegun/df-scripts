@@ -133,12 +133,15 @@
                 echo 'echo -e "      Obtener info de windows:\n"'                                 >> ~/repos/python/volatility3/venv/bin/activate
                 echo 'echo -e "        vol -vvv -f $HOME/Descargas/Evidencia.raw windows.info\n"' >> ~/repos/python/volatility3/venv/bin/activate
                 echo 'echo -e "      Obtener info de linux:\n"'                                   >> ~/repos/python/volatility3/venv/bin/activate
-                echo 'echo -e "        vol -vvv -f $HOME/Descargas/Evidencia.raw linux.banner\n"'   >> ~/repos/python/volatility3/venv/bin/activate
+                echo 'echo -e "        vol -vvv -f $HOME/Descargas/Evidencia.raw linux.banner\n"' >> ~/repos/python/volatility3/venv/bin/activate
               # Instalar symbols
+                echo ""
+                echo "  Descargando símbolos..."
+                echo ""
                 # Comprobar si el paquete unzip está instalado. Si no lo está, instalarlo.
                   if [[ $(dpkg-query -s unzip 2>/dev/null | grep installed) == "" ]]; then
                     echo ""
-                    echo -e "${cColorRojo}  El paquete unzip no está instalado. Iniciando su instalación...${cFinColor}"
+                    echo -e "${cColorRojo}    El paquete unzip no está instalado. Iniciando su instalación...${cFinColor}"
                     echo ""
                     sudo apt-get -y update
                     sudo apt-get -y install unzip
@@ -164,11 +167,11 @@
                 python3 -m pip install ipython
                 python3 -m pip install capstone
                 python3 -m pip install yara-python
-                python3 -m pip install .
               # Salir del entorno virtual
                 deactivate
-              # Instalar símbolos
+              # Copiar símbolos a la carpeta donde Volatility3 los va a buscar
                 vCarpetaPython=$(ls ~/repos/python/volatility3/venv/lib/)
+                mkdir -p ~/repos/python/volatility3/venv/lib/"$vCarpetaPython"/site-packages/volatility3/symbols/
                 cp -rfv ~/repos/python/volatility3/volatility3/symbols/* ~/repos/python/volatility3/venv/lib/"$vCarpetaPython"/site-packages/volatility3/symbols/
               # Notificar fin de instalación en el entorno virtual
                 echo ""
@@ -191,27 +194,27 @@
               echo ""
 
               # Instalar paquetes necesarios
-                sudo apt install -y build-essential
-                sudo apt install -y git
-                sudo apt install -y libraw1394-11
-                sudo apt install -y libcapstone-dev
-                sudo apt install -y capstone-tool
-                sudo apt install -y tzdata
-                sudo apt install -y python3
-                sudo apt install -y python3-dev
-                sudo apt install -y libpython3-dev
-                sudo apt install -y python3-pip
-                sudo apt install -y python3-setuptools
-                sudo apt install -y python3-wheel
-                sudo apt install -y python3-distorm3
-                sudo apt install -y python3-yara
-                sudo apt install -y python3-pillow
-                sudo apt install -y python3-openpyxl
-                sudo apt install -y python3-ujson
-                sudo apt install -y python3-ipython
-                sudo apt install -y python3-capstone
-                sudo apt install -y python3-pycryptodome          # Anterior pycrypto
-                sudo apt install -y python3-pytz-deprecation-shim # Anterior python3-pytz
+                sudo apt-get -y install build-essential
+                sudo apt-get -y install git
+                sudo apt-get -y install libraw1394-11
+                sudo apt-get -y install libcapstone-dev
+                sudo apt-get -y install capstone-tool
+                sudo apt-get -y install tzdata
+                sudo apt-get -y install python3
+                sudo apt-get -y install python3-dev
+                sudo apt-get -y install libpython3-dev
+                sudo apt-get -y install python3-pip
+                sudo apt-get -y install python3-setuptools
+                sudo apt-get -y install python3-wheel
+                sudo apt-get -y install python3-distorm3
+                sudo apt-get -y install python3-yara
+                sudo apt-get -y install python3-pillow
+                sudo apt-get -y install python3-openpyxl
+                sudo apt-get -y install python3-ujson
+                sudo apt-get -y install python3-ipython
+                sudo apt-get -y install python3-capstone
+                sudo apt-get -y install python3-pycryptodome          # Anterior pycrypto
+                sudo apt-get -y install python3-pytz-deprecation-shim # Anterior python3-pytz
                 # python3 -m pip install -U pycrypto pytz
 
               # Entrar en el entorno virtual
@@ -231,6 +234,7 @@
                 python3 -m pip install pyinstaller
                 
                 pyinstaller --onefile --collect-all=volatility3 vol.py
+                #pyinstaller --onefile vol.spec
                 pyinstaller --onefile --collect-all=volatility3 volshell.py
 
              # Desactivar el entorno virtual
@@ -238,8 +242,8 @@
 
               # Mover el binario a la carpeta de binarios del usuario
                 mkdir -p ~/bin/
-                cp ~/repos/python/volatility3/dist/vol      ~/bin/volatility3
-                cp ~/repos/python/volatility3/dist/volshell ~/bin/volatility3shell
+                cp -vf ~/repos/python/volatility3/dist/vol      ~/bin/volatility3
+                cp -vf ~/repos/python/volatility3/dist/volshell ~/bin/volatility3shell
 
               # Notificar fin de ejecución del script
                 echo ""
