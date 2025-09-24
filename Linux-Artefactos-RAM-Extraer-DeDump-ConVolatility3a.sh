@@ -112,13 +112,28 @@
         1)
 
           echo ""
-          echo "  Obteniendo la versión del kernel..."
+          echo "  Obteniendo la versión del kernel de la imagen..."
           echo ""
-          vVersKernel=$(vol -q -f "$cRutaAlArchivoDeDump" banners.Banners | sed 's-Linux version -\n-g' | grep gcc | cut -d' ' -f1 | tail -n1)
-          vVersKernel=$(vol -q -f '/home/nipegun/Descargas/The_Tunnel_Without_Walls/memdump.mem' banners.Banners | sed 's-Linux version -\n-g' | grep gcc | cut -d' ' -f1 | tail -n1)
-          echo "$vVersKernel"
-          curl -sL https://raw.githubusercontent.com/Abyss-W4tcher/volatility3-symbols/refs/heads/master/Debian/amd64/5.10.0/35/Debian_5.10.0-35-amd64_5.10.237-1_amd64.json.xz -o \
-            ~/repos/python/volatility3/volatility3/symbols/linux/Debian_5.10.0-35-amd64.json.xz
+          # Entrar en el entorno virtual de volatility
+            source ~/repos/python/volatility3/venv/bin/activate
+          # Guardar en una variable la versión del kernel
+            vVersKernel=$($HOME/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" banners.Banners | sed 's-Linux version -\n-g' | grep gcc | cut -d' ' -f1 | tail -n1)
+            echo "    La versión del kernel detectada en la iamgen es $vVersKernel"
+          # Desgranar la variable y guardar en subdatos
+            vKernelArch="$(echo $vVersKernel | rev | cut -d- -f1 | rev)"
+            vKernelRama="$(echo $vVersKernel | cut -d'-' -f1)"
+            vKernelSubRama="$(echo $vVersKernel | cut -d'-' -f2)"
+          # Descargar archivo de símbolos para la imagen detectada
+            vArchivoADescargar=$(curl -sL "https://api.github.com/repos/Abyss-W4tcher/volatility3-symbols/contents/Debian/$vKernelArch/$vKernelRama/$vKernelSubRama" | grep -oP '"name":\s*"[^"]+\.json.xz"' | head -n1 | cut -d'"' -f4)
+            echo ""
+            echo "    Descargando el archivo $vArchivoADescargar..."
+            echo ""
+            cd ~/repos/python/volatility3/volatility3/symbols/linux/
+            wget https://raw.githubusercontent.com/Abyss-W4tcher/volatility3-symbols/refs/heads/master/Debian/"$vKernelArch"/"$vKernelRama"/"$vKernelSubRama"/"$vArchivoADescargar"
+            cd ~
+          # Salir del entorno virtual
+            deactivate
+
         ;;
 
         2)
@@ -184,6 +199,7 @@
               echo "    Aplicando el plugin linux.proc.Maps..."
               echo ""
               vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.proc.Maps > "$cCarpetaDondeGuardar"/tab/linux.proc.Maps.tab
+              vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.proc.Maps --pid 38825 > "$cCarpetaDondeGuardar"/tab/linux.proc.Maps-PID38825.tab
 
             # linux.ptrace.Ptrace (Enumera procesos que usan/reciben ptrace)
               echo ""
@@ -269,17 +285,24 @@
               echo ""
               vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.lsmod.Lsmod > "$cCarpetaDondeGuardar"/tab/linux.lsmod.Lsmod.tab
 
-            # linux.malware.hidden_modules.Hidden_modules (Detecta módulos ocultos en memoria (rootkits))
-              echo ""
-              echo "    Aplicando el plugin linux.malware.hidden_modules.Hidden_modules..."
-              echo ""
-              vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.malware.hidden_modules.Hidden_modules > "$cCarpetaDondeGuardar"/tab/linux.malware.hidden_modules.Hidden_modules.tab
-
             # linux.library_list.LibraryList (Extrae librerías cargadas por procesos)
               echo ""
               echo "    Aplicando el plugin linux.library_list.LibraryList..."
               echo ""
               vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.library_list.LibraryList > "$cCarpetaDondeGuardar"/tab/linux.library_list.LibraryList.tab
+
+
+            # linux.malware.modxview.Modxview (Detecta módulos que intentan ocultarse de la lista oficial)
+              echo ""
+              echo "    Aplicando el plugin linux.malware.modxview.Modxview..."
+              echo ""
+              vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.malware.modxview.Modxview > "$cCarpetaDondeGuardar"/tab/linux.malware.modxview.Modxview.tab
+
+            # linux.malware.hidden_modules.Hidden_modules (Detecta módulos ocultos en memoria (rootkits))
+              echo ""
+              echo "    Aplicando el plugin linux.malware.hidden_modules.Hidden_modules..."
+              echo ""
+              vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.malware.hidden_modules.Hidden_modules > "$cCarpetaDondeGuardar"/tab/linux.malware.hidden_modules.Hidden_modules.tab
 
      *       # linux.module_extract.ModuleExtract (Extrae módulos del kernel desde memoria)
               echo ""
@@ -287,11 +310,8 @@
               echo ""
               vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.module_extract.ModuleExtract --base > "$cCarpetaDondeGuardar"/modules/
 
-            # linux.malware.modxview.Modxview (Detecta módulos que intentan ocultarse de la lista oficial)
-              echo ""
-              echo "    Aplicando el plugin linux.malware.modxview.Modxview..."
-              echo ""
-              vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.malware.modxview.Modxview > "$cCarpetaDondeGuardar"/tab/linux.malware.modxview.Modxview.tab
+
+
 
             # linux.malware.malfind.Malfind (Busca regiones de memoria sospechosas (ejecución inyectada))
               echo ""
@@ -305,11 +325,13 @@
               echo ""
               vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.malware.keyboard_notifiers.Keyboard_notifiers > "$cCarpetaDondeGuardar"/tab/linux.malware.keyboard_notifiers.Keyboard_notifiers.tab
 
+
             # linux.malware.netfilter.Netfilter (Busca hooks en Netfilter usados para ocultar tráfico)
               echo ""
               echo "    Aplicando el plugin linux.malware.netfilter.Netfilter..."
               echo ""
               vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.malware.netfilter.Netfilter > "$cCarpetaDondeGuardar"/tab/linux.malware.netfilter.Netfilter.tab
+
 
             # linux.malware.tty_check.Tty_Check (Busca alteraciones sospechosas en TTYs)
               echo ""
@@ -317,11 +339,13 @@
               echo ""
               vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.malware.tty_check.Tty_Check > "$cCarpetaDondeGuardar"/tab/linux.malware.tty_check.Tty_Check.tab
 
+
             # linux.ip.Addr (Lista direcciones IP asociadas a interfaces de red)
               echo ""
               echo "    Aplicando el plugin linux.ip.Addr..."
               echo ""
               vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.ip.Addr > "$cCarpetaDondeGuardar"/tab/linux.ip.Addr.tab
+
 
             # linux.ip.Link (Lista interfaces de red)
               echo ""
@@ -329,11 +353,13 @@
               echo ""
               vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.ip.Link > "$cCarpetaDondeGuardar"/tab/linux.ip.Link.tab
 
+
             # linux.malware.netfilter.Netfilter (Lista hooks de Netfilter)
               echo ""
               echo "    Aplicando el plugin linux.malware.netfilter.Netfilter..."
               echo ""
               vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.malware.netfilter.Netfilter > "$cCarpetaDondeGuardar"/tab/linux.malware.netfilter.Netfilter.tab
+
 
             # linux.sockstat.Sockstat (Extrae información de sockets en memoria)
               echo ""
@@ -341,11 +367,13 @@
               echo ""
               vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.sockstat.Sockstat > "$cCarpetaDondeGuardar"/tab/linux.sockstat.Sockstat.tab
 
+
             # linux.pagecache.Files (Recupera archivos almacenados en el page cache)
               echo ""
               echo "    Aplicando el plugin linux.pagecache.Files..."
               echo ""
               vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.pagecache.Files > "$cCarpetaDondeGuardar"/tab/linux.pagecache.Files.tab
+
 
 *            # linux.pagecache.InodePages (Lista inodos en el page cache)
               echo ""
@@ -354,11 +382,13 @@
               vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.pagecache.InodePages --inode x
               vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.pagecache.InodePages --find x
 
+
             # linux.pagecache.RecoverFs (Intenta recuperar un sistema de ficheros a partir de page cache)
               echo ""
               echo "    Aplicando el plugin linux.pagecache.RecoverFs..."
               echo ""
               vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.pagecache.RecoverFs > "$cCarpetaDondeGuardar"/tab/linux.pagecache.RecoverFs.tab
+
 
             # linux.pidhashtable.PIDHashTable (Lista procesos a partir de la PID hash table)
               echo ""
@@ -366,11 +396,13 @@
               echo ""
               vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.pidhashtable.PIDHashTable > "$cCarpetaDondeGuardar"/tab/linux.pidhashtable.PIDHashTable.tab
 
+
             # linux.elfs.Elfs (Localiza y extrae binarios ELF de memoria)
               echo ""
               echo "    Aplicando el plugin linux.elfs.Elfs..."
               echo ""
               vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.elfs.Elfs > "$cCarpetaDondeGuardar"/tab/linux.elfs.Elfs.tab
+
 
             # linux.envars.Envars (Extrae variables de entorno de procesos)
               echo ""
@@ -378,11 +410,13 @@
               echo ""
               vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.envars.Envars > "$cCarpetaDondeGuardar"/tab/linux.envars.Envars.tab
 
+
             # linux.lsof.Lsof (Lista archivos abiertos por procesos)
               echo ""
               echo "    Aplicando el plugin linux.lsof.Lsof..."
               echo ""
               vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.lsof.Lsof > "$cCarpetaDondeGuardar"/tab/linux.lsof.Lsof.tab
+
 
             # linux.graphics.fbdev.Fbdev (Extrae contenido de framebuffers (pantallas virtuales/consolas gráficas))
               echo ""
@@ -390,11 +424,13 @@
               echo ""
               vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.graphics.fbdev.Fbdev > "$cCarpetaDondeGuardar"/tab/linux.graphics.fbdev.Fbdev.tab
 
+
             # linux.iomem.IOMem (Muestra rangos de memoria I/O mapeados)
               echo ""
               echo "    Aplicando el plugin linux.iomem.IOMem..."
               echo ""
               vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.iomem.IOMem > "$cCarpetaDondeGuardar"/tab/linux.iomem.IOMem.tab
+
 
             # linux.mountinfo.MountInfo (Extrae info de montajes (/proc/<pid>/mountinfo)
               echo ""
@@ -402,11 +438,13 @@
               echo ""
               vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.mountinfo.MountInfo > "$cCarpetaDondeGuardar"/tab/linux.mountinfo.MountInfo.tab
 
+
             # linux.tracing.ftrace.CheckFtrace (Verifica integridad de ftrace)
               echo ""
               echo "    Aplicando el plugin linux.tracing.ftrace.CheckFtrace..."
               echo ""
               vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.tracing.ftrace.CheckFtrace > "$cCarpetaDondeGuardar"/tab/linux.tracing.ftrace.CheckFtrace.tab
+
 
             # linux.tracing.perf_events.PerfEvents (Lista eventos de perf)
               echo ""
@@ -414,11 +452,13 @@
               echo ""
               vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.tracing.perf_events.PerfEvents > "$cCarpetaDondeGuardar"/tab/linux.tracing.perf_events.PerfEvents.tab
 
+
             # linux.tracing.tracepoints.CheckTracepoints (Verifica tracepoints del kernel)
               echo ""
               echo "    Aplicando el plugin linux.tracing.tracepoints.CheckTracepoints..."
               echo ""
               vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.tracing.tracepoints.CheckTracepoints > "$cCarpetaDondeGuardar"/tab/linux.tracing.tracepoints.CheckTracepoints.tab
+
 
 *            # linux.vmaregexscan.VmaRegExScan (Escanea regiones de memoria con regex)
               echo ""
@@ -426,11 +466,13 @@
               echo ""
               vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.vmaregexscan.VmaRegExScan --patern x > "$cCarpetaDondeGuardar"/tab/linux.vmaregexscan.VmaRegExScan.tab
 
+
             # linux.vmayarascan.VmaYaraScan (Escanea memoria con reglas YARA)
               echo ""
               echo "    Aplicando el plugin linux.vmayarascan.VmaYaraScan..."
               echo ""
               vol -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.vmayarascan.VmaYaraScan > "$cCarpetaDondeGuardar"/tab/linux.vmayarascan.VmaYaraScan.tab
+
 
           # Salir del entorno virtual
             deactivate
