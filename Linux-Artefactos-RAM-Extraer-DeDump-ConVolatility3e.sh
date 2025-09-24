@@ -170,11 +170,28 @@ cCarpetaVolatility3="$HOME/repos/python/volatility3/"
             # Crear carpeta para los archivos tabulados
               mkdir -p "$cCarpetaDondeGuardar"/tab
 
+          # Otros
+
+            # linux.boottime.Boottime (Recupera la hora de arranque del sistema)
+              echo ""
+              echo "    Aplicando el plugin linux.boottime.Boottime..."
+              echo ""
+              "$HOME"/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.boottime.Boottime > "$cCarpetaDondeGuardar"/tab/linux.boottime.Boottime.tab
+
+            # linux.mountinfo.MountInfo (Extrae info de montajes (/proc/<pid>/mountinfo)
+              echo ""
+              echo "    Aplicando el plugin linux.mountinfo.MountInfo..."
+              echo ""
+              "$HOME"/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.mountinfo.MountInfo > "$cCarpetaDondeGuardar"/tab/linux.mountinfo.MountInfo.tab
+
             # linux.bash.Bash (Extrae el historial de comandos de procesos bash encontrados en memoria)
               echo ""
               echo "    Aplicando el plugin linux.bash.Bash..."
               echo ""
               "$HOME"/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.bash.Bash > "$cCarpetaDondeGuardar"/tab/linux.bash.Bash.tab
+
+
+          # Procesos
 
             # linux.psaux.PsAux (Lista procesos con sus argumentos de línea de comandos (ps aux))
               echo ""
@@ -219,23 +236,11 @@ cCarpetaVolatility3="$HOME/repos/python/volatility3/"
               echo ""
               "$HOME"/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.ptrace.Ptrace > "$cCarpetaDondeGuardar"/tab/linux.ptrace.Ptrace.tab
 
-            # linux.boottime.Boottime (Recupera la hora de arranque del sistema)
-              echo ""
-              echo "    Aplicando el plugin linux.boottime.Boottime..."
-              echo ""
-              "$HOME"/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.boottime.Boottime > "$cCarpetaDondeGuardar"/tab/linux.boottime.Boottime.tab
-
-            # linux.capabilities.Capabilities (Lista capacidades de seguridad asignadas a procesos (Linux capabilities)
+ *           # linux.capabilities.Capabilities (Lista capacidades de seguridad asignadas a procesos (Linux capabilities)
               echo ""
               echo "    Aplicando el plugin linux.capabilities.Capabilities..."
               echo ""
               "$HOME"/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.capabilities.Capabilities > "$cCarpetaDondeGuardar"/tab/linux.capabilities.Capabilities.tab
-
-            # linux.malware.check_afinfo.Check_afinfo (Revisa hooks de la tabla afinfo (posibles rootkits))
-              echo ""
-              echo "    Aplicando el plugin linux.malware.check_afinfo.Check_afinfo..."
-              echo ""
-              "$HOME"/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.malware.check_afinfo.Check_afinfo > "$cCarpetaDondeGuardar"/tab/linux.malware.check_afinfo.Check_afinfo.tab
 
             # linux.malware.check_creds.Check_creds (Valida estructuras de credenciales en procesos)
               echo ""
@@ -243,17 +248,25 @@ cCarpetaVolatility3="$HOME/repos/python/volatility3/"
               echo ""
               "$HOME"/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.malware.check_creds.Check_creds > "$cCarpetaDondeGuardar"/tab/linux.malware.check_creds.Check_creds.tab
 
+            # linux.pidhashtable.PIDHashTable (Lista procesos a partir de la PID hash table)
+              echo ""
+              echo "    Aplicando el plugin linux.pidhashtable.PIDHashTable..."
+              echo ""
+              "$HOME"/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.pidhashtable.PIDHashTable > "$cCarpetaDondeGuardar"/tab/linux.pidhashtable.PIDHashTable.tab
+
+          # Kernel
+
+            # linux.ebpf.EBPF (Lista programas eBPF cargados en el kernel)
+              echo ""
+              echo "    Aplicando el plugin linux.ebpf.EBPF..."
+              echo ""
+              "$HOME"/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.ebpf.EBPF > "$cCarpetaDondeGuardar"/tab/linux.ebpf.EBPF.tab
+
             # linux.malware.check_idt.Check_idt (Revisa la tabla de interrupciones del kernel (detectar hooks))
               echo ""
               echo "    Aplicando el plugin linux.malware.check_idt.Check_idt..."
               echo ""
               "$HOME"/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.malware.check_idt.Check_idt > "$cCarpetaDondeGuardar"/tab/linux.malware.check_idt.Check_idt.tab
-
-            # linux.malware.check_modules.Check_modules (Verifica lista de módulos cargados buscando incoherencias)
-              echo ""
-              echo "    Aplicando el plugin linux.malware.check_modules.Check_modules..."
-              echo ""
-              "$HOME"/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.malware.check_modules.Check_modules > "$cCarpetaDondeGuardar"/tab/linux.malware.check_modules.Check_modules.tab
 
             # linux.malware.check_syscall.Check_syscall (Inspecciona la tabla de syscalls buscando redirecciones sospechosas)
               echo ""
@@ -261,11 +274,11 @@ cCarpetaVolatility3="$HOME/repos/python/volatility3/"
               echo ""
               "$HOME"/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.malware.check_syscall.Check_syscall > "$cCarpetaDondeGuardar"/tab/linux.malware.check_syscall.Check_syscall.tab
 
-            # linux.ebpf.EBPF (Lista programas eBPF cargados en el kernel)
+            # linux.malware.check_afinfo.Check_afinfo (Revisa hooks de la tabla afinfo (posibles rootkits))
               echo ""
-              echo "    Aplicando el plugin linux.ebpf.EBPF..."
+              echo "    Aplicando el plugin linux.malware.check_afinfo.Check_afinfo..."
               echo ""
-              "$HOME"/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.ebpf.EBPF > "$cCarpetaDondeGuardar"/tab/linux.ebpf.EBPF.tab
+              "$HOME"/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.malware.check_afinfo.Check_afinfo > "$cCarpetaDondeGuardar"/tab/linux.malware.check_afinfo.Check_afinfo.tab
 
             # linux.kallsyms.Kallsyms (Extrae la tabla de símbolos del kernel (/proc/kallsyms))
               echo ""
@@ -285,17 +298,15 @@ cCarpetaVolatility3="$HOME/repos/python/volatility3/"
               echo ""
               "$HOME"/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.kthreads.Kthreads > "$cCarpetaDondeGuardar"/tab/linux.kthreads.Kthreads.tab
 
+           # 
+
             # linux.vmcoreinfo.VMCoreInfo (Muestra datos de la estructura vmcoreinfo)
               echo ""
               echo "    Aplicando el plugin linux.vmcoreinfo.VMCoreInfo..."
               echo ""
               "$HOME"/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.vmcoreinfo.VMCoreInfo > "$cCarpetaDondeGuardar"/tab/linux.vmcoreinfo.VMCoreInfo.tab
 
-            # linux.lsmod.Lsmod (Lista módulos cargados (similar a lsmod))
-              echo ""
-              echo "    Aplicando el plugin linux.lsmod.Lsmod..."
-              echo ""
-              "$HOME"/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.lsmod.Lsmod > "$cCarpetaDondeGuardar"/tab/linux.lsmod.Lsmod.tab
+          # Librerías
 
             # linux.library_list.LibraryList (Extrae librerías cargadas por procesos)
               echo ""
@@ -303,18 +314,31 @@ cCarpetaVolatility3="$HOME/repos/python/volatility3/"
               echo ""
               "$HOME"/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.library_list.LibraryList > "$cCarpetaDondeGuardar"/tab/linux.library_list.LibraryList.tab
 
+          # Módulos
 
-            # linux.malware.modxview.Modxview (Detecta módulos que intentan ocultarse de la lista oficial)
+            # linux.lsmod.Lsmod (Lista módulos cargados (similar a lsmod))
               echo ""
-              echo "    Aplicando el plugin linux.malware.modxview.Modxview..."
+              echo "    Aplicando el plugin linux.lsmod.Lsmod..."
               echo ""
-              "$HOME"/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.malware.modxview.Modxview > "$cCarpetaDondeGuardar"/tab/linux.malware.modxview.Modxview.tab
+              "$HOME"/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.lsmod.Lsmod > "$cCarpetaDondeGuardar"/tab/linux.lsmod.Lsmod.tab
+
+            # linux.malware.check_modules.Check_modules (Verifica lista de módulos cargados buscando incoherencias)
+              echo ""
+              echo "    Aplicando el plugin linux.malware.check_modules.Check_modules..."
+              echo ""
+              "$HOME"/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.malware.check_modules.Check_modules > "$cCarpetaDondeGuardar"/tab/linux.malware.check_modules.Check_modules.tab
 
             # linux.malware.hidden_modules.Hidden_modules (Detecta módulos ocultos en memoria (rootkits))
               echo ""
               echo "    Aplicando el plugin linux.malware.hidden_modules.Hidden_modules..."
               echo ""
               "$HOME"/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.malware.hidden_modules.Hidden_modules > "$cCarpetaDondeGuardar"/tab/linux.malware.hidden_modules.Hidden_modules.tab
+
+            # linux.malware.modxview.Modxview (Detecta módulos que intentan ocultarse de la lista oficial)
+              echo ""
+              echo "    Aplicando el plugin linux.malware.modxview.Modxview..."
+              echo ""
+              "$HOME"/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.malware.modxview.Modxview > "$cCarpetaDondeGuardar"/tab/linux.malware.modxview.Modxview.tab
 
      *       # linux.module_extract.ModuleExtract (Extrae módulos del kernel desde memoria)
               echo ""
@@ -323,7 +347,7 @@ cCarpetaVolatility3="$HOME/repos/python/volatility3/"
               "$HOME"/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.module_extract.ModuleExtract --base > "$cCarpetaDondeGuardar"/modules/
 
 
-
+          # Memoria
 
             # linux.malware.malfind.Malfind (Busca regiones de memoria sospechosas (ejecución inyectada))
               echo ""
@@ -331,19 +355,33 @@ cCarpetaVolatility3="$HOME/repos/python/volatility3/"
               echo ""
               "$HOME"/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.malware.malfind.Malfind > "$cCarpetaDondeGuardar"/tab/linux.malware.malfind.Malfind.tab
 
+            # linux.iomem.IOMem (Muestra rangos de memoria I/O mapeados)
+              echo ""
+              echo "    Aplicando el plugin linux.iomem.IOMem..."
+              echo ""
+              "$HOME"/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.iomem.IOMem > "$cCarpetaDondeGuardar"/tab/linux.iomem.IOMem.tab
+
+*            # linux.vmaregexscan.VmaRegExScan (Escanea regiones de memoria con regex)
+              echo ""
+              echo "    Aplicando el plugin linux.vmaregexscan.VmaRegExScan..."
+              echo ""
+              "$HOME"/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.vmaregexscan.VmaRegExScan --patern x > "$cCarpetaDondeGuardar"/tab/linux.vmaregexscan.VmaRegExScan.tab
+
+            # linux.vmayarascan.VmaYaraScan (Escanea memoria con reglas YARA)
+              echo ""
+              echo "    Aplicando el plugin linux.vmayarascan.VmaYaraScan..."
+              echo ""
+              "$HOME"/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.vmayarascan.VmaYaraScan > "$cCarpetaDondeGuardar"/tab/linux.vmayarascan.VmaYaraScan.tab
+
+          # Keyloggers
+
             # linux.malware.keyboard_notifiers.Keyboard_notifiers (Busca hooks de teclado sospechosos (keyloggers))
               echo ""
               echo "    Aplicando el plugin linux.malware.keyboard_notifiers.Keyboard_notifiers..."
               echo ""
               "$HOME"/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.malware.keyboard_notifiers.Keyboard_notifiers > "$cCarpetaDondeGuardar"/tab/linux.malware.keyboard_notifiers.Keyboard_notifiers.tab
 
-
-            # linux.malware.netfilter.Netfilter (Busca hooks en Netfilter usados para ocultar tráfico)
-              echo ""
-              echo "    Aplicando el plugin linux.malware.netfilter.Netfilter..."
-              echo ""
-              "$HOME"/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.malware.netfilter.Netfilter > "$cCarpetaDondeGuardar"/tab/linux.malware.netfilter.Netfilter.tab
-
+          # Terminal
 
             # linux.malware.tty_check.Tty_Check (Busca alteraciones sospechosas en TTYs)
               echo ""
@@ -351,6 +389,7 @@ cCarpetaVolatility3="$HOME/repos/python/volatility3/"
               echo ""
               "$HOME"/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.malware.tty_check.Tty_Check > "$cCarpetaDondeGuardar"/tab/linux.malware.tty_check.Tty_Check.tab
 
+          # Red
 
             # linux.ip.Addr (Lista direcciones IP asociadas a interfaces de red)
               echo ""
@@ -358,20 +397,17 @@ cCarpetaVolatility3="$HOME/repos/python/volatility3/"
               echo ""
               "$HOME"/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.ip.Addr > "$cCarpetaDondeGuardar"/tab/linux.ip.Addr.tab
 
-
             # linux.ip.Link (Lista interfaces de red)
               echo ""
               echo "    Aplicando el plugin linux.ip.Link..."
               echo ""
               "$HOME"/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.ip.Link > "$cCarpetaDondeGuardar"/tab/linux.ip.Link.tab
 
-
-            # linux.malware.netfilter.Netfilter (Lista hooks de Netfilter)
+            # linux.malware.netfilter.Netfilter (Busca hooks en Netfilter usados para ocultar tráfico)
               echo ""
               echo "    Aplicando el plugin linux.malware.netfilter.Netfilter..."
               echo ""
               "$HOME"/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.malware.netfilter.Netfilter > "$cCarpetaDondeGuardar"/tab/linux.malware.netfilter.Netfilter.tab
-
 
             # linux.sockstat.Sockstat (Extrae información de sockets en memoria)
               echo ""
@@ -379,13 +415,13 @@ cCarpetaVolatility3="$HOME/repos/python/volatility3/"
               echo ""
               "$HOME"/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.sockstat.Sockstat > "$cCarpetaDondeGuardar"/tab/linux.sockstat.Sockstat.tab
 
+          # Archivos
 
             # linux.pagecache.Files (Recupera archivos almacenados en el page cache)
               echo ""
               echo "    Aplicando el plugin linux.pagecache.Files..."
               echo ""
               "$HOME"/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.pagecache.Files > "$cCarpetaDondeGuardar"/tab/linux.pagecache.Files.tab
-
 
 *            # linux.pagecache.InodePages (Lista inodos en el page cache)
               echo ""
@@ -394,20 +430,11 @@ cCarpetaVolatility3="$HOME/repos/python/volatility3/"
               "$HOME"/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.pagecache.InodePages --inode x
               "$HOME"/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.pagecache.InodePages --find x
 
-
             # linux.pagecache.RecoverFs (Intenta recuperar un sistema de ficheros a partir de page cache)
               echo ""
               echo "    Aplicando el plugin linux.pagecache.RecoverFs..."
               echo ""
               "$HOME"/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.pagecache.RecoverFs > "$cCarpetaDondeGuardar"/tab/linux.pagecache.RecoverFs.tab
-
-
-            # linux.pidhashtable.PIDHashTable (Lista procesos a partir de la PID hash table)
-              echo ""
-              echo "    Aplicando el plugin linux.pidhashtable.PIDHashTable..."
-              echo ""
-              "$HOME"/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.pidhashtable.PIDHashTable > "$cCarpetaDondeGuardar"/tab/linux.pidhashtable.PIDHashTable.tab
-
 
             # linux.elfs.Elfs (Localiza y extrae binarios ELF de memoria)
               echo ""
@@ -415,20 +442,17 @@ cCarpetaVolatility3="$HOME/repos/python/volatility3/"
               echo ""
               "$HOME"/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.elfs.Elfs > "$cCarpetaDondeGuardar"/tab/linux.elfs.Elfs.tab
 
-
-            # linux.envars.Envars (Extrae variables de entorno de procesos)
-              echo ""
-              echo "    Aplicando el plugin linux.envars.Envars..."
-              echo ""
-              "$HOME"/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.envars.Envars > "$cCarpetaDondeGuardar"/tab/linux.envars.Envars.tab
-
-
             # linux.lsof.Lsof (Lista archivos abiertos por procesos)
               echo ""
               echo "    Aplicando el plugin linux.lsof.Lsof..."
               echo ""
               "$HOME"/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.lsof.Lsof > "$cCarpetaDondeGuardar"/tab/linux.lsof.Lsof.tab
 
+            # linux.envars.Envars (Extrae variables de entorno de procesos)
+              echo ""
+              echo "    Aplicando el plugin linux.envars.Envars..."
+              echo ""
+              "$HOME"/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.envars.Envars > "$cCarpetaDondeGuardar"/tab/linux.envars.Envars.tab
 
             # linux.graphics.fbdev.Fbdev (Extrae contenido de framebuffers (pantallas virtuales/consolas gráficas))
               echo ""
@@ -437,33 +461,17 @@ cCarpetaVolatility3="$HOME/repos/python/volatility3/"
               "$HOME"/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.graphics.fbdev.Fbdev > "$cCarpetaDondeGuardar"/tab/linux.graphics.fbdev.Fbdev.tab
 
 
-            # linux.iomem.IOMem (Muestra rangos de memoria I/O mapeados)
-              echo ""
-              echo "    Aplicando el plugin linux.iomem.IOMem..."
-              echo ""
-              "$HOME"/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.iomem.IOMem > "$cCarpetaDondeGuardar"/tab/linux.iomem.IOMem.tab
-
-
-            # linux.mountinfo.MountInfo (Extrae info de montajes (/proc/<pid>/mountinfo)
-              echo ""
-              echo "    Aplicando el plugin linux.mountinfo.MountInfo..."
-              echo ""
-              "$HOME"/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.mountinfo.MountInfo > "$cCarpetaDondeGuardar"/tab/linux.mountinfo.MountInfo.tab
-
-
             # linux.tracing.ftrace.CheckFtrace (Verifica integridad de ftrace)
               echo ""
               echo "    Aplicando el plugin linux.tracing.ftrace.CheckFtrace..."
               echo ""
               "$HOME"/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.tracing.ftrace.CheckFtrace > "$cCarpetaDondeGuardar"/tab/linux.tracing.ftrace.CheckFtrace.tab
 
-
             # linux.tracing.perf_events.PerfEvents (Lista eventos de perf)
               echo ""
               echo "    Aplicando el plugin linux.tracing.perf_events.PerfEvents..."
               echo ""
               "$HOME"/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.tracing.perf_events.PerfEvents > "$cCarpetaDondeGuardar"/tab/linux.tracing.perf_events.PerfEvents.tab
-
 
             # linux.tracing.tracepoints.CheckTracepoints (Verifica tracepoints del kernel)
               echo ""
@@ -472,18 +480,6 @@ cCarpetaVolatility3="$HOME/repos/python/volatility3/"
               "$HOME"/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.tracing.tracepoints.CheckTracepoints > "$cCarpetaDondeGuardar"/tab/linux.tracing.tracepoints.CheckTracepoints.tab
 
 
-*            # linux.vmaregexscan.VmaRegExScan (Escanea regiones de memoria con regex)
-              echo ""
-              echo "    Aplicando el plugin linux.vmaregexscan.VmaRegExScan..."
-              echo ""
-              "$HOME"/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.vmaregexscan.VmaRegExScan --patern x > "$cCarpetaDondeGuardar"/tab/linux.vmaregexscan.VmaRegExScan.tab
-
-
-            # linux.vmayarascan.VmaYaraScan (Escanea memoria con reglas YARA)
-              echo ""
-              echo "    Aplicando el plugin linux.vmayarascan.VmaYaraScan..."
-              echo ""
-              "$HOME"/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.vmayarascan.VmaYaraScan > "$cCarpetaDondeGuardar"/tab/linux.vmayarascan.VmaYaraScan.tab
 
 
           # Salir del entorno virtual
