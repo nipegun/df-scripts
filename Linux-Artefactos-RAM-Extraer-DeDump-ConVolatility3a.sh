@@ -22,6 +22,8 @@
 #  https://github.com/Abyss-W4tcher/volatility3-symbols/
 # ----------
 
+cCarpetaVolatility3="$HOME/repos/python/volatility3/"
+
 # Definir constantes de color
   cColorAzul="\033[0;34m"
   cColorAzulClaro="\033[1;34m"
@@ -91,12 +93,12 @@
     fi
   menu=(dialog --checklist "Marca los formatos de salida que quieras obtener:" 22 130 16)
     opciones=(
-      1 "Obtener la versión del kernel"                                on
+      1 "Comprobar que volatility3 esté instalado"                     on
       2 "  Descargar los símbolos para la versión del kernel obtenida" on
       3 "  Aplicar todos los plugins"                                  on
-     15 "Parsear datos hacia archivos txt"                             off
-     16 "Parsear datos hacia archivos csv"                             off
-     17 "Parsear datos hacia archivos json"                            off
+     15 "  Parsear datos hacia archivos txt"                           off
+     16 "  Parsear datos hacia archivos csv"                           off
+     17 "  Parsear datos hacia archivos json"                          off
      18 "Buscar IPs privadas de clase A"                               off
      19 "Buscar IPs privadas de clase B"                               off
      20 "Buscar IPs privadas de clase C"                               off
@@ -112,13 +114,31 @@
         1)
 
           echo ""
-          echo "  Obteniendo la versión del kernel de la imagen..."
+          echo "  Comprobando si volatility 3 está instalado..."
+          echo ""
+          if [ -d "$cCarpetaVolatility3" ]; then
+            echo "    Volatility3 está instalado"
+            echo ""
+          else
+            echo -e "${cColorRojo}    Volatility3 no está instalado. Procediendo a su instalación...${cFinColor}"
+            echo ""
+            curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/SoftInst/ParaCLI/Volatility3-Instalar.sh | bash
+          fi
+
+        ;;
+
+        2)
+
+          echo ""
+          echo "  Descargando los simbolos para la versión del kernel de la imagen proporcionada..."
           echo ""
           # Entrar en el entorno virtual de volatility
             source ~/repos/python/volatility3/venv/bin/activate
           # Guardar en una variable la versión del kernel
             vVersKernel=$($HOME/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" banners.Banners | sed 's-Linux version -\n-g' | grep gcc | cut -d' ' -f1 | tail -n1)
-            echo "    La versión del kernel detectada en la iamgen es $vVersKernel"
+            echo ""
+            echo "    La versión del kernel detectada en la imagen es $vVersKernel"
+            echo ""
           # Desgranar la variable y guardar en subdatos
             vKernelArch="$(echo $vVersKernel | rev | cut -d- -f1 | rev)"
             vKernelRama="$(echo $vVersKernel | cut -d'-' -f1)"
@@ -129,18 +149,10 @@
             echo "    Descargando el archivo $vArchivoADescargar..."
             echo ""
             cd ~/repos/python/volatility3/volatility3/symbols/linux/
-            wget https://raw.githubusercontent.com/Abyss-W4tcher/volatility3-symbols/refs/heads/master/Debian/"$vKernelArch"/"$vKernelRama"/"$vKernelSubRama"/"$vArchivoADescargar"
+            curl -L -O https://raw.githubusercontent.com/Abyss-W4tcher/volatility3-symbols/refs/heads/master/Debian/"$vKernelArch"/"$vKernelRama"/"$vKernelSubRama"/"$vArchivoADescargar"
             cd ~
           # Salir del entorno virtual
             deactivate
-
-        ;;
-
-        2)
-
-          echo ""
-          echo "  Descargando los símbolos para la versión del kernel obtenida..."
-          echo ""
 
         ;;
 
