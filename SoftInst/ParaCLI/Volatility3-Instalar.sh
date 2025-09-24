@@ -125,15 +125,20 @@
                 fi
               python3 -m venv venv
               # Crear el mensaje para mostrar cuando se entra al entorno virtual
-                echo ''                                                                           >> ~/repos/python/volatility3/venv/bin/activate
-                echo 'echo -e "\n  Activando el entorno virtual de volatility3... \n"'            >> ~/repos/python/volatility3/venv/bin/activate
-                echo 'echo -e "    Forma de uso:\n"'                                              >> ~/repos/python/volatility3/venv/bin/activate
-                echo 'echo -e "      vol -vvv -f [RutaAlArchivoDeDump] [Plugin]\n"'               >> ~/repos/python/volatility3/venv/bin/activate
-                echo 'echo -e "    Comandos rápidos:\n"'                                          >> ~/repos/python/volatility3/venv/bin/activate
-                echo 'echo -e "      Obtener info de windows:\n"'                                 >> ~/repos/python/volatility3/venv/bin/activate
-                echo 'echo -e "        vol -vvv -f $HOME/Descargas/Evidencia.raw windows.info\n"' >> ~/repos/python/volatility3/venv/bin/activate
-                echo 'echo -e "      Obtener info de linux:\n"'                                   >> ~/repos/python/volatility3/venv/bin/activate
-                echo 'echo -e "        vol -vvv -f $HOME/Descargas/Evidencia.raw linux.banner\n"' >> ~/repos/python/volatility3/venv/bin/activate
+                echo ''                                                                                                                >> ~/repos/python/volatility3/venv/bin/activate
+                echo 'echo -e "\n  Activando el entorno virtual de volatility3... \n"'                                                 >> ~/repos/python/volatility3/venv/bin/activate
+                echo 'echo -e "    Forma de uso:\n"'                                                                                   >> ~/repos/python/volatility3/venv/bin/activate
+                echo 'echo -e "      $HOME/repos/python/volatility3/vol.py -f [RutaAlArchivoDeDump] [Plugin]\n"'                       >> ~/repos/python/volatility3/venv/bin/activate
+                echo 'echo -e "    Forma de uso en modo super verbose (Para ver posibles errores):\n"'                                 >> ~/repos/python/volatility3/venv/bin/activate
+                echo 'echo -e "      $HOME/repos/python/volatility3/vol.py -vvv -f [RutaAlArchivoDeDump] [Plugin]\n"'                  >> ~/repos/python/volatility3/venv/bin/activate
+                echo 'echo -e "    Forma de uso en modo silencioso):\n"'                                                               >> ~/repos/python/volatility3/venv/bin/activate
+                echo 'echo -e "      $HOME/repos/python/volatility3/vol.py -q -f [RutaAlArchivoDeDump] [Plugin]\n"'                    >> ~/repos/python/volatility3/venv/bin/activate
+                echo 'echo -e "    Comandos rápidos:\n"'                                                                               >> ~/repos/python/volatility3/venv/bin/activate
+                echo 'echo -e "      Obtener info de windows:\n"'                                                                      >> ~/repos/python/volatility3/venv/bin/activate
+                echo 'echo -e "        $HOME/repos/python/volatility3/vol.py -q -f $HOME/Descargas/Evidencia.raw windows.info.Info\n"' >> ~/repos/python/volatility3/venv/bin/activate
+                echo 'echo -e "      Obtener info de linux:\n"'                                                                        >> ~/repos/python/volatility3/venv/bin/activate
+                echo 'echo -e "        $HOME/repos/python/volatility3/vol.py -q -f $HOME/Descargas/Evidencia.raw banners.Banners\n"'   >> ~/repos/python/volatility3/venv/bin/activate
+
               # Instalar symbols
                 echo ""
                 echo "  Descargando símbolos..."
@@ -173,14 +178,15 @@
                 vCarpetaPython=$(ls ~/repos/python/volatility3/venv/lib/)
                 mkdir -p ~/repos/python/volatility3/venv/lib/"$vCarpetaPython"/site-packages/volatility3/symbols/
                 cp -rfv ~/repos/python/volatility3/volatility3/symbols/* ~/repos/python/volatility3/venv/lib/"$vCarpetaPython"/site-packages/volatility3/symbols/
+                cd ~
               # Notificar fin de instalación en el entorno virtual
                 echo ""
                 echo -e "${cColorVerde}    Entorno virtual preparado. volatility3 se puede ejecutar desde el venv de la siguiente forma:${cFinColor}"
                 echo ""
                 echo -e "${cColorVerde}      source ~/repos/python/volatility3/venv/bin/activate${cFinColor}"
                 echo ""
-                echo -e "${cColorVerde}        vol -vvv -f [RutaAlArchivo] [Plugin]${cFinColor}"
-                echo -e "${cColorVerde}        volshell [Parámetros]${cFinColor}"
+                echo -e "${cColorVerde}        $HOME/repos/python/volatility3/vol.py -f [RutaAlArchivo] [Plugin]${cFinColor}"
+                echo -e "${cColorVerde}        $HOME/repos/python/volatility3/volshell.py [Parámetros]${cFinColor}"
                 echo ""
                 echo -e "${cColorVerde}      deactivate${cFinColor}"
                 echo ""
