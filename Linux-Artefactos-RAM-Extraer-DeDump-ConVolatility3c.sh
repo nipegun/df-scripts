@@ -122,7 +122,7 @@ cCarpetaVolatility3="$HOME/repos/python/volatility3/"
             else
               echo -e "${cColorRojo}    Volatility3 no está instalado. Procediendo a su instalación...${cFinColor}"
               echo ""
-              curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/SoftInst/ParaCLI/Volatility3-Instalar0.sh | bash
+              curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/SoftInst/ParaCLI/Volatility3-Instalar.sh | bash
             fi
 
         ;;
