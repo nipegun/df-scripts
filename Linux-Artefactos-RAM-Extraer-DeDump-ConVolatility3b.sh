@@ -53,34 +53,6 @@ cCarpetaVolatility3="$HOME/repos/python/volatility3/"
   cCarpetaDondeGuardar="$2"
   mkdir -p "$cCarpetaDondeGuardar"
 
-# Comprobar si existe el repo de volatility3
-  if [ ! -d ~/repos/python/volatility3/ ]; then
-    echo ""
-    echo "  El repo de volatility3 existe. Descargándolo..."
-    echo ""
-    mkdir -p ~/repos/python/
-    cd ~/repos/python/
-    # Comprobar si el paquete git está instalado. Si no lo está, instalarlo.
-      if [[ $(dpkg-query -s git 2>/dev/null | grep installed) == "" ]]; then
-        echo ""
-        echo -e "${cColorRojo}  El paquete git no está instalado. Iniciando su instalación...${cFinColor}"
-        echo ""
-        sudo apt-get -y update
-        sudo apt-get -y install git
-        echo ""
-      fi
-    git clone https://github.com/volatilityfoundation/volatility3.git
-  fi
-
-# Comprobar si existe el entorno virtual de python de volatility3
-  if [ ! -d ~/repos/python/volatility3/venv/ ]; then
-    echo ""
-    echo "  El entorno virtual de python de volatility3 no existe. Creándolo..."
-    echo ""
-    cd ~/repos/python/volatility3/
-    python3 -m venv venv
-  fi
-
 # Crear el menú
   # Comprobar si el paquete dialog está instalado. Si no lo está, instalarlo.
     if [[ $(dpkg-query -s dialog 2>/dev/null | grep installed) == "" ]]; then
@@ -116,14 +88,42 @@ cCarpetaVolatility3="$HOME/repos/python/volatility3/"
           echo ""
           echo "  Comprobando si volatility 3 está instalado..."
           echo ""
-          if [ -d "$cCarpetaVolatility3" ]; then
-            echo "    Volatility3 está instalado"
-            echo ""
-          else
-            echo -e "${cColorRojo}    Volatility3 no está instalado. Procediendo a su instalación...${cFinColor}"
-            echo ""
-            curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/SoftInst/ParaCLI/Volatility3-Instalar.sh | bash
-          fi
+          ## Comprobar si existe el repo de volatility3
+          #  if [ ! -d ~/repos/python/volatility3/ ]; then
+          #    echo ""
+          #    echo "  El repo de volatility3 existe. Descargándolo..."
+          #    echo ""
+          #    mkdir -p ~/repos/python/
+          #    cd ~/repos/python/
+          #    # Comprobar si el paquete git está instalado. Si no lo está, instalarlo.
+          #      if [[ $(dpkg-query -s git 2>/dev/null | grep installed) == "" ]]; then
+          #        echo ""
+          #        echo -e "${cColorRojo}  El paquete git no está instalado. Iniciando su instalación...${cFinColor}"
+          #        echo ""
+          #        sudo apt-get -y update
+          #        sudo apt-get -y install git
+          #        echo ""
+          #      fi
+          #    git clone https://github.com/volatilityfoundation/volatility3.git
+          #  fi
+
+          ## Comprobar si existe el entorno virtual de python de volatility3
+          #  if [ ! -d ~/repos/python/volatility3/venv/ ]; then
+          #    echo ""
+          #    echo "  El entorno virtual de python de volatility3 no existe. Creándolo..."
+          #    echo ""
+          #    cd ~/repos/python/volatility3/
+          #    python3 -m venv venv
+          #  fi
+          #
+            if [ -d "$cCarpetaVolatility3" ]; then
+              echo "    Volatility3 está instalado"
+              echo ""
+            else
+              echo -e "${cColorRojo}    Volatility3 no está instalado. Procediendo a su instalación...${cFinColor}"
+              echo ""
+              curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/SoftInst/ParaCLI/Volatility3-Instalar.sh | bash
+            fi
 
         ;;
 
