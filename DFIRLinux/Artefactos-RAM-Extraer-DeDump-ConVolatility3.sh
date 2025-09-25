@@ -85,8 +85,9 @@ cCarpetaVolatility3="$HOME/repos/python/volatility3/"
      19 "Extraer IPs privadas de clase B"                              off
      20 "Extraer IPs privadas de clase C"                              off
      21 "Extraer datos POST de LoginForms"                             off
+     22 "Extraer datos POST de LoginForms"                             off
 
-     22 "Extraer el sistema de carpetas y archivos de dentro del dump" off
+     30 "Extraer el sistema de carpetas y archivos de dentro del dump" off
     )
   choices=$("${menu[@]}" "${opciones[@]}" 2>&1 >/dev/tty)
   #clear
@@ -2692,6 +2693,26 @@ cCarpetaVolatility3="$HOME/repos/python/volatility3/"
         ;;
 
        22)
+
+          echo ""
+          echo '  Extrayendo posibles líneas de /etc/passwd (usuario:passwd:uid:gid:...)...'
+          echo ""
+          mkdir -p "$cCarpetaDondeGuardar"/strings/ 2> /dev/null
+          strings -a "$cRutaAlArchivoDeDump" | egrep -o '^[a-z0-9._-]+:[^:]*:[0-9]{1,6}:[0-9]{1,6}:[^:]*:[^:]*:[^:]*' | sort -u | tee "$cCarpetaDondeGuardar"/strings/LineasDeEtcPasswd.txt
+
+        ;;
+
+       22)
+
+          echo ""
+          echo '  Extrayendo posibles líneas de /etc/shadow (usuario:$id$salts...:...)...'
+          echo ""
+          mkdir -p "$cCarpetaDondeGuardar"/strings/ 2> /dev/null
+          strings -a "$cRutaAlArchivoDeDump" | egrep -o '^[a-z0-9._-]+:\$[1-6]\$[^:]{1,400}:[0-9]*:[0-9]*:[0-9]*:[0-9]*:[0-9]*:[0-9]*' | sort -u | tee "$cCarpetaDondeGuardar"/strings/LineasDeEtcShadow.txt
+
+        ;;
+
+       30)
 
           echo ""
           echo "  Extrayendo el sistema carpetas y archivos de dentro del dump..."
