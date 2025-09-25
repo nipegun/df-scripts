@@ -163,7 +163,7 @@ if [ $# -ne $cCantParamEsperados ]
               #echo '</root>' >>  "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosAgrupados.xml # Agrega el cierre de la etiqueta raíz en una nueva linea al final del archivo
               # Generar un archivo por cada evento dentro del xml
                 # Crear una carpeta para almacenar los archivos de vEventos
-                  sudo mkdir -p "$vCarpetaDelCaso"/EventosIndividuales/
+                  sudo mkdir -p "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/EventosIndividuales/
                   sudo chown $USER:$USER "$vCarpetaDelCaso" -R
                 # Contador de vEventos
                   vContador=1
@@ -181,7 +181,7 @@ if [ $# -ne $cCantParamEsperados ]
                       # Agregar la línea de cierre del vEvento
                         vEvento+=$'\n'"$line"
                       # Guardar el bloque en un archivo
-                        sudo echo "$vEvento" > "$vCarpetaDelCaso"/EventosIndividuales/$vEvento_${vContador}.xml
+                        sudo echo "$vEvento" > "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/EventosIndividuales/$vEvento_${vContador}.xml
                       # Incrementar el vContador y limpiar la variable del vEvento
                         vContador=$((vContador + 1))
                       vEvento=""
@@ -197,7 +197,7 @@ if [ $# -ne $cCantParamEsperados ]
                   sudo mkdir -p "$vCarpetaDelCaso"/EventosIndividualesOrdenadosPorFecha/
                   sudo chown $USER:$USER "$vCarpetaDelCaso" -R
                   # Recorrer cada archivo XML en la carpeta
-                    for file in "$vCarpetaDelCaso"/EventosIndividuales/*.xml ; do
+                    for file in "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/EventosIndividuales/*.xml ; do
                       # Extraer el valor de SystemTime usando xmlstarlet
                         # Comprobar si el paquete xmlstarlet está instalado. Si no lo está, instalarlo.
                           if [[ $(dpkg-query -s xmlstarlet 2>/dev/null | grep installed) == "" ]]; then
