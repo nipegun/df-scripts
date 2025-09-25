@@ -9,7 +9,7 @@
 # Script de NiPeGun para copiar los eventos de una partición de Windows y parsearlos a xml
 #
 # Ejecución remota con parámetros:
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/DFIRWindows/Artefactos-Eventos-Extraer.sh | sudo bash -s [PuntoDeMontajePartWindows] [CarpetaDelCaso]  (Ambos sin barra final)
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/DFIRWindows/Artefactos-Eventos-Extraer.sh | bash -s [PuntoDeMontajePartWindows] [CarpetaDelCaso] (Ambos sin barra final)
 #
 # Bajar y editar directamente el archivo en nano
 #   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/DFIRWindows/Artefactos-Eventos-Extraer.sh | nano -
