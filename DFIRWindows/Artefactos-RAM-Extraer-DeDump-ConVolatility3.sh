@@ -9,10 +9,10 @@
 # Script de NiPeGun para parsear datos extraidos de la RAM de Windows en Debian
 #
 # Ejecución remota con parámetros:
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Windows-Artefactos-RAM-Extraer-DeDump-ConVolatility3.sh | bash -s [RutaAlArchivoConDump]
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/DFIRWindows/Artefactos-RAM-Extraer-DeDump-ConVolatility3.sh | bash -s [RutaAlArchivoConDump]
 #
 # Bajar y editar directamente el archivo en nano
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Windows-Artefactos-RAM-Extraer-DeDump-ConVolatility3.sh | nano -
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/DFIRWindows/Artefactos-RAM-Extraer-DeDump-ConVolatility3.sh | nano -
 #
 # Más info aquí: https://volatility3.readthedocs.io/en/latest/        https://book.hacktricks.xyz/generic-methodologies-and-resources/basic-forensic-methodology/memory-dump-analysis/volatility-cheatsheet
 # ----------
