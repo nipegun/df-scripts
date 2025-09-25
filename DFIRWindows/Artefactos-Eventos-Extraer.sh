@@ -45,9 +45,9 @@ if [ $# -ne $cCantParamEsperados ]
       echo ""
       echo "    Copiando todos los eventos .evtx de la partición de Windows a la carpeta del caso..."
       echo ""
-      sudo mkdir -p "$vCarpetaDelCaso"/Artefactos/Originales/Eventos/
-      sudo rm -rf "$vCarpetaDelCaso"/Artefactos/Originales/Eventos/*
-      find "$vPuntoDeMontajePartWindows" -name "*.evtx" -exec sudo cp -v {} "$vCarpetaDelCaso"/Artefactos/Originales/Eventos/ \;
+      sudo mkdir -p "$vCarpetaDelCaso"/Artefactos/Eventos/Originales/
+      sudo rm -rf "$vCarpetaDelCaso"/Artefactos/Eventos/Originales/*
+      find "$vPuntoDeMontajePartWindows" -name "*.evtx" -exec sudo cp -v {} "$vCarpetaDelCaso"/Artefactos/Eventos/Originales/ \;
 
     # Reparar permisos
       sudo chown 1000:1000 "$vCarpetaDelCaso"/Artefactos/ -R
