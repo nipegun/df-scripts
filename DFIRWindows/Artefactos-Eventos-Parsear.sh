@@ -135,11 +135,11 @@ if [ $# -ne $cCantParamEsperados ]
               echo "  Unificando en un único archivo todos los archivos XML parseados..."
               echo ""
               for archivo in "$vCarpetaDondeGuardar"/OriginalesEnXML/*; do # Recorre todos los archivos en el directorio
-                cat "$archivo" >> "$vCarpetaDondeGuardar"/TodosLosEventos.xml
+                cat "$archivo" >> "$vCarpetaDondeGuardar"/TodosLosEventosAgrupados.xml
               done
               # Agregar una etiqueta raíz para poder trabajar con el xml
-                sudo sed -i '1i\<Events>' "$vCarpetaDondeGuardar"/TodosLosEventos.xml # Agrega la apertura de la etiqueta raiz en la primera linea
-                echo '</Events>' >>  "$vCarpetaDondeGuardar"/TodosLosEventos.xml # Agrega el cierre de la etiqueta raíz en una nueva linea al final del archivo
+                sudo sed -i '1i\<Events>' "$vCarpetaDondeGuardar"/TodosLosEventosAgrupados.xml # Agrega la apertura de la etiqueta raiz en la primera linea
+                echo '</Events>' >>  "$vCarpetaDondeGuardar"/TodosLosEventosAgrupados.xml # Agrega el cierre de la etiqueta raíz en una nueva linea al final del archivo
               # Agregar una etiqueta raíz para poder trabajar con los xml a posteriori
                 for vArchivo in "$vCarpetaDondeGuardar"/OriginalesEnXML/*; do # Recorre todos los archivos en el directorio
                   sudo sed -i '1i\<Events>' "$vArchivo"                            # Agrega la apertura de la etiqueta raiz en la primera linea
@@ -149,7 +149,7 @@ if [ $# -ne $cCantParamEsperados ]
                 echo ""
                 echo "    El archivo con todos los eventos juntos, pero sin ordenar por fecha es:"
                 echo ""
-                echo "      "$vCarpetaDondeGuardar"/TodosLosEventos.xml"
+                echo "      "$vCarpetaDondeGuardar"/TodosLosEventosAgrupados.xml"
                 echo ""
 
             ;;
@@ -159,8 +159,8 @@ if [ $# -ne $cCantParamEsperados ]
               echo ""
               echo "  Intentando crear un único archivo XML con todos los eventos ordenados por fecha..."
               echo ""
-              #sed -i '1i\<root>' "$vCarpetaDondeGuardar"/TodosLosEventos.xml # Agrega la apertura de la etiqueta raiz en la primera linea
-              #echo '</root>' >>  "$vCarpetaDondeGuardar"/TodosLosEventos.xml # Agrega el cierre de la etiqueta raíz en una nueva linea al final del archivo
+              #sed -i '1i\<root>' "$vCarpetaDondeGuardar"/TodosLosEventosAgrupados.xml # Agrega la apertura de la etiqueta raiz en la primera linea
+              #echo '</root>' >>  "$vCarpetaDondeGuardar"/TodosLosEventosAgrupados.xml # Agrega el cierre de la etiqueta raíz en una nueva linea al final del archivo
               # Generar un archivo por cada evento dentro del xml
                 # Crear una carpeta para almacenar los archivos de vEventos
                   sudo mkdir -p "$vCarpetaDondeGuardar"/EventosIndividuales/
@@ -189,7 +189,7 @@ if [ $# -ne $cCantParamEsperados ]
                       # Agregar la línea al bloque de vEvento en curso
                         vEvento+=$'\n'"$line"
                     fi
-                  done < "$vCarpetaDondeGuardar"/TodosLosEventos.xml
+                  done < "$vCarpetaDondeGuardar"/TodosLosEventosAgrupados.xml
                 # Renombrar cada archivo con el valor del campo SystemTime
                   echo ""
                   echo "    Renombrando cada archivo .xml con el valor su etiqueta SystemTime..."
@@ -562,18 +562,18 @@ if [ $# -ne $cCantParamEsperados ]
                   /{xml_string}/ {capture=1; sub(/.*{xml_string} /,""); print $0; next}
                   capture {print}
                   /<\/Event>/ {capture=0}
-                ' "$vCarpetaDondeGuardar"/TimeLineDeTodosLosEventos.rawpy > "$vCarpetaDondeGuardar"/TimeLineDeTodosLosEventos.xml
+                ' "$vCarpetaDondeGuardar"/TimeLineDeTodosLosEventos.rawpy > "$vCarpetaDondeGuardar"/TimeLineDeTodosLosEventosAgrupados.xml
               # Agregar etiqueta raíz
-                sed -i '1i\<Events>' "$vCarpetaDondeGuardar"/TimeLineDeTodosLosEventos.xml # Agrega la apertura de la etiqueta raiz en la primera linea
-                echo '</Events>' >>  "$vCarpetaDondeGuardar"/TimeLineDeTodosLosEventos.xml # Agrega el cierre de la etiqueta raíz en una nueva linea al final del archivo
+                sed -i '1i\<Events>' "$vCarpetaDondeGuardar"/TimeLineDeTodosLosEventosAgrupados.xml # Agrega la apertura de la etiqueta raiz en la primera linea
+                echo '</Events>' >>  "$vCarpetaDondeGuardar"/TimeLineDeTodosLosEventosAgrupados.xml # Agrega el cierre de la etiqueta raíz en una nueva linea al final del archivo
               # Vaciar los atributos de la etiqueta Event
-                sed -i 's/<Event .*>/<Event>/g' "$vCarpetaDondeGuardar"/TimeLineDeTodosLosEventos.xml
+                sed -i 's/<Event .*>/<Event>/g' "$vCarpetaDondeGuardar"/TimeLineDeTodosLosEventosAgrupados.xml
               # Vaciar los atributos de la etiqueta EventXML
-                sed -i 's/<EventXML .*>/<EventXML>/g' "$vCarpetaDondeGuardar"/TimeLineDeTodosLosEventos.xml
+                sed -i 's/<EventXML .*>/<EventXML>/g' "$vCarpetaDondeGuardar"/TimeLineDeTodosLosEventosAgrupados.xml
               # Vaciar los atributos de la etiqueta EventData
-                sed -i 's/<EventData .*>/<EventData>/g' "$vCarpetaDondeGuardar"/TimeLineDeTodosLosEventos.xml
+                sed -i 's/<EventData .*>/<EventData>/g' "$vCarpetaDondeGuardar"/TimeLineDeTodosLosEventosAgrupados.xml
               # Extraer sólo las lineas que contengan commandline y cmd y powershell
-                cat "$vCarpetaDondeGuardar"/TimeLineDeTodosLosEventos.xml | grep -v 'CommandLine=</Data>' | grep -v '<Data Name="CommandLine"/>' | grep -iE "commandline|cmd|powershell" > "$vCarpetaDondeGuardar"/CommandLine.txt
+                cat "$vCarpetaDondeGuardar"/TimeLineDeTodosLosEventosAgrupados.xml | grep -v 'CommandLine=</Data>' | grep -v '<Data Name="CommandLine"/>' | grep -iE "commandline|cmd|powershell" > "$vCarpetaDondeGuardar"/CommandLine.txt
 
             ;;
 
