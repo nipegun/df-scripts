@@ -57,15 +57,15 @@ if [ $# -ne $cCantParamEsperados ]
           3 "Unificar en un único archivo todos los archivos XML parseados"                  on
           4 "  Crear un único archivo con todos los eventos ordenados por fecha"             on
           5 "  Crear un único archivo con todos los eventos del usuario ordenados por fecha" off
-          6 "Convertir los eventos a formato plaso"                                          on
-          7 "  Parsear el plaso al formato dynamic"                                          off
-          8 "  Parsear el plaso al formato json"                                             off
-          9 "  Parsear el plaso al formato json_line"                                        off
-         10 "  Parsear el plaso al formato l2tcsv"                                           off
-         11 "  Parsear el plaso al formato l2ttln"                                           off
-         12 "  Parsear el plaso al formato rawpy"                                            on
-         13 "  Parsear el plaso al formato tln"                                              off
-         14 "  Parsear el plaso al formato xlsx"                                             off
+          6 "Convertir el archivo con todos los eventos a formato plaso"                     on
+          7 "  Reordenar cronológicamente el .plaso y convertir a dynamic"                   off
+          8 "  Reordenar cronológicamente el .plaso y convertir a json"                      off
+          9 "  Reordenar cronológicamente el .plaso y convertir a json_line"                 off
+         10 "  Reordenar cronológicamente el .plaso y convertir a l2tcsv"                    off
+         11 "  Reordenar cronológicamente el .plaso y convertir a l2ttln"                    off
+         12 "  Reordenar cronológicamente el .plaso y convertir a rawpy"                     on
+         13 "  Reordenar cronológicamente el .plaso y convertir a tln"                       off
+         14 "  Reordenar cronológicamente el .plaso y convertir a xlsx"                      off
          15 "  Otros..."                                                                     off
         )
       choices=$("${menu[@]}" "${opciones[@]}" 2>&1 >/dev/tty)
