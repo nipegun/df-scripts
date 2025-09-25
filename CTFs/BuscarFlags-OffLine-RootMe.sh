@@ -6,7 +6,7 @@
 # No tienes que aceptar ningún tipo de términos de uso o licencia para utilizarlo o modificarlo porque va sin CopyLeft.
 
 # ----------
-# Script de NiPeGun para buscar y mostrar cadenas imprimibles específicas en todos los archivos del sistema Debian
+# Script de NiPeGun para buscar flags en CTFs de RootMe en la terminal de un Linux vivo
 #
 # Ejecución remota (puede requerir permisos sudo):
 #   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/DFIRLinux/Artefactos-Vivos-Cadena-Buscar-EnSistema.sh | bash
@@ -29,11 +29,12 @@
 
 # expresion regular RM\{[^\}]+\}
 
-find / -type f -exec sh -c 'strings "$1" | grep -q "RM{" && echo "Coincidencia de RM{ en: $1"' _ {} \; 2>/dev/null
-echo ""
-find / -type f -exec sh -c 'strings "$1" | grep -q "Uk1" && echo "Coincidencia de Uk1 en: $1"' _ {} \; 2>/dev/null
-echo ""
-find / -type f -exec sh -c 'strings "$1" | grep -q "JNe" && echo "Coincidencia de JNe en: $1"' _ {} \; 2>/dev/null
-echo ""
-find / -type f -exec sh -c 'strings "$1" | grep -q "STX" && echo "Coincidencia de STX en: $1"' _ {} \; 2>/dev/null
-echo ""
+# Buscar en base64
+  find / -type f -exec sh -c 'strings "$1" | grep -q "RM{" && echo "Coincidencia de RM{ en: $1"' _ {} \; 2>/dev/null
+  echo ""
+  find / -type f -exec sh -c 'strings "$1" | grep -q "Uk1" && echo "Coincidencia de Uk1 en: $1"' _ {} \; 2>/dev/null
+  echo ""
+  find / -type f -exec sh -c 'strings "$1" | grep -q "JNe" && echo "Coincidencia de JNe en: $1"' _ {} \; 2>/dev/null
+  echo ""
+  find / -type f -exec sh -c 'strings "$1" | grep -q "STX" && echo "Coincidencia de STX en: $1"' _ {} \; 2>/dev/null
+  echo ""
