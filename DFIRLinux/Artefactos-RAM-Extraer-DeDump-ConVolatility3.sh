@@ -85,7 +85,8 @@ cCarpetaVolatility3="$HOME/repos/python/volatility3/"
      19 "Extraer IPs privadas de clase B"                              off
      20 "Extraer IPs privadas de clase C"                              off
      21 "Extraer datos POST de LoginForms"                             off
-     22 "Extraer datos POST de LoginForms"                             off
+     22 "Extraer posibles lineas de /etc/passwd"                       off
+     23 "Extraer posibles lineas de /etc/shadow"                       off
 
      30 "Extraer el sistema de carpetas y archivos de dentro del dump" off
     )
@@ -2702,7 +2703,7 @@ cCarpetaVolatility3="$HOME/repos/python/volatility3/"
 
         ;;
 
-       22)
+       23)
 
           echo ""
           echo '  Extrayendo posibles líneas de /etc/shadow (usuario:$id$salts...:...)...'
