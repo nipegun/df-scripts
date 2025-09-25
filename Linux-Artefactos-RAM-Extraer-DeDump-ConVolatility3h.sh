@@ -2628,7 +2628,8 @@ cCarpetaVolatility3="$HOME/repos/python/volatility3/"
           echo ""
           echo "  Buscando IPs privadas de clase A..."
           echo ""
-          strings "$cRutaAlArchivoDeDump" | grep -Eo '10\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])' | sort -n | uniq
+          mkdir -p "$cCarpetaDondeGuardar"/strings/ 2> /dev/null
+          strings "$cRutaAlArchivoDeDump" | grep -Eo '10\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])' | sort -n | uniq | tee
 
         ;;
 
@@ -2637,7 +2638,8 @@ cCarpetaVolatility3="$HOME/repos/python/volatility3/"
           echo ""
           echo "  Buscando IPs privadas de clase B..."
           echo ""
-          strings "$cRutaAlArchivoDeDump" | grep -Eo '172\.(1[6-9]|2[0-9]|3[0-1])\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])' | sort -n | uniq
+          mkdir -p "$cCarpetaDondeGuardar"/strings/ 2> /dev/null
+          strings "$cRutaAlArchivoDeDump" | grep -Eo '172\.(1[6-9]|2[0-9]|3[0-1])\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])' | sort -n | uniq | tee 
 
         ;;
 
@@ -2646,7 +2648,8 @@ cCarpetaVolatility3="$HOME/repos/python/volatility3/"
           echo ""
           echo "  Buscando IPs privadas de clase C..."
           echo ""
-          strings "$cRutaAlArchivoDeDump" | grep -Eo '192\.168\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])' | sort -n | uniq
+          mkdir -p "$cCarpetaDondeGuardar"/strings/ 2> /dev/null
+          strings "$cRutaAlArchivoDeDump" | grep -Eo '192\.168\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])' | sort -n | uniq | tee 
 
         ;;
 
@@ -2655,7 +2658,8 @@ cCarpetaVolatility3="$HOME/repos/python/volatility3/"
           echo ""
           echo "  Buscando datos POST de LoginForms..."
           echo ""
-          strings "$cRutaAlArchivoDeDump" | grep -E 'username=|password='
+          mkdir -p "$cCarpetaDondeGuardar"/strings/ 2> /dev/null
+          strings "$cRutaAlArchivoDeDump" | grep --color -E 'username=|password=' | tee "$cCarpetaDondeGuardar"/strings/DatosPOSTdeLoginForms.txt
 
         ;;
 
