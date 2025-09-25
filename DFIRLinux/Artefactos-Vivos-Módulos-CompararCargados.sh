@@ -9,13 +9,13 @@
 # Script de NiPeGun para comparar los módulos cargados en proc y en sys y ver si hay diferencias
 #
 # Ejecución remota (puede requerir permisos sudo):
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Linux-Artefactos-Vivos-Módulos-CompararCargados.sh | bash
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/DFIRLinux/Artefactos-Vivos-Módulos-CompararCargados.sh | bash
 #
 # Ejecución remota como root (para sistemas sin sudo):
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Linux-Artefactos-vivos-Módulos-CompararCargados.sh | sed 's-sudo--g' | bash
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/DFIRLinux/Artefactos-vivos-Módulos-CompararCargados.sh | sed 's-sudo--g' | bash
 #
 # Bajar y editar directamente el archivo en nano
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Linux-Artefactos-Vivos-Módulos-CompararCargados.sh | nano -
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/DFIRLinux/Artefactos-Vivos-Módulos-CompararCargados.sh | nano -
 # ----------
 
 # Definir constantes de color
