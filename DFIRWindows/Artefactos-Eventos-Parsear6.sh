@@ -89,17 +89,17 @@ if [ $# -ne $cCantParamEsperados ]
                   echo ""
                 fi
               # Recorrer la carpeta e ir convirtiendo
-                sudo mkdir -p "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodsLosOriginalesDeEVTXaXML/
-                sudo rm -rf "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodsLosOriginalesDeEVTXaXML/*
+                sudo mkdir -p "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosOriginalesDeEVTXaXML/
+                sudo rm -rf "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosOriginalesDeEVTXaXML/*
                 sudo chown $USER:$USER "$vCarpetaDelCaso" -R
                 sudo find "$vCarpetaConEventosRecolectados"/ -name "*.evtx" | while read vArchivo; do
-                  vArchivoDeSalida=""$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodsLosOriginalesDeEVTXaXML/$(basename "$vArchivo" .evtx).xml"
+                  vArchivoDeSalida=""$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosOriginalesDeEVTXaXML/$(basename "$vArchivo" .evtx).xml"
                   sudo evtxexport -f xml "$vArchivo" > "$vArchivoDeSalida" && sed -i '1d' "$vArchivoDeSalida" && sed -i 's/^<Event [^>]*>/<Event>/' "$vArchivoDeSalida"
                   #sudo sed -i '1i\<root>' "$vArchivoDeSalida"
                   #echo '</root>' >> "$vArchivoDeSalida"
                 done
               # Borrar todos los xml que no tengan la linea <Event>
-                for archivo in "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodsLosOriginalesDeEVTXaXML/*; do # Recorre todos los archivos en el directorio
+                for archivo in "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosOriginalesDeEVTXaXML/*; do # Recorre todos los archivos en el directorio
                   if ! grep -q "<Event>" "$archivo"; then                    # Verifica si el archivo contiene la línea "<Event>"
                     sudo rm -f "$archivo"                                    # Si no contiene "<Event>", lo elimina
                   fi
@@ -113,15 +113,15 @@ if [ $# -ne $cCantParamEsperados ]
               echo "  Parseando cada archivo .evtx original a .txt..."
               echo ""
               # También convertir a texto
-                sudo mkdir -p "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodsLosOriginalesDeEVTXaTXT/
-                sudo rm -rf "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodsLosOriginalesDeEVTXaTXT/*
+                sudo mkdir -p "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosOriginalesDeEVTXaTXT/
+                sudo rm -rf "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosOriginalesDeEVTXaTXT/*
                 sudo chown $USER:$USER "$vCarpetaDelCaso" -R
                 find "$vCarpetaConEventosRecolectados"/ -name "*.evtx" | while read vArchivo; do
-                  vArchivoDeSalida=""$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodsLosOriginalesDeEVTXaTXT/$(basename "$vArchivo" .evtx).txt"
+                  vArchivoDeSalida=""$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosOriginalesDeEVTXaTXT/$(basename "$vArchivo" .evtx).txt"
                   sudo evtxexport "$vArchivo" > "$vArchivoDeSalida" && sed -i '1d' "$vArchivoDeSalida"
                 done
               # Borrar todos los txt que no tengan el texto "Event number"
-                for archivo in "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodsLosOriginalesDeEVTXaTXT/*; do # Recorre todos los archivos en el directorio
+                for archivo in "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosOriginalesDeEVTXaTXT/*; do # Recorre todos los archivos en el directorio
                   if ! grep -q "Event number" "$archivo"; then               # Verifica si el archivo contiene la cadena "Even number" y
                     sudo rm -f "$archivo"                                    # si no contiene "Event number", lo elimina
                   fi
@@ -134,14 +134,14 @@ if [ $# -ne $cCantParamEsperados ]
               echo ""
               echo "  Unificando en un único archivo todos los archivos XML parseados..."
               echo ""
-              for archivo in "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodsLosOriginalesDeEVTXaXML/*; do # Recorre todos los archivos en el directorio
+              for archivo in "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosOriginalesDeEVTXaXML/*; do # Recorre todos los archivos en el directorio
                 cat "$archivo" >> "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosAgrupados.xml
               done
               # Agregar una etiqueta raíz para poder trabajar con el xml
                 sudo sed -i '1i\<Events>' "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosAgrupados.xml # Agrega la apertura de la etiqueta raiz en la primera linea
                 echo '</Events>' >>  "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosAgrupados.xml # Agrega el cierre de la etiqueta raíz en una nueva linea al final del archivo
               # Agregar una etiqueta raíz para poder trabajar con los xml a posteriori
-                for vArchivo in "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodsLosOriginalesDeEVTXaXML/*; do # Recorre todos los archivos en el directorio
+                for vArchivo in "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosOriginalesDeEVTXaXML/*; do # Recorre todos los archivos en el directorio
                   sudo sed -i '1i\<Events>' "$vArchivo"                            # Agrega la apertura de la etiqueta raiz en la primera linea
                   sudo echo '</Events>' >> "$vArchivo"                             # Agrega el cierre de la etiqueta raíz en una nueva linea al final del archivo
                 done
@@ -302,8 +302,8 @@ if [ $# -ne $cCantParamEsperados ]
                   sudo apt-get -y install libxml2-utils
                   echo ""
                 fi
-              sudo xmllint --xpath '//*[Data[@Name="SubjectUserSid" and text()='"'$vSIDDelUsuario'"']]/parent::*' "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodsLosOriginalesDeEVTXaXML/*  > "$vCarpetaDelCaso"/TodosLosEventosDelUsuario.xml 2> /dev/null
-              sudo xmllint --xpath '//*[Security[@UserID='"'$vSIDDelUsuario'"']]/parent::*'                       "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodsLosOriginalesDeEVTXaXML/* >> "$vCarpetaDelCaso"/TodosLosEventosDelUsuario.xml 2> /dev/null
+              sudo xmllint --xpath '//*[Data[@Name="SubjectUserSid" and text()='"'$vSIDDelUsuario'"']]/parent::*' "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosOriginalesDeEVTXaXML/*  > "$vCarpetaDelCaso"/TodosLosEventosDelUsuario.xml 2> /dev/null
+              sudo xmllint --xpath '//*[Security[@UserID='"'$vSIDDelUsuario'"']]/parent::*'                       "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosOriginalesDeEVTXaXML/* >> "$vCarpetaDelCaso"/TodosLosEventosDelUsuario.xml 2> /dev/null
               sed -i '1i\<root>' "$vCarpetaDelCaso"/TodosLosEventosDelUsuario.xml # Agrega la apertura de la etiqueta raiz en la primera linea
               sudo echo '</root>' >>  "$vCarpetaDelCaso"/TodosLosEventosDelUsuario.xml # Agrega el cierre de la etiqueta raíz en una nueva linea al final del archivo
               # Generar un archivo por cada evento dentro del xml
