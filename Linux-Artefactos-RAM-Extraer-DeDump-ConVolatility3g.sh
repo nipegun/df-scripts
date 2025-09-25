@@ -293,35 +293,43 @@ cCarpetaVolatility3="$HOME/repos/python/volatility3/"
                 rm -rf "$cCarpetaDondeGuardar"/modules/ 2> /dev/null
                 mkdir -p "$cCarpetaDondeGuardar"/modules/
 
-              # Crear un array con la lista de direcciones de memoria de los módulos listados por lsmod
-                declare -A aModMapLsMod=()
-                cArchivoConListaDeModulos="$cCarpetaDondeGuardar/tab/linux.lsmod.Lsmod.tab"
-                # Leer líneas válidas y poblar el array
-                  while IFS=$'\t' read -r vOffset vName _rest; do
-                    [[ -z "$vOffset" || -z "$vName" ]] && continue
-                    aModMapLsMod["$vName"]="$vOffset"
-                  done < <(grep -E '^[0-9]' "$cArchivoConListaDeModulos" || true)
-              # Extraer
-                cd "$cCarpetaDondeGuardar"/modules/
-                for vModulo in "${!aModMapLsMod[@]}"; do
-                  echo "      Extrayendo el módulo $vModulo de la dirección ${aModMapLsMod[$vModulo]} ..."
-                  "$HOME"/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.module_extract.ModuleExtract --base ${aModMapLsMod[$vModulo]} > /dev/null
-                done
+              # Extraer módulos visibles
+                echo ""
+                echo "    Extrayendo módulos visibles por el plugin lsmod..."
+                echo ""
+                # Crear un array con la lista de direcciones de memoria de los módulos listados por lsmod
+                  declare -A aModMapLsMod=()
+                  cArchivoConListaDeModulos="$cCarpetaDondeGuardar/tab/linux.lsmod.Lsmod.tab"
+                  # Leer líneas válidas y poblar el array
+                    while IFS=$'\t' read -r vOffset vName _rest; do
+                      [[ -z "$vOffset" || -z "$vName" ]] && continue
+                      aModMapLsMod["$vName"]="$vOffset"
+                    done < <(grep -E '^[0-9]' "$cArchivoConListaDeModulos" || true)
+                # Extraer
+                  cd "$cCarpetaDondeGuardar"/modules/
+                  for vModulo in "${!aModMapLsMod[@]}"; do
+                    echo "      Extrayendo el módulo $vModulo de la dirección ${aModMapLsMod[$vModulo]} ..."
+                    "$HOME"/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.module_extract.ModuleExtract --base ${aModMapLsMod[$vModulo]} > /dev/null
+                  done
 
-              # Crear un array con la lista de direcciones de memoria de los módulos listados hidden_modules
-                declare -A aModMapHidMod=()
-                cArchivoConListaDeModulos="$cCarpetaDondeGuardar/tab/linux.malware.hidden_modules.Hidden_modules.tab"
-                # Leer líneas válidas y poblar el array
-                  while IFS=$'\t' read -r vOffset vName _rest; do
-                    [[ -z "$vOffset" || -z "$vName" ]] && continue
-                    aModMapHidMod["$vName"]="$vOffset"
-                  done < <(grep -E '^[0-9]' "$cArchivoConListaDeModulos" || true)
-              # Extraer
-                cd "$cCarpetaDondeGuardar"/modules/
-                for vModulo in "${!aModMapHidMod[@]}"; do
-                  echo "      Extrayendo el módulo $vModulo de la dirección ${aModMapHidMod[$vModulo]} ..."
-                  "$HOME"/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.module_extract.ModuleExtract --base ${aModMapHidMod[$vModulo]} > /dev/null
-                done
+              # Extraer módulos ocultos
+                echo ""
+                echo "    Extrayendo módulos ocultos (visibles por el plugin hidden_modules)..."
+                echo ""
+                # Crear un array con la lista de direcciones de memoria de los módulos listados hidden_modules
+                  declare -A aModMapHidMod=()
+                  cArchivoConListaDeModulos="$cCarpetaDondeGuardar/tab/linux.malware.hidden_modules.Hidden_modules.tab"
+                  # Leer líneas válidas y poblar el array
+                    while IFS=$'\t' read -r vOffset vName _rest; do
+                      [[ -z "$vOffset" || -z "$vName" ]] && continue
+                      aModMapHidMod["$vName"]="$vOffset"
+                    done < <(grep -E '^[0-9]' "$cArchivoConListaDeModulos" || true)
+                # Extraer
+                  cd "$cCarpetaDondeGuardar"/modules/
+                  for vModulo in "${!aModMapHidMod[@]}"; do
+                    echo "      Extrayendo el módulo $vModulo de la dirección ${aModMapHidMod[$vModulo]} ..."
+                    "$HOME"/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.module_extract.ModuleExtract --base ${aModMapHidMod[$vModulo]} > /dev/null
+                  done
 
               # Corregir nombre a los archivos
                 for vArchivo in "$cCarpetaDondeGuardar"/modules/kernel_module.*; do
