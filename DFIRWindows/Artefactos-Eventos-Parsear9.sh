@@ -443,16 +443,16 @@ if [ $# -ne $cCantParamEsperados ]
               echo "    Parseando el plaso a formato dynamic..."
               echo ""
               # Borrar primero el archivo anterior
-                rm -f "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLineDeTodosLosEventos.txt 2> /dev/null
+                rm -f "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventos.txt 2> /dev/null
               # Tratar de ejecutar con el binario
                 if [ -f ~/bin/plaso-psort ]; then
-                  ~/bin/plaso-psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosJuntos.plaso -o dynamic -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLineDeTodosLosEventos.txt
+                  ~/bin/plaso-psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosJuntos.plaso -o dynamic -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventos.txt
                 else
                   echo ""
                   echo -e "${cColorRojo}      El binario ~/bin/plaso-psort no existe. Intentando ejecutar desde el entorno virtual...${cFinColor}"
                   echo ""
                   source ~/repos/python/plaso/venv/bin/activate
-                    psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosJuntos.plaso -o dynamic -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLineDeTodosLosEventos.txt
+                    psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosJuntos.plaso -o dynamic -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventos.txt
                   deactivate
                 fi
 
@@ -464,16 +464,16 @@ if [ $# -ne $cCantParamEsperados ]
               echo "    Parseando el plaso a formato json..."
               echo ""
               # Borrar primero el archivo anterior
-                rm -f "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLineDeTodosLosEventos.json 2> /dev/null
+                rm -f "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventos.json 2> /dev/null
               # Tratar de ejecutar con el binario
                 if [ -f ~/bin/plaso-psort ]; then
-                  ~/bin/plaso-psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosJuntos.plaso -o json -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLineDeTodosLosEventos.json
+                  ~/bin/plaso-psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosJuntos.plaso -o json -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventos.json
                 else
                   echo ""
                   echo -e "${cColorRojo}      El binario ~/bin/plaso-psort no existe. Intentando ejecutar desde el entorno virtual...${cFinColor}"
                   echo ""
                   source ~/repos/python/plaso/venv/bin/activate
-                    psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosJuntos.plaso -o json -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLineDeTodosLosEventos.json
+                    psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosJuntos.plaso -o json -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventos.json
                   deactivate
                 fi
 
@@ -485,16 +485,16 @@ if [ $# -ne $cCantParamEsperados ]
               echo "    Parseando el plaso a formato json_line..."
               echo ""
               # Borrar primero el archivo anterior
-                rm -f "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLineDeTodosLosEventos.json_line 2> /dev/null
+                rm -f "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventos.json_line 2> /dev/null
               # Tratar de ejecutar con el binario
                 if [ -f ~/bin/plaso-psort ]; then
-                  ~/bin/plaso-psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosJuntos.plaso -o json_line -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLineDeTodosLosEventos.json_line
+                  ~/bin/plaso-psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosJuntos.plaso -o json_line -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventos.json_line
                 else
                   echo ""
                   echo -e "${cColorRojo}      El binario ~/bin/plaso-psort no existe. Intentando ejecutar desde el entorno virtual...${cFinColor}"
                   echo ""
                   source ~/repos/python/plaso/venv/bin/activate
-                    psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosJuntos.plaso -o json_line -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLineDeTodosLosEventos.json_line
+                    psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosJuntos.plaso -o json_line -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventos.json_line
                   deactivate
                 fi
 
@@ -506,16 +506,16 @@ if [ $# -ne $cCantParamEsperados ]
               echo "    Parseando el plaso a formato l2tcsv..."
               echo ""
               # Borrar primero el archivo anterior
-                rm -f "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLineDeTodosLosEventos.l2tcsv 2> /dev/null
+                rm -f "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventos.l2tcsv 2> /dev/null
               # Tratar de ejecutar con el binario
                 if [ -f ~/bin/plaso-psort ]; then
-                  ~/bin/plaso-psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosJuntos.plaso -o l2tcsv -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLineDeTodosLosEventos.l2tcsv
+                  ~/bin/plaso-psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosJuntos.plaso -o l2tcsv -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventos.l2tcsv
                 else
                   echo ""
                   echo -e "${cColorRojo}      El binario ~/bin/plaso-psort no existe. Intentando ejecutar desde el entorno virtual...${cFinColor}"
                   echo ""
                   source ~/repos/python/plaso/venv/bin/activate
-                    psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosJuntos.plaso -o l2tcsv -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLineDeTodosLosEventos.l2tcsv
+                    psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosJuntos.plaso -o l2tcsv -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventos.l2tcsv
                   deactivate
                 fi
 
@@ -527,16 +527,16 @@ if [ $# -ne $cCantParamEsperados ]
               echo "    Parseando el plaso a formato l2ttln..."
               echo ""
               # Borrar primero el archivo anterior
-                rm -f "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLineDeTodosLosEventos.l2ttln 2> /dev/null
+                rm -f "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventos.l2ttln 2> /dev/null
               # Tratar de ejecutar con el binario
                 if [ -f ~/bin/plaso-psort ]; then
-                  ~/bin/plaso-psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosJuntos.plaso -o l2ttln -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLineDeTodosLosEventos.l2ttln
+                  ~/bin/plaso-psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosJuntos.plaso -o l2ttln -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventos.l2ttln
                 else
                   echo ""
                   echo -e "${cColorRojo}      El binario ~/bin/plaso-psort no existe. Intentando ejecutar desde el entorno virtual...${cFinColor}"
                   echo ""
                   source ~/repos/python/plaso/venv/bin/activate
-                    psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosJuntos.plaso -o l2ttln -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLineDeTodosLosEventos.l2ttln
+                    psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosJuntos.plaso -o l2ttln -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventos.l2ttln
                   deactivate
                 fi
 
@@ -548,16 +548,16 @@ if [ $# -ne $cCantParamEsperados ]
               echo "    Parseando el plaso a formato rawpy..."
               echo ""
               # Borrar primero el archivo anterior
-                rm -f "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLineDeTodosLosEventos.rawpy 2> /dev/null
+                rm -f "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventos.rawpy 2> /dev/null
               # Tratar de ejecutar con el binario
                 if [ -f ~/bin/plaso-psort ]; then
-                  ~/bin/plaso-psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosJuntos.plaso -o rawpy -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLineDeTodosLosEventos.rawpy
+                  ~/bin/plaso-psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosJuntos.plaso -o rawpy -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventos.rawpy
                 else
                   echo ""
                   echo -e "${cColorRojo}      El binario ~/bin/plaso-psort no existe. Intentando ejecutar desde el entorno virtual...${cFinColor}"
                   echo ""
                   source ~/repos/python/plaso/venv/bin/activate
-                    psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosJuntos.plaso -o rawpy -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLineDeTodosLosEventos.rawpy
+                    psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosJuntos.plaso -o rawpy -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventos.rawpy
                   deactivate
                 fi
               # Extraer los bloques desde {xml_string} hasta </Event>
@@ -565,18 +565,18 @@ if [ $# -ne $cCantParamEsperados ]
                   /{xml_string}/ {capture=1; sub(/.*{xml_string} /,""); print $0; next}
                   capture {print}
                   /<\/Event>/ {capture=0}
-                ' "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLineDeTodosLosEventos.rawpy > "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLineDeTodosLosEventosAgrupados.xml
+                ' "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventos.rawpy > "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventosAgrupados.xml
               # Agregar etiqueta raíz
-                sed -i '1i\<Events>' "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLineDeTodosLosEventosAgrupados.xml # Agrega la apertura de la etiqueta raiz en la primera linea
-                echo '</Events>' >>  "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLineDeTodosLosEventosAgrupados.xml # Agrega el cierre de la etiqueta raíz en una nueva linea al final del archivo
+                sed -i '1i\<Events>' "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventosAgrupados.xml # Agrega la apertura de la etiqueta raiz en la primera linea
+                echo '</Events>' >>  "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventosAgrupados.xml # Agrega el cierre de la etiqueta raíz en una nueva linea al final del archivo
               # Vaciar los atributos de la etiqueta Event
-                sed -i 's/<Event .*>/<Event>/g' "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLineDeTodosLosEventosAgrupados.xml
+                sed -i 's/<Event .*>/<Event>/g' "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventosAgrupados.xml
               # Vaciar los atributos de la etiqueta EventXML
-                sed -i 's/<EventXML .*>/<EventXML>/g' "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLineDeTodosLosEventosAgrupados.xml
+                sed -i 's/<EventXML .*>/<EventXML>/g' "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventosAgrupados.xml
               # Vaciar los atributos de la etiqueta EventData
-                sed -i 's/<EventData .*>/<EventData>/g' "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLineDeTodosLosEventosAgrupados.xml
+                sed -i 's/<EventData .*>/<EventData>/g' "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventosAgrupados.xml
               # Extraer sólo las lineas que contengan commandline y cmd y powershell
-                cat "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLineDeTodosLosEventosAgrupados.xml | grep -v 'CommandLine=</Data>' | grep -v '<Data Name="CommandLine"/>' | grep -iE "commandline|cmd|powershell" > "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/CommandLine.txt
+                cat "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventosAgrupados.xml | grep -v 'CommandLine=</Data>' | grep -v '<Data Name="CommandLine"/>' | grep -iE "commandline|cmd|powershell" > "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/CommandLine.txt
 
             ;;
 
@@ -586,16 +586,16 @@ if [ $# -ne $cCantParamEsperados ]
               echo "    Parseando el plaso a formato tln..."
               echo ""
               # Borrar primero el archivo anterior
-                rm -f "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLineDeTodosLosEventos.tln 2> /dev/null
+                rm -f "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventos.tln 2> /dev/null
               # Tratar de ejecutar con el binario
                 if [ -f ~/bin/plaso-psort ]; then
-                  ~/bin/plaso-psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosJuntos.plaso -o tln -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLineDeTodosLosEventos.tln
+                  ~/bin/plaso-psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosJuntos.plaso -o tln -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventos.tln
                 else
                   echo ""
                   echo -e "${cColorRojo}      El binario ~/bin/plaso-psort no existe. Intentando ejecutar desde el entorno virtual...${cFinColor}"
                   echo ""
                   source ~/repos/python/plaso/venv/bin/activate
-                    psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosJuntos.plaso -o tln -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLineDeTodosLosEventos.tln
+                    psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosJuntos.plaso -o tln -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventos.tln
                   deactivate
                 fi
 
@@ -607,16 +607,16 @@ if [ $# -ne $cCantParamEsperados ]
               echo "    Parseando el plaso a formato xlsx..."
               echo ""
               # Borrar primero el archivo anterior
-                rm -f "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLineDeTodosLosEventos.xlsx 2> /dev/null
+                rm -f "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventos.xlsx 2> /dev/null
               # Tratar de ejecutar con el binario
                 if [ -f ~/bin/plaso-psort ]; then
-                  ~/bin/plaso-psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosJuntos.plaso -o xlsx -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLineDeTodosLosEventos.xlsx
+                  ~/bin/plaso-psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosJuntos.plaso -o xlsx -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventos.xlsx
                 else
                   echo ""
                   echo -e "${cColorRojo}      El binario ~/bin/plaso-psort no existe. Intentando ejecutar desde el entorno virtual...${cFinColor}"
                   echo ""
                   source ~/repos/python/plaso/venv/bin/activate
-                    psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosJuntos.plaso -o xlsx -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLineDeTodosLosEventos.xlsx
+                    psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosJuntos.plaso -o xlsx -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventos.xlsx
                   deactivate
                 fi
 
