@@ -9,13 +9,13 @@
 # Script de NiPeGun para buscar y comparar procesos activos en Debian
 #
 # Ejecución remota (puede requerir permisos sudo):
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Linux-Artefactos-Vivos-Procesos-Comparar-EnSistema.sh | bash
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/DFIRLinux/Artefactos-Vivos-Procesos-Comparar-EnSistema.sh | bash
 #
 # Ejecución remota como root (para sistemas sin sudo):
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Linux-Artefactos-Vivos-Procesos-Comparar-EnSistema.sh | sed 's-sudo--g' | bash
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/DFIRLinux/Artefactos-Vivos-Procesos-Comparar-EnSistema.sh | sed 's-sudo--g' | bash
 #
 # Bajar y editar directamente el archivo en nano
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Linux-Artefactos-Vivos-Procesos-Comparar-EnSistema.sh | nano -
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/DFIRLinux/Artefactos-Vivos-Procesos-Comparar-EnSistema.sh | nano -
 # ----------
 
 # Definir constantes de color
