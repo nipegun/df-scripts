@@ -9,10 +9,10 @@
 # Script de NiPeGun para extraer artefactos de un dump de RAM de Linux
 #
 # Ejecución remota con parámetros:
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Linux-Artefactos-RAM-Extraer-DeDump-ConVolatility3.sh | bash -s [RutaAlArchivoConDump] [CarpetaDondeGuardar]
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/DFIRLinux/Artefactos-RAM-Extraer-DeDump-ConVolatility3.sh | bash -s [RutaAlArchivoConDump] [CarpetaDondeGuardar]
 #
 # Bajar y editar directamente el archivo en nano
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Linux-Artefactos-RAM-Extraer-DeDump-ConVolatility3.sh | nano -
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/DFIRLinux/Artefactos-RAM-Extraer-DeDump-ConVolatility3.sh | nano -
 #
 # Más info aquí:
 #  https://volatility3.readthedocs.io/en/latest/
