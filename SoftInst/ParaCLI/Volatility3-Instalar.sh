@@ -131,7 +131,7 @@
                 echo 'echo -e "      $HOME/repos/python/volatility3/vol.py -f [RutaAlArchivoDeDump] [Plugin]\n"'                       >> ~/repos/python/volatility3/venv/bin/activate
                 echo 'echo -e "    Forma de uso en modo super verbose (Para ver posibles errores):\n"'                                 >> ~/repos/python/volatility3/venv/bin/activate
                 echo 'echo -e "      $HOME/repos/python/volatility3/vol.py -vvv -f [RutaAlArchivoDeDump] [Plugin]\n"'                  >> ~/repos/python/volatility3/venv/bin/activate
-                echo 'echo -e "    Forma de uso en modo silencioso):\n"'                                                               >> ~/repos/python/volatility3/venv/bin/activate
+                echo 'echo -e "    Forma de uso en modo silencioso:\n"'                                                                >> ~/repos/python/volatility3/venv/bin/activate
                 echo 'echo -e "      $HOME/repos/python/volatility3/vol.py -q -f [RutaAlArchivoDeDump] [Plugin]\n"'                    >> ~/repos/python/volatility3/venv/bin/activate
                 echo 'echo -e "    Comandos rápidos:\n"'                                                                               >> ~/repos/python/volatility3/venv/bin/activate
                 echo 'echo -e "      Obtener info de windows:\n"'                                                                      >> ~/repos/python/volatility3/venv/bin/activate
