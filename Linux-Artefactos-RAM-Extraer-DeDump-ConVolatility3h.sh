@@ -405,7 +405,7 @@ cCarpetaVolatility3="$HOME/repos/python/volatility3/"
               echo ""
               "$HOME"/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.pscallstack.PsCallStack > "$cCarpetaDondeGuardar"/tab/linux.pscallstack.PsCallStack.tab
 
-            # linux.proc.Maps (Extrae el mapeo de memoria de procesos (/proc/<pid>/maps))
+# !! >>     # linux.proc.Maps (Extrae el mapeo de memoria de procesos (/proc/<pid>/maps))
               echo ""
               echo "    Aplicando el plugin linux.proc.Maps..."
               echo ""
@@ -418,12 +418,6 @@ cCarpetaVolatility3="$HOME/repos/python/volatility3/"
               echo ""
               "$HOME"/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.ptrace.Ptrace > "$cCarpetaDondeGuardar"/tab/linux.ptrace.Ptrace.tab
 
-# !! >>     # linux.capabilities.Capabilities (Lista capacidades de seguridad asignadas a procesos (Linux capabilities)
-              echo ""
-              echo "    Aplicando el plugin linux.capabilities.Capabilities..."
-              echo ""
-              "$HOME"/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.capabilities.Capabilities > "$cCarpetaDondeGuardar"/tab/linux.capabilities.Capabilities.tab
-
             # linux.malware.check_creds.Check_creds (Valida estructuras de credenciales en procesos)
               echo ""
               echo "    Aplicando el plugin linux.malware.check_creds.Check_creds..."
@@ -435,6 +429,12 @@ cCarpetaVolatility3="$HOME/repos/python/volatility3/"
               echo "    Aplicando el plugin linux.pidhashtable.PIDHashTable..."
               echo ""
               "$HOME"/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.pidhashtable.PIDHashTable > "$cCarpetaDondeGuardar"/tab/linux.pidhashtable.PIDHashTable.tab
+
+# !! >>     # linux.capabilities.Capabilities (Lista capacidades de seguridad asignadas a procesos (Linux capabilities)
+              echo ""
+              echo "    Aplicando el plugin linux.capabilities.Capabilities..."
+              echo ""
+              "$HOME"/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.capabilities.Capabilities > "$cCarpetaDondeGuardar"/tab/linux.capabilities.Capabilities.tab
 
           # Salir del entorno virtual
             deactivate
@@ -500,18 +500,14 @@ cCarpetaVolatility3="$HOME/repos/python/volatility3/"
               echo ""
               "$HOME"/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.pagecache.Files > "$cCarpetaDondeGuardar"/tab/linux.pagecache.Files.tab
 
-#            # linux.pagecache.InodePages (Lista inodos en el page cache)
+            # linux.lsof.Lsof
+              # Recorre los procesos y lista los file descriptors y los ficheros/mappings asociados (rutas, inodos, sockets, mapped ELF, archivos borrados en uso, etc.))
+              # Sirve para ver qué archivos y sockets tenía abierto cada proceso en el volcado de memoria.
+              # Muy útil para detectar handles a ficheros borrados, conexiones de red abiertas por procesos sospechosos o módulos/mappings mapeados en memoria.
               echo ""
-              echo "    Aplicando el plugin linux.pagecache.InodePages..."
+              echo "    Aplicando el plugin linux.lsof.Lsof..."
               echo ""
-              "$HOME"/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.pagecache.InodePages --inode x
-              "$HOME"/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.pagecache.InodePages --find x
-
-            # linux.pagecache.RecoverFs (Intenta recuperar un sistema de ficheros a partir de page cache)
-              echo ""
-              echo "    Aplicando el plugin linux.pagecache.RecoverFs..."
-              echo ""
-              "$HOME"/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.pagecache.RecoverFs > "$cCarpetaDondeGuardar"/tab/linux.pagecache.RecoverFs.tab
+              "$HOME"/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.lsof.Lsof > "$cCarpetaDondeGuardar"/tab/linux.lsof.Lsof.tab
 
             # linux.elfs.Elfs (Localiza y extrae binarios ELF de memoria)
               echo ""
@@ -519,11 +515,41 @@ cCarpetaVolatility3="$HOME/repos/python/volatility3/"
               echo ""
               "$HOME"/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.elfs.Elfs > "$cCarpetaDondeGuardar"/tab/linux.elfs.Elfs.tab
 
-            # linux.lsof.Lsof (Lista archivos abiertos por procesos)
+# !! >>     # linux.pagecache.InodePages (Lista inodos en el page cache)
               echo ""
-              echo "    Aplicando el plugin linux.lsof.Lsof..."
+              echo "    Aplicando el plugin linux.pagecache.InodePages..."
               echo ""
-              "$HOME"/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.lsof.Lsof > "$cCarpetaDondeGuardar"/tab/linux.lsof.Lsof.tab
+              "$HOME"/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.pagecache.InodePages --inode x
+              "$HOME"/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.pagecache.InodePages --find x
+
+            # linux.pagecache.RecoverFs (Reconstruye y extrae archivos que estaban en la cache de página (page cache) y en tmpfs)
+              echo ""
+              echo "    Aplicando el plugin linux.pagecache.RecoverFs..."
+              echo ""
+              mkdir -p "$cCarpetaDondeGuardar"/recovered_fs/ 2> /dev/null
+              cd "$cCarpetaDondeGuardar"/recovered_fs/
+              "$HOME"/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.pagecache.RecoverFs > "$cCarpetaDondeGuardar"/tab/linux.pagecache.RecoverFs.tab
+              # Re-crear el sistema de archivos del disco
+                echo ""
+                echo "    Re-creando el sistema de archivos del disco..."
+                echo ""
+                # Extraer el contenido del archivo recovered_fs.tar.gz
+                  tar -xzf recovered_fs.tar.gz
+                # Unificar carpetas
+                  vCarpetaDestino="$cCarpetaDondeGuardar/recovered_fs/../hd"
+                  for vCarpeta in "$cCarpetaDondeGuardar"/recovered_fs/*; do
+                    # Saltar la carpeta destino si ya existe
+                      [ "$vCarpeta" = "$vCarpetaDestino" ] && continue
+                      [ -d "$vCarpeta" ] || continue
+                    # Mover contenido dentro de la carpeta destino
+                     rsync -a "$vCarpeta"/ "$vCarpetaDestino"/
+                  done
+                # Eliminar carpeta recovered_fs
+                  cd "$cCarpetaDondeGuardar"
+                  rm -rf "$cCarpetaDondeGuardar"/recovered_fs/ 2> /dev/null
+                # Eliminar carpetas vacías recursivamente dentro de hd
+                  echo "Eliminando carpetas vacías..."
+                  find "$cCarpetaDondeGuardar"/hd/ -type d -empty -delete
 
           # Salir del entorno virtual
             deactivate
@@ -614,7 +640,7 @@ cCarpetaVolatility3="$HOME/repos/python/volatility3/"
               echo ""
               "$HOME"/repos/python/volatility3/vol.py -q -f "$cRutaAlArchivoDeDump" -s /home/nipegun/repos/python/volatility3/volatility3/symbols linux.iomem.IOMem > "$cCarpetaDondeGuardar"/tab/linux.iomem.IOMem.tab
 
-*            # linux.vmaregexscan.VmaRegExScan (Escanea regiones de memoria con regex)
+# !! >>     # linux.vmaregexscan.VmaRegExScan (Escanea regiones de memoria con regex)
               echo ""
               echo "    Aplicando el plugin linux.vmaregexscan.VmaRegExScan..."
               echo ""
