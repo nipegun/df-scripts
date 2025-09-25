@@ -422,16 +422,16 @@ if [ $# -ne $cCantParamEsperados ]
               echo "  Convirtiendo los eventos al formato plaso..."
               echo ""
               # Borrar primero el archivo anterior
-                rm -f "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosJuntos.plaso 2> /dev/null
+                rm -f "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosAgrupados.plaso 2> /dev/null
               # Tratar de ejecutar con el binario
                 if [ -f ~/bin/plaso-log2timeline ]; then
-                  ~/bin/plaso-log2timeline "$vCarpetaConEventosRecolectados"/ --storage-file "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosJuntos.plaso
+                  ~/bin/plaso-log2timeline "$vCarpetaConEventosRecolectados"/ --storage-file "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosAgrupados.plaso
                 else
                   echo ""
                   echo -e "${cColorRojo}    El binario ~/bin/plaso-log2timeline no existe. Intentando ejecutar desde el entorno virtual...${cFinColor}"
                   echo ""
                   source ~/repos/python/plaso/venv/bin/activate
-                    log2timeline "$vCarpetaConEventosRecolectados"/ --storage-file "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosJuntos.plaso
+                    log2timeline "$vCarpetaConEventosRecolectados"/ --storage-file "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosAgrupados.plaso
                   deactivate
                 fi
 
@@ -446,13 +446,13 @@ if [ $# -ne $cCantParamEsperados ]
                 rm -f "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventos.txt 2> /dev/null
               # Tratar de ejecutar con el binario
                 if [ -f ~/bin/plaso-psort ]; then
-                  ~/bin/plaso-psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosJuntos.plaso -o dynamic -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventos.txt
+                  ~/bin/plaso-psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosAgrupados.plaso -o dynamic -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventos.txt
                 else
                   echo ""
                   echo -e "${cColorRojo}      El binario ~/bin/plaso-psort no existe. Intentando ejecutar desde el entorno virtual...${cFinColor}"
                   echo ""
                   source ~/repos/python/plaso/venv/bin/activate
-                    psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosJuntos.plaso -o dynamic -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventos.txt
+                    psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosAgrupados.plaso -o dynamic -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventos.txt
                   deactivate
                 fi
 
@@ -467,13 +467,13 @@ if [ $# -ne $cCantParamEsperados ]
                 rm -f "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventos.json 2> /dev/null
               # Tratar de ejecutar con el binario
                 if [ -f ~/bin/plaso-psort ]; then
-                  ~/bin/plaso-psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosJuntos.plaso -o json -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventos.json
+                  ~/bin/plaso-psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosAgrupados.plaso -o json -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventos.json
                 else
                   echo ""
                   echo -e "${cColorRojo}      El binario ~/bin/plaso-psort no existe. Intentando ejecutar desde el entorno virtual...${cFinColor}"
                   echo ""
                   source ~/repos/python/plaso/venv/bin/activate
-                    psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosJuntos.plaso -o json -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventos.json
+                    psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosAgrupados.plaso -o json -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventos.json
                   deactivate
                 fi
 
@@ -488,13 +488,13 @@ if [ $# -ne $cCantParamEsperados ]
                 rm -f "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventos.json_line 2> /dev/null
               # Tratar de ejecutar con el binario
                 if [ -f ~/bin/plaso-psort ]; then
-                  ~/bin/plaso-psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosJuntos.plaso -o json_line -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventos.json_line
+                  ~/bin/plaso-psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosAgrupados.plaso -o json_line -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventos.json_line
                 else
                   echo ""
                   echo -e "${cColorRojo}      El binario ~/bin/plaso-psort no existe. Intentando ejecutar desde el entorno virtual...${cFinColor}"
                   echo ""
                   source ~/repos/python/plaso/venv/bin/activate
-                    psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosJuntos.plaso -o json_line -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventos.json_line
+                    psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosAgrupados.plaso -o json_line -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventos.json_line
                   deactivate
                 fi
 
@@ -509,13 +509,13 @@ if [ $# -ne $cCantParamEsperados ]
                 rm -f "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventos.l2tcsv 2> /dev/null
               # Tratar de ejecutar con el binario
                 if [ -f ~/bin/plaso-psort ]; then
-                  ~/bin/plaso-psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosJuntos.plaso -o l2tcsv -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventos.l2tcsv
+                  ~/bin/plaso-psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosAgrupados.plaso -o l2tcsv -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventos.l2tcsv
                 else
                   echo ""
                   echo -e "${cColorRojo}      El binario ~/bin/plaso-psort no existe. Intentando ejecutar desde el entorno virtual...${cFinColor}"
                   echo ""
                   source ~/repos/python/plaso/venv/bin/activate
-                    psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosJuntos.plaso -o l2tcsv -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventos.l2tcsv
+                    psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosAgrupados.plaso -o l2tcsv -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventos.l2tcsv
                   deactivate
                 fi
 
@@ -530,13 +530,13 @@ if [ $# -ne $cCantParamEsperados ]
                 rm -f "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventos.l2ttln 2> /dev/null
               # Tratar de ejecutar con el binario
                 if [ -f ~/bin/plaso-psort ]; then
-                  ~/bin/plaso-psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosJuntos.plaso -o l2ttln -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventos.l2ttln
+                  ~/bin/plaso-psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosAgrupados.plaso -o l2ttln -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventos.l2ttln
                 else
                   echo ""
                   echo -e "${cColorRojo}      El binario ~/bin/plaso-psort no existe. Intentando ejecutar desde el entorno virtual...${cFinColor}"
                   echo ""
                   source ~/repos/python/plaso/venv/bin/activate
-                    psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosJuntos.plaso -o l2ttln -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventos.l2ttln
+                    psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosAgrupados.plaso -o l2ttln -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventos.l2ttln
                   deactivate
                 fi
 
@@ -551,13 +551,13 @@ if [ $# -ne $cCantParamEsperados ]
                 rm -f "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventos.rawpy 2> /dev/null
               # Tratar de ejecutar con el binario
                 if [ -f ~/bin/plaso-psort ]; then
-                  ~/bin/plaso-psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosJuntos.plaso -o rawpy -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventos.rawpy
+                  ~/bin/plaso-psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosAgrupados.plaso -o rawpy -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventos.rawpy
                 else
                   echo ""
                   echo -e "${cColorRojo}      El binario ~/bin/plaso-psort no existe. Intentando ejecutar desde el entorno virtual...${cFinColor}"
                   echo ""
                   source ~/repos/python/plaso/venv/bin/activate
-                    psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosJuntos.plaso -o rawpy -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventos.rawpy
+                    psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosAgrupados.plaso -o rawpy -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventos.rawpy
                   deactivate
                 fi
               # Extraer los bloques desde {xml_string} hasta </Event>
@@ -576,7 +576,7 @@ if [ $# -ne $cCantParamEsperados ]
               # Vaciar los atributos de la etiqueta EventData
                 sed -i 's/<EventData .*>/<EventData>/g' "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventosAgrupados.xml
               # Extraer sólo las lineas que contengan commandline y cmd y powershell
-                cat "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventosAgrupados.xml | grep -v 'CommandLine=</Data>' | grep -v '<Data Name="CommandLine"/>' | grep -iE "commandline|cmd|powershell" > "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/CommandLine.txt
+                cat "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventosAgrupados.xml | grep -v 'CommandLine=</Data>' | grep -v '<Data Name="CommandLine"/>' | grep -iE "commandline|cmd|powershell" > "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeCommandLine.txt
 
             ;;
 
@@ -589,13 +589,13 @@ if [ $# -ne $cCantParamEsperados ]
                 rm -f "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventos.tln 2> /dev/null
               # Tratar de ejecutar con el binario
                 if [ -f ~/bin/plaso-psort ]; then
-                  ~/bin/plaso-psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosJuntos.plaso -o tln -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventos.tln
+                  ~/bin/plaso-psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosAgrupados.plaso -o tln -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventos.tln
                 else
                   echo ""
                   echo -e "${cColorRojo}      El binario ~/bin/plaso-psort no existe. Intentando ejecutar desde el entorno virtual...${cFinColor}"
                   echo ""
                   source ~/repos/python/plaso/venv/bin/activate
-                    psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosJuntos.plaso -o tln -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventos.tln
+                    psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosAgrupados.plaso -o tln -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventos.tln
                   deactivate
                 fi
 
@@ -610,13 +610,13 @@ if [ $# -ne $cCantParamEsperados ]
                 rm -f "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventos.xlsx 2> /dev/null
               # Tratar de ejecutar con el binario
                 if [ -f ~/bin/plaso-psort ]; then
-                  ~/bin/plaso-psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosJuntos.plaso -o xlsx -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventos.xlsx
+                  ~/bin/plaso-psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosAgrupados.plaso -o xlsx -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventos.xlsx
                 else
                   echo ""
                   echo -e "${cColorRojo}      El binario ~/bin/plaso-psort no existe. Intentando ejecutar desde el entorno virtual...${cFinColor}"
                   echo ""
                   source ~/repos/python/plaso/venv/bin/activate
-                    psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosJuntos.plaso -o xlsx -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventos.xlsx
+                    psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosAgrupados.plaso -o xlsx -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLine/TimeLineDeTodosLosEventos.xlsx
                   deactivate
                 fi
 
