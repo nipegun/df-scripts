@@ -2629,7 +2629,7 @@ cCarpetaVolatility3="$HOME/repos/python/volatility3/"
           echo "  Buscando IPs privadas de clase A..."
           echo ""
           mkdir -p "$cCarpetaDondeGuardar"/strings/ 2> /dev/null
-          strings "$cRutaAlArchivoDeDump" | grep -Eo '10\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])' | sort -n | uniq | tee
+          strings "$cRutaAlArchivoDeDump" | grep -Eo '10\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])' | sort -n | uniq | tee "$cCarpetaDondeGuardar"/strings/IPsPrivadasDeClaseA.txt
 
         ;;
 
@@ -2639,7 +2639,7 @@ cCarpetaVolatility3="$HOME/repos/python/volatility3/"
           echo "  Buscando IPs privadas de clase B..."
           echo ""
           mkdir -p "$cCarpetaDondeGuardar"/strings/ 2> /dev/null
-          strings "$cRutaAlArchivoDeDump" | grep -Eo '172\.(1[6-9]|2[0-9]|3[0-1])\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])' | sort -n | uniq | tee 
+          strings "$cRutaAlArchivoDeDump" | grep -Eo '172\.(1[6-9]|2[0-9]|3[0-1])\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])' | sort -n | uniq | tee "$cCarpetaDondeGuardar"/strings/IPsPrivadasDeClaseB.txt
 
         ;;
 
@@ -2649,7 +2649,7 @@ cCarpetaVolatility3="$HOME/repos/python/volatility3/"
           echo "  Buscando IPs privadas de clase C..."
           echo ""
           mkdir -p "$cCarpetaDondeGuardar"/strings/ 2> /dev/null
-          strings "$cRutaAlArchivoDeDump" | grep -Eo '192\.168\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])' | sort -n | uniq | tee 
+          strings "$cRutaAlArchivoDeDump" | grep -Eo '192\.168\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])' | sort -n | uniq | tee "$cCarpetaDondeGuardar"/strings/IPsPrivadasDeClaseC.txt
 
         ;;
 
