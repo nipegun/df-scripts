@@ -89,19 +89,19 @@ if [ $# -ne $cCantParamEsperados ]
                   echo ""
                 fi
               # Recorrer la carpeta e ir convirtiendo
-                sudo mkdir -p "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosOriginalesDeEVTXaXML/
-                sudo rm -rf "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosOriginalesDeEVTXaXML/*
+                mkdir -p "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosOriginalesDeEVTXaXML/
+                rm -rf "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosOriginalesDeEVTXaXML/*
                 sudo chown $USER:$USER "$vCarpetaDelCaso" -R
-                sudo find "$vCarpetaConEventosRecolectados"/ -name "*.evtx" | while read vArchivo; do
+                find "$vCarpetaConEventosRecolectados"/ -name "*.evtx" | while read vArchivo; do
                   vArchivoDeSalida="$vCarpetaDelCaso/Artefactos/Eventos/Parseados/TodosLosOriginalesDeEVTXaXML/$(basename "$vArchivo" .evtx).xml"
-                  sudo evtxexport -f xml "$vArchivo" > "$vArchivoDeSalida" && sed -i '1d' "$vArchivoDeSalida" && sed -i 's/^<Event [^>]*>/<Event>/' "$vArchivoDeSalida"
-                  #sudo sed -i '1i\<root>' "$vArchivoDeSalida"
+                  evtxexport -f xml "$vArchivo" > "$vArchivoDeSalida" && sed -i '1d' "$vArchivoDeSalida" && sed -i 's/^<Event [^>]*>/<Event>/' "$vArchivoDeSalida"
+                  #sed -i '1i\<root>' "$vArchivoDeSalida"
                   #echo '</root>' >> "$vArchivoDeSalida"
                 done
               # Borrar todos los xml que no tengan la linea <Event>
                 for archivo in "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosOriginalesDeEVTXaXML/*; do # Recorre todos los archivos en el directorio
                   if ! grep -q "<Event>" "$archivo"; then                    # Verifica si el archivo contiene la línea "<Event>"
-                    sudo rm -f "$archivo"                                    # Si no contiene "<Event>", lo elimina
+                    rm -f "$archivo"                                    # Si no contiene "<Event>", lo elimina
                   fi
                 done
 
@@ -113,17 +113,17 @@ if [ $# -ne $cCantParamEsperados ]
               echo "  Parseando cada archivo .evtx original a .txt..."
               echo ""
               # También convertir a texto
-                sudo mkdir -p "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosOriginalesDeEVTXaTXT/
-                sudo rm -rf "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosOriginalesDeEVTXaTXT/*
+                mkdir -p "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosOriginalesDeEVTXaTXT/
+                rm -rf "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosOriginalesDeEVTXaTXT/*
                 sudo chown $USER:$USER "$vCarpetaDelCaso" -R
                 find "$vCarpetaConEventosRecolectados"/ -name "*.evtx" | while read vArchivo; do
                   vArchivoDeSalida="$vCarpetaDelCaso/Artefactos/Eventos/Parseados/TodosLosOriginalesDeEVTXaTXT/$(basename "$vArchivo" .evtx).txt"
-                  sudo evtxexport "$vArchivo" > "$vArchivoDeSalida" && sed -i '1d' "$vArchivoDeSalida"
+                  evtxexport "$vArchivo" > "$vArchivoDeSalida" && sed -i '1d' "$vArchivoDeSalida"
                 done
               # Borrar todos los txt que no tengan el texto "Event number"
                 for archivo in "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosOriginalesDeEVTXaTXT/*; do # Recorre todos los archivos en el directorio
                   if ! grep -q "Event number" "$archivo"; then               # Verifica si el archivo contiene la cadena "Even number" y
-                    sudo rm -f "$archivo"                                    # si no contiene "Event number", lo elimina
+                    rm -f "$archivo"                                    # si no contiene "Event number", lo elimina
                   fi
                 done
 
@@ -138,12 +138,12 @@ if [ $# -ne $cCantParamEsperados ]
                 cat "$archivo" >> "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosAgrupados.xml
               done
               # Agregar una etiqueta raíz para poder trabajar con el xml
-                sudo sed -i '1i\<Events>' "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosAgrupados.xml # Agrega la apertura de la etiqueta raiz en la primera linea
+                sed -i '1i\<Events>' "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosAgrupados.xml # Agrega la apertura de la etiqueta raiz en la primera linea
                 echo '</Events>' >>  "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosAgrupados.xml # Agrega el cierre de la etiqueta raíz en una nueva linea al final del archivo
               # Agregar una etiqueta raíz para poder trabajar con los xml a posteriori
                 for vArchivo in "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosOriginalesDeEVTXaXML/*; do # Recorre todos los archivos en el directorio
-                  sudo sed -i '1i\<Events>' "$vArchivo"                            # Agrega la apertura de la etiqueta raiz en la primera linea
-                  sudo echo '</Events>' >> "$vArchivo"                             # Agrega el cierre de la etiqueta raíz en una nueva linea al final del archivo
+                  sed -i '1i\<Events>' "$vArchivo"                            # Agrega la apertura de la etiqueta raiz en la primera linea
+                  echo '</Events>' >> "$vArchivo"                             # Agrega el cierre de la etiqueta raíz en una nueva linea al final del archivo
                 done
               # Notificar el nombre del archivo
                 echo ""
@@ -163,7 +163,7 @@ if [ $# -ne $cCantParamEsperados ]
               #echo '</root>' >>  "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosAgrupados.xml # Agrega el cierre de la etiqueta raíz en una nueva linea al final del archivo
               # Generar un archivo por cada evento dentro del xml
                 # Crear una carpeta para almacenar los archivos de vEventos
-                  sudo mkdir -p "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/CadaEventoIndividualEnXML/
+                  mkdir -p "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/CadaEventoIndividualEnXML/
                   sudo chown $USER:$USER "$vCarpetaDelCaso" -R
                 # Contador de vEventos
                   vContador=1
@@ -181,7 +181,7 @@ if [ $# -ne $cCantParamEsperados ]
                       # Agregar la línea de cierre del vEvento
                         vEvento+=$'\n'"$line"
                       # Guardar el bloque en un archivo
-                        sudo echo "$vEvento" > "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/CadaEventoIndividualEnXML/$vEvento_${vContador}.xml
+                        echo "$vEvento" > "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/CadaEventoIndividualEnXML/$vEvento_${vContador}.xml
                       # Incrementar el vContador y limpiar la variable del vEvento
                         vContador=$((vContador + 1))
                       vEvento=""
@@ -194,7 +194,7 @@ if [ $# -ne $cCantParamEsperados ]
                   echo ""
                   echo "    Renombrando cada archivo .xml con el valor su etiqueta SystemTime..."
                   echo ""
-                  sudo mkdir -p "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/CadaEventoIndividualEnXMLOrdenadosPorFecha/
+                  mkdir -p "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/CadaEventoIndividualEnXMLOrdenadosPorFecha/
                   sudo chown $USER:$USER "$vCarpetaDelCaso" -R
                   # Recorrer cada archivo XML en la carpeta
                     for file in "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/CadaEventoIndividualEnXML/*.xml ; do
@@ -210,7 +210,7 @@ if [ $# -ne $cCantParamEsperados ]
                           fi
                         system_time=$(xmlstarlet sel -t -v "//TimeCreated/@SystemTime" "$file" 2>/dev/null)
                       # Renombrar el archivo
-                        sudo cp "$file" "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/CadaEventoIndividualEnXMLOrdenadosPorFecha/"${system_time}".xml
+                        cp "$file" "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/CadaEventoIndividualEnXMLOrdenadosPorFecha/"${system_time}".xml
                     done
                   rm -f "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/CadaEventoIndividualEnXMLOrdenadosPorFecha/.xml
                 # Agregar los mensajes a los eventos
@@ -244,15 +244,15 @@ if [ $# -ne $cCantParamEsperados ]
                                     vNuevaEtiquetaEng="<EventMessageEN>${aMensajesEng[$vIdDelEvento]}</EventMessageEN>"
                                     vNuevaEtiquetaEsp="<EventMessageES>${aMensajesEsp[$vIdDelEvento]}</EventMessageES>"
                                   # Añadir las nuevas etiquetas al archivo temporal
-                                    sudo echo "    $vNuevaEtiquetaEng" >> "$vArchivoTemporal"
-                                    sudo echo "    $vNuevaEtiquetaEsp" >> "$vArchivoTemporal"
+                                    echo "    $vNuevaEtiquetaEng" >> "$vArchivoTemporal"
+                                    echo "    $vNuevaEtiquetaEsp" >> "$vArchivoTemporal"
                                 else
                                   echo "  No se encontró el evento $vIdDelEvento en el CSV."
                                 fi
                             fi
                         done < "$vArchivoXML"
                         # Reemplazar el archivo original con el contenido actualizado
-                          sudo mv "$vArchivoTemporal" "$vArchivoXML"
+                          mv "$vArchivoTemporal" "$vArchivoXML"
                     done
                     # Notificar
                       echo ""
@@ -266,19 +266,19 @@ if [ $# -ne $cCantParamEsperados ]
                 # Crear un nuevo archivo xml con todos los eventos
                   echo ""
                   echo "    Agrupando todos los archivos .xml únicos en un archivo unificado final..."
-                  echo ""head 
+                  echo ""
                   # Probar con un bucle
                     find "$vCarpetaDelCaso/Artefactos/Eventos/Parseados/CadaEventoIndividualEnXMLOrdenadosPorFecha" -type f | sort | while read -r vArchivo; do
                       cat "$vArchivo" >> "$vCarpetaDelCaso/Artefactos/Eventos/Parseados/TodosLosEventosOrdenadosPorFecha.xml"
                     done
-                  sudo sed -i -e 's-</Event>-</Event>\n-g' "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosOrdenadosPorFecha.xml
-                  sudo sed -i '1i\<Events>' "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosOrdenadosPorFecha.xml # Agrega la apertura de la etiqueta raiz en la primera linea
-                  sudo echo '</Events>' >>  "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosOrdenadosPorFecha.xml # Agrega el cierre de la etiqueta raíz en una nueva linea al final del archivo
+                  sed -i -e 's-</Event>-</Event>\n-g' "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosOrdenadosPorFecha.xml
+                  sed -i '1i\<Events>' "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosOrdenadosPorFecha.xml # Agrega la apertura de la etiqueta raiz en la primera linea
+                  echo '</Events>' >>  "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosOrdenadosPorFecha.xml # Agrega el cierre de la etiqueta raíz en una nueva linea al final del archivo
                 # Notificar el nombre del archivo
                   echo ""
                   echo "    El archivo con todos los eventos juntos, ordenado por fecha es:"
                   echo ""
-                  echo "      $vCarpetaDelCaso/Artefactos/Eventos/ParseadosTodosLosEventosOrdenadosPorFecha.xml"
+                  echo "      $vCarpetaDelCaso/Artefactos/Eventos/Parseados/TodosLosEventosOrdenadosPorFecha.xml"
                   echo ""
 
             ;;
@@ -302,13 +302,13 @@ if [ $# -ne $cCantParamEsperados ]
                   sudo apt-get -y install libxml2-utils
                   echo ""
                 fi
-              sudo xmllint --xpath '//*[Data[@Name="SubjectUserSid" and text()='"'$vSIDDelUsuario'"']]/parent::*' "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosOriginalesDeEVTXaXML/*  > "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosDelUsuario.xml 2> /dev/null
-              sudo xmllint --xpath '//*[Security[@UserID='"'$vSIDDelUsuario'"']]/parent::*'                       "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosOriginalesDeEVTXaXML/* >> "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosDelUsuario.xml 2> /dev/null
+              xmllint --xpath '//*[Data[@Name="SubjectUserSid" and text()='"'$vSIDDelUsuario'"']]/parent::*' "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosOriginalesDeEVTXaXML/*  > "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosDelUsuario.xml 2> /dev/null
+              xmllint --xpath '//*[Security[@UserID='"'$vSIDDelUsuario'"']]/parent::*'                       "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosOriginalesDeEVTXaXML/* >> "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosDelUsuario.xml 2> /dev/null
               sed -i '1i\<root>' "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosDelUsuario.xml      # Agrega la apertura de la etiqueta raiz en la primera linea
-              sudo echo '</root>' >>  "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosDelUsuario.xml # Agrega el cierre de la etiqueta raíz en una nueva linea al final del archivo
+              echo '</root>' >>  "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosDelUsuario.xml # Agrega el cierre de la etiqueta raíz en una nueva linea al final del archivo
               # Generar un archivo por cada evento dentro del xml
                 # Crear una carpeta para almacenar los archivos de vEventos
-                  sudo mkdir -p "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/CadaEventoIndividualEnXMLDeUsuario/
+                  mkdir -p "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/CadaEventoIndividualEnXMLDeUsuario/
                   sudo chown $USER:$USER "$vCarpetaDelCaso" -R
                 # Contador de vEventos
                   vContador=1
@@ -326,7 +326,7 @@ if [ $# -ne $cCantParamEsperados ]
                       # Agregar la línea de cierre del vEvento
                         vEvento+=$'\n'"$line"
                       # Guardar el bloque en un archivo
-                        sudo echo "$vEvento" > "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/CadaEventoIndividualEnXMLDeUsuario/$vEvento_${vContador}.xml
+                        echo "$vEvento" > "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/CadaEventoIndividualEnXMLDeUsuario/$vEvento_${vContador}.xml
                       # Incrementar el vContador y limpiar la variable del vEvento
                         vContador=$((vContador + 1))
                       vEvento=""
@@ -339,7 +339,7 @@ if [ $# -ne $cCantParamEsperados ]
                   echo ""
                   echo "    Renombrando cada archivo .xml con el valor su etiqueta SystemTime..."
                   echo ""
-                  sudo mkdir -p "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/CadaEventoIndividualEnXMLDeUsuarioOrdenadosPorFecha/
+                  mkdir -p "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/CadaEventoIndividualEnXMLDeUsuarioOrdenadosPorFecha/
                   sudo chown $USER:$USER "$vCarpetaDelCaso" -R
                   # Recorrer cada archivo XML en la carpeta
                     for file in "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/CadaEventoIndividualEnXMLDeUsuario/* ; do
@@ -357,7 +357,7 @@ if [ $# -ne $cCantParamEsperados ]
                       # Renombrar el archivo
                         cp "$file" "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/CadaEventoIndividualEnXMLDeUsuarioOrdenadosPorFecha/"${system_time}".xml
                     done
-                  sudo rm -f "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/CadaEventoIndividualEnXMLDeUsuarioOrdenadosPorFecha/.xml
+                  rm -f "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/CadaEventoIndividualEnXMLDeUsuarioOrdenadosPorFecha/.xml
                 # Agregar los mensajes a los eventos
                   echo ""
                   echo "    Agregando los mensajes de evento a cada archivo .xml..."
@@ -379,7 +379,7 @@ if [ $# -ne $cCantParamEsperados ]
                         vArchivoTemporal=$(mktemp)
                       # Leer el archivo línea por línea
                         while IFS= read -r vLinea; do
-                          sudo echo "$vLinea" >> "$vArchivoTemporal"
+                          echo "$vLinea" >> "$vArchivoTemporal"
                           # Buscar la etiqueta <EventID>
                             if [[ "$vLinea" =~ \<EventID\>([0-9]+)\</EventID\> ]]; then
                               vIdDelEvento="${BASH_REMATCH[1]}"
@@ -389,24 +389,24 @@ if [ $# -ne $cCantParamEsperados ]
                                     vNuevaEtiquetaEng="<EventMessageEN>${aMensajesEng[$vIdDelEvento]}</EventMessageEN>"
                                     vNuevaEtiquetaEsp="<EventMessageES>${aMensajesEsp[$vIdDelEvento]}</EventMessageES>"
                                   # Añadir las nuevas etiquetas al archivo temporal
-                                    sudo echo "    $vNuevaEtiquetaEng" >> "$vArchivoTemporal"
-                                    sudo echo "    $vNuevaEtiquetaEsp" >> "$vArchivoTemporal"
+                                    echo "    $vNuevaEtiquetaEng" >> "$vArchivoTemporal"
+                                    echo "    $vNuevaEtiquetaEsp" >> "$vArchivoTemporal"
                                 else
                                   echo "  No se encontró el evento $vIdDelEvento en el CSV."
                                 fi
                             fi
                         done < "$vArchivoXML"
                         # Reemplazar el archivo original con el contenido actualizado
-                          sudo mv "$vArchivoTemporal" "$vArchivoXML"
+                          mv "$vArchivoTemporal" "$vArchivoXML"
                     done
                 # Crear un nuevo archivo xml con todos los eventos
                   echo ""
                   echo "    Agrupando todos los archivos .xml únicos en un archivo unificado final..."
                   echo ""
-                  sudo cat $(ls "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/CadaEventoIndividualEnXMLDeUsuarioOrdenadosPorFecha/* | sort) > "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosDelUsuarioOrdenadosPorFecha.xml
-                  sudo sed -i -e 's-</Event>-</Event>\n-g' "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosDelUsuarioOrdenadosPorFecha.xml
-                  sudo sed -i '1i\<Events>' "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosDelUsuarioOrdenadosPorFecha.xml # Agrega la apertura de la etiqueta raiz en la primera linea
-                  sudo echo '</Events>' >>  "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosDelUsuarioOrdenadosPorFecha.xml # Agrega el cierre de la etiqueta raíz en una nueva linea al final del archivo
+                  cat $(ls "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/CadaEventoIndividualEnXMLDeUsuarioOrdenadosPorFecha/* | sort) > "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosDelUsuarioOrdenadosPorFecha.xml
+                  sed -i -e 's-</Event>-</Event>\n-g' "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosDelUsuarioOrdenadosPorFecha.xml
+                  sed -i '1i\<Events>' "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosDelUsuarioOrdenadosPorFecha.xml # Agrega la apertura de la etiqueta raiz en la primera linea
+                  echo '</Events>' >>  "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosDelUsuarioOrdenadosPorFecha.xml # Agrega el cierre de la etiqueta raíz en una nueva linea al final del archivo
                 # Notificar el nombre del archivo
                   echo ""
                   echo "    El archivo con todos los eventos de usuario juntos, ordenado por fecha es:"
@@ -425,7 +425,7 @@ if [ $# -ne $cCantParamEsperados ]
                 rm -f "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosJuntos.plaso 2> /dev/null
               # Tratar de ejecutar con el binario
                 if [ -f ~/bin/plaso-log2timeline ]; then
-                  sudo ~/bin/plaso-log2timeline "$vCarpetaConEventosRecolectados"/ --storage-file "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosJuntos.plaso
+                  ~/bin/plaso-log2timeline "$vCarpetaConEventosRecolectados"/ --storage-file "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosJuntos.plaso
                 else
                   echo ""
                   echo -e "${cColorRojo}    El binario ~/bin/plaso-log2timeline no existe. Intentando ejecutar desde el entorno virtual...${cFinColor}"
@@ -446,7 +446,7 @@ if [ $# -ne $cCantParamEsperados ]
                 rm -f "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLineDeTodosLosEventos.txt 2> /dev/null
               # Tratar de ejecutar con el binario
                 if [ -f ~/bin/plaso-psort ]; then
-                  sudo ~/bin/plaso-psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosJuntos.plaso -o dynamic -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLineDeTodosLosEventos.txt
+                  ~/bin/plaso-psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosJuntos.plaso -o dynamic -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLineDeTodosLosEventos.txt
                 else
                   echo ""
                   echo -e "${cColorRojo}      El binario ~/bin/plaso-psort no existe. Intentando ejecutar desde el entorno virtual...${cFinColor}"
@@ -467,7 +467,7 @@ if [ $# -ne $cCantParamEsperados ]
                 rm -f "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLineDeTodosLosEventos.json 2> /dev/null
               # Tratar de ejecutar con el binario
                 if [ -f ~/bin/plaso-psort ]; then
-                  sudo ~/bin/plaso-psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosJuntos.plaso -o json -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLineDeTodosLosEventos.json
+                  ~/bin/plaso-psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosJuntos.plaso -o json -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLineDeTodosLosEventos.json
                 else
                   echo ""
                   echo -e "${cColorRojo}      El binario ~/bin/plaso-psort no existe. Intentando ejecutar desde el entorno virtual...${cFinColor}"
@@ -488,7 +488,7 @@ if [ $# -ne $cCantParamEsperados ]
                 rm -f "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLineDeTodosLosEventos.json_line 2> /dev/null
               # Tratar de ejecutar con el binario
                 if [ -f ~/bin/plaso-psort ]; then
-                  sudo ~/bin/plaso-psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosJuntos.plaso -o json_line -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLineDeTodosLosEventos.json_line
+                  ~/bin/plaso-psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosJuntos.plaso -o json_line -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLineDeTodosLosEventos.json_line
                 else
                   echo ""
                   echo -e "${cColorRojo}      El binario ~/bin/plaso-psort no existe. Intentando ejecutar desde el entorno virtual...${cFinColor}"
@@ -509,7 +509,7 @@ if [ $# -ne $cCantParamEsperados ]
                 rm -f "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLineDeTodosLosEventos.l2tcsv 2> /dev/null
               # Tratar de ejecutar con el binario
                 if [ -f ~/bin/plaso-psort ]; then
-                  sudo ~/bin/plaso-psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosJuntos.plaso -o l2tcsv -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLineDeTodosLosEventos.l2tcsv
+                  ~/bin/plaso-psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosJuntos.plaso -o l2tcsv -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLineDeTodosLosEventos.l2tcsv
                 else
                   echo ""
                   echo -e "${cColorRojo}      El binario ~/bin/plaso-psort no existe. Intentando ejecutar desde el entorno virtual...${cFinColor}"
@@ -530,7 +530,7 @@ if [ $# -ne $cCantParamEsperados ]
                 rm -f "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLineDeTodosLosEventos.l2ttln 2> /dev/null
               # Tratar de ejecutar con el binario
                 if [ -f ~/bin/plaso-psort ]; then
-                  sudo ~/bin/plaso-psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosJuntos.plaso -o l2ttln -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLineDeTodosLosEventos.l2ttln
+                  ~/bin/plaso-psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosJuntos.plaso -o l2ttln -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLineDeTodosLosEventos.l2ttln
                 else
                   echo ""
                   echo -e "${cColorRojo}      El binario ~/bin/plaso-psort no existe. Intentando ejecutar desde el entorno virtual...${cFinColor}"
@@ -551,7 +551,7 @@ if [ $# -ne $cCantParamEsperados ]
                 rm -f "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLineDeTodosLosEventos.rawpy 2> /dev/null
               # Tratar de ejecutar con el binario
                 if [ -f ~/bin/plaso-psort ]; then
-                  sudo ~/bin/plaso-psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosJuntos.plaso -o rawpy -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLineDeTodosLosEventos.rawpy
+                  ~/bin/plaso-psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosJuntos.plaso -o rawpy -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLineDeTodosLosEventos.rawpy
                 else
                   echo ""
                   echo -e "${cColorRojo}      El binario ~/bin/plaso-psort no existe. Intentando ejecutar desde el entorno virtual...${cFinColor}"
@@ -589,7 +589,7 @@ if [ $# -ne $cCantParamEsperados ]
                 rm -f "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLineDeTodosLosEventos.tln 2> /dev/null
               # Tratar de ejecutar con el binario
                 if [ -f ~/bin/plaso-psort ]; then
-                  sudo ~/bin/plaso-psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosJuntos.plaso -o tln -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLineDeTodosLosEventos.tln
+                  ~/bin/plaso-psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosJuntos.plaso -o tln -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLineDeTodosLosEventos.tln
                 else
                   echo ""
                   echo -e "${cColorRojo}      El binario ~/bin/plaso-psort no existe. Intentando ejecutar desde el entorno virtual...${cFinColor}"
@@ -610,7 +610,7 @@ if [ $# -ne $cCantParamEsperados ]
                 rm -f "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLineDeTodosLosEventos.xlsx 2> /dev/null
               # Tratar de ejecutar con el binario
                 if [ -f ~/bin/plaso-psort ]; then
-                  sudo ~/bin/plaso-psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosJuntos.plaso -o xlsx -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLineDeTodosLosEventos.xlsx
+                  ~/bin/plaso-psort "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosJuntos.plaso -o xlsx -w "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLineDeTodosLosEventos.xlsx
                 else
                   echo ""
                   echo -e "${cColorRojo}      El binario ~/bin/plaso-psort no existe. Intentando ejecutar desde el entorno virtual...${cFinColor}"
