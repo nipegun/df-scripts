@@ -194,7 +194,7 @@ if [ $# -ne $cCantParamEsperados ]
                   echo ""
                   echo "    Renombrando cada archivo .xml con el valor su etiqueta SystemTime..."
                   echo ""
-                  sudo mkdir -p "$vCarpetaDelCaso"/EventosIndividualesOrdenadosPorFecha/
+                  sudo mkdir -p "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/EventosIndividualesOrdenadosPorFecha/
                   sudo chown $USER:$USER "$vCarpetaDelCaso" -R
                   # Recorrer cada archivo XML en la carpeta
                     for file in "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/EventosIndividuales/*.xml ; do
@@ -210,9 +210,9 @@ if [ $# -ne $cCantParamEsperados ]
                           fi
                         system_time=$(xmlstarlet sel -t -v "//TimeCreated/@SystemTime" "$file" 2>/dev/null)
                       # Renombrar el archivo
-                        sudo cp "$file" "$vCarpetaDelCaso"/EventosIndividualesOrdenadosPorFecha/"${system_time}".xml
+                        sudo cp "$file" "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/EventosIndividualesOrdenadosPorFecha/"${system_time}".xml
                     done
-                  rm -f "$vCarpetaDelCaso"/EventosIndividualesOrdenadosPorFecha/.xml
+                  rm -f "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/EventosIndividualesOrdenadosPorFecha/.xml
                 # Agregar los mensajes a los eventos
                   echo ""
                   echo "    Agregando los mensajes de evento a cada archivo .xml..."
@@ -229,7 +229,7 @@ if [ $# -ne $cCantParamEsperados ]
                       aMensajesEsp["$campoIdDelEvento"]="$campoMensajeEsp"
                     done < /tmp/eventos-en-es.csv
                   # Procesar cada archivo .xml
-                    for vArchivoXML in "$vCarpetaDelCaso/EventosIndividualesOrdenadosPorFecha/"*.xml; do
+                    for vArchivoXML in "$vCarpetaDelCaso/Artefactos/Eventos/Parseados/EventosIndividualesOrdenadosPorFecha/"*.xml; do
                       # Crear un archivo temporal para el nuevo contenido
                         vArchivoTemporal=$(mktemp)
                       # Leer el archivo línea por línea
@@ -256,7 +256,7 @@ if [ $# -ne $cCantParamEsperados ]
                     done
                     # Notificar
                       echo ""
-                      echo "    Se ha creado la carpeta "$vCarpetaDelCaso"/EventosIndividualesOrdenadosPorFecha/"
+                      echo "    Se ha creado la carpeta "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/EventosIndividualesOrdenadosPorFecha/"
                       echo "    y se han guardado dentro todos los archivos de eventos individuales con su correspondiente fecha en el nombre."
                       echo ""
                       echo "    Para buscar una cadena específica entre el texto de todos esos archivos, puedes hacer:"
@@ -268,17 +268,17 @@ if [ $# -ne $cCantParamEsperados ]
                   echo "    Agrupando todos los archivos .xml únicos en un archivo unificado final..."
                   echo ""head 
                   # Probar con un bucle
-                    find "$vCarpetaDelCaso/EventosIndividualesOrdenadosPorFecha" -type f | sort | while read -r vArchivo; do
-                      cat "$vArchivo" >> "$vCarpetaDelCaso/TodosLosEventosOrdenadosPorFecha.xml"
+                    find "$vCarpetaDelCaso/Artefactos/Eventos/Parseados/EventosIndividualesOrdenadosPorFecha" -type f | sort | while read -r vArchivo; do
+                      cat "$vArchivo" >> "$vCarpetaDelCaso/Artefactos/Eventos/Parseados/TodosLosEventosOrdenadosPorFecha.xml"
                     done
-                  sudo sed -i -e 's-</Event>-</Event>\n-g' "$vCarpetaDelCaso"/TodosLosEventosOrdenadosPorFecha.xml
-                  sudo sed -i '1i\<Events>' "$vCarpetaDelCaso"/TodosLosEventosOrdenadosPorFecha.xml # Agrega la apertura de la etiqueta raiz en la primera linea
-                  sudo echo '</Events>' >>  "$vCarpetaDelCaso"/TodosLosEventosOrdenadosPorFecha.xml # Agrega el cierre de la etiqueta raíz en una nueva linea al final del archivo
+                  sudo sed -i -e 's-</Event>-</Event>\n-g' "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosOrdenadosPorFecha.xml
+                  sudo sed -i '1i\<Events>' "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosOrdenadosPorFecha.xml # Agrega la apertura de la etiqueta raiz en la primera linea
+                  sudo echo '</Events>' >>  "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosOrdenadosPorFecha.xml # Agrega el cierre de la etiqueta raíz en una nueva linea al final del archivo
                 # Notificar el nombre del archivo
                   echo ""
                   echo "    El archivo con todos los eventos juntos, ordenado por fecha es:"
                   echo ""
-                  echo "      "$vCarpetaDelCaso"/TodosLosEventosOrdenadosPorFecha.xml"
+                  echo "      "$vCarpetaDelCaso"/Artefactos/Eventos/ParseadosTodosLosEventosOrdenadosPorFecha.xml"
                   echo ""
 
             ;;
@@ -288,8 +288,11 @@ if [ $# -ne $cCantParamEsperados ]
               echo ""
               echo "  Intentando crear un único archivo con todos los eventos del usuario ordenados por fecha..."
               echo ""
-              vSIDvSIDDelUsuario="$1"
-              vSIDDelUsuario="S-1-5-21-92896240-835188504-1963242017-1001"
+
+              # Pedir el SID del usuario
+                echo -n "Introduce el SID del Usuario (por ejemplo S-1-5-21-92896240-835188504-1963242017-1001):"
+                read vSIDDelUsuario
+
               # Comprobar si el paquete libxml2-utils está instalado. Si no lo está, instalarlo.
                 if [[ $(dpkg-query -s libxml2-utils 2>/dev/null | grep installed) == "" ]]; then
                   echo ""
