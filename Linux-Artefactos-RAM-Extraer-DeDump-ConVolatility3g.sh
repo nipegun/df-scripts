@@ -83,7 +83,8 @@ cCarpetaVolatility3="$HOME/repos/python/volatility3/"
      18 "Buscar IPs privadas de clase A"                               off
      19 "Buscar IPs privadas de clase B"                               off
      20 "Buscar IPs privadas de clase C"                               off
-     21 "Extraer el sistema de carpetas y archivos de dentro del dump" off
+     21 "Extraer datos POST de LoginForms"                             off
+     22 "Extraer el sistema de carpetas y archivos de dentro del dump" off
     )
   choices=$("${menu[@]}" "${opciones[@]}" 2>&1 >/dev/tty)
   #clear
@@ -2642,6 +2643,15 @@ cCarpetaVolatility3="$HOME/repos/python/volatility3/"
         ;;
 
        21)
+
+          echo ""
+          echo "  Buscando datos POST de LoginForms..."
+          echo ""
+          strings "$cRutaAlArchivoDeDump" | grep -E 'username=|password='
+
+        ;;
+
+       22)
 
           echo ""
           echo "  Extrayendo el sistema carpetas y archivos de dentro del dump..."
