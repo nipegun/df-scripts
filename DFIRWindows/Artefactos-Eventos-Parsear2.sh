@@ -113,15 +113,15 @@ if [ $# -ne $cCantParamEsperados ]
               echo "  Parseando cada archivo .evtx original a .txt..."
               echo ""
               # También convertir a texto
-                sudo mkdir -p "$vCarpetaDelCaso"/Eventos/Parseados/DeEVTXaTXT/
-                sudo rm -rf "$vCarpetaDelCaso"/Eventos/Parseados/DeEVTXaTXT/*
+                sudo mkdir -p "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/DeEVTXaTXT/
+                sudo rm -rf "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/DeEVTXaTXT/*
                 sudo chown $USER:$USER "$vCarpetaDelCaso" -R
                 find "$vCarpetaConEventosRecolectados"/ -name "*.evtx" | while read vArchivo; do
-                  vArchivoDeSalida=""$vCarpetaDelCaso"/Eventos/Parseados/DeEVTXaTXT/$(basename "$vArchivo" .evtx).txt"
+                  vArchivoDeSalida=""$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/DeEVTXaTXT/$(basename "$vArchivo" .evtx).txt"
                   sudo evtxexport "$vArchivo" > "$vArchivoDeSalida" && sed -i '1d' "$vArchivoDeSalida"
                 done
               # Borrar todos los txt que no tengan el texto "Event number"
-                for archivo in "$vCarpetaDelCaso"/Eventos/Parseados/DeEVTXaTXT/*; do # Recorre todos los archivos en el directorio
+                for archivo in "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/DeEVTXaTXT/*; do # Recorre todos los archivos en el directorio
                   if ! grep -q "Event number" "$archivo"; then               # Verifica si el archivo contiene la cadena "Even number" y
                     sudo rm -f "$archivo"                                    # si no contiene "Event number", lo elimina
                   fi
@@ -135,11 +135,11 @@ if [ $# -ne $cCantParamEsperados ]
               echo "  Unificando en un único archivo todos los archivos XML parseados..."
               echo ""
               for archivo in "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/DeEVTXaXML/*; do # Recorre todos los archivos en el directorio
-                cat "$archivo" >> "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventosAgrupados.xml
+                cat "$archivo" >> "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosAgrupados.xml
               done
               # Agregar una etiqueta raíz para poder trabajar con el xml
-                sudo sed -i '1i\<Events>' "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventosAgrupados.xml # Agrega la apertura de la etiqueta raiz en la primera linea
-                echo '</Events>' >>  "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventosAgrupados.xml # Agrega el cierre de la etiqueta raíz en una nueva linea al final del archivo
+                sudo sed -i '1i\<Events>' "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosAgrupados.xml # Agrega la apertura de la etiqueta raiz en la primera linea
+                echo '</Events>' >>  "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosAgrupados.xml # Agrega el cierre de la etiqueta raíz en una nueva linea al final del archivo
               # Agregar una etiqueta raíz para poder trabajar con los xml a posteriori
                 for vArchivo in "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/DeEVTXaXML/*; do # Recorre todos los archivos en el directorio
                   sudo sed -i '1i\<Events>' "$vArchivo"                            # Agrega la apertura de la etiqueta raiz en la primera linea
@@ -149,7 +149,7 @@ if [ $# -ne $cCantParamEsperados ]
                 echo ""
                 echo "    El archivo con todos los eventos juntos, pero sin ordenar por fecha es:"
                 echo ""
-                echo "      "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventosAgrupados.xml"
+                echo "      "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosAgrupados.xml"
                 echo ""
 
             ;;
@@ -159,8 +159,8 @@ if [ $# -ne $cCantParamEsperados ]
               echo ""
               echo "  Intentando crear un único archivo XML con todos los eventos ordenados por fecha..."
               echo ""
-              #sed -i '1i\<root>' "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventosAgrupados.xml # Agrega la apertura de la etiqueta raiz en la primera linea
-              #echo '</root>' >>  "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventosAgrupados.xml # Agrega el cierre de la etiqueta raíz en una nueva linea al final del archivo
+              #sed -i '1i\<root>' "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosAgrupados.xml # Agrega la apertura de la etiqueta raiz en la primera linea
+              #echo '</root>' >>  "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosAgrupados.xml # Agrega el cierre de la etiqueta raíz en una nueva linea al final del archivo
               # Generar un archivo por cada evento dentro del xml
                 # Crear una carpeta para almacenar los archivos de vEventos
                   sudo mkdir -p "$vCarpetaDelCaso"/EventosIndividuales/
@@ -189,7 +189,7 @@ if [ $# -ne $cCantParamEsperados ]
                       # Agregar la línea al bloque de vEvento en curso
                         vEvento+=$'\n'"$line"
                     fi
-                  done < "$vCarpetaDelCaso"/Eventos/Parseados/TodosLosEventosAgrupados.xml
+                  done < "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosAgrupados.xml
                 # Renombrar cada archivo con el valor del campo SystemTime
                   echo ""
                   echo "    Renombrando cada archivo .xml con el valor su etiqueta SystemTime..."
@@ -626,7 +626,7 @@ if [ $# -ne $cCantParamEsperados ]
               echo ""
 
               # Pasar todo el TimeLine de eventos, de json a xml
-                # cat "$vCarpetaDelCaso"/Eventos/Parseados/TimeLineEventos.json | jq | grep xml_string | sed 's-"xml_string": "--g' | sed 's/\\n/\n/g' | sed '/^"/d' | sed 's-xmlns=\"http://schemas.microsoft.com/win/2004/08/events/event\"--g' > "$vCarpetaDelCaso"/Eventos/Parseados/TimeLineCompleto.xml
+                # cat "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLineEventos.json | jq | grep xml_string | sed 's-"xml_string": "--g' | sed 's/\\n/\n/g' | sed '/^"/d' | sed 's-xmlns=\"http://schemas.microsoft.com/win/2004/08/events/event\"--g' > "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TimeLineCompleto.xml
 
               # Exportando actividad del usuario específico desde el archivo .json
                 #  echo ""
