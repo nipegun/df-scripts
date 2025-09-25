@@ -80,9 +80,9 @@ cCarpetaVolatility3="$HOME/repos/python/volatility3/"
      15 "  Parsear datos hacia archivos txt"                           off
      16 "  Parsear datos hacia archivos csv"                           off
      17 "  Parsear datos hacia archivos json"                          off
-     18 "Buscar IPs privadas de clase A"                               off
-     19 "Buscar IPs privadas de clase B"                               off
-     20 "Buscar IPs privadas de clase C"                               off
+     18 "Extraer IPs privadas de clase A"                               off
+     19 "Extraer IPs privadas de clase B"                               off
+     20 "Extraer IPs privadas de clase C"                               off
      21 "Extraer datos POST de LoginForms"                             off
      22 "Extraer el sistema de carpetas y archivos de dentro del dump" off
     )
