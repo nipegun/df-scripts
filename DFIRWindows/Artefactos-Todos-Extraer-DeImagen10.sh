@@ -73,6 +73,7 @@ if [ $# -ne $cCantParamEsperados ]
               echo "  Desmontando todas las particiones loopback montadas previamente como sólo lectura.."
               echo ""
               sudo ~/scripts/df-scripts/Imagen-Particiones-Todas-Desmontar-SoloLectura.sh
+              sudo chown $USER:$USER /Casos/ -R 2> /dev/null
 
             ;;
 
@@ -82,6 +83,7 @@ if [ $# -ne $cCantParamEsperados ]
               echo "  Montando todas las particiones en modo lectura..."
               echo ""
               sudo ~/scripts/df-scripts/Imagen-Particiones-Todas-Montar-SoloLectura.sh $1
+              sudo chown $USER:$USER /Casos/ -R 2> /dev/null
 
             ;;
 
@@ -103,6 +105,7 @@ if [ $# -ne $cCantParamEsperados ]
                     exit
                   fi
               sudo ~/scripts/df-scripts/DFIRWindows/Artefactos-MFT-Extraer.sh "$vPuntoMontajePartWindows" "/Casos/$vFechaDelCaso/"
+              sudo chown $USER:$USER /Casos/ -R 2> /dev/null
 
             ;;
 
@@ -124,6 +127,7 @@ if [ $# -ne $cCantParamEsperados ]
                     exit
                   fi
               sudo ~/scripts/df-scripts/DFIRWindows/Artefactos-Registro-Extraer.sh "$vPuntoMontajePartWindows" "/Casos/$vFechaDelCaso/"
+              sudo chown $USER:$USER /Casos/ -R 2> /dev/null
 
             ;;
 
@@ -145,6 +149,7 @@ if [ $# -ne $cCantParamEsperados ]
                     exit
                   fi
               sudo ~/scripts/df-scripts/DFIRWindows/Artefactos-Eventos-Extraer.sh "$vPuntoMontajePartWindows" "/Casos/$vFechaDelCaso/"
+              sudo chown $USER:$USER /Casos/ -R 2> /dev/null
 
             ;;
 
@@ -166,6 +171,7 @@ if [ $# -ne $cCantParamEsperados ]
                     exit
                   fi
               sudo ~/scripts/df-scripts/DFIRWindows/Artefactos-Navegadores-Extraer.sh "$vPuntoMontajePartWindows" "/Casos/$vFechaDelCaso/"
+              sudo chown $USER:$USER /Casos/ -R 2> /dev/null
 
             ;;
 
@@ -174,6 +180,8 @@ if [ $# -ne $cCantParamEsperados ]
               echo ""
               echo "  Extrayendo x..."
               echo ""
+              
+              sudo chown $USER:$USER /Casos/ -R 2> /dev/null
 
             ;;
 
