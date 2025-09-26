@@ -56,8 +56,8 @@ if [ $# -ne $cCantParamEsperados ]
       while IFS= read -r -d '' win; do
         sys32=$(find "$win" -maxdepth 1 -type d -iname "system32" -print -quit)
         if [ -n "$sys32" ] && find "$sys32/config" -maxdepth 1 -type f -iname "SYSTEM" | grep -q .; then
-          vWindowsDir="$win"
-          vSystem32Dir="$sys32"
+          vWindowsDir=$(basename "$win")
+          vSystem32Dir=$(basename "$sys32")
           break
         fi
       done < <(find "$vPuntoDeMontajePartWindows" -type d -iname "windows" -print0 2>/dev/null)
