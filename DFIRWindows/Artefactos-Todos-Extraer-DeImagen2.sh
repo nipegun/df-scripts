@@ -91,8 +91,8 @@ if [ $# -ne $cCantParamEsperados ]
               echo "  Extrayendo la MFT..."
               echo ""
               # Determinar la partición de Windows
-                vPartWindows=2
-              sudo ~/scripts/df-scripts/DFIRWindows/Artefactos-MFT-Extraer.sh "/Casos/$vFechaDelCaso/Imagen/Particiones/$vPartWindows" "/Casos/$vFechaDelCaso/"
+                vPartWindows=$(ls /Casos/"$vFechaDelCaso"/Imagen/Particiones/ | tail -n1)
+              sudo ~/scripts/df-scripts/DFIRWindows/Artefactos-MFT-Extraer.sh /Casos/"$vFechaDelCaso"/Imagen/Particiones/"$vPartWindows" "/Casos/$vFechaDelCaso/"
 
             ;;
 
@@ -102,8 +102,8 @@ if [ $# -ne $cCantParamEsperados ]
               echo "  Extrayendo el registro..."
               echo ""
               # Determinar la partición de Windows
-                vPartWindows=2
-              sudo ~/scripts/df-scripts/DFIRWindows/Artefactos-Registro-Extraer-WindowsVistaYPosterior.sh "/Casos/$vFechaDelCaso/Imagen/Particiones/$vPartWindows" "/Casos/$vFechaDelCaso/"
+                vPartWindows=$(ls /Casos/"$vFechaDelCaso"/Imagen/Particiones/ | tail -n1)
+              sudo ~/scripts/df-scripts/DFIRWindows/Artefactos-Registro-Extraer-WindowsVistaYPosterior.sh /Casos/"$vFechaDelCaso"/Imagen/Particiones/"$vPartWindows" "/Casos/$vFechaDelCaso/"
 
             ;;
 
@@ -112,7 +112,7 @@ if [ $# -ne $cCantParamEsperados ]
               echo ""
               echo "  Extrayendo los eventos..."
               echo ""
-              sudo ~/scripts/df-scripts/DFIRWindows/Artefactos-Eventos-Extraer.sh "/Casos/$vFechaDelCaso/Imagen/Particiones/$vPartWindows" "/Casos/$vFechaDelCaso/"
+              sudo ~/scripts/df-scripts/DFIRWindows/Artefactos-Eventos-Extraer.sh /Casos/"$vFechaDelCaso"/Imagen/Particiones/"$vPartWindows" "/Casos/$vFechaDelCaso/"
 
             ;;
 
@@ -121,7 +121,7 @@ if [ $# -ne $cCantParamEsperados ]
               echo ""
               echo "  Extrayendo los navegadores..."
               echo ""
-              sudo ~/scripts/df-scripts/DFIRWindows/Artefactos-Navegadores-Extraer.sh "/Casos/$vFechaDelCaso/Imagen/Particiones/$vPartWindows" "/Casos/$vFechaDelCaso/"
+              sudo ~/scripts/df-scripts/DFIRWindows/Artefactos-Navegadores-Extraer.sh /Casos/"$vFechaDelCaso"/Imagen/Particiones/"$vPartWindows" "/Casos/$vFechaDelCaso/"
 
             ;;
 
