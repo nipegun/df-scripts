@@ -182,7 +182,7 @@ if [ $# -ne $cCantParamEsperados ]
               echo ""
               echo "  Extrayendo x..."
               echo ""
-              chown $USER:$USER /Casos/ -R 2> /dev/null
+              sudo chown $USER:$USER /Casos/ -R 2> /dev/null
 
             ;;
 
