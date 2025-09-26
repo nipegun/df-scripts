@@ -86,23 +86,23 @@ if [ $# -ne $cCantParamEsperados ]
       echo ""
       echo "  Copiando SYSTEM..."
       echo ""
-      sudo cp "$vPuntoDeMontajePartWindows"/"$vWindowsDir"/"$vSystem32Dir"/"$vConfigDir"/"$vHiveSystem"   "$vCarpetaDelCaso"/Artefactos/Originales/Registro/SYSTEM
+      sudo cp -vf "$vPuntoDeMontajePartWindows"/"$vWindowsDir"/"$vSystem32Dir"/"$vConfigDir"/"$vHiveSystem"   "$vCarpetaDelCaso"/Artefactos/Originales/Registro/SYSTEM
       echo ""
       echo "  Copiando SAM..."
       echo ""
-      sudo cp "$vPuntoDeMontajePartWindows"/"$vWindowsDir"/"$vSystem32Dir"/"$vConfigDir"/"$vHiveSam"      "$vCarpetaDelCaso"/Artefactos/Originales/Registro/SAM
+      sudo cp -vf "$vPuntoDeMontajePartWindows"/"$vWindowsDir"/"$vSystem32Dir"/"$vConfigDir"/"$vHiveSam"      "$vCarpetaDelCaso"/Artefactos/Originales/Registro/SAM
       echo ""
       echo "  Copiando SECURITY..."
       echo ""
-      sudo cp "$vPuntoDeMontajePartWindows"/"$vWindowsDir"/"$vSystem32Dir"/"$vConfigDir"/"$vHiveSecurity" "$vCarpetaDelCaso"/Artefactos/Originales/Registro/SECURITY
+      sudo cp -vf "$vPuntoDeMontajePartWindows"/"$vWindowsDir"/"$vSystem32Dir"/"$vConfigDir"/"$vHiveSecurity" "$vCarpetaDelCaso"/Artefactos/Originales/Registro/SECURITY
       echo ""
       echo "  Copiando SOFTWARE..."
       echo ""
-      sudo cp "$vPuntoDeMontajePartWindows"/"$vWindowsDir"/"$vSystem32Dir"/"$vConfigDir"/"$vHiveSoftware" "$vCarpetaDelCaso"/Artefactos/Originales/Registro/SOFTWARE
+      sudo cp -vf "$vPuntoDeMontajePartWindows"/"$vWindowsDir"/"$vSystem32Dir"/"$vConfigDir"/"$vHiveSoftware" "$vCarpetaDelCaso"/Artefactos/Originales/Registro/SOFTWARE
       echo ""
       echo "  Copiando DEFAULT..."
       echo ""
-      sudo cp "$vPuntoDeMontajePartWindows"/"$vWindowsDir"/"$vSystem32Dir"/"$vConfigDir"/"$vHiveDefault"  "$vCarpetaDelCaso"/Artefactos/Originales/Registro/DEFAULT
+      sudo cp -vf "$vPuntoDeMontajePartWindows"/"$vWindowsDir"/"$vSystem32Dir"/"$vConfigDir"/"$vHiveDefault"  "$vCarpetaDelCaso"/Artefactos/Originales/Registro/DEFAULT
 
     # Copiar registro de usuarios
       echo ""
@@ -115,7 +115,7 @@ if [ $# -ne $cCantParamEsperados ]
         echo "    Copiando NTUSER.DAT de $vNomUsuario..."
         echo ""
         sudo mkdir -p "$vCarpetaDelCaso"/Artefactos/Originales/Registro/Usuarios/"$vNomUsuario"
-        sudo cp "$vPuntoDeMontajePartWindows"/Users/"$vNomUsuario"/NTUSER.DAT "$vCarpetaDelCaso"/Artefactos/Originales/Registro/Usuarios/"$vNomUsuario"/
+        sudo cp -v "$vPuntoDeMontajePartWindows"/Users/"$vNomUsuario"/NTUSER.DAT "$vCarpetaDelCaso"/Artefactos/Originales/Registro/Usuarios/"$vNomUsuario"/
       done < "/tmp/CarpetasDeUsuarios.txt"
       # Eliminar carpetas vacias
         sudo find "$vCarpetaDelCaso"/Artefactos/Originales/Registro/Usuarios/ -type d -empty -delete
