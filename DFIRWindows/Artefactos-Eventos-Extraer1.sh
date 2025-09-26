@@ -83,7 +83,7 @@ if [ $# -ne $cCantParamEsperados ]
       fi
 
     # Reparar permisos
-      sudo chown 1000:1000 "$vCarpetaDelCaso"/Artefactos/ -R
+      sudo chown 1000:1000 "$vCarpetaDelCaso"/ -R 2> /dev/null
 
 fi
 
