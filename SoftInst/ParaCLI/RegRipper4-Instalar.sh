@@ -60,9 +60,139 @@
     echo -e "${cColorAzulClaro}  Iniciando el script de instalación de RegRipper4 para Debian 13 (x)...${cFinColor}"
     echo ""
 
-    echo ""
-    echo -e "${cColorRojo}    Comandos para Debian 13 todavía no preparados. Prueba ejecutarlo en otra versión de Debian.${cFinColor}"
-    echo ""
+    # Crear el menú
+      # Comprobar si el paquete dialog está instalado. Si no lo está, instalarlo.
+        if [[ $(dpkg-query -s dialog 2>/dev/null | grep installed) == "" ]]; then
+          echo ""
+          echo -e "${cColorRojo}  El paquete dialog no está instalado. Iniciando su instalación...${cFinColor}"
+          echo ""
+          sudo apt-get -y update
+          sudo apt-get -y install dialog
+          echo ""
+        fi
+      menu=(dialog --timeout 10 --checklist "Marca como quieres instalar la herramienta:" 22 70 16)
+        opciones=(
+          1 "Clonar repo e Instalar en /home/$USER/.local/bin/" off
+          2 "  Agregar /home/$USER/.local/bin/ al path"         off
+          3 "Clonar repo e instalar a nivel de sistema"         on
+        )
+      choices=$("${menu[@]}" "${opciones[@]}" 2>&1 >/dev/tty)
+
+      for choice in $choices
+        do
+          case $choice in
+
+            1)
+
+              echo ""
+              echo "  Clonando repo e instalando en  /home/$USER/.local/bin/..."
+              echo ""
+
+            ;;
+
+            2)
+
+              echo ""
+              echo "  Agregando /home/$USER/.local/bin al path..."
+              echo ""
+              echo 'export PATH=/home/'"$USER"'/.local/bin:$PATH' >> ~/.bashrc
+
+            ;;
+
+            3)
+
+              echo ""
+              echo "  Clonando repo e instalando a nivel de sistema..."
+              echo ""
+
+              echo ""
+              echo "    Instalando dependencias..."
+              echo ""
+              sudo apt-get -y update
+              sudo apt-get -y install apt
+              sudo apt-get -y install git
+              sudo apt-get -y install libparse-win32registry-perl
+
+              # Borrar script anterior
+                sudo rm -f /usr/local/bin/rip.pl 2> /dev/null
+
+              # Clonar el repo
+                # Borrar el repo anterior
+                  rm -rf ~/repos/perl/RegRipper4.0 2> /dev/null
+                mkdir -p ~/repos/perl/ 2> /dev/null
+                cd ~/repos/perl/
+                # Comprobar si el paquete git está instalado. Si no lo está, instalarlo.
+                  if [[ $(dpkg-query -s git 2>/dev/null | grep installed) == "" ]]; then
+                    echo ""
+                    echo -e "${cColorRojo}  El paquete git no está instalado. Iniciando su instalación...${cFinColor}"
+                    echo ""
+                    sudo apt-get -y update
+                    sudo apt-get -y install git
+                    echo ""
+                  fi
+                git clone https://github.com/keydet89/RegRipper4.0.git
+
+              # Copiar archivos que ya no están en perls 5
+                sudo rm -vf /usr/local/lib/site_perl/rr_helper.pl 2> /dev/null
+                sudo rm -vf /usr/local/lib/site_perl/rr.pl        2> /dev/null
+                sudo rm -vf /usr/local/lib/site_perl/time.pl      2> /dev/null
+                sudo mkdir -p /usr/local/lib/site_perl/ 2> /dev/null
+                sudo cp -vf ~/repos/perl/RegRipper4.0/rr_helper.pl /usr/local/lib/site_perl/
+                sudo cp -vf ~/repos/perl/RegRipper4.0/rr.pl        /usr/local/lib/site_perl/
+                sudo cp -vf ~/repos/perl/RegRipper4.0/time.pl      /usr/local/lib/site_perl/
+
+              # Copiar el repo a /usr/local/src/
+                sudo rm -rf /usr/local/src/regripper/
+                sudo cp -vrf ~/repos/perl/RegRipper4.0 /usr/local/src/regripper
+
+              # Corregir tema de plugins
+                sudo rm -rf /usr/share/regripper/
+                sudo mkdir -p /usr/share/regripper/plugins/
+                sudo ln -s /usr/local/src/regripper/plugins/ /usr/share/regripper/plugins 2> /dev/null
+                sudo chmod 755 /usr/local/src/regripper/*
+                sudo chmod 755 /usr/share/regripper/*
+
+              # Copiar módulos de perl específicos para RegRipper
+                echo ""
+                echo "    Copiando módulos..."
+                echo ""
+                sudo cp -v /usr/local/src/regripper/File.pm /usr/share/perl5/Parse/Win32Registry/WinNT/File.pm
+                sudo cp -v /usr/local/src/regripper/Key.pm  /usr/share/perl5/Parse/Win32Registry/WinNT/Key.pm
+                sudo cp -v /usr/local/src/regripper/Base.pm /usr/share/perl5/Parse/Win32Registry/Base.pm
+                sudo rm -v -f /usr/local/src/regripper/rip.pl.linux
+                sudo cp -v -f /usr/local/src/regripper/rip.pl /usr/local/src/regripper/rip.pl.linux
+                sudo sed -i '77i my \$plugindir \= \"\/usr\/share\/regripper\/plugins\/\"\;' /usr/local/src/regripper/rip.pl.linux
+                sudo sed -i '/^#! c:[\]perl[\]bin[\]perl.exe/d'                              /usr/local/src/regripper/rip.pl.linux
+                vUbicPerl=$(which perl) && sudo sed -i "1i #\!$vUbicPerl"                    /usr/local/src/regripper/rip.pl.linux
+                sudo sed -i '2i use lib qw(/usr/lib/perl5/);'                                /usr/local/src/regripper/rip.pl.linux
+              # Obtener el hash
+                md5sum /usr/local/src/regripper/rip.pl.linux && echo "  El archivo rip.pl.linux ha sido creado correctamente!"
+              # Copiar el archivo rip.pl.linux a /usr/local/bin/rip.pl
+                sudo rm -v -f /usr/local/bin/rip.pl
+                sudo cp -v -f /usr/local/src/regripper/rip.pl.linux /usr/local/bin/rip.pl
+                echo "  El archivo /usr/local/src/regripper/rip.pl.linux ha sido copiado a /usr/local/bin/rip.pl"
+                echo "  RegRipper debe ejecutarse siempre desde /usr/local/bin/rip.pl"
+                #sudo sed -i -e '1s|^#!.*|#!/usr/bin/perl|' /usr/local/bin/rip.pl
+                #echo "  El archivo rip.pl de RegRipper ha sido cambiado. El archivo original está ubicado en /usr/local/src/regripper/rip.pl."
+                sudo chmod +x /usr/local/bin/rip.pl
+                echo ""
+
+              # Notificar fin de ejecución del script
+                echo ""
+                echo -e "${cColorVerde}    La instalación ha finalizado. Para ejecutar RegRipper:${cFinColor}"
+                echo ""
+                echo -e "${cColorVerde}        rip.pl [Parámetros]${cFinColor}"
+                echo ""
+                echo -e "${cColorVerde}      o${cFinColor}"
+                echo ""
+                echo -e "${cColorVerde}       /usr/local/bin/rip.pl [Parámetros]${cFinColor}"
+                echo ""
+
+            ;;
+
+        esac
+
+    done
 
   elif [ $cVerSO == "12" ]; then
 
@@ -176,6 +306,10 @@
                 sudo chmod +x /usr/local/bin/rip.pl
                 echo ""
 
+              # Copiar archivos que ya no están en perls 5
+                sudo cp -vf ~/repos/perl/RegRipper4.0/rr_helper.pl /usr/local/lib/site_perl/
+                sudo cp -vf ~/repos/perl/RegRipper4.0/time.pl /usr/local/lib/site_perl/
+
               # Notificar fin de ejecución del script
                 echo ""
                 echo -e "${cColorVerde}    La instalación ha finalizado. Para ejecutar RegRipper:${cFinColor}"
@@ -192,7 +326,6 @@
         esac
 
     done
-
 
   elif [ $cVerSO == "11" ]; then
 
