@@ -67,23 +67,21 @@ if [ $# -ne $cCantParamEsperados ]
         if [ -n "$sys32" ]; then
           conf=$(find "$sys32" -maxdepth 1 -type d -iname "config" -print -quit)
           if [ -n "$conf" ]; then
-            # Verificamos que existe SYSTEM como prueba de instalación real
-            if find "$conf" -maxdepth 1 -type f -iname "SYSTEM" | grep -q .; then
-              vWindowsDir=$(basename "$win")
-              vSystem32Dir=$(basename "$sys32")
-              vConfigDir=$(basename "$conf")
+            vWindowsDir=$(basename "$win")
+            vSystem32Dir=$(basename "$sys32")
+            vConfigDir=$(basename "$conf")
 
-              # Archivos de registro
-              vHiveSystem=$(basename "$(find "$conf" -maxdepth 1 -type f -iname "system" -print -quit)")
-              vHiveSam=$(basename "$(find "$conf" -maxdepth 1 -type f -iname "sam" -print -quit)")
-              vHiveSecurity=$(basename "$(find "$conf" -maxdepth 1 -type f -iname "security" -print -quit)")
-              vHiveSoftware=$(basename "$(find "$conf" -maxdepth 1 -type f -iname "software" -print -quit)")
-              vHiveDefault=$(basename "$(find "$conf" -maxdepth 1 -type f -iname "default" -print -quit)")
-              break
-            fi
+            # Archivos de registro
+            vHiveSystem=$(basename "$(find "$conf" -maxdepth 1 -type f -iname "system" -print -quit)")
+            vHiveSam=$(basename "$(find "$conf" -maxdepth 1 -type f -iname "sam" -print -quit)")
+            vHiveSecurity=$(basename "$(find "$conf" -maxdepth 1 -type f -iname "security" -print -quit)")
+            vHiveSoftware=$(basename "$(find "$conf" -maxdepth 1 -type f -iname "software" -print -quit)")
+            vHiveDefault=$(basename "$(find "$conf" -maxdepth 1 -type f -iname "default" -print -quit)")
+            break
           fi
         fi
       done < <(find "$vPuntoDeMontajePartWindows" -type d -iname "windows" -print0 2>/dev/null)
+
     # Copiar archivos de registro
       echo ""
       echo "  Copiando SYSTEM..."
