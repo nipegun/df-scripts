@@ -119,6 +119,7 @@ if [ $# -ne $cCantParamEsperados ]
           esac
         done < <(find "$vPuntoDeMontajePartWindows" -maxdepth 1 -type d \( -iname "users" -o -iname "usuarios" -o -iname "documents and settings" \) -print0 2>/dev/null)
       # Copiar NTUSER.DAT
+        rm -f /tmp/CarpetasDeUsuarios.txt 2> /dev/null
         find "$vPuntoDeMontajePartWindows"/"$vUsersDir"/ -mindepth 1 -maxdepth 1 -type d > /tmp/CarpetasDeUsuarios.txt
         while IFS= read -r linea; do
           vNomUsuario="${linea##*/}"
