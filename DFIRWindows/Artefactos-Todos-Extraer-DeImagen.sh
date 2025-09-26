@@ -90,9 +90,19 @@ if [ $# -ne $cCantParamEsperados ]
               echo ""
               echo "  Extrayendo la MFT..."
               echo ""
-              # Determinar la partición de Windows
-                vPartWindows=$(ls /Casos/"$vFechaDelCaso"/Imagen/Particiones/ | tail -n1)
-              sudo ~/scripts/df-scripts/DFIRWindows/Artefactos-MFT-Extraer.sh /Casos/"$vFechaDelCaso"/Imagen/Particiones/"$vPartWindows" "/Casos/$vFechaDelCaso/"
+              # Determinar el punto de montaje de la partición de Windows
+                # Obtener el nombre de la carpeta
+                  vNumCarpeta=$(ls /Casos/"$vFechaDelCaso"/Imagen/Particiones/ | tail -n1)
+                # Comprobar que exista el archivo $MFT
+                  if [ -f /Casos/"$vFechaDelCaso"/Imagen/Particiones/"$vNumCarpeta"/$\MFT ]; then
+                    vPuntoMontajePartWindows="/Casos/$vFechaDelCaso/Imagen/Particiones/$vNumCarpeta"
+                  else
+                    echo ""
+                    echo "    La partición no está montada. No se puede continuar."
+                    echo ""
+                    exit
+                  fi
+              sudo ~/scripts/df-scripts/DFIRWindows/Artefactos-MFT-Extraer.sh "$vPuntoMontajePartWindows" "/Casos/$vFechaDelCaso/"
 
             ;;
 
@@ -101,9 +111,19 @@ if [ $# -ne $cCantParamEsperados ]
               echo ""
               echo "  Extrayendo el registro..."
               echo ""
-              # Determinar la partición de Windows
-                vPartWindows=$(ls /Casos/"$vFechaDelCaso"/Imagen/Particiones/ | tail -n1)
-              sudo ~/scripts/df-scripts/DFIRWindows/Artefactos-Registro-Extraer-WindowsVistaYPosterior.sh /Casos/"$vFechaDelCaso"/Imagen/Particiones/"$vPartWindows" "/Casos/$vFechaDelCaso/"
+              # Determinar el punto de montaje de la partición de Windows
+                # Obtener el nombre de la carpeta
+                  vNumCarpeta=$(ls /Casos/"$vFechaDelCaso"/Imagen/Particiones/ | tail -n1)
+                # Comprobar que exista el archivo $MFT
+                  if [ -f /Casos/"$vFechaDelCaso"/Imagen/Particiones/"$vNumCarpeta"/$\MFT ]; then
+                    vPuntoMontajePartWindows="/Casos/$vFechaDelCaso/Imagen/Particiones/$vNumCarpeta"
+                  else
+                    echo ""
+                    echo "    La partición no está montada. No se puede continuar."
+                    echo ""
+                    exit
+                  fi
+              sudo ~/scripts/df-scripts/DFIRWindows/Artefactos-Registro-Extraer.sh "$vPuntoMontajePartWindows" "/Casos/$vFechaDelCaso/"
 
             ;;
 
@@ -112,7 +132,19 @@ if [ $# -ne $cCantParamEsperados ]
               echo ""
               echo "  Extrayendo los eventos..."
               echo ""
-              sudo ~/scripts/df-scripts/DFIRWindows/Artefactos-Eventos-Extraer.sh /Casos/"$vFechaDelCaso"/Imagen/Particiones/"$vPartWindows" "/Casos/$vFechaDelCaso/"
+              # Determinar el punto de montaje de la partición de Windows
+                # Obtener el nombre de la carpeta
+                  vNumCarpeta=$(ls /Casos/"$vFechaDelCaso"/Imagen/Particiones/ | tail -n1)
+                # Comprobar que exista el archivo $MFT
+                  if [ -f /Casos/"$vFechaDelCaso"/Imagen/Particiones/"$vNumCarpeta"/$\MFT ]; then
+                    vPuntoMontajePartWindows="/Casos/$vFechaDelCaso/Imagen/Particiones/$vNumCarpeta"
+                  else
+                    echo ""
+                    echo "    La partición no está montada. No se puede continuar."
+                    echo ""
+                    exit
+                  fi
+              sudo ~/scripts/df-scripts/DFIRWindows/Artefactos-Eventos-Extraer.sh "$vPuntoMontajePartWindows" "/Casos/$vFechaDelCaso/"
 
             ;;
 
@@ -121,7 +153,19 @@ if [ $# -ne $cCantParamEsperados ]
               echo ""
               echo "  Extrayendo los navegadores..."
               echo ""
-              sudo ~/scripts/df-scripts/DFIRWindows/Artefactos-Navegadores-Extraer.sh /Casos/"$vFechaDelCaso"/Imagen/Particiones/"$vPartWindows" "/Casos/$vFechaDelCaso/"
+              # Determinar el punto de montaje de la partición de Windows
+                # Obtener el nombre de la carpeta
+                  vNumCarpeta=$(ls /Casos/"$vFechaDelCaso"/Imagen/Particiones/ | tail -n1)
+                # Comprobar que exista el archivo $MFT
+                  if [ -f /Casos/"$vFechaDelCaso"/Imagen/Particiones/"$vNumCarpeta"/$\MFT ]; then
+                    vPuntoMontajePartWindows="/Casos/$vFechaDelCaso/Imagen/Particiones/$vNumCarpeta"
+                  else
+                    echo ""
+                    echo "    La partición no está montada. No se puede continuar."
+                    echo ""
+                    exit
+                  fi
+              sudo ~/scripts/df-scripts/DFIRWindows/Artefactos-Navegadores-Extraer.sh "$vPuntoMontajePartWindows" "/Casos/$vFechaDelCaso/"
 
             ;;
 
