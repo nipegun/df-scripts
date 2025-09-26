@@ -59,7 +59,7 @@ if [ $# -ne $cCantParamEsperados ]
           5 "  Extraer los archivos de eventos"                                    on
           6 "  Extraer los navegadores"                                            on
           7 "  Extraer x"                                                          on
-          8 "  Extraer x"                                                          on
+          8 "  Reparar permisos"                                                   on
         )
       choices=$("${menu[@]}" "${opciones[@]}" 2>&1 >/dev/tty)
 
