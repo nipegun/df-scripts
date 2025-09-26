@@ -70,7 +70,7 @@ if [ $# -ne $cCantParamEsperados ]
             mapfile -t aEventFiles < <(find "$vLogsPath" -type f -iname "*.evtx" -print 2>/dev/null)
             sudo mkdir -p "$vCarpetaDelCaso"/Artefactos/Originales/Eventos/
             sudo rm -rf "$vCarpetaDelCaso"/Artefactos/Originales/Eventos/*
-            find "$vPuntoDeMontajePartWindows"/"$vWindowsDir"/"$vSystem32Dir"/"$vWinEvtDir"/"$vLogsDir" -name "*.evtx" -exec sudo cp -v {} "$vCarpetaDelCaso"/Artefactos/Originales/Eventos/ \;
+            find "$vPuntoDeMontajePartWindows"/"$vWindowsDir"/"$vSystem32Dir"/"$vWinEvtDir"/"$vLogsDir" -name "*.evtx" -exec sudo cp -vf {} "$vCarpetaDelCaso"/Artefactos/Originales/Eventos/ \;
           fi
         else
           # Caso XP/2003 (system32/config/*.evt)
@@ -78,7 +78,7 @@ if [ $# -ne $cCantParamEsperados ]
           mapfile -t aEventFiles < <(find "$vSys32Path/config" -maxdepth 1 -type f -iname "*.evt" -print 2>/dev/null)
           sudo mkdir -p "$vCarpetaDelCaso"/Artefactos/Originales/Eventos/
           sudo rm -rf "$vCarpetaDelCaso"/Artefactos/Originales/Eventos/*
-          find "$vPuntoDeMontajePartWindows"/"$vWindowsDir"/"$vSystem32Dir"/"$vLogsDir"/ -name "*.evt" -exec sudo cp -v {} "$vCarpetaDelCaso"/Artefactos/Originales/Eventos/ \;
+          find "$vPuntoDeMontajePartWindows"/"$vWindowsDir"/"$vSystem32Dir"/"$vLogsDir"/ -name "*.evt" -exec sudo cp -vf {} "$vCarpetaDelCaso"/Artefactos/Originales/Eventos/ \;
         fi
       fi
 
