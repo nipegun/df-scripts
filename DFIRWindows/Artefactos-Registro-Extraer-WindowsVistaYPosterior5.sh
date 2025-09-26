@@ -86,23 +86,23 @@ if [ $# -ne $cCantParamEsperados ]
       echo ""
       echo "  Copiando SYSTEM..."
       echo ""
-      sudo cp "$vPuntoDeMontajePartWindows"/"$vWindowsDir"/"$vSystem32Dir"/config/SYSTEM   "$vCarpetaDelCaso"/Artefactos/Originales/Registro/SYSTEM
+      sudo cp "$vPuntoDeMontajePartWindows"/"$vWindowsDir"/"$vSystem32Dir"/"$vConfigDir"/"$vHiveSystem"   "$vCarpetaDelCaso"/Artefactos/Originales/Registro/SYSTEM
       echo ""
       echo "  Copiando SAM..."
       echo ""
-      sudo cp "$vPuntoDeMontajePartWindows"/"$vWindowsDir"/"$vSystem32Dir"/config/SAM      "$vCarpetaDelCaso"/Artefactos/Originales/Registro/SAM
+      sudo cp "$vPuntoDeMontajePartWindows"/"$vWindowsDir"/"$vSystem32Dir"/"$vConfigDir"/"$vHiveSam"      "$vCarpetaDelCaso"/Artefactos/Originales/Registro/SAM
       echo ""
       echo "  Copiando SECURITY..."
       echo ""
-      sudo cp "$vPuntoDeMontajePartWindows"/"$vWindowsDir"/"$vSystem32Dir"/config/SECURITY "$vCarpetaDelCaso"/Artefactos/Originales/Registro/SECURITY
+      sudo cp "$vPuntoDeMontajePartWindows"/"$vWindowsDir"/"$vSystem32Dir"/"$vConfigDir"/"$vHiveSecurity" "$vCarpetaDelCaso"/Artefactos/Originales/Registro/SECURITY
       echo ""
       echo "  Copiando SOFTWARE..."
       echo ""
-      sudo cp "$vPuntoDeMontajePartWindows"/"$vWindowsDir"/"$vSystem32Dir"/config/SOFTWARE "$vCarpetaDelCaso"/Artefactos/Originales/Registro/SOFTWARE
+      sudo cp "$vPuntoDeMontajePartWindows"/"$vWindowsDir"/"$vSystem32Dir"/"$vConfigDir"/"$vHiveSoftware" "$vCarpetaDelCaso"/Artefactos/Originales/Registro/SOFTWARE
       echo ""
       echo "  Copiando DEFAULT..."
       echo ""
-      sudo cp "$vPuntoDeMontajePartWindows"/"$vWindowsDir"/"$vSystem32Dir"/config/DEFAULT  "$vCarpetaDelCaso"/Artefactos/Originales/Registro/DEFAULT
+      sudo cp "$vPuntoDeMontajePartWindows"/"$vWindowsDir"/"$vSystem32Dir"/"$vConfigDir"/"$vHiveDefault"  "$vCarpetaDelCaso"/Artefactos/Originales/Registro/DEFAULT
 
     # Copiar registro de usuarios
       echo ""
