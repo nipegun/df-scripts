@@ -52,27 +52,36 @@ if [ $# -ne $cCantParamEsperados ]
     # Determinar el caso actual y crear la carpeta
       sudo mkdir -p "$vCarpetaDelCaso"/Artefactos/Originales/Registro
 
+    # Determinar el nombre de la carpeta donde está instalado Windows
+      while IFS= read -r -d '' win; do
+        sys32=$(find "$win" -maxdepth 1 -type d -iname "system32" -print -quit)
+        if [ -n "$sys32" ] && find "$sys32/config" -maxdepth 1 -type f -iname "SYSTEM" | grep -q .; then
+          vWindowsDir="$win"
+          vSystem32Dir="$sys32"
+          break
+        fi
+      done < <(find "$vPuntoDeMontajePartWindows" -type d -iname "windows" -print0 2>/dev/null)
     # Copiar archivos de registro
       echo ""
       echo "  Copiando SYSTEM..."
       echo ""
-      sudo cp "$vPuntoDeMontajePartWindows"/Windows/System32/config/SYSTEM   "$vCarpetaDelCaso"/Artefactos/Originales/Registro/SYSTEM
+      sudo cp "$vPuntoDeMontajePartWindows"/"$vWindowsDir"/"$vSystem32Dir"/config/SYSTEM   "$vCarpetaDelCaso"/Artefactos/Originales/Registro/SYSTEM
       echo ""
       echo "  Copiando SAM..."
       echo ""
-      sudo cp "$vPuntoDeMontajePartWindows"/Windows/System32/config/SAM      "$vCarpetaDelCaso"/Artefactos/Originales/Registro/SAM
+      sudo cp "$vPuntoDeMontajePartWindows"/"$vWindowsDir"/"$vSystem32Dir"/config/SAM      "$vCarpetaDelCaso"/Artefactos/Originales/Registro/SAM
       echo ""
       echo "  Copiando SECURITY..."
       echo ""
-      sudo cp "$vPuntoDeMontajePartWindows"/Windows/System32/config/SECURITY "$vCarpetaDelCaso"/Artefactos/Originales/Registro/SECURITY
+      sudo cp "$vPuntoDeMontajePartWindows"/"$vWindowsDir"/"$vSystem32Dir"/config/SECURITY "$vCarpetaDelCaso"/Artefactos/Originales/Registro/SECURITY
       echo ""
       echo "  Copiando SOFTWARE..."
       echo ""
-      sudo cp "$vPuntoDeMontajePartWindows"/Windows/System32/config/SOFTWARE "$vCarpetaDelCaso"/Artefactos/Originales/Registro/SOFTWARE
+      sudo cp "$vPuntoDeMontajePartWindows"/"$vWindowsDir"/"$vSystem32Dir"/config/SOFTWARE "$vCarpetaDelCaso"/Artefactos/Originales/Registro/SOFTWARE
       echo ""
       echo "  Copiando DEFAULT..."
       echo ""
-      sudo cp "$vPuntoDeMontajePartWindows"/Windows/System32/config/DEFAULT  "$vCarpetaDelCaso"/Artefactos/Originales/Registro/DEFAULT
+      sudo cp "$vPuntoDeMontajePartWindows"/"$vWindowsDir"/"$vSystem32Dir"/config/DEFAULT  "$vCarpetaDelCaso"/Artefactos/Originales/Registro/DEFAULT
 
     # Copiar registro de usuarios
       echo ""
