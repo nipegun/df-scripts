@@ -117,6 +117,8 @@
                 sudo rm -f /usr/local/bin/rip.pl
 
               # Clonar el repo
+                # Borrar el repo anterior
+                  rm -rf ~/repos/perl/RegRipper3.0 2> /dev/null
                 mkdir -p ~/repos/perl/
                 cd ~/repos/perl/
                 # Comprobar si el paquete git está instalado. Si no lo está, instalarlo.
