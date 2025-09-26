@@ -2702,7 +2702,9 @@ cCarpetaVolatility3="$HOME/repos/python/volatility3/"
           echo "  Buscando datos POST de LoginForms..."
           echo ""
           mkdir -p "$cCarpetaDondeGuardar"/strings/ 2> /dev/null
-          strings "$cRutaAlArchivoDeDump" | grep --color -E 'username=|password=' | tee "$cCarpetaDondeGuardar"/strings/DatosPOSTdeLoginForms.txt
+          strings "$cRutaAlArchivoDeDump" | grep --color -aniE 'username=.*password=|password=.*username=' | tee    "$cCarpetaDondeGuardar"/strings/DatosPOSTdeLoginForms.txt
+          strings "$cRutaAlArchivoDeDump" | grep --color -aniE 'user=.*password=|password=.*user='         | tee -a "$cCarpetaDondeGuardar"/strings/DatosPOSTdeLoginForms.txt
+          strings "$cRutaAlArchivoDeDump" | grep --color -aniE 'id=.*password=|password=.*id='             | tee -a "$cCarpetaDondeGuardar"/strings/DatosPOSTdeLoginForms.txt
 
         ;;
 
