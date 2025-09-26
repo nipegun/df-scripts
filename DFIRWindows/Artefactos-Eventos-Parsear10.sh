@@ -163,6 +163,7 @@ if [ $# -ne $cCantParamEsperados ]
               #echo '</root>' >>  "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosAgrupados.xml # Agrega el cierre de la etiqueta raíz en una nueva linea al final del archivo
               # Generar un archivo por cada evento dentro del xml
                 # Crear una carpeta para almacenar los archivos de vEventos
+                  rm -rf "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/CadaEventoIndividualEnXML/ 2> /dev/null
                   mkdir -p "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/CadaEventoIndividualEnXML/
                   sudo chown $USER:$USER "$vCarpetaDelCaso" -R
                 # Contador de vEventos
@@ -181,7 +182,7 @@ if [ $# -ne $cCantParamEsperados ]
                       # Agregar la línea de cierre del vEvento
                         vEvento+=$'\n'"$line"
                       # Guardar el bloque en un archivo
-                        echo "$vEvento" > "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/CadaEventoIndividualEnXML/$vEvento_${vContador}.xml
+                        echo "$vEvento" > "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/CadaEventoIndividualEnXML/evento_${vContador}.xml
                       # Incrementar el vContador y limpiar la variable del vEvento
                         vContador=$((vContador + 1))
                       vEvento=""
@@ -197,29 +198,32 @@ if [ $# -ne $cCantParamEsperados ]
                   mkdir -p "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/CadaEventoIndividualEnXMLOrdenadosPorFecha/
                   sudo chown $USER:$USER "$vCarpetaDelCaso" -R
                   # Recorrer cada archivo XML en la carpeta
-                    for file in "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/CadaEventoIndividualEnXML/*.xml ; do
+                    for vArchivo in "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/CadaEventoIndividualEnXML/*.xml ; do
                       # Extraer el valor de SystemTime usando xmlstarlet
-                        # Comprobar si el paquete xmlstarlet está instalado. Si no lo está, instalarlo.
-                          if [[ $(dpkg-query -s xmlstarlet 2>/dev/null | grep installed) == "" ]]; then
+                        # Comprobar si el paquete libxml2-utils está instalado. Si no lo está, instalarlo.
+                          if [[ $(dpkg-query -s libxml2-utils 2>/dev/null | grep installed) == "" ]]; then
                             echo ""
-                            echo -e "${cColorRojo}    El paquete xmlstarlet no está instalado. Iniciando su instalación...${cFinColor}"
+                            echo -e "${cColorRojo}    El paquete libxml2-utils no está instalado. Iniciando su instalación...${cFinColor}"
                             echo ""
                             sudo apt-get -y update
-                            sudo apt-get -y install xmlstarlet
+                            sudo apt-get -y install libxml2-utils
                             echo ""
                           fi
-                        system_time=$(xmlstarlet sel -t -v "//TimeCreated/@SystemTime" "$file" 2>/dev/null)
+                        vSystemTime=$(xmllint --xpath "string(//TimeCreated/@SystemTime)" "$vArchivo" 2>/dev/null | sed 's/[:T]/-/g; s/Z//')
                       # Renombrar el archivo
-                        cp "$file" "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/CadaEventoIndividualEnXMLOrdenadosPorFecha/"${system_time}".xml
+                        cp "$vArchivo" "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/CadaEventoIndividualEnXMLOrdenadosPorFecha/"${vSystemTime}.xml"
                     done
-                  rm -f "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/CadaEventoIndividualEnXMLOrdenadosPorFecha/.xml
+                  rm -f "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/CadaEventoIndividualEnXMLOrdenadosPorFecha/.xml 2> /dev/null
                 # Agregar los mensajes a los eventos
                   echo ""
                   echo "    Agregando los mensajes de evento a cada archivo .xml..."
                   echo ""
-                  # Descargar el CSV con los eventos:
-                    curl -sL https://raw.githubusercontent.com/nipegun/dicts/refs/heads/main/windows/eventos-en-es.csv -o /tmp/eventos-en-es.csv
-                    cp ~/scripts/df-scripts/EventosWindows/eventos-en-es.csv /tmp/eventos-en-es.csv
+                  # Asegurarse de disponer del csv con el nombre de los eventos:
+                    if [ -f ~/scripts/df-scripts/EventosWindows/eventos-en-es.csv ]; then
+                      cp ~/scripts/df-scripts/EventosWindows/eventos-en-es.csv /tmp/eventos-en-es.csv
+                    else
+                      curl -sL https://raw.githubusercontent.com/nipegun/dicts/refs/heads/main/windows/eventos-en-es.csv -o /tmp/eventos-en-es.csv
+                    fi
                   # Declarar arrays para guardar los mensajes
                     declare -A aMensajesEng
                     declare -A aMensajesEsp
@@ -268,8 +272,9 @@ if [ $# -ne $cCantParamEsperados ]
                   echo "    Agrupando todos los archivos .xml únicos en un archivo unificado final..."
                   echo ""
                   # Probar con un bucle
+                    > "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosOrdenadosPorFecha.xml
                     find "$vCarpetaDelCaso/Artefactos/Eventos/Parseados/CadaEventoIndividualEnXMLOrdenadosPorFecha" -type f | sort | while read -r vArchivo; do
-                      cat "$vArchivo" >> "$vCarpetaDelCaso/Artefactos/Eventos/Parseados/TodosLosEventosOrdenadosPorFecha.xml"
+                      cat "$vArchivo" >> "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosOrdenadosPorFecha.xml
                     done
                   sed -i -e 's-</Event>-</Event>\n-g' "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosOrdenadosPorFecha.xml
                   sed -i '1i\<Events>' "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/TodosLosEventosOrdenadosPorFecha.xml # Agrega la apertura de la etiqueta raiz en la primera linea
@@ -344,18 +349,18 @@ if [ $# -ne $cCantParamEsperados ]
                   # Recorrer cada archivo XML en la carpeta
                     for file in "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/CadaEventoIndividualEnXMLDeUsuario/* ; do
                       # Extraer el valor de SystemTime usando xmlstarlet
-                        # Comprobar si el paquete xmlstarlet está instalado. Si no lo está, instalarlo.
-                          if [[ $(dpkg-query -s xmlstarlet 2>/dev/null | grep installed) == "" ]]; then
+                        # Comprobar si el paquete libxml2-utils está instalado. Si no lo está, instalarlo.
+                          if [[ $(dpkg-query -s libxml2-utils 2>/dev/null | grep installed) == "" ]]; then
                             echo ""
-                            echo -e "${cColorRojo}    El paquete xmlstarlet no está instalado. Iniciando su instalación...${cFinColor}"
+                            echo -e "${cColorRojo}    El paquete libxml2-utils no está instalado. Iniciando su instalación...${cFinColor}"
                             echo ""
                             sudo apt-get -y update
-                            sudo apt-get -y install xmlstarlet
+                            sudo apt-get -y install libxml2-utils
                             echo ""
                           fi
-                        system_time=$(xmlstarlet sel -t -v "//TimeCreated/@SystemTime" "$file" 2>/dev/null)
+                        vSystemTime=$(xmllint --xpath "string(//TimeCreated/@SystemTime)" "$vArchivo" 2>/dev/null | sed 's/[:T]/-/g; s/Z//')
                       # Renombrar el archivo
-                        cp "$file" "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/CadaEventoIndividualEnXMLDeUsuarioOrdenadosPorFecha/"${system_time}".xml
+                        cp "$file" "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/CadaEventoIndividualEnXMLDeUsuarioOrdenadosPorFecha/"${vSystemTime}.xml"
                     done
                   rm -f "$vCarpetaDelCaso"/Artefactos/Eventos/Parseados/CadaEventoIndividualEnXMLDeUsuarioOrdenadosPorFecha/.xml
                 # Agregar los mensajes a los eventos
