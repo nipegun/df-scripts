@@ -41,13 +41,46 @@ if [ $# -ne $cCantParamEsperados ]
     vPuntoDeMontajePartWindows="$1"
     vCarpetaDelCaso="$2"
 
-    # Copiar los eventos originales
+    # Notificar inicio de ejecución
       echo ""
       echo "    Copiando todos los eventos .evtx de la partición de Windows a la carpeta del caso..."
       echo ""
-      sudo mkdir -p "$vCarpetaDelCaso"/Artefactos/Originales/Eventos/
-      sudo rm -rf "$vCarpetaDelCaso"/Artefactos/Originales/Eventos/*
-      find "$vPuntoDeMontajePartWindows" -name "*.evtx" -exec sudo cp -v {} "$vCarpetaDelCaso"/Artefactos/Originales/Eventos/ \;
+
+    # Detectar donde están los logs, dependiendo de si es windows XP o posterior
+      vWindowsDir=""
+      vSystem32Dir=""
+      vWinEvtDir=""
+      vLogsDir=""
+      aEventFiles=()
+
+      # Localizar System32 (punto de entrada fiable)
+      vSys32Path=$(find "$vPuntoDeMontajePartWindows" -type d -iname "system32" -print -quit 2>/dev/null)
+
+      if [ -n "$vSys32Path" ]; then
+        vSystem32Dir=$(basename "$vSys32Path")
+        vWindowsDir=$(basename "$(dirname "$vSys32Path")")
+
+        # Caso Vista+ (winevt/Logs con .evtx)
+        vWinEvtPath=$(find "$vSys32Path" -maxdepth 1 -type d -iname "winevt" -print -quit 2>/dev/null)
+        if [ -n "$vWinEvtPath" ]; then
+          vWinEvtDir=$(basename "$vWinEvtPath")
+          vLogsPath=$(find "$vWinEvtPath" -maxdepth 1 -type d -iname "logs" -print -quit 2>/dev/null)
+          if [ -n "$vLogsPath" ]; then
+            vLogsDir=$(basename "$vLogsPath")
+            mapfile -t aEventFiles < <(find "$vLogsPath" -type f -iname "*.evtx" -print 2>/dev/null)
+            sudo mkdir -p "$vCarpetaDelCaso"/Artefactos/Originales/Eventos/
+            sudo rm -rf "$vCarpetaDelCaso"/Artefactos/Originales/Eventos/*
+            find "$vPuntoDeMontajePartWindows"/"$vWindowsDir"/"$vSystem32Dir"/"$vWinEvtDir"/"$vLogsDir" -name "*.evtx" -exec sudo cp -v {} "$vCarpetaDelCaso"/Artefactos/Originales/Eventos/ \;
+          fi
+        else
+          # Caso XP/2003 (system32/config/*.evt)
+          vLogsDir="config"
+          mapfile -t aEventFiles < <(find "$vSys32Path/config" -maxdepth 1 -type f -iname "*.evt" -print 2>/dev/null)
+          sudo mkdir -p "$vCarpetaDelCaso"/Artefactos/Originales/Eventos/
+          sudo rm -rf "$vCarpetaDelCaso"/Artefactos/Originales/Eventos/*
+          find "$vPuntoDeMontajePartWindows"/"$vWindowsDir"/"$vSystem32Dir"/"$vLogsDir"/ -name "*.evt" -exec sudo cp -v {} "$vCarpetaDelCaso"/Artefactos/Originales/Eventos/ \;
+        fi
+      fi
 
     # Reparar permisos
       sudo chown 1000:1000 "$vCarpetaDelCaso"/Artefactos/ -R
