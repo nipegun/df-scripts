@@ -54,9 +54,9 @@ if [ $# -ne $cCantParamEsperados ]
         opciones=(
           1 "Desmontar todas las particiones loopback montadas como sólo lectura"  on
           2 "Montar todas las particiones de la imagen en modo lectura"            on
-          3 "  Extraer la MFT"                                                     on
-          4 "  Extraer el registro"                                                on
-          5 "  Extraer los eventos"                                                on
+          3 "  Extraer el archivo MFT"                                             on
+          4 "  Extraer los archivos de registro"                                   on
+          5 "  Extraer los archivos de eventos"                                    on
           6 "  Extraer los navegadores"                                            on
           7 "  Extraer x"                                                          on
           8 "  Extraer x"                                                          on
@@ -88,7 +88,7 @@ if [ $# -ne $cCantParamEsperados ]
             3)
 
               echo ""
-              echo "  Extrayendo la MFT..."
+              echo "  Extrayendo el archivo MFT..."
               echo ""
               # Determinar el punto de montaje de la partición de Windows
                 # Obtener el nombre de la carpeta
@@ -109,7 +109,7 @@ if [ $# -ne $cCantParamEsperados ]
             4)
 
               echo ""
-              echo "  Extrayendo el registro..."
+              echo "  Extrayendo los archivos de registro..."
               echo ""
               # Determinar el punto de montaje de la partición de Windows
                 # Obtener el nombre de la carpeta
@@ -130,7 +130,7 @@ if [ $# -ne $cCantParamEsperados ]
             5)
 
               echo ""
-              echo "  Extrayendo los eventos..."
+              echo "  Extrayendo los archivos de eventos..."
               echo ""
               # Determinar el punto de montaje de la partición de Windows
                 # Obtener el nombre de la carpeta
