@@ -50,7 +50,7 @@ if [ $# -ne $cCantParamEsperados ]
       fi
 
     # Crear el menú
-      menu=(dialog --checklist "Marca las opciones que quieras instalar:" 22 80 16)
+      menu=(dialog --checklist "Marca las opciones que quieras instalar:" 22 84 16)
         opciones=(
           1 "Desmontar todas las particiones loopback montadas como sólo lectura"  on
           2 "Montar todas las particiones de la imagen en modo lectura"            on
