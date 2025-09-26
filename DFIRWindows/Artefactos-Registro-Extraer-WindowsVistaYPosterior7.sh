@@ -108,15 +108,31 @@ if [ $# -ne $cCantParamEsperados ]
       echo ""
       echo "  Copiando archivos de registro de usuarios..."
       echo ""
-      sudo find "$vPuntoDeMontajePartWindows"/Users/ -mindepth 1 -maxdepth 1 -type d > /tmp/CarpetasDeUsuarios.txt
-      while IFS= read -r linea; do
-        vNomUsuario="${linea##*/}"
-        echo ""
-        echo "    Copiando NTUSER.DAT de $vNomUsuario..."
-        echo ""
-        sudo mkdir -p "$vCarpetaDelCaso"/Artefactos/Originales/Registro/Usuarios/"$vNomUsuario"
-        sudo cp -v "$vPuntoDeMontajePartWindows"/Users/"$vNomUsuario"/NTUSER.DAT "$vCarpetaDelCaso"/Artefactos/Originales/Registro/Usuarios/"$vNomUsuario"/
-      done < "/tmp/CarpetasDeUsuarios.txt"
+      # Determinar el nombre de la carpeta de usuarios
+        while IFS= read -r -d '' usr; do
+          base=$(basename "$usr")
+          case "$base" in
+            users|Users|USERS|Usuarios|USUARIOS|"Documents and Settings"|"DOCUMENTS AND SETTINGS"|"documents and settings"|"Documents and settings")
+              vUsersDir="$base"
+              break
+              ;;
+          esac
+        done < <(find "$vPuntoDeMontajePartWindows" -maxdepth 1 -type d \( -iname "users" -o -iname "usuarios" -o -iname "documents and settings" \) -print0 2>/dev/null)
+      # Copiar NTUSER.DAT
+        find "$vPuntoDeMontajePartWindows"/"$vUsersDir"/ -mindepth 1 -maxdepth 1 -type d > /tmp/CarpetasDeUsuarios.txt
+        while IFS= read -r linea; do
+          vNomUsuario="${linea##*/}"
+          vNTUSER=$(find "$vPuntoDeMontajePartWindows/$vUsersDir/$vNomUsuario" -maxdepth 1 -type f -iname "ntuser.dat" -print -quit)
+          if [ -n "$vNTUSER" ]; then
+            echo ""
+            echo "    Copiando NTUSER.DAT de $vNomUsuario..."
+            echo ""
+            sudo mkdir -p "$vCarpetaDelCaso"/Artefactos/Originales/Registro/Usuarios/"$vNomUsuario"
+            sudo cp -v "$vNTUSER" "$vCarpetaDelCaso"/Artefactos/Originales/Registro/Usuarios/"$vNomUsuario"/
+          else
+            echo "    Omitiendo $vNomUsuario (no tiene NTUSER.DAT)"
+          fi
+        done < "/tmp/CarpetasDeUsuarios.txt"
       # Eliminar carpetas vacias
         sudo find "$vCarpetaDelCaso"/Artefactos/Originales/Registro/Usuarios/ -type d -empty -delete
 
