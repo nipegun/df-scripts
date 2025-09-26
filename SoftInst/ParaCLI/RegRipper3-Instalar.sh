@@ -131,13 +131,13 @@
                 git clone https://github.com/keydet89/RegRipper3.0.git
 
               # Copiar el repo a /usr/local/src/
-                sudo rm -rf /usr/local/src/regripper
+                sudo rm -rf /usr/local/src/regripper/
                 sudo cp -vrf ~/repos/perl/RegRipper3.0 /usr/local/src/regripper
 
               #
                 sudo rm -rf /usr/share/regripper/
                 sudo mkdir -p /usr/share/regripper/plugins/
-                sudo ln -s /usr/local/src/regripper/plugins/ /usr/share/regripper/plugins/ 2>/dev/null
+                sudo ln -s /usr/local/src/regripper/plugins/ /usr/share/regripper/plugins/ 2> /dev/null
                 sudo chmod 755 /usr/local/src/regripper/*
                 sudo chmod 755 /usr/share/regripper/*
 
