@@ -45,6 +45,9 @@ vNombreContenedor="sandbox-debian"
     apt-get -y install libxi6
     apt-get -y install libxcursor1
     apt-get -y install libxinerama1
+    apt-get -y install locales
+    sed -i 's/^# *es_ES.UTF-8 UTF-8/es_ES.UTF-8 UTF-8/' /etc/locale.gen
+    locale-gen
     bash
   "
 
