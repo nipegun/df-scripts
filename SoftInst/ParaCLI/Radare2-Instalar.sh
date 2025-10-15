@@ -55,9 +55,45 @@
     echo -e "${cColorAzulClaro}  Iniciando el script de instalación de Radare2 para Debian 13 (x)...${cFinColor}"
     echo ""
 
-    echo ""
-    echo -e "${cColorRojo}    Comandos para Debian 13 todavía no preparados. Prueba ejecutarlo en otra versión de Debian.${cFinColor}"
-    echo ""
+    # Obtener el número de la última versión
+      # Comprobar si el paquete curl está instalado. Si no lo está, instalarlo.
+        if [[ $(dpkg-query -s curl 2>/dev/null | grep installed) == "" ]]; then
+          echo ""
+          echo -e "${cColorRojo}  El paquete curl no está instalado. Iniciando su instalación...${cFinColor}"
+          echo ""
+          sudo apt-get -y update
+          sudo apt-get -y install curl
+          echo ""
+        fi
+      # Comprobar si el paquete jq está instalado. Si no lo está, instalarlo.
+        if [[ $(dpkg-query -s jq 2>/dev/null | grep installed) == "" ]]; then
+          echo ""
+          echo -e "${cColorRojo}  El paquete jq no está instalado. Iniciando su instalación...${cFinColor}"
+          echo ""
+          sudo apt-get -y update
+          sudo apt-get -y install jq
+          echo ""
+        fi
+      vUltVers=$(curl -s https://api.github.com/repos/radareorg/radare2/releases/latest | jq -r .tag_name)
+
+    # Descargar el script
+      curl -L https://github.com/radareorg/radare2/releases/download/"$vUltVers"/radare2-"$vUltVers".tar.xz -o /tmp/radare2.tar.xz
+
+    # Descomprimir
+      # Comprobar si el paquete tar está instalado. Si no lo está, instalarlo.
+        if [[ $(dpkg-query -s tar 2>/dev/null | grep installed) == "" ]]; then
+          echo ""
+          echo -e "${cColorRojo}  El paquete tar no está instalado. Iniciando su instalación...${cFinColor}"
+          echo ""
+          sudo apt-get -y update
+          sudo apt-get -y install tar
+          echo ""
+        fi
+      cd /tmp/
+      tar -vxJf /tmp/radare2.tar.xz
+
+    # Instalar
+      /bin/sh /tmp/radare2-"$vUltVers"/sys/install.sh
 
   elif [ $cVerSO == "12" ]; then
 
