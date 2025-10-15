@@ -83,10 +83,10 @@
     echo ""
     echo "      Desensamblando..."
     echo ""
-    r2 -e bin.relocs.apply=true -Aqc "aaa; pdi" "$cRutaAbsolutaAlArchivoBinario"     > "$cCarpetaDondeGuardar""$cNombreDeArchivo".r2-Desensamblado.asm
+    r2 -e bin.relocs.apply=true -Aqc "e scr.color=0; aaa; pdi" "$cRutaAbsolutaAlArchivoBinario"     > "$cCarpetaDondeGuardar""$cNombreDeArchivo".r2-Desensamblado.asm
     rz-bin -v
     echo ""
-    r2 -AA -e bin.relocs.apply=true -Aqc "aaa; pdi" "$cRutaAbsolutaAlArchivoBinario" > "$cCarpetaDondeGuardar""$cNombreDeArchivo".r2-Desensamblado-Experimental.asm
+    r2 -AA -e bin.relocs.apply=true -Aqc "e scr.color=0; aaa; pdi" "$cRutaAbsolutaAlArchivoBinario" > "$cCarpetaDondeGuardar""$cNombreDeArchivo".r2-Desensamblado-Experimental.asm
     echo ""
   elif file "$cRutaAbsolutaAlArchivoBinario" | grep -q "PE32"; then   # (Para .exe o .dll)
     echo ""
@@ -97,9 +97,9 @@
     echo ""
     echo "      Desensamblando..."
     echo ""
-    r2 -e bin.cache=true -Aqc "aaa; pdi" "$cRutaAbsolutaAlArchivoBinario"        > "$cCarpetaDondeGuardar""$cNombreDeArchivo".r2-Desensamblado.asm
+    r2 -e bin.cache=true -Aqc "e scr.color=0; aaa; pdi" "$cRutaAbsolutaAlArchivoBinario"        > "$cCarpetaDondeGuardar""$cNombreDeArchivo".r2-Desensamblado.asm
     echo ""
-    r2 -AA -e bin.cache=true -Aqc "aaa; pdi" "$cRutaAbsolutaAlArchivoBinario"    > "$cCarpetaDondeGuardar""$cNombreDeArchivo".r2-Desensamblado-Experimental.asm
+    r2 -AA -e bin.cache=true -Aqc "e scr.color=0; aaa; pdi" "$cRutaAbsolutaAlArchivoBinario"    > "$cCarpetaDondeGuardar""$cNombreDeArchivo".r2-Desensamblado-Experimental.asm
     echo ""
   elif file "$cRutaAbsolutaAlArchivoBinario" | grep -q "Mach-O"; then # (Para macOS)
     echo ""
@@ -110,9 +110,9 @@
     echo ""
     echo "      Desensamblando..."
     echo ""
-    r2 -e bin.cache=true -Aqc "aaa; pdi" "$cRutaAbsolutaAlArchivoBinario"        > "$cCarpetaDondeGuardar""$cNombreDeArchivo".r2-Desensamblado.asm
+    r2 -e bin.cache=true -Aqc "e scr.color=0; aaa; pdi" "$cRutaAbsolutaAlArchivoBinario"        > "$cCarpetaDondeGuardar""$cNombreDeArchivo".r2-Desensamblado.asm
     echo ""
-    r2 -AA -e bin.cache=true -Aqc "aaa; pdi" "$cRutaAbsolutaAlArchivoBinario"    > "$cCarpetaDondeGuardar""$cNombreDeArchivo".r2-Desensamblado-Experimental.asm
+    r2 -AA -e bin.cache=true -Aqc "e scr.color=0; aaa; pdi" "$cRutaAbsolutaAlArchivoBinario"    > "$cCarpetaDondeGuardar""$cNombreDeArchivo".r2-Desensamblado-Experimental.asm
     echo ""
   else
     echo "No se pudo determinar si el binario es de Linux, Windows o macOS"
