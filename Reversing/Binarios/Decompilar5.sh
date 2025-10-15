@@ -9,7 +9,7 @@
 # Script de NiPeGun para decompilar binarios en Debian
 #
 # Ejecución remota (puede requerir permisos sudo):
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Reversing/Binarios/Decompilar.sh | bash -s [RutaAlArchivoBinario]
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Reversing/Binarios/Decompilar.sh | bash -s [RutaAbsolutaAlArchivoBinario]
 #
 # Ejecución remota como root (para sistemas sin sudo):
 #   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Reversing/Binarios/Decompilar.sh | sed 's-sudo--g' | bash -s [RutaAbsolutaAlArchivoBinario]
