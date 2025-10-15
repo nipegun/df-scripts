@@ -5,8 +5,8 @@
 
 # Crear, iniciar y destruir un sandbox Debian aislado para pruebas con strace
 cFechaDeEjec=$(date +a%Ym%md%d@%T)
+mkdir -p "$HOME"/SandBoxes/Reversing/ 2> /dev/null
 vDirSandbox="$HOME/SandBoxes/Reversing/$cFechaDeEjec"
-mkdir -p "$vDirSandbox"
 vMirrorDebian="http://deb.debian.org/debian"
 vRelease="stable"
 vNombreContenedor="SandboxParaReversing"
