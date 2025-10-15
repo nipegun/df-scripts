@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Ejecución remota:
+#  curl -sL 
+
 # Crear, iniciar y destruir un sandbox Debian aislado para pruebas con strace
 
 vDirSandbox="/var/sandbox/debian"
