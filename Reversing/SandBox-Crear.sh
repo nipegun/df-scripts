@@ -1,15 +1,15 @@
 #!/bin/bash
 
 # Ejecución remota:
-#  curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Reversing/SandBox-Crear.sh | bash
+#  curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Reversing/SandBox-Crear.sh | bash -s [NombreDelSandbox] [CarpetaAMontar]
 
 # Crear, iniciar y destruir un sandbox Debian aislado para pruebas con strace
 
 vDirSandbox="/var/sandbox/debian"
 vMirrorDebian="http://deb.debian.org/debian"
 vRelease="stable"
-vMountHost="$1"
-vNombreContenedor="sandbox-debian"
+vNombreContenedor="$1"
+vMountHost="$2"
 
 # Crear el sandbox si no existe
   # Comprobar si el paquete debootstrap está instalado. Si no lo está, instalarlo.
