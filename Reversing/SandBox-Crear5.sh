@@ -23,22 +23,24 @@ vMountHost="$2"
     fi
   # Comprobar si existe o no antes de crearlo
     if [ ! -d "$vDirSandbox" ]; then
-      echo "Creando entorno base Debian en $vDirSandbox..."
+      echo ""
+      echo "  Creando sandbox/contenedor de systemd con Debian "$vRelease" en $vDirSandbox..."
+      echo ""
       debootstrap --variant=minbase "$vRelease" "$vDirSandbox" "$vMirrorDebian"
     fi
 
 # Iniciar el sandbox con aislamiento y carpeta compartida
-  echo "Iniciando sandbox con aislamiento..."
+  echo ""
+  echo "  Iniciando sandbox/contenedor de systemd..."
+  echo ""
   systemd-nspawn \
     -D "$vDirSandbox" \
     --bind="$vMountHost:/mnt/host" \
     --machine="$vNombreContenedor" \
     /bin/bash 
 
-# Al salir del contenedor, ofrecer opción para destruirlo
-  read -p "¿Deseas destruir el sandbox completamente? (s/n): " vRespuesta
-  if [ "$vRespuesta" = "s" ]; then
-    echo "Destruyendo sandbox..."
-    rm -rf "$vDirSandbox"
-    echo "Sandbox eliminado."
-  fi
+# Al salir del contenedor, destruirlo
+  echo ""
+  echo "  Destruyendo sandbox/contenedor..."
+  echo ""
+  rm -rf "$vDirSandbox"
