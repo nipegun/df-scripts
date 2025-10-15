@@ -38,7 +38,7 @@ vMountHost="$2"
   echo "      apt-get -y update && apt-get -y install curl"
   echo "      curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Reversing/SandBox-Paquetes-InstalarDentro.sh | bash"
   echo ""
-  sudo systemd-nspawn -D "$vDirSandbox" --bind="$vMountHost:/mnt/host" --machine="$vNombreContenedor" /bin/bash --noprofile --norc -i
+  sudo systemd-nspawn -D "$vDirSandbox" --bind="$vMountHost:/mnt/host" --machine="$vNombreContenedor" --as-pid2 /bin/bash --noprofile --norc -i
 
 # Al salir del contenedor, destruirlo
   echo ""
