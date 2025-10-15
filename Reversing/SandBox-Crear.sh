@@ -43,7 +43,8 @@ vNombreContenedor="sandbox-debian"
     apt-get -y install libgl1
     apt-get -y install libxrandr2
     apt-get -y install libxi6
-
+    apt-get -y install libxcursor1
+    apt-get -y install libxinerama1
     bash
   "
 
