@@ -43,6 +43,6 @@ vMountHost="$1"
 
 # Al salir del contenedor, destruirlo
   echo ""
-  echo "  Destruyendo sandbox/contenedor..."
+  echo "  Destruyendo el sandbox/contenedor de la carpeta "$vDirSandbox"..."
   echo ""
   sudo rm -rf "$vDirSandbox"
