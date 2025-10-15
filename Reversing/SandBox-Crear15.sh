@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Ejecución remota:
-#  curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Reversing/SandBox-Crear.sh -o /tmp/sb.sh && chmod +x /tmp/sb.sh && | /tmp/sb.sh [CarpetaAMontar]
+#  curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Reversing/SandBox-Crear.sh -o /tmp/sb.sh && chmod +x /tmp/sb.sh && /tmp/sb.sh [CarpetaAMontar]
 
 # Crear, iniciar y destruir un sandbox Debian aislado para pruebas con strace
 #cFechaDeEjec=$(date +a%Ym%md%d@%T)
@@ -36,8 +36,23 @@ vMountHost="$1"
   echo ""
   echo "    Dentro del contenedor pega y ejecuta los siguientes comandos:"
   echo ""
-  echo "      apt-get -y update && apt-get -y install curl"
-  echo "      curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Reversing/SandBox-Paquetes-InstalarDentro.sh | bash"
+  echo "      apt-get -y update"
+  echo "      apt-get -y update"
+  echo "      apt-get -y install strace"
+  echo "      apt-get -y install libgl1"
+  echo "      apt-get -y install libxrandr2"
+  echo "      apt-get -y install libxi6"
+  echo "      apt-get -y install libxcursor1"
+  echo "      apt-get -y install libxinerama1"
+  echo "      apt-get -y install binutils # Para el comando strings"
+  echo "      apt-get -y install gdb"
+  echo "      apt-get -y install xxd"
+  echo "      apt-get -y install bzip2"
+  echo "      apt-get -y install file"
+  echo "      apt-get -y install locales"
+  echo "      sed -i 's/^# *en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen"
+  echo "      sed -i 's/^# *es_ES.UTF-8 UTF-8/es_ES.UTF-8 UTF-8/' /etc/locale.gen"
+  echo "      locale-gen"
   echo ""
   sudo systemd-nspawn -D "$vDirSandbox" --bind="$vMountHost:/mnt/host" --machine="$vNombreContenedor"
 
