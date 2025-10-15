@@ -36,13 +36,14 @@ vNombreContenedor="sandbox-debian"
     --private-network \
     --read-only \
     --tmpfs=/tmp \
-    /bin/bash
-
-# Instalar paquetes dentro del sandbox
-  apt-get -y update
-  apt-get -y install strace
-  apt-get -y install libgl1
-  apt-get -y install libxrandr2
+    #/bin/bash
+    /bin/bash -c "
+    apt-get -y update
+    apt-get -y install strace
+    apt-get -y install libgl1
+    apt-get -y install libxrandr2
+    bash
+  "
 
 # Al salir del contenedor, ofrecer opción para destruirlo
   read -p "¿Deseas destruir el sandbox completamente? (s/n): " vRespuesta
