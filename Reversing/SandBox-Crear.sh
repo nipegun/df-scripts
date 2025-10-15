@@ -42,6 +42,8 @@ vNombreContenedor="sandbox-debian"
     apt-get -y install strace
     apt-get -y install libgl1
     apt-get -y install libxrandr2
+    apt-get -y install libxi6
+
     bash
   "
 
