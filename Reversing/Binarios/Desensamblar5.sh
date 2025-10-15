@@ -84,7 +84,6 @@
     echo "      Desensamblando..."
     echo ""
     r2 -e bin.relocs.apply=true -Aqc "e scr.color=0; aaa; pdi" "$cRutaAbsolutaAlArchivoBinario"     > "$cCarpetaDondeGuardar""$cNombreDeArchivo".r2-Desensamblado.asm
-    rz-bin -v
     echo ""
     r2 -AA -e bin.relocs.apply=true -Aqc "e scr.color=0; aaa; pdi" "$cRutaAbsolutaAlArchivoBinario" > "$cCarpetaDondeGuardar""$cNombreDeArchivo".r2-Desensamblado-Experimental.asm
     echo ""
