@@ -4,12 +4,13 @@
 #  curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Reversing/SandBox-Crear.sh | bash -s [NombreDelSandbox] [CarpetaAMontar]
 
 # Crear, iniciar y destruir un sandbox Debian aislado para pruebas con strace
-cFechaDeEjec=$(date +a%Ym%md%d@%T)
-vDirSandbox="/var/sandbox/debian/$cFechaDeEjec"
+#cFechaDeEjec=$(date +a%Ym%md%d@%T)
+#vDirSandbox="/var/sandbox/debian/$cFechaDeEjec"
+vDirSandbox="/var/sandbox/debian"
 vMirrorDebian="http://deb.debian.org/debian"
 vRelease="stable"
-vNombreContenedor="$1"
-vMountHost="$2"
+vNombreContenedor="SandboxParaReversing"
+vMountHost="$1"
 
 # Crear el sandbox si no existe
   # Comprobar si el paquete debootstrap está instalado. Si no lo está, instalarlo.
@@ -44,4 +45,4 @@ vMountHost="$2"
   echo ""
   echo "  Destruyendo sandbox/contenedor..."
   echo ""
-  sudo rm -rfv "$vDirSandbox"
+  sudo rm -rf "$vDirSandbox"
