@@ -63,16 +63,6 @@
   echo -e "${cColorAzulClaro}   Iniciando el script de decompilado del binario $cNombreDeArchivo  ${cFinColor}"
   echo ""
 
-# Comprobar si el paquete rizin está instalado. Si no lo está, instalarlo.
-  if [[ $(dpkg-query -s rizin 2>/dev/null | grep installed) == "" ]]; then
-    echo ""
-    echo -e "${cColorRojo}    El paquete rizin no está instalado. Iniciando su instalación...${cFinColor}"
-    echo ""
-    sudo apt-get -y update
-    sudo apt-get -y install rizin
-    echo ""
-  fi
-
 # Desensamblar
   r2pm -U
   r2pm -ci r2dec
