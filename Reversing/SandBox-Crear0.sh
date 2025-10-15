@@ -36,9 +36,6 @@ vMountHost="$2"
     -D "$vDirSandbox" \
     --bind="$vMountHost:/mnt/host" \
     --machine="$vNombreContenedor" \
-    --private-network \
-    --read-only \
-    --tmpfs=/tmp \
     #/bin/bash
     /bin/bash -c "
     apt-get -y update
