@@ -12,7 +12,7 @@
 #   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Reversing/Binarios/ObtenerInfo.sh | bash -s [RutaAlArchivoBinario]
 #
 # Ejecución remota como root (para sistemas sin sudo):
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Reversing/Binarios/ObtenerInfo.sh | sed 's-sudo--g' | bash -s [RutaAlArchivoBinario]
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Reversing/Binarios/ObtenerInfo.sh | sed 's-sudo--g' | bash -s [RutaAbsolutaAlArchivoBinario]
 #
 # Bajar y editar directamente el archivo en nano
 #   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Reversing/Binarios/ObtenerInfo.sh | nano -
