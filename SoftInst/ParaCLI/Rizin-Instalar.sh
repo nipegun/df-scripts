@@ -57,6 +57,16 @@
 # Comprobar versión instalada
   rz-bin -v
 
+# Instalar el plugin rz-ghidra para que compile en /usr/local
+  cd /tmp/
+  rm -rf /tmp/rz-ghidra/ 2> /dev/null
+  git clone --recursive https://github.com/rizinorg/rz-ghidra.git
+  cd /tmp/rz-ghidra/
+  mkdir build && cd build
+  cmake -DCMAKE_INSTALL_PREFIX=/usr/local ..
+  make -j$(nproc)
+  sudo make install
+
 # Desinstalar
   #cd /tmp/rizin/
   #sudo meson install -C build --uninstall
