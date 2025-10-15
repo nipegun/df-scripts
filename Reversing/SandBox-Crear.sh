@@ -18,10 +18,11 @@ vNombreContenedor="sandbox-debian"
       sudo apt-get -y install debootstrap
       echo ""
     fi
-  if [ ! -d "$vDirSandbox" ]; then
-    echo "Creando entorno base Debian en $vDirSandbox..."
-    debootstrap --variant=minbase "$vRelease" "$vDirSandbox" "$vMirrorDebian"
-  fi
+  # Comprobar si existe o no antes de crearlo
+    if [ ! -d "$vDirSandbox" ]; then
+      echo "Creando entorno base Debian en $vDirSandbox..."
+      debootstrap --variant=minbase "$vRelease" "$vDirSandbox" "$vMirrorDebian"
+    fi
 
 # Iniciar el sandbox con aislamiento y carpeta compartida
 #   --private-network: sin acceso a la red.
