@@ -9,13 +9,13 @@
 # Script de NiPeGun para decompilar binarios en Debian
 #
 # Ejecución remota (puede requerir permisos sudo):
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Reversing/Binarios/Desensamblar.sh | bash -s [RutaAbsolutaAlArchivoBinario]
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Reversing/Binarios/Decompilar.sh | bash -s [RutaAbsolutaAlArchivoBinario]
 #
 # Ejecución remota como root (para sistemas sin sudo):
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Reversing/Binarios/Desensamblar.sh | sed 's-sudo--g' | bash -s [RutaAbsolutaAlArchivoBinario]
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Reversing/Binarios/Decompilar.sh | sed 's-sudo--g' | bash -s [RutaAbsolutaAlArchivoBinario]
 #
 # Bajar y editar directamente el archivo en nano
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Reversing/Binarios/Desensamblar.sh | nano -
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Reversing/Binarios/Decompilar.sh | nano -
 # ----------
 
 # Definir constantes de color
@@ -63,14 +63,60 @@
   echo -e "${cColorAzulClaro}   Iniciando el script de decompilado del binario $cNombreDeArchivo  ${cFinColor}"
   echo ""
 
-# Desensamblar
-  r2pm -U
-  r2pm -ci r2dec
-  echo ""
-  echo "      Desensamblando..."
-  echo ""
-  r2 -Aqc "aaa; pdi" "$cRutaAbsolutaAlArchivoBinario" > "$cCarpetaDondeGuardar""$cNombreDeArchivo".r2-Desensamblado.asm
-  echo ""
+# Comprobar si el paquete rizin está instalado. Si no lo está, instalarlo.
+  if [[ $(dpkg-query -s rizin 2>/dev/null | grep installed) == "" ]]; then
+    echo ""
+    echo -e "${cColorRojo}    El paquete rizin no está instalado. Iniciando su instalación...${cFinColor}"
+    echo ""
+    sudo apt-get -y update
+    sudo apt-get -y install rizin
+    echo ""
+  fi
+
+# Determinar si es un binario de Linux, de macOS o de Windows
+  if file "$cRutaAbsolutaAlArchivoBinario"   | grep -q "ELF"; then    # (Para Linux)
+    echo ""
+    echo "    El archivo parece ser un binario de Linux."
+    echo ""
+    #r2pm -U
+    #r2pm -ci r2dec
+    echo ""
+    echo "      Desensamblando..."
+    echo ""
+    r2 -e bin.relocs.apply=true -Aqc "aaa; pdi" "$cRutaAbsolutaAlArchivoBinario"     > "$cCarpetaDondeGuardar""$cNombreDeArchivo".r2-Desensamblado.asm
+    rz-bin -v
+    echo ""
+    r2 -AA -e bin.relocs.apply=true -Aqc "aaa; pdi" "$cRutaAbsolutaAlArchivoBinario" > "$cCarpetaDondeGuardar""$cNombreDeArchivo".r2-Desensamblado-Experimental.asm
+    echo ""
+  elif file "$cRutaAbsolutaAlArchivoBinario" | grep -q "PE32"; then   # (Para .exe o .dll)
+    echo ""
+    echo "    El archivo parece ser un binario de Windows."
+    echo ""
+    #r2pm -U
+    #r2pm -ci r2dec
+    echo ""
+    echo "      Desensamblando..."
+    echo ""
+    r2 -e bin.cache=true -Aqc "aaa; pdi" "$cRutaAbsolutaAlArchivoBinario"        > "$cCarpetaDondeGuardar""$cNombreDeArchivo".r2-Desensamblado.asm
+    echo ""
+    r2 -AA -e bin.cache=true -Aqc "aaa; pdi" "$cRutaAbsolutaAlArchivoBinario"    > "$cCarpetaDondeGuardar""$cNombreDeArchivo".r2-Desensamblado-Experimental.asm
+    echo ""
+  elif file "$cRutaAbsolutaAlArchivoBinario" | grep -q "Mach-O"; then # (Para macOS)
+    echo ""
+    echo "    El archivo parece ser un binario de macOS."
+    echo ""
+    #r2pm -U
+    #r2pm -ci r2dec
+    echo ""
+    echo "      Desensamblando..."
+    echo ""
+    r2 -e bin.cache=true -Aqc "aaa; pdi" "$cRutaAbsolutaAlArchivoBinario"        > "$cCarpetaDondeGuardar""$cNombreDeArchivo".r2-Desensamblado.asm
+    echo ""
+    r2 -AA -e bin.cache=true -Aqc "aaa; pdi" "$cRutaAbsolutaAlArchivoBinario"    > "$cCarpetaDondeGuardar""$cNombreDeArchivo".r2-Desensamblado-Experimental.asm
+    echo ""
+  else
+    echo "No se pudo determinar si el binario es de Linux, Windows o macOS"
+  fi
 
 # Reparar permisos
   sudo chown $USER:$USER "$cCarpetaDondeGuardar" -R
@@ -79,3 +125,8 @@
   echo ""
   echo "  Ejecución del script, finalizada..."
   echo ""
+
+
+  
+  
+
