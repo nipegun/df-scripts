@@ -84,7 +84,6 @@
     echo "      Decompilando funciones..."
     echo ""
     r2 -e bin.relocs.apply=true -Aqc "e scr.color=0; afl" "$cRutaAbsolutaAlArchivoBinario" > "$cCarpetaDondeGuardar""$cNombreDeArchivo".r2-ListaDeFunciones.txt
-    rz-bin -v
     echo ""
     r2 -AA -e bin.relocs.apply=true -Aqc "e scr.color=0; afl" "$cRutaAbsolutaAlArchivoBinario" > "$cCarpetaDondeGuardar""$cNombreDeArchivo".r2-ListaDeFunciones-Experimental.txt
     echo ""
