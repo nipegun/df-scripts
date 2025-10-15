@@ -36,7 +36,8 @@
   sudo apt-get -y install libcapstone-dev
 
 # Descargar el repo
-  cd /tmp
+  cd /tmp/
+  sudo rm -rf /tmp/rizin/ 2> /dev/null
   git clone https://github.com/rizinorg/rizin.git
 
 # Configurar la compilación con meso
