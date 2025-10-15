@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Ejecución remota:
-#  curl -sL 
+#  curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Reversing/SandBox-Crear.sh | bash
 
 # Crear, iniciar y destruir un sandbox Debian aislado para pruebas con strace
 
