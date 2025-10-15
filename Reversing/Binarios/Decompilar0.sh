@@ -93,7 +93,7 @@
     echo ""
     echo "      Decompilando funciones..."
     echo ""
-    r2 -e bin.relocs.apply=true -Aqc "afl" "$cRutaAbsolutaAlArchivoBinario" &> "$cCarpetaDondeGuardar""$cNombreDeArchivo".r2-funciones.txt
+    r2 -e bin.relocs.apply=true -Aqc "afl" "$cRutaAbsolutaAlArchivoBinario" > "$cCarpetaDondeGuardar""$cNombreDeArchivo".r2-funciones.txt
     echo ""
   elif file "$cRutaAbsolutaAlArchivoBinario" | grep -q "PE32"; then   # (Para .exe o .dll)
     echo ""
@@ -101,7 +101,7 @@
     echo ""
     echo "      Decompilando funciones..."
     echo ""
-    r2 -e bin.cache=true -Aqc "afl" "$cRutaAbsolutaAlArchivoBinario"        &> "$cCarpetaDondeGuardar""$cNombreDeArchivo".r2-funciones.txt
+    r2 -e bin.cache=true -Aqc "afl" "$cRutaAbsolutaAlArchivoBinario"        > "$cCarpetaDondeGuardar""$cNombreDeArchivo".r2-funciones.txt
     echo ""
   elif file "$cRutaAbsolutaAlArchivoBinario" | grep -q "Mach-O"; then # (Para macOS)
     echo ""
@@ -109,7 +109,7 @@
     echo ""
     echo "      Decompilando funciones..."
     echo ""
-    r2 -e bin.cache=true -Aqc "afl" "$cRutaAbsolutaAlArchivoBinario"        &> "$cCarpetaDondeGuardar""$cNombreDeArchivo".r2-funciones.txt
+    r2 -e bin.cache=true -Aqc "afl" "$cRutaAbsolutaAlArchivoBinario"        > "$cCarpetaDondeGuardar""$cNombreDeArchivo".r2-funciones.txt
     echo ""
   else
     echo "No se pudo determinar si el binario es de Linux, Windows o macOS"
