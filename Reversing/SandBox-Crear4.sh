@@ -4,8 +4,8 @@
 #  curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Reversing/SandBox-Crear.sh | bash -s [NombreDelSandbox] [CarpetaAMontar]
 
 # Crear, iniciar y destruir un sandbox Debian aislado para pruebas con strace
-
-vDirSandbox="/var/sandbox/debian"
+cFechaDeEjec=$(date +a%Ym%md%d@%T)
+vDirSandbox="/var/sandbox/debian/$cFechaDeEjec"
 vMirrorDebian="http://deb.debian.org/debian"
 vRelease="stable"
 vNombreContenedor="$1"
