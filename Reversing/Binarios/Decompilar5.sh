@@ -63,14 +63,28 @@
   echo -e "${cColorAzulClaro}   Iniciando el script de decompilado del binario $cNombreDeArchivo  ${cFinColor}"
   echo ""
 
+# Comprobar si el paquete rizin está instalado. Si no lo está, instalarlo.
+  if [[ $(dpkg-query -s rizin 2>/dev/null | grep installed) == "" ]]; then
+    echo ""
+    echo -e "${cColorRojo}    El paquete rizin no está instalado. Iniciando su instalación...${cFinColor}"
+    echo ""
+    sudo apt-get -y update
+    sudo apt-get -y install rizin
+    echo ""
+  fi
+
 # Determinar si es un binario de Linux, de macOS o de Windows
   if file "$cRutaAbsolutaAlArchivoBinario"   | grep -q "ELF"; then    # (Para Linux)
     echo ""
     echo "    El archivo parece ser un binario de Linux."
     echo ""
+    r2pm -U
+    r2pm -ci r2dec
+    echo ""
     echo "      Decompilando funciones..."
     echo ""
     r2 -e bin.relocs.apply=true -Aqc "afl" "$cRutaAbsolutaAlArchivoBinario" > "$cCarpetaDondeGuardar""$cNombreDeArchivo".r2-ListaDeFunciones.txt
+    rz-bin -v
     echo ""
     r2 -AA -e bin.relocs.apply=true -Aqc "afl" "$cRutaAbsolutaAlArchivoBinario" > "$cCarpetaDondeGuardar""$cNombreDeArchivo".r2-ListaDeFunciones-Experimental.txt
     echo ""
@@ -83,6 +97,9 @@
   elif file "$cRutaAbsolutaAlArchivoBinario" | grep -q "PE32"; then   # (Para .exe o .dll)
     echo ""
     echo "    El archivo parece ser un binario de Windows."
+    echo ""
+    r2pm -U
+    r2pm -ci r2dec
     echo ""
     echo "      Decompilando funciones..."
     echo ""
@@ -100,6 +117,9 @@
     echo ""
     echo "    El archivo parece ser un binario de macOS."
     echo ""
+    r2pm -U
+    r2pm -ci r2dec
+    echo ""
     echo "      Decompilando funciones..."
     echo ""
     r2 -e bin.cache=true -Aqc "afl" "$cRutaAbsolutaAlArchivoBinario"        > "$cCarpetaDondeGuardar""$cNombreDeArchivo".r2-ListaDeFunciones.txt
@@ -115,6 +135,10 @@
   else
     echo "No se pudo determinar si el binario es de Linux, Windows o macOS"
   fi
+
+# Para decompilar con rizin
+  #rizin -Aqc "pdg" "$cRutaAbsolutaAlArchivoBinario"        > "$cCarpetaDondeGuardar""$cNombreDeArchivo".rizin-Decompilado-Experimental.c
+
 
 # Reparar permisos
   sudo chown $USER:$USER "$cCarpetaDondeGuardar" -R
