@@ -48,6 +48,8 @@ vNombreContenedor="sandbox-debian"
     apt-get -y install binutils # Para el comando strings
     apt-get -y install gdb
     apt-get -y install xxd
+    apt-get -y install bzip2
+    apt-get -y install file
     apt-get -y install locales
     sed -i 's/^# *es_ES.UTF-8 UTF-8/es_ES.UTF-8 UTF-8/' /etc/locale.gen
     locale-gen
