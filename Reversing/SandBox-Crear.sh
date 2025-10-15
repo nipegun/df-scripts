@@ -53,6 +53,7 @@ vMountHost="$1"
   echo "      sed -i 's/^# *en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen"
   echo "      sed -i 's/^# *es_ES.UTF-8 UTF-8/es_ES.UTF-8 UTF-8/' /etc/locale.gen"
   echo "      locale-gen"
+  echo "      cd /mnt/"
   echo ""
   sudo systemd-nspawn -D "$vDirSandbox" --bind="$vMountHost:/mnt/host" --machine="$vNombreContenedor"
 
