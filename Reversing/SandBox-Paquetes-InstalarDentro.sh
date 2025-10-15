@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Ejecuciópn remota:
-#  curl -sL 
+# Ejecuciópn remota únicamente como root:
+#  curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Reversing/SandBox-Paquetes-InstalarDentro.sh | bash
 
 apt-get -y update
 apt-get -y install strace
