@@ -26,7 +26,7 @@ vMountHost="$2"
       echo ""
       echo "  Creando sandbox/contenedor de systemd con Debian "$vRelease" en $vDirSandbox..."
       echo ""
-      debootstrap --variant=minbase "$vRelease" "$vDirSandbox" "$vMirrorDebian"
+      sudo debootstrap --variant=minbase "$vRelease" "$vDirSandbox" "$vMirrorDebian"
     fi
 
 # Iniciar el sandbox con aislamiento y carpeta compartida
@@ -38,14 +38,10 @@ vMountHost="$2"
   echo "      apt-get -y update && apt-get -y install curl"
   echo "      curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Reversing/SandBox-Paquetes-InstalarDentro.sh | bash"
   echo ""
-  systemd-nspawn \
-    -D "$vDirSandbox" \
-    --bind="$vMountHost:/mnt/host" \
-    --machine="$vNombreContenedor" \
-    /bin/bash 
+  sudo systemd-nspawn -D "$vDirSandbox" --bind="$vMountHost:/mnt/host"
 
 # Al salir del contenedor, destruirlo
   echo ""
   echo "  Destruyendo sandbox/contenedor..."
   echo ""
-  rm -rf "$vDirSandbox"
+  sudo rm -rf "$vDirSandbox"
