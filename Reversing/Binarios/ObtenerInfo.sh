@@ -9,7 +9,7 @@
 # Script de NiPeGun para obtener datos sobre binarios de Linux
 #
 # Ejecución remota (puede requerir permisos sudo):
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Reversing/Binarios/ObtenerInfo.sh | bash -s [RutaAlArchivoBinario]
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Reversing/Binarios/ObtenerInfo.sh | bash -s [RutaAbsolutaAlArchivoBinario]
 #
 # Ejecución remota como root (para sistemas sin sudo):
 #   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Reversing/Binarios/ObtenerInfo.sh | sed 's-sudo--g' | bash -s [RutaAbsolutaAlArchivoBinario]
@@ -35,10 +35,10 @@
     then
       echo ""
       echo -e "${cColorRojo}  Mal uso del script. El uso correcto sería: ${cFinColor}"
-      echo "    $0 [RutaAlArchivoBinario] [CarpetaDondeGuardar]"
+      echo "    $0 [RutaAbsolutaAlArchivoBinario]"
       echo ""
       echo "  Ejemplo:"
-      echo "    $0 '/tmp/binario' '/home/pepito'"
+      echo "    $0 '/tmp/binario.bin'"
       echo ""
       exit
   fi
