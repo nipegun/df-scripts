@@ -69,7 +69,7 @@
   echo ""
   echo "      Desensamblando..."
   echo ""
-  r2 -Aqc "aaa; pdi""$cRutaAbsolutaAlArchivoBinario" > "$cCarpetaDondeGuardar""$cNombreDeArchivo".r2-Desensamblado.asm
+  r2 -Aqc "aaa; pdi" "$cRutaAbsolutaAlArchivoBinario" > "$cCarpetaDondeGuardar""$cNombreDeArchivo".r2-Desensamblado.asm
   echo ""
 
 # Reparar permisos
