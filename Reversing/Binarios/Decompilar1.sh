@@ -56,35 +56,12 @@
   cCarpetaDelArchivoBinario="$(echo "$cRutaAbsolutaAlArchivoBinario" | rev | cut -d'/' -f2- | rev)"
   cCarpetaDondeGuardar="$(echo "$cCarpetaDelArchivoBinario""/InfoDelBinario/")"
   cNombreDeArchivo="$(basename "$cRutaAbsolutaAlArchivoBinario")"
-
-# Crear carpeta
-  sudo mkdir -p "$cCarpetaDondeGuardar"/Decompilado/
   sudo chown $USER:$USER "$cCarpetaDondeGuardar" -R
 
-# Obtener info del elf
-
-  # file
-    # Comprobar si el paquete file está instalado. Si no lo está, instalarlo.
-      if [[ $(dpkg-query -s file 2>/dev/null | grep installed) == "" ]]; then
-        echo ""
-        echo -e "${cColorRojo}    El paquete file no está instalado. Iniciando su instalación...${cFinColor}"
-        echo ""
-        sudo apt-get -y update
-        sudo apt-get -y install file
-        echo ""
-      fi 
-    file "$cRutaAbsolutaAlArchivoBinario" &> "$cCarpetaDondeGuardar""$cNombreDeArchivo".file.txt
-
-  # readelf
-    # Comprobar si el paquete binutils está instalado. Si no lo está, instalarlo.
-      if [[ $(dpkg-query -s binutils 2>/dev/null | grep installed) == "" ]]; then
-        echo ""
-        echo -e "${cColorRojo}    El paquete binutils no está instalado. Iniciando su instalación...${cFinColor}"
-        echo ""
-        sudo apt-get -y update
-        sudo apt-get -y install binutils
-        echo ""
-      fi
+# Notificar inicio de ejecución del script
+  echo ""
+  echo -e "${cColorAzulClaro}   Iniciando el script de decompilado del binario $cNombreDeArchivo  ${cFinColor}"
+  echo ""
 
 # Determinar si es un binario de Linux, de macOS o de Windows
   if file "$cRutaAbsolutaAlArchivoBinario"   | grep -q "ELF"; then    # (Para Linux)
@@ -93,7 +70,11 @@
     echo ""
     echo "      Decompilando funciones..."
     echo ""
-    r2 -e bin.relocs.apply=true -Aqc "afl" "$cRutaAbsolutaAlArchivoBinario" > "$cCarpetaDondeGuardar""$cNombreDeArchivo".r2-funciones.txt
+    r2 -e bin.relocs.apply=true -Aqc "afl" "$cRutaAbsolutaAlArchivoBinario" > "$cCarpetaDondeGuardar""$cNombreDeArchivo".r2-ListaDeFunciones.txt
+    echo ""
+    echo "      Decompilando completamente..."
+    echo ""
+    r2 -e bin.relocs.apply=true -Aqc "ldd" "$cRutaAbsolutaAlArchivoBinario" > "$cCarpetaDondeGuardar""$cNombreDeArchivo".r2-Decompilado.c
     echo ""
   elif file "$cRutaAbsolutaAlArchivoBinario" | grep -q "PE32"; then   # (Para .exe o .dll)
     echo ""
@@ -101,7 +82,11 @@
     echo ""
     echo "      Decompilando funciones..."
     echo ""
-    r2 -e bin.cache=true -Aqc "afl" "$cRutaAbsolutaAlArchivoBinario"        > "$cCarpetaDondeGuardar""$cNombreDeArchivo".r2-funciones.txt
+    r2 -e bin.cache=true -Aqc "afl" "$cRutaAbsolutaAlArchivoBinario"        > "$cCarpetaDondeGuardar""$cNombreDeArchivo".r2-ListaDeFunciones.txt
+    echo ""
+    echo "      Decompilando completamente..."
+    echo ""
+    r2 -e bin.cache=true -Aqc "ldd" "$cRutaAbsolutaAlArchivoBinario"        > "$cCarpetaDondeGuardar""$cNombreDeArchivo".r2-Decompilado.c
     echo ""
   elif file "$cRutaAbsolutaAlArchivoBinario" | grep -q "Mach-O"; then # (Para macOS)
     echo ""
@@ -109,7 +94,11 @@
     echo ""
     echo "      Decompilando funciones..."
     echo ""
-    r2 -e bin.cache=true -Aqc "afl" "$cRutaAbsolutaAlArchivoBinario"        > "$cCarpetaDondeGuardar""$cNombreDeArchivo".r2-funciones.txt
+    r2 -e bin.cache=true -Aqc "afl" "$cRutaAbsolutaAlArchivoBinario"        > "$cCarpetaDondeGuardar""$cNombreDeArchivo".r2-ListaDeFunciones.txt
+    echo ""
+    echo "      Decompilando completamente..."
+    echo ""
+    r2 -e bin.cache=true -Aqc "ldd" "$cRutaAbsolutaAlArchivoBinario"        > "$cCarpetaDondeGuardar""$cNombreDeArchivo".r2-Decompilado.c
     echo ""
   else
     echo "No se pudo determinar si el binario es de Linux, Windows o macOS"
