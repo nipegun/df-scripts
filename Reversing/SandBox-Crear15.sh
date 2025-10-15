@@ -4,9 +4,9 @@
 #  curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Reversing/SandBox-Crear.sh -o /tmp/sb.sh && chmod +x /tmp/sb.sh && /tmp/sb.sh [CarpetaAMontar]
 
 # Crear, iniciar y destruir un sandbox Debian aislado para pruebas con strace
-#cFechaDeEjec=$(date +a%Ym%md%d@%T)
-#vDirSandbox="/var/sandbox/debian/$cFechaDeEjec"
-vDirSandbox="/var/sandbox/debian"
+cFechaDeEjec=$(date +a%Ym%md%d@%T)
+vDirSandbox="$HOME/SandBoxes/Reversing/$cFechaDeEjec"
+mkdir -p "$vDirSandbox"
 vMirrorDebian="http://deb.debian.org/debian"
 vRelease="stable"
 vNombreContenedor="SandboxParaReversing"
