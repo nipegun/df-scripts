@@ -28,34 +28,12 @@ vMountHost="$2"
     fi
 
 # Iniciar el sandbox con aislamiento y carpeta compartida
-#   --private-network: sin acceso a la red.
-#   --read-only: el filesystem es de solo lectura.
-#   --tmpfs=/tmp: crea un /tmp temporal y volátil.
   echo "Iniciando sandbox con aislamiento..."
   systemd-nspawn \
     -D "$vDirSandbox" \
     --bind="$vMountHost:/mnt/host" \
     --machine="$vNombreContenedor" \
-    #/bin/bash
-    /bin/bash -c "
-    apt-get -y update
-    apt-get -y install strace
-    apt-get -y install libgl1
-    apt-get -y install libxrandr2
-    apt-get -y install libxi6
-    apt-get -y install libxcursor1
-    apt-get -y install libxinerama1
-    apt-get -y install binutils # Para el comando strings
-    apt-get -y install gdb
-    apt-get -y install xxd
-    apt-get -y install bzip2
-    apt-get -y install file
-    apt-get -y install locales
-    sed -i 's/^# *en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen
-    sed -i 's/^# *es_ES.UTF-8 UTF-8/es_ES.UTF-8 UTF-8/' /etc/locale.gen
-    locale-gen
-    bash
-  "
+    /bin/bash 
 
 # Al salir del contenedor, ofrecer opción para destruirlo
   read -p "¿Deseas destruir el sandbox completamente? (s/n): " vRespuesta
