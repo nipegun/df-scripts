@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Ejecución remota únicamente como root:
-#  curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Reversing/01-SandBox-Paquetes-InstalarDentro.sh | bash
+#  curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Reversing/01-InSandBox-Debian-Preparar.sh | bash
 
 echo 'SanboxParaReversing'            | tee -a /etc/hostname
 echo '127.0.0.1 SandboxParaReversing' | tee -a /etc/hosts
