@@ -4,8 +4,8 @@
 #  curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Stego/Binwalk-ExtraerTodosLosOffsetsDetectados.sh | bash -s [Archivo] [CarpetaDeSalida]
 
 
-vArchivo='/home/nipegun/Descargas/04-ThreatIntel/dollyreturns.png'
-vDirSalida='/home/nipegun/Descargas/04-ThreatIntel/extraidos'
+vArchivo="$1"
+vDirSalida="$2"
 
 mkdir -p "$vDirSalida"
 
