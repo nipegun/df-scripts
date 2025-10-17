@@ -45,6 +45,15 @@ vMountHost="$1"
   echo "      apt-get -y update && apt-get -y install curl"
   echo "      curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Reversing/01-InSandBox-Debian-Preparar.sh | bash"
   echo ""
+  # Comprobar si el paquete systemd-container está instalado. Si no lo está, instalarlo.
+    if [[ $(dpkg-query -s systemd-container 2>/dev/null | grep installed) == "" ]]; then
+      echo ""
+      echo -e "${cColorRojo}  El paquete systemd-container no está instalado. Iniciando su instalación...${cFinColor}"
+      echo ""
+      sudo apt-get -y update
+      sudo apt-get -y install systemd-container
+      echo ""
+    fi
   sudo systemd-nspawn -D "$vDirSandbox" --bind="$vMountHost:/mnt/host" --machine="$vNombreContenedor"
 
 # Notificar salida del contenedor
@@ -53,7 +62,7 @@ vMountHost="$1"
   echo ""
   echo "    Para volver a entrar:"
   echo ""
-  echo "      sudo systemd-nspawn -D "$vDirSandbox" --bind="$vMountHost:/mnt/host" --machine="$vNombreContenedor""
+  echo "      sudo systemd-nspawn -D "$vDirSandbox" --bind='"$vMountHost:/mnt/host"' --machine="$vNombreContenedor""
   echo ""
   echo "    Para borrarlo:"
   echo ""
