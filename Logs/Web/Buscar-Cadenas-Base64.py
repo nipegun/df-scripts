@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # Ejecución remota:
-#  curl -sL x | python3 - [Carpeta]
+#  curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Logs/Web/Buscar-Cadenas-Base64.py | python3 - [Carpeta]
 
 """
 Busca cadenas en Base64 dentro de todos los archivos de una carpeta (recursivo).
