@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Ejecución remota
-#  curl -sL x | bash -s [Archivo] [CarpetaDeSalida]
+#  curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Stego/Binwalk-ExtraerTodosLosOffsetsDetectados.sh | bash -s [Archivo] [CarpetaDeSalida]
 
 
 vArchivo='/home/nipegun/Descargas/04-ThreatIntel/dollyreturns.png'
