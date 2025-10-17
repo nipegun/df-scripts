@@ -11,11 +11,11 @@
 
 # Crear, iniciar y destruir un sandbox Debian aislado para pruebas con strace
 cFechaDeEjec=$(date +a%Ym%md%d@%T)
-mkdir -p "$HOME"/SandBoxes/Reversing/ 2> /dev/null
-vDirSandbox="$HOME/SandBoxes/Reversing/$cFechaDeEjec"
+mkdir -p "$HOME"/SandBoxes/ 2> /dev/null
+vDirSandbox="$HOME/SandBoxes/$cFechaDeEjec"
 vMirrorDebian="http://deb.debian.org/debian"
 vRelease="stable"
-vNombreContenedor="SandboxParaReversing"
+vNombreContenedor="Sandbox"
 vMountHost="$1"
 
 # Crear el sandbox si no existe
@@ -43,7 +43,7 @@ vMountHost="$1"
   echo "    Dentro del contenedor pega y ejecuta los siguientes comandos:"
   echo ""
   echo "      apt-get -y update && apt-get -y install curl"
-  echo "      curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Reversing/01-InSandBox-Debian-Preparar.sh | bash"
+  echo "      curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Reversing/InSandBox-Debian-Preparar-ParaReversing.sh | bash"
   echo ""
   # Comprobar si el paquete systemd-container está instalado. Si no lo está, instalarlo.
     if [[ $(dpkg-query -s systemd-container 2>/dev/null | grep installed) == "" ]]; then
