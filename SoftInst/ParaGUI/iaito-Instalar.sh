@@ -77,6 +77,7 @@
             echo ""
           fi
         vUltVersR2=$(curl -s https://api.github.com/repos/radareorg/radare2/releases/latest | jq -r .tag_name)
+        echo "  La última versión de radare2 es la: $vUltVersR2"
 
       # Descargar el paquete
         curl -L https://github.com/radareorg/radare2/releases/download/"$vUltVersR2"/radare2_"$vUltVersR2"_amd64.deb -o /tmp/radare2.deb
@@ -106,9 +107,26 @@
             echo ""
           fi
         vUltVersIAITO=$(curl -s https://api.github.com/repos/radareorg/iaito/releases/latest | jq -r .tag_name)
+        echo "  La última versión de iaito es la: $vUltVersIAITO"
 
       # Descargar el paquete
         curl -L https://github.com/radareorg/iaito/releases/download/"$vUltVersIAITO"/iaito_"$vUltVersIAITO"_amd64.deb -o /tmp/iaito.deb
+
+      # Instalar dependencia
+        sudo apt-get -y install libqt6svgwidgets6
+
+      # Hacer creer al sistema que radare2 está instalado
+        echo ''                                                                   | sudo tee -a /var/lib/dpkg/status
+        echo 'Package: radare2'                                                   | sudo tee -a /var/lib/dpkg/status
+        echo 'Status: install ok installed'                                       | sudo tee -a /var/lib/dpkg/status
+        echo 'Priority: optional'                                                 | sudo tee -a /var/lib/dpkg/status
+        echo 'Section: devel'                                                     | sudo tee -a /var/lib/dpkg/status
+        echo 'Installed-Size: 1'                                                  | sudo tee -a /var/lib/dpkg/status
+        echo 'Maintainer: NiPeGun <root@localhost>'                               | sudo tee -a /var/lib/dpkg/status
+        echo 'Architecture: amd64'                                                | sudo tee -a /var/lib/dpkg/status
+        echo "Version: $vUltVersR2"                                               | sudo tee -a /var/lib/dpkg/status
+        echo 'Description: Paquete falso para satisfacer dependencias de radare2' | sudo tee -a /var/lib/dpkg/status
+        sudo dpkg --update-avail
 
       # Instalar
         sudo apt -y install /tmp/iaito.deb
