@@ -1,10 +1,11 @@
 #!/bin/bash
 
-# Ejecuciópn remota únicamente como root:
+# Ejecución remota únicamente como root:
 #  curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Reversing/01-SandBox-Paquetes-InstalarDentro.sh | bash
 
 apt-get -y update
 apt-get -y install strace
+apt-get -y install ltrace
 apt-get -y install libgl1
 apt-get -y install libxrandr2
 apt-get -y install libxi6
@@ -15,7 +16,19 @@ apt-get -y install gdb
 apt-get -y install xxd
 apt-get -y install bzip2
 apt-get -y install file
+apt-get -y install upx
+apt-get -y install binwalk
+apt-get -y install rsync
+apt-get -y install bsdextrautils
+apt-get -y install golang
+apt-get -y install nano
+apt-get -y install mc
+curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/SoftInst/ParaCLI/Rizin-Instalar.sh | sed 's-sudo--g' | bash
 apt-get -y install locales
 sed -i 's/^# *en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen
 sed -i 's/^# *es_ES.UTF-8 UTF-8/es_ES.UTF-8 UTF-8/' /etc/locale.gen
+echo 'export LANG=en_US.UTF-8'     >> /etc/profile
+echo 'export LC_ALL=en_US.UTF-8'   >> /etc/profile
+echo 'export LANGUAGE=en_US.UTF-8' >> /etc/profile
 locale-gen
+update-locale LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 LANGUAGE=en_US.UTF-8
