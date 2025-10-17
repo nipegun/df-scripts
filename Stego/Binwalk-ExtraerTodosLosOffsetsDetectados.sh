@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Ejecución remota
+#  curl -sL x | bash -s [Archivo] [CarpetaDeSalida]
+
+
 vArchivo='/home/nipegun/Descargas/04-ThreatIntel/dollyreturns.png'
 vDirSalida='/home/nipegun/Descargas/04-ThreatIntel/extraidos'
 
