@@ -4,6 +4,7 @@
 #  curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Reversing/01-SandBox-Paquetes-InstalarDentro.sh | bash
 
 apt-get -y update
+apt-get -y install sudo
 apt-get -y install strace
 apt-get -y install ltrace
 apt-get -y install libgl1
