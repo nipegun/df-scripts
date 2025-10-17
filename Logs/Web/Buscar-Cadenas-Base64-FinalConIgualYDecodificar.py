@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+# Ejecución remota:
+#  curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Logs/Web/Buscar-Cadenas-Base64-FinalConIgualYDecidificar.py | python3 - [Carpeta]
+
 """
 Busca cadenas en Base64 dentro de todos los archivos de una carpeta (recursivo).
 Solo muestra coincidencias que TERMINEN en '=' (incluye '==').
