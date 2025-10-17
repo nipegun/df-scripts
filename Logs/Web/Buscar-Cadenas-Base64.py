@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+# Ejecución remota:
+#  curl -sL x | python3 - [Carpeta]
+
 """
 Busca cadenas en Base64 dentro de todos los archivos de una carpeta (recursivo).
 Valida el alfabeto y el padding. Opcionalmente muestra una previsualización decodificada.
