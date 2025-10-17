@@ -26,10 +26,12 @@
   apt-get -y install golang
   apt-get -y install unyaffs
 
-  curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/SoftInst/ParaCLI/Rizin-Instalar.sh | sed 's-sudo--g' | bash
-
 # python
   apt-get -y install python3-pip
-  python3 -m pip install yaffshiv --break-system-packages
+
+# risin
+  curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/SoftInst/ParaCLI/Rizin-Instalar.sh | sed 's-sudo--g' | bash
+
+
 
 
