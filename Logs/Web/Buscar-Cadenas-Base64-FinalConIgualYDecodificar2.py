@@ -7,12 +7,13 @@
 """
 Busca cadenas en Base64 dentro de todos los archivos de una carpeta (recursivo).
 Solo reporta coincidencias que TERMINEN en '=' (incluye '==') y muestra:
-- La cadena Base64 detectada (ENC)
-- Su decodificación equivalente a: echo -n '<B64>' | base64 --decode (DEC)
+- ENC (Base64) en azul
+- DEC (decodificación) en verde
 
 Uso:
   ./find_b64.py /ruta/a/carpeta
   ./find_b64.py /ruta/a/carpeta -u -m 24
+  ./find_b64.py /ruta/a/carpeta --color always
 """
 
 import argparse
@@ -26,6 +27,30 @@ from math import ceil
 
 cEXCLUDE_DIRS_DEFAULT = {".git", ".svn", ".hg", "node_modules", "__pycache__"}
 
+# Colores ANSI
+cCOLOR_BLUE  = "\033[34m"
+cCOLOR_GREEN = "\033[32m"
+cCOLOR_RESET = "\033[0m"
+cENABLE_COLOR = False  # se decide en runtime
+
+def set_color_mode(vMode: str):
+  global cENABLE_COLOR
+  if vMode == "always":
+    cENABLE_COLOR = True
+  elif vMode == "never":
+    cENABLE_COLOR = False
+  else:  # auto
+    cENABLE_COLOR = sys.stdout.isatty()
+
+def colorize(vText: str, vColor: str) -> str:
+  if not cENABLE_COLOR:
+    return vText
+  if vColor == "blue":
+    return f"{cCOLOR_BLUE}{vText}{cCOLOR_RESET}"
+  if vColor == "green":
+    return f"{cCOLOR_GREEN}{vText}{cCOLOR_RESET}"
+  return vText
+
 def is_mostly_printable(vBytes: bytes, vThreshold: float = 0.85) -> bool:
   if not vBytes:
     return False
@@ -34,9 +59,9 @@ def is_mostly_printable(vBytes: bytes, vThreshold: float = 0.85) -> bool:
 
 def to_display_text(vBytes: bytes) -> str:
   """
-  Muestra la decodificación de forma legible en terminal.
-  - Si parece texto, se imprime como UTF-8 (con sustituciones si hay errores).
-  - Si no, se imprime en HEX para no romper la salida.
+  Muestra la decodificación de forma legible:
+  - Si parece texto, UTF-8 (con sustituciones).
+  - Si no, HEX para no romper la salida.
   """
   if is_mostly_printable(vBytes):
     return vBytes.decode("utf-8", errors="replace")
@@ -128,7 +153,7 @@ def walk_and_scan(vRoot: str,
 
 def main():
   vParser = argparse.ArgumentParser(
-    description="Busca cadenas Base64 (terminadas en '=') en todos los archivos de una carpeta (recursivo) y muestra su decodificación."
+    description="Busca cadenas Base64 (terminadas en '=') en todos los archivos (recursivo) y muestra su decodificación."
   )
   vParser.add_argument("carpeta", help="Ruta a la carpeta raíz a escanear")
   vParser.add_argument("-m", "--min-encoded-len", type=int, default=16,
@@ -142,13 +167,18 @@ def main():
   vParser.add_argument("-x", "--exclude-dirs", default=",".join(sorted(cEXCLUDE_DIRS_DEFAULT)),
                        help=f"Directorios a excluir, separados por comas. Por defecto: {','.join(sorted(cEXCLUDE_DIRS_DEFAULT))}")
   vParser.add_argument("-j", "--json", action="store_true",
-                       help="Salida en JSON (una línea por hallazgo). decoded se entrega en UTF-8 (con reemplazos) y hex.")
+                       help="Salida en JSON (una línea por hallazgo). Sin colores.")
+  vParser.add_argument("--color", choices=["auto", "always", "never"], default="auto",
+                       help="Colorear salida de texto: auto (por defecto), always, never.")
   vArgs = vParser.parse_args()
 
   vRoot = vArgs.carpeta
   if not os.path.isdir(vRoot):
     print(f"ERROR: '{vRoot}' no es una carpeta válida.", file=sys.stderr)
     sys.exit(2)
+
+  # Modo color (no afecta a JSON)
+  set_color_mode(vArgs.color if not vArgs.json else "never")
 
   # Asegurar tamaño mínimo codificado coherente con min_decoded_len (múltiplos de 4)
   vEncFromDec = int(ceil(vArgs.min_decoded_len / 3.0) * 4)
@@ -182,11 +212,10 @@ def main():
       return
     for vR in aResults:
       vDecText = to_display_text(vR["decoded_bytes"])
-      # Bloque con línea en blanco al final para separar entradas
       print(f"{vR['file']}@{vR['offset']}")
-      print(f"ENC: {vR['encoded']}")
-      print(f"DEC: {vDecText}")
-      print()
+      print(f"ENC: {colorize(vR['encoded'], 'blue')}")
+      print(f"DEC: {colorize(vDecText, 'green')}")
+      print()  # línea en blanco separadora
 
 if __name__ == "__main__":
   main()
