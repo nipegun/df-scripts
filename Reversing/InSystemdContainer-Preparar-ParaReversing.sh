@@ -24,6 +24,7 @@
   apt-get -y install rsync
   apt-get -y install bsdextrautils
   apt-get -y install golang
+  apt-get -y install unyaffs
 
   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/SoftInst/ParaCLI/Rizin-Instalar.sh | sed 's-sudo--g' | bash
 
