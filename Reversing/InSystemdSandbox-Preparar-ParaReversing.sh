@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Ejecución remota únicamente como root:
-#  curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Reversing/InSystemdContainer-Preparar-ParaReversing.sh | bash
+#  curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Reversing/InSystemdSandbox-Preparar-ParaReversing.sh | bash
 
 # Actualizar la lista de paquetes disponibles en los repositorios
   apt-get -y update
