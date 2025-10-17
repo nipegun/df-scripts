@@ -7,7 +7,7 @@
 #  curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Reversing/00-SandBox-Crear.sh -o /tmp/sb.sh && chmod +x /tmp/sb.sh && sed -i 's-sudo--g' /tmp/sb.sh && /tmp/sb.sh [CarpetaAMontar]
 #
 # Ejecución remota como root (para sistemas sin sudo) (modificando la carpeta donde crear el sandbox):
-#  curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Reversing/00-SandBox-Crear.sh -o /tmp/sb.sh && chmod +x /tmp/sb.sh && sed -i 's-$HOME-/mnt/x-g'  && sed -i 's-sudo--g' /tmp/sb.sh && /tmp/sb.sh [CarpetaAMontar]
+#  curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Reversing/00-SandBox-Crear.sh -o /tmp/sb.sh && chmod +x /tmp/sb.sh && sed -i 's-$HOME-/mnt/PartLocalBTRFS-g' /tmp/sb.sh  && sed -i 's-sudo--g' /tmp/sb.sh && /tmp/sb.sh  [CarpetaAMontar]
 
 # Crear, iniciar y destruir un sandbox Debian aislado para pruebas con strace
 cFechaDeEjec=$(date +a%Ym%md%d@%T)
