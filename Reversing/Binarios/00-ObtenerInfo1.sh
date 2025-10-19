@@ -88,7 +88,7 @@
     readelf -h -l -S -s -r -d -V -A -I -n -N -x . -w -W          "$cRutaAbsolutaAlArchivoBinario" &> "$cCarpetaDondeGuardar""$cNombreDeArchivo".readelf.txt
 
   # objdump
-    objdump x -s -S -D -r -R -t -T -p -f -g -G -h -w -W --source "$cRutaAbsolutaAlArchivoBinario" &> "$cCarpetaDondeGuardar""$cNombreDeArchivo".objdump.txt
+    objdump -s -S -D -r -R -t -T -p -f -g -G -h -w -W --source "$cRutaAbsolutaAlArchivoBinario" &> "$cCarpetaDondeGuardar""$cNombreDeArchivo".objdump.txt
 
   # strings
     strings -a                                                   "$cRutaAbsolutaAlArchivoBinario" &> "$cCarpetaDondeGuardar""$cNombreDeArchivo".strings.txt
