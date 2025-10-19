@@ -85,14 +85,13 @@
         sudo apt-get -y install binutils
         echo ""
       fi
-    readelf -h -l -S -s -r -d -V -A -I -n -N -x . -w -W          "$cRutaAbsolutaAlArchivoBinario" &> "$cCarpetaDondeGuardar""$cNombreDeArchivo".readelf.txt
+    readelf -h -l -S -s -r -d -V -A -I -n -N -x . -w -W        "$cRutaAbsolutaAlArchivoBinario" &> "$cCarpetaDondeGuardar""$cNombreDeArchivo".readelf.txt
 
   # objdump
     objdump -s -S -D -r -R -t -T -p -f -g -G -h -w -W --source "$cRutaAbsolutaAlArchivoBinario" &> "$cCarpetaDondeGuardar""$cNombreDeArchivo".objdump.txt
-    #objdump -D --source "$cRutaAbsolutaAlArchivoBinario" &> "$cCarpetaDondeGuardar""$cNombreDeArchivo".objdump.txt
 
   # strings
-    strings -a                                                   "$cRutaAbsolutaAlArchivoBinario" &> "$cCarpetaDondeGuardar""$cNombreDeArchivo".strings.txt
+    strings -a                                                 "$cRutaAbsolutaAlArchivoBinario" &> "$cCarpetaDondeGuardar""$cNombreDeArchivo".strings.txt
 
   # hexdump
     # Comprobar si el paquete bsdextrautils está instalado. Si no lo está, instalarlo.
@@ -134,8 +133,10 @@
       fi
     sudo ldd "$cCarpetaDondeGuardar"/SiMóduloDelKernel/"$cNombreDeArchivo".ko     &> "$cCarpetaDondeGuardar"/SiMóduloDelKernel/"$cNombreDeArchivo".ko.dependencias.txt
 
+
 # Reparar permisos
   sudo chown $USER:$USER "$cCarpetaDondeGuardar" -R
+
 
 # Notificar fin de ejecución del script
   echo ""
