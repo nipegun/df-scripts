@@ -9,13 +9,13 @@
 # Script de NiPeGun para obtener datos sobre binarios de Linux
 #
 # Ejecución remota (puede requerir permisos sudo):
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Reversing/Binarios/ObtenerInfo.sh | bash -s [RutaAbsolutaAlArchivoBinario]
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Reversing/Binarios/00-ObtenerInfo.sh | bash -s [RutaAbsolutaAlArchivoBinario]
 #
 # Ejecución remota como root (para sistemas sin sudo):
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Reversing/Binarios/ObtenerInfo.sh | sed 's-sudo--g' | bash -s [RutaAbsolutaAlArchivoBinario]
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Reversing/Binarios/00-ObtenerInfo.sh | sed 's-sudo--g' | bash -s [RutaAbsolutaAlArchivoBinario]
 #
 # Bajar y editar directamente el archivo en nano
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Reversing/Binarios/ObtenerInfo.sh | nano -
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Reversing/Binarios/00-ObtenerInfo.sh | nano -
 # ----------
 
 # Definir constantes de color
