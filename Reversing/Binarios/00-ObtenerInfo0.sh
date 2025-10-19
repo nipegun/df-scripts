@@ -91,7 +91,7 @@
     objdump x -s -S -D -r -R -t -T -p -f -g -G -h -w -W --source "$cRutaAbsolutaAlArchivoBinario" &> "$cCarpetaDondeGuardar""$cNombreDeArchivo".objdump.txt
 
   # strings
-    strings -a -t x -el -n 3                                     "$cRutaAbsolutaAlArchivoBinario" &> "$cCarpetaDondeGuardar""$cNombreDeArchivo".strings.txt
+    strings -a                                                   "$cRutaAbsolutaAlArchivoBinario" &> "$cCarpetaDondeGuardar""$cNombreDeArchivo".strings.txt
 
   # hexdump
     # Comprobar si el paquete bsdextrautils está instalado. Si no lo está, instalarlo.
