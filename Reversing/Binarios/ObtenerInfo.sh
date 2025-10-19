@@ -81,29 +81,56 @@
         echo ""
         echo -e "${cColorRojo}    El paquete binutils no está instalado. Iniciando su instalación...${cFinColor}"
         echo ""
-       sudo apt-get -y update
+        sudo apt-get -y update
         sudo apt-get -y install binutils
         echo ""
       fi
-    readelf -a "$cRutaAbsolutaAlArchivoBinario"                   &> "$cCarpetaDondeGuardar""$cNombreDeArchivo".readelf.txt
+    readelf -h -l -S -s -r -d -V -A -I -n -N -x . -w -W          "$cRutaAbsolutaAlArchivoBinario" &> "$cCarpetaDondeGuardar""$cNombreDeArchivo".readelf.txt
 
   # objdump
-    objdump -d -M intel --source "$cRutaAbsolutaAlArchivoBinario" &> "$cCarpetaDondeGuardar""$cNombreDeArchivo".objdump.txt
+    objdump x -s -S -D -r -R -t -T -p -f -g -G -h -w -W --source "$cRutaAbsolutaAlArchivoBinario" &> "$cCarpetaDondeGuardar""$cNombreDeArchivo".objdump.txt
 
   # strings
-    strings "$cRutaAbsolutaAlArchivoBinario"                      &> "$cCarpetaDondeGuardar""$cNombreDeArchivo".strings.txt
+    strings -a -t x -el -n 3                                     "$cRutaAbsolutaAlArchivoBinario" &> "$cCarpetaDondeGuardar""$cNombreDeArchivo".strings.txt
 
   # hexdump
-    hexdump -C "$cRutaAbsolutaAlArchivoBinario"                   &> "$cCarpetaDondeGuardar""$cNombreDeArchivo".hexdump.txt
+    # Comprobar si el paquete bsdextrautils está instalado. Si no lo está, instalarlo.
+      if [[ $(dpkg-query -s bsdextrautils 2>/dev/null | grep installed) == "" ]]; then
+        echo ""
+        echo -e "${cColorRojo}    El paquete bsdextrautils no está instalado. Iniciando su instalación...${cFinColor}"
+        echo ""
+        sudo apt-get -y update
+        sudo apt-get -y install bsdextrautils
+        echo ""
+      fi
+    hexdump -C                                                   "$cRutaAbsolutaAlArchivoBinario" &> "$cCarpetaDondeGuardar""$cNombreDeArchivo".hexdump.txt
 
 
 # Ver si es módulo
   sudo cp "$cRutaAbsolutaAlArchivoBinario" "$cCarpetaDondeGuardar"/SiMóduloDelKernel/"$cNombreDeArchivo".ko
   # info
+    # Comprobar si el paquete kmod está instalado. Si no lo está, instalarlo.
+      if [[ $(dpkg-query -s kmod 2>/dev/null | grep installed) == "" ]]; then
+        echo ""
+        echo -e "${cColorRojo}    El paquete kmod no está instalado. Iniciando su instalación...${cFinColor}"
+        echo ""
+        sudo apt-get -y update
+        sudo apt-get -y install kmod
+        echo ""
+      fi
     sudo modinfo "$cCarpetaDondeGuardar"/SiMóduloDelKernel/"$cNombreDeArchivo".ko &> "$cCarpetaDondeGuardar"/SiMóduloDelKernel/"$cNombreDeArchivo".ko.modinfo.txt
   # Ver qué símbolos exporta
     sudo nm -D "$cCarpetaDondeGuardar"/SiMóduloDelKernel/"$cNombreDeArchivo".ko   &> "$cCarpetaDondeGuardar"/SiMóduloDelKernel/"$cNombreDeArchivo".ko.simbolosqueexporta.txt
   # Ver qué dependencias tiene (por si hace falta enlazarlo)
+    # Comprobar si el paquete libc-bin está instalado. Si no lo está, instalarlo.
+      if [[ $(dpkg-query -s libc-bin 2>/dev/null | grep installed) == "" ]]; then
+        echo ""
+        echo -e "${cColorRojo}    El paquete libc-bin no está instalado. Iniciando su instalación...${cFinColor}"
+        echo ""
+        sudo apt-get -y update
+        sudo apt-get -y install libc-bin
+        echo ""
+      fi
     sudo ldd "$cCarpetaDondeGuardar"/SiMóduloDelKernel/"$cNombreDeArchivo".ko     &> "$cCarpetaDondeGuardar"/SiMóduloDelKernel/"$cNombreDeArchivo".ko.dependencias.txt
 
 # Reparar permisos
