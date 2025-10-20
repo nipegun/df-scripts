@@ -21,9 +21,11 @@
 
 # Cuardar el argumento en una variable
   vRutaAlBinario="$1"
+  echo "$vRutaAlBinario"
 
 # Obtener la ruta absoluta en la que está el binario
-  vCarpetaBinario=$(dirname "$vRutaAlBinario")
+  vCarpetaDelBinario=$(dirname "$vRutaAlBinario")
+  echo "$vCarpetaDelBinario"
 
 # Ejecutar strace
   # Comprobar si el paquete strace está instalado. Si no lo está, instalarlo.
@@ -35,7 +37,7 @@
       sudo apt-get -y install strace
       echo ""
     fi
-  strace -f -ttt -T -v -s 4096 -yy -e trace=all -o "$vCarpetaBinario"/strace.log "$vRutaAlBionario"
+  strace -f -ttt -T -v -s 4096 -yy -e trace=all -o "$vCarpetaDelBinario"/strace.log "$vRutaAlBinario"
 
 # Notificar fin de ejecución del script
   echo ""
