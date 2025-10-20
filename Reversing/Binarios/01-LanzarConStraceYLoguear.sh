@@ -10,26 +10,20 @@
 # Script de NiPeGun para instalar y configurar xxxxxxxxx en Debian
 #
 # Ejecución remota (puede requerir permisos sudo):
-#   curl -sL x | bash
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Reversing/Binarios/01-LanzarConStraceYLoguear.sh | bash -s 'RutaAlBinario'
 #
 # Ejecución remota como root (para sistemas sin sudo):
-#   curl -sL x | sed 's-sudo--g' | bash
-#
-# Ejecución remota sin caché:
-#   curl -sL -H 'Cache-Control: no-cache, no-store' x | bash
-#
-# Ejecución remota con parámetros:
-#   curl -sL x | bash -s Parámetro1 Parámetro2
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Reversing/Binarios/01-LanzarConStraceYLoguear.sh | sed 's-sudo--g' | bash -s 'RutaAlBinario'
 #
 # Bajar y editar directamente el archivo en nano
-#   curl -sL x | nano -
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Reversing/Binarios/01-LanzarConStraceYLoguear.sh | nano -
 # ----------
 
 # Cuardar el argumento en una variable
   vRutaAlBinario="$1"
 
 # Obtener la ruta absoluta en la que está el binario
-  vCarpetaBinario=""
+  vCarpetaBinario=$(dirname "$vRutaAlBinario")
 
 # Ejecutar strace
   # Comprobar si el paquete strace está instalado. Si no lo está, instalarlo.
