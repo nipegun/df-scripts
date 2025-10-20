@@ -27,6 +27,8 @@
   apt-get -y install unyaffs
   apt-get -y install bsdmainutils
   apt-get -y install ncal
+  apt-get -y install psmisc
+  apt-get -y install procps
 
 # python
   apt-get -y install python3-pip
