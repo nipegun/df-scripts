@@ -25,6 +25,8 @@
   apt-get -y install bsdextrautils
   apt-get -y install golang
   apt-get -y install unyaffs
+  apt-get -y install bsdmainutils
+  apt-get -y install ncal
 
 # python
   apt-get -y install python3-pip
