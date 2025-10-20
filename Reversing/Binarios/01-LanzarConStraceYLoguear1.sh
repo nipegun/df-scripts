@@ -1,13 +1,12 @@
 #!/bin/bash
 
-
 # Pongo a disposición pública este script bajo el término de "software de dominio público".
 # Puedes hacer lo que quieras con él porque es libre de verdad; no libre con condiciones como las licencias GNU y otras patrañas similares.
 # Si se te llena la boca hablando de libertad entonces hazlo realmente libre.
 # No tienes que aceptar ningún tipo de términos de uso o licencia para utilizarlo o modificarlo porque va sin CopyLeft.
 
 # ----------
-# Script de NiPeGun para instalar y configurar xxxxxxxxx en Debian
+# Script de NiPeGun para ejecutar un binario con strace y guardar todo el log
 #
 # Ejecución remota (puede requerir permisos sudo):
 #   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Reversing/Binarios/01-LanzarConStraceYLoguear.sh | bash -s 'RutaAlBinario'
@@ -19,13 +18,13 @@
 #   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Reversing/Binarios/01-LanzarConStraceYLoguear.sh | nano -
 # ----------
 
-# Cuardar el argumento en una variable
+# Guardar el argumento en una variable
   vRutaAlBinario="$1"
-  echo "$vRutaAlBinario"
+  #echo "$vRutaAlBinario"
 
 # Obtener la ruta absoluta en la que está el binario
   vCarpetaDelBinario=$(dirname "$vRutaAlBinario")
-  echo "$vCarpetaDelBinario"
+  #echo "$vCarpetaDelBinario"
 
 # Ejecutar strace
   # Comprobar si el paquete strace está instalado. Si no lo está, instalarlo.
@@ -37,11 +36,12 @@
       sudo apt-get -y install strace
       echo ""
     fi
+  sudo chmod +x "$vRutaAlBinario"
   strace -f -ttt -T -v -s 4096 -yy -e trace=all -o "$vCarpetaDelBinario"/strace.log "$vRutaAlBinario"
 
 # Notificar fin de ejecución del script
   echo ""
   echo "  Ejecución del script, finalizada. El archivo con el log de strace debería estar en:"
   echo ""
-  echo "    "$vCarpetaBinario"/strace.log"
+  echo "    "$vCarpetaDelBinario"/strace.log"
   echo ""
