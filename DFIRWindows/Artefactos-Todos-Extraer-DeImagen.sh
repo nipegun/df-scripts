@@ -38,18 +38,21 @@ if [ $# -ne $cCantParamEsperados ]
     echo ""
     exit
   else
-    vFechaDelCaso=$(date +a%Ym%md%d)
-    # Comprobar si el paquete dialog está instalado. Si no lo está, instalarlo.
-      if [[ $(dpkg-query -s dialog 2>/dev/null | grep installed) == "" ]]; then
-        echo ""
-        echo -e "${cColorRojo}  El paquete dialog no está instalado. Iniciando su instalación...${cFinColor}"
-        echo ""
-        apt-get -y update
-        apt-get -y install dialog
-        echo ""
+    # Instalar los scripts de DFIR si no están instalados
+      if [ ! -d $HOME/scripts/df-scripts ]; then
+        curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/DFScripts-Sincronizar-EnHome.sh | bash
       fi
-
+    vFechaDelCaso=$(date +a%Ym%md%d)
     # Crear el menú
+      # Comprobar si el paquete dialog está instalado. Si no lo está, instalarlo.
+        if [[ $(dpkg-query -s dialog 2>/dev/null | grep installed) == "" ]]; then
+          echo ""
+          echo -e "${cColorRojo}  El paquete dialog no está instalado. Iniciando su instalación...${cFinColor}"
+          echo ""
+          apt-get -y update
+          apt-get -y install dialog
+          echo ""
+        fi
       menu=(dialog --checklist "Marca las opciones que quieras instalar:" 22 84 16)
         opciones=(
           1 "Desmontar todas las particiones loopback montadas como sólo lectura"  on
@@ -72,7 +75,7 @@ if [ $# -ne $cCantParamEsperados ]
               echo ""
               echo "  Desmontando todas las particiones loopback montadas previamente como sólo lectura.."
               echo ""
-              sudo ~/scripts/df-scripts/Imagen-Particiones-Todas-Desmontar-SoloLectura.sh
+              sudo $HOME/scripts/df-scripts/Imagen-Particiones-Todas-Desmontar-SoloLectura.sh
               sudo chown $USER:$USER /Casos/ -R 2> /dev/null
 
             ;;
@@ -82,7 +85,7 @@ if [ $# -ne $cCantParamEsperados ]
               echo ""
               echo "  Montando todas las particiones en modo lectura..."
               echo ""
-              sudo ~/scripts/df-scripts/Imagen-Particiones-Todas-Montar-SoloLectura.sh $1
+              sudo $HOME/scripts/df-scripts/Imagen-Particiones-Todas-Montar-SoloLectura.sh $1
               sudo chown $USER:$USER /Casos/ -R 2> /dev/null
 
             ;;
@@ -104,7 +107,7 @@ if [ $# -ne $cCantParamEsperados ]
                     echo ""
                     exit
                   fi
-              sudo ~/scripts/df-scripts/DFIRWindows/Artefactos-MFT-Extraer.sh "$vPuntoMontajePartWindows" "/Casos/$vFechaDelCaso/"
+              sudo $HOME/scripts/df-scripts/DFIRWindows/Artefactos-MFT-Extraer.sh "$vPuntoMontajePartWindows" "/Casos/$vFechaDelCaso/"
               sudo chown $USER:$USER /Casos/ -R 2> /dev/null
 
             ;;
@@ -126,7 +129,7 @@ if [ $# -ne $cCantParamEsperados ]
                     echo ""
                     exit
                   fi
-              sudo ~/scripts/df-scripts/DFIRWindows/Artefactos-Registro-Extraer.sh "$vPuntoMontajePartWindows" "/Casos/$vFechaDelCaso/"
+              sudo $HOME/scripts/df-scripts/DFIRWindows/Artefactos-Registro-Extraer.sh "$vPuntoMontajePartWindows" "/Casos/$vFechaDelCaso/"
               sudo chown $USER:$USER /Casos/ -R 2> /dev/null
 
             ;;
@@ -148,7 +151,7 @@ if [ $# -ne $cCantParamEsperados ]
                     echo ""
                     exit
                   fi
-              sudo ~/scripts/df-scripts/DFIRWindows/Artefactos-Eventos-Extraer.sh "$vPuntoMontajePartWindows" "/Casos/$vFechaDelCaso/"
+              sudo $HOME/scripts/df-scripts/DFIRWindows/Artefactos-Eventos-Extraer.sh "$vPuntoMontajePartWindows" "/Casos/$vFechaDelCaso/"
               sudo chown $USER:$USER /Casos/ -R 2> /dev/null
 
             ;;
@@ -170,7 +173,7 @@ if [ $# -ne $cCantParamEsperados ]
                     echo ""
                     exit
                   fi
-              sudo ~/scripts/df-scripts/DFIRWindows/Artefactos-Navegadores-Extraer.sh "$vPuntoMontajePartWindows" "/Casos/$vFechaDelCaso/"
+              sudo $HOME/scripts/df-scripts/DFIRWindows/Artefactos-Navegadores-Extraer.sh "$vPuntoMontajePartWindows" "/Casos/$vFechaDelCaso/"
               sudo chown $USER:$USER /Casos/ -R 2> /dev/null
 
             ;;
