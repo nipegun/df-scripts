@@ -191,7 +191,7 @@ if [ $# -ne $cCantParamEsperados ]
             8)
 
               echo ""
-              echo "  Extrayendo x..."
+              echo "  Reparando permisos..."
               echo ""
               sudo chown $USER:$USER /Casos/ -R 2> /dev/null
 
