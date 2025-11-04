@@ -61,11 +61,11 @@ if [ $# -ne $cCantParamEsperados ]
         vWindowsDir=$(basename "$(dirname "$vSys32Path")")
 
         # Caso Vista+ (winevt/Logs con .evtx)
-          echo ""
-          echo "    Se ha detectado Windows Vista posterior."
-          echo ""
         vWinEvtPath=$(find "$vSys32Path" -maxdepth 2 -type d -iname "winevt" -print -quit 2>/dev/null)
         if [ -n "$vWinEvtPath" ]; then
+          echo ""
+          echo "      Se ha detectado Windows Vista posterior."
+          echo ""
           vWinEvtDir=$(basename "$vWinEvtPath")
           vLogsPath=$(find "$vWinEvtPath" -maxdepth 2 -type d -iname "logs" -print -quit 2>/dev/null)
           if [ -n "$vLogsPath" ]; then
@@ -78,7 +78,7 @@ if [ $# -ne $cCantParamEsperados ]
         else
           # Caso XP/2003 (system32/config/*.evt)
           echo ""
-          echo "    Se ha detectado Windows XP o inferior."
+          echo "      Se ha detectado Windows XP o inferior."
           echo ""
           vLogsDir="config"
           mapfile -t aEventFiles < <(find "$vSys32Path/config" -maxdepth 1 -type f -iname "*.evt" -print 2>/dev/null)
