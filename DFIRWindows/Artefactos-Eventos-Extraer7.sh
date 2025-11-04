@@ -80,11 +80,14 @@ if [ $# -ne $cCantParamEsperados ]
           echo ""
           echo "      Se ha detectado Windows XP o inferior."
           echo ""
-          vLogsDir="config"
-          mapfile -t aEventFiles < <(find "$vSys32Path/config" -maxdepth 1 -type f -iname "*.evt" -print 2>/dev/null)
+          vConfigPath="$vSys32Path/config"
+          mapfile -t aEventFiles < <(find "$vConfigPath" -type f -iname "*.evt" -print 2>/dev/null)
           sudo mkdir -p "$vCarpetaDelCaso"/Artefactos/Originales/Eventos/
-          sudo rm -rf "$vCarpetaDelCaso"/Artefactos/Originales/Eventos/*
-          find "$vPuntoDeMontajePartWindows"/"$vWindowsDir"/"$vSystem32Dir"/"$vLogsDir"/ -name "*.evt" -exec sudo cp -vf {} "$vCarpetaDelCaso"/Artefactos/Originales/Eventos/ \;
+          sudo find "$vCarpetaDelCaso"/Artefactos/Originales/Eventos/ -mindepth 1 -delete 2>/dev/null
+          for vArchivo in "${aEventFiles[@]}"; do
+            echo "Copiando: $vArchivo"
+            sudo cp -vf "$vArchivo" "$vCarpetaDelCaso"/Artefactos/Originales/Eventos/
+          done
         fi
       fi
 
