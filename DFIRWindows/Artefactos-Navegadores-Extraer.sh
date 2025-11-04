@@ -63,9 +63,9 @@ if [ $# -ne $cCantParamEsperados ]
         exit 1
       fi
 
-    sudo find "$vBaseUsers" -mindepth 1 -maxdepth 1 -type d > /tmp/CarpetasDeUsuarios.txt
+    sudo find "$vBaseUsers" -mindepth 1 -maxdepth 1 -type d -print0 | sudo tee /tmp/CarpetasDeUsuarios.txt > /dev/null
 
-    while IFS= read -r vRutaUsuario; do
+    while IFS= read -r -d '' vRutaUsuario; do
       vNomUsuario="${vRutaUsuario##*/}"
       echo ""
       echo "    Procesando usuario: $vNomUsuario"
@@ -78,6 +78,19 @@ if [ $# -ne $cCantParamEsperados ]
         sudo mkdir -p "$vDestinoBase/InternetExplorer"
         sudo cp -rf "$vRutaUsuario/$vAppDataRel/Microsoft/Internet Explorer"/* \
         "$vDestinoBase/InternetExplorer/" 2>/dev/null
+
+      # ---- Elementos clásicos de Internet Explorer ----
+        sudo mkdir -p "$vDestinoBase/InternetExplorer/Cookies"
+        sudo mkdir -p "$vDestinoBase/InternetExplorer/Favorites"
+        sudo mkdir -p "$vDestinoBase/InternetExplorer/History"
+        sudo cp -rf "$vRutaUsuario/Cookies"/* \
+        "$vDestinoBase/InternetExplorer/Cookies/" 2>/dev/null
+        sudo cp -rf "$vRutaUsuario/Favorites"/* \
+        "$vDestinoBase/InternetExplorer/Favorites/" 2>/dev/null
+        sudo cp -rf "$vRutaUsuario/History"/* \
+        "$vDestinoBase/InternetExplorer/History/" 2>/dev/null
+        sudo find "$vRutaUsuario" -type f -iname "index.dat" -exec sudo cp -vf {} \
+        "$vDestinoBase/InternetExplorer/" \; 2>/dev/null
 
       # ---- Firefox / Mozilla ----
         sudo mkdir -p "$vDestinoBase/Firefox"
@@ -100,7 +113,7 @@ if [ $# -ne $cCantParamEsperados ]
 
     done < /tmp/CarpetasDeUsuarios.txt
 
-    sudo find "$vCarpetaDelCaso/Artefactos/Originales/Navegadores/" -type d -empty -delete
     sudo chown -R "$USER:$USER" "$vCarpetaDelCaso/Artefactos/"
-    
+    sudo find "$vCarpetaDelCaso/Artefactos/Originales/Navegadores/" -type d -empty -delete
+
 fi
