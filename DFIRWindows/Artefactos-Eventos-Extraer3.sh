@@ -61,10 +61,10 @@ if [ $# -ne $cCantParamEsperados ]
         vWindowsDir=$(basename "$(dirname "$vSys32Path")")
 
         # Caso Vista+ (winevt/Logs con .evtx)
-        vWinEvtPath=$(find "$vSys32Path" -maxdepth 1 -type d -iname "winevt" -print -quit 2>/dev/null)
+        vWinEvtPath=$(find "$vSys32Path" -maxdepth 2 -type d -iname "winevt" -print -quit 2>/dev/null)
         if [ -n "$vWinEvtPath" ]; then
           vWinEvtDir=$(basename "$vWinEvtPath")
-          vLogsPath=$(find "$vWinEvtPath" -maxdepth 1 -type d -iname "logs" -print -quit 2>/dev/null)
+          vLogsPath=$(find "$vWinEvtPath" -maxdepth 2 -type d -iname "logs" -print -quit 2>/dev/null)
           if [ -n "$vLogsPath" ]; then
             vLogsDir=$(basename "$vLogsPath")
             mapfile -t aEventFiles < <(find "$vLogsPath" -type f -iname "*.evtx" -print 2>/dev/null)
