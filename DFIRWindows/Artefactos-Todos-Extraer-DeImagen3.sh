@@ -60,7 +60,7 @@ if [ $# -ne $cCantParamEsperados ]
           3 "  Extraer el archivo MFT"                                             on
           4 "  Extraer los archivos de registro"                                   on
           5 "  Extraer los archivos de eventos"                                    on
-          6 "  Extraer los navegadores"                                            on
+          6 "  Extraer los navegadores (por terminar)"                             on
           7 "  Extraer x"                                                          on
           8 "  Reparar permisos"                                                   on
         )
