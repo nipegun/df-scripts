@@ -76,39 +76,39 @@ if [ $# -ne $cCantParamEsperados ]
 
       # ---- Internet Explorer (todas las versiones) ----
         sudo mkdir -p "$vDestinoBase/InternetExplorer"
-        sudo cp -rf "$vRutaUsuario/$vAppDataRel/Microsoft/Internet Explorer"/* \
+        sudo cp -rfv "$vRutaUsuario/$vAppDataRel/Microsoft/Internet Explorer"/* \
         "$vDestinoBase/InternetExplorer/" 2>/dev/null
 
       # ---- Elementos clásicos de Internet Explorer ----
         sudo mkdir -p "$vDestinoBase/InternetExplorer/Cookies"
         sudo mkdir -p "$vDestinoBase/InternetExplorer/Favorites"
         sudo mkdir -p "$vDestinoBase/InternetExplorer/History"
-        sudo cp -rf "$vRutaUsuario/Cookies"/* \
+        sudo cp -rfv "$vRutaUsuario/Cookies"/* \
         "$vDestinoBase/InternetExplorer/Cookies/" 2>/dev/null
-        sudo cp -rf "$vRutaUsuario/Favorites"/* \
+        sudo cp -rfv "$vRutaUsuario/Favorites"/* \
         "$vDestinoBase/InternetExplorer/Favorites/" 2>/dev/null
-        sudo cp -rf "$vRutaUsuario/History"/* \
+        sudo cp -rfv "$vRutaUsuario/History"/* \
         "$vDestinoBase/InternetExplorer/History/" 2>/dev/null
         sudo find "$vRutaUsuario" -type f -iname "index.dat" -exec sudo cp -vf {} \
         "$vDestinoBase/InternetExplorer/" \; 2>/dev/null
 
       # ---- Firefox / Mozilla ----
         sudo mkdir -p "$vDestinoBase/Firefox"
-        sudo cp -rf "$vRutaUsuario/$vAppDataRel/Mozilla/Firefox"/* \
+        sudo cp -rfv "$vRutaUsuario/$vAppDataRel/Mozilla/Firefox"/* \
         "$vDestinoBase/Firefox/" 2>/dev/null
-        sudo cp -rf "$vRutaUsuario/$vAppDataRel/Mozilla"/* \
+        sudo cp -rfv "$vRutaUsuario/$vAppDataRel/Mozilla"/* \
         "$vDestinoBase/Firefox/" 2>/dev/null
 
       # ---- Netscape (95-Me-XP) ----
         sudo mkdir -p "$vDestinoBase/Netscape"
-        sudo cp -rf "$vRutaUsuario/$vAppDataRel/Netscape"/* \
+        sudo cp -rfv "$vRutaUsuario/$vAppDataRel/Netscape"/* \
         "$vDestinoBase/Netscape/" 2>/dev/null
 
       # ---- Opera (todas las versiones antiguas) ----
         sudo mkdir -p "$vDestinoBase/Opera"
-        sudo cp -rf "$vRutaUsuario/$vAppDataRel/Opera"/* \
+        sudo cp -rfv "$vRutaUsuario/$vAppDataRel/Opera"/* \
         "$vDestinoBase/Opera/" 2>/dev/null
-        sudo cp -rf "$vRutaUsuario/$vAppDataRel/Opera Software"/* \
+        sudo cp -rfv "$vRutaUsuario/$vAppDataRel/Opera Software"/* \
         "$vDestinoBase/Opera/" 2>/dev/null
 
     done < /tmp/CarpetasDeUsuarios.txt
