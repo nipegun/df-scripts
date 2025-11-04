@@ -6,7 +6,7 @@
 # No tienes que aceptar ningún tipo de términos de uso o licencia para utilizarlo o modificarlo porque va sin CopyLeft.
 
 # ----------
-# Script de NiPeGun para extraer todas las carpetas con información de navegadores de una partición NTFS
+# Script de NiPeGun para extraer todas las carpetas con información de navegadores de una partición de Windows
 #
 # Ejecución remota:
 #   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/DFIRWindows/Artefactos-Navegadores-Extraer.sh | bash -s [PuntoDeMontajeDeLaPartDeWindows] [CarpetaDelCaso]  (Ambos sin barra final)
@@ -20,8 +20,6 @@
   cColorAzulClaro="\033[1;34m"
   cColorVerde='\033[1;32m'
   cColorRojo='\033[1;31m'
-  # Para el color rojo también:
-    #echo "$(tput setaf 1)Mensaje en color rojo. $(tput sgr 0)"
   cFinColor='\033[0m'
 
 # Definir la cantidad de argumentos esperados
@@ -45,7 +43,14 @@ if [ $# -ne $cCantParamEsperados ]
     echo "  Buscando perfiles de usuario..."
     echo ""
 
-    # Detectar tipo de estructura
+    # Detectar el directorio real de Windows (WINDOWS, WINNT, WIN98, etc.)
+      vWindowsDir=$(find "$vPuntoDeMontajePartWindows" -maxdepth 1 -type d \( -iname "windows" -o -iname "winnt" -o -iname "win" -o -iname "win98" -o -iname "winme" -o -iname "win9x" \) -print -quit 2>/dev/null)
+      if [ -z "$vWindowsDir" ]; then
+        echo "No se ha podido localizar la carpeta del sistema Windows."
+        exit 1
+      fi
+
+    # Detectar tipo de estructura según versión
       if [ -d "$vPuntoDeMontajePartWindows/Users" ]; then
         echo "    Se ha detectado Windows Vista o posterior."
         vBaseUsers="$vPuntoDeMontajePartWindows/Users"
@@ -54,9 +59,9 @@ if [ $# -ne $cCantParamEsperados ]
         echo "    Se ha detectado Windows XP / 2003."
         vBaseUsers="$vPuntoDeMontajePartWindows/Documents and Settings"
         vAppDataRel="Application Data"
-      elif [ -d "$vPuntoDeMontajePartWindows/WINDOWS/Profiles" ]; then
+      elif [ -d "$vWindowsDir/Profiles" ]; then
         echo "    Se ha detectado Windows 95 / 98 / Me."
-        vBaseUsers="$vPuntoDeMontajePartWindows/WINDOWS/Profiles"
+        vBaseUsers="$vWindowsDir/Profiles"
         vAppDataRel="Application Data"
       else
         echo "No se han encontrado carpetas de usuarios conocidas."
@@ -98,11 +103,15 @@ if [ $# -ne $cCantParamEsperados ]
         "$vDestinoBase/Firefox/" 2>/dev/null
         sudo cp -rfv "$vRutaUsuario/$vAppDataRel/Mozilla"/* \
         "$vDestinoBase/Firefox/" 2>/dev/null
+        sudo find "$vRutaUsuario" -type f \( -iname "places.sqlite" -o -iname "history.dat" \) -exec sudo cp -vf {} \
+        "$vDestinoBase/Firefox/" \; 2>/dev/null
 
       # ---- Netscape (95-Me-XP) ----
         sudo mkdir -p "$vDestinoBase/Netscape"
         sudo cp -rfv "$vRutaUsuario/$vAppDataRel/Netscape"/* \
         "$vDestinoBase/Netscape/" 2>/dev/null
+        sudo find "$vRutaUsuario" -type f -iname "history.dat" -exec sudo cp -vf {} \
+        "$vDestinoBase/Netscape/" \; 2>/dev/null
 
       # ---- Opera (todas las versiones antiguas) ----
         sudo mkdir -p "$vDestinoBase/Opera"
@@ -110,6 +119,8 @@ if [ $# -ne $cCantParamEsperados ]
         "$vDestinoBase/Opera/" 2>/dev/null
         sudo cp -rfv "$vRutaUsuario/$vAppDataRel/Opera Software"/* \
         "$vDestinoBase/Opera/" 2>/dev/null
+        sudo find "$vRutaUsuario" -type f \( -iname "global_history.dat" -o -iname "History" \) -exec sudo cp -vf {} \
+        "$vDestinoBase/Opera/" \; 2>/dev/null
 
     done < /tmp/CarpetasDeUsuarios.txt
 
