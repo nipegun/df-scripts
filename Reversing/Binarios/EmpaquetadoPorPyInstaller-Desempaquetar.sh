@@ -15,7 +15,7 @@
 #   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Reversing/Binarios/EmpaquetadoPorPyInstaller-Desempaquetar.sh | sed 's-sudo--g' | bash -s [RutaAlBinario]
 #
 # Bajar y editar directamente el archivo en nano
-#   curl -sL x | nano -
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Reversing/Binarios/EmpaquetadoPorPyInstaller-Desempaquetar.sh | nano -
 # ----------
 
 cArchivoBinario="$1"
@@ -26,4 +26,9 @@ cArchivoBinario="$1"
 
 # Extraer
   python3 /tmp/pyinstxtractor.py /tmp/Binario
+
+# Notificar fin de ejecución
+  echo ""
+  echo "  Binario de Python desempaquetado en la carpeta Binario_extracted"
+  echo ""
 
