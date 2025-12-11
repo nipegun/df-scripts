@@ -9,16 +9,10 @@
 # Script de NiPeGun para desempaquetar un python empaquetado con PyInstaller usando Debian
 #
 # Ejecución remota (puede requerir permisos sudo):
-#   curl -sL x | bash
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Reversing/Binarios/EmpaquetadoPorPyInstaller-Desempaquetar.sh | bash [RutaAlBinario]
 #
 # Ejecución remota como root (para sistemas sin sudo):
-#   curl -sL x | sed 's-sudo--g' | bash
-#
-# Ejecución remota sin caché:
-#   curl -sL -H 'Cache-Control: no-cache, no-store' x | bash
-#
-# Ejecución remota con parámetros:
-#   curl -sL x | bash -s Parámetro1 Parámetro2
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/Reversing/Binarios/EmpaquetadoPorPyInstaller-Desempaquetar.sh | sed 's-sudo--g' | bash -s [RutaAlBinario]
 #
 # Bajar y editar directamente el archivo en nano
 #   curl -sL x | nano -
