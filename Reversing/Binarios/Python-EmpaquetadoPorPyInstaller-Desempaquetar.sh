@@ -9,7 +9,7 @@
 # Script de NiPeGun para desempaquetar un python empaquetado con PyInstaller usando Debian
 #
 # Ejecución remota (puede requerir permisos sudo):
-#   curl -sL https://raw.githubusercontent.com/nipegun/dfir-scripts/refs/heads/main/Reversing/Binarios/Python-EmpaquetadoPorPyInstaller-Desempaquetar.sh | bash [RutaAlBinario]
+#   curl -sL https://raw.githubusercontent.com/nipegun/dfir-scripts/refs/heads/main/Reversing/Binarios/Python-EmpaquetadoPorPyInstaller-Desempaquetar.sh | bash -s [RutaAlBinario]
 #
 # Ejecución remota como root (para sistemas sin sudo):
 #   curl -sL https://raw.githubusercontent.com/nipegun/dfir-scripts/refs/heads/main/Reversing/Binarios/Python-EmpaquetadoPorPyInstaller-Desempaquetar.sh | sed 's-sudo--g' | bash -s [RutaAlBinario]
