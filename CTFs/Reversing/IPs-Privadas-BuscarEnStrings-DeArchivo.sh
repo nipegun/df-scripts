@@ -9,13 +9,13 @@
 # Script de NiPeGun para buscar direcciones IP privadas en archivos usando Debian
 #
 # Ejecución remota (puede requerir permisos sudo):
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/CTFs/Reversing/IPs-Privadas-BuscarEnArchivo.sh | bash -s [RutaAlArchivo]
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/CTFs/Reversing/IPs-Privadas-BuscarEnStrings-DeArchivo.sh | bash -s [RutaAlArchivo]
 #
 # Ejecución remota como root (para sistemas sin sudo):
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/CTFs/Reversing/IPs-Privadas-BuscarEnArchivo.sh | sed 's-sudo--g' | bash -s [RutaAlArchivo]
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/CTFs/Reversing/IPs-Privadas-BuscarEnStrings-DeArchivo.sh | sed 's-sudo--g' | bash -s [RutaAlArchivo]
 #
 # Bajar y editar directamente el archivo en nano
-#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/CTFs/Reversing/IPs-Privadas-BuscarEnArchivo.sh | nano -
+#   curl -sL https://raw.githubusercontent.com/nipegun/df-scripts/refs/heads/main/CTFs/Reversing/IPs-Privadas-BuscarEnStrings-DeArchivo.sh | nano -
 # ----------
 
 # Definir constantes de color
