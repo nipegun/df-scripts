@@ -4,5 +4,6 @@
 
 # decompyle3 Binario_extracted/malware.pyc > malware.py
 
-for f in *.pyc; do decompyle3 "$f" > "${f%.pyc}.py"; done
+# Extraer todos los .pyc de la carpeta actual
+  for f in *.pyc; do decompyle3 "$f" > "${f%.pyc}.py"; done
 
