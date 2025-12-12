@@ -1,5 +1,23 @@
 #!/bin/bash
 
+# Pongo a disposición pública este script bajo el término de "software de dominio público".
+# Puedes hacer lo que quieras con él porque es libre de verdad; no libre con condiciones como las licencias GNU y otras patrañas similares.
+# Si se te llena la boca hablando de libertad entonces hazlo realmente libre.
+# No tienes que aceptar ningún tipo de términos de uso o licencia para utilizarlo o modificarlo porque va sin CopyLeft.
+
+# ----------
+# Script de NiPeGun para desempaquetar Decompilar todos los archivos .pyc de la carpeta actual Debian
+#
+# Ejecución remota (puede requerir permisos sudo):
+#   curl -sL https://raw.githubusercontent.com/nipegun/dfir-scripts/refs/heads/main/Reversing/Binarios/Python-EmpaquetadoPorPyInstaller-Desempaquetar.sh | bash -s [RutaAlBinario]
+#
+# Ejecución remota como root (para sistemas sin sudo):
+#   curl -sL https://raw.githubusercontent.com/nipegun/dfir-scripts/refs/heads/main/Reversing/Binarios/Python-EmpaquetadoPorPyInstaller-Desempaquetar.sh | sed 's-sudo--g' | bash -s [RutaAlBinario]
+#
+# Bajar y editar directamente el archivo en nano
+#   curl -sL https://raw.githubusercontent.com/nipegun/dfir-scripts/refs/heads/main/Reversing/Binarios/Python-EmpaquetadoPorPyInstaller-Desempaquetar.sh | nano -
+# ----------
+
 # Decompilar todos los archivos .pyc de la carpeta actual
   # Con decompyle3
     # sudo python3 -m pip install decompyle3 --break-system-packages
