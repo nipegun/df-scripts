@@ -9,10 +9,10 @@
 # Script de NiPeGun para desempaquetar Decompilar todos los archivos .pyc de la carpeta actual Debian
 #
 # Ejecución remota (puede requerir permisos sudo):
-#   curl -sL https://raw.githubusercontent.com/nipegun/dfir-scripts/refs/heads/main/Reversing/Binarios/Python-PuntoPYC-Decompilar-TodosEnCarpeta.sh | bash -s [RutaAlBinario]
+#   curl -sL https://raw.githubusercontent.com/nipegun/dfir-scripts/refs/heads/main/Reversing/Binarios/Python-PuntoPYC-Decompilar-TodosEnCarpeta.sh | bash
 #
 # Ejecución remota como root (para sistemas sin sudo):
-#   curl -sL https://raw.githubusercontent.com/nipegun/dfir-scripts/refs/heads/main/Reversing/Binarios/Python-PuntoPYC-Decompilar-TodosEnCarpeta.sh | sed 's-sudo--g' | bash -s [RutaAlBinario]
+#   curl -sL https://raw.githubusercontent.com/nipegun/dfir-scripts/refs/heads/main/Reversing/Binarios/Python-PuntoPYC-Decompilar-TodosEnCarpeta.sh | sed 's-sudo--g' | bash
 #
 # Bajar y editar directamente el archivo en nano
 #   curl -sL https://raw.githubusercontent.com/nipegun/dfir-scripts/refs/heads/main/Reversing/Binarios/Python-PuntoPYC-Decompilar-TodosEnCarpeta.sh | nano -
@@ -32,4 +32,4 @@
         echo ""
         curl -sL https://raw.githubusercontent.com/nipegun/dfir-scripts/refs/heads/main/SoftInst/ParaCLI/pycdc-Instalar.sh | bash
       fi
-    for f in *.pyc; do decompyle3 "$f" > "${f%.pyc}.py"; done
+    for f in *.pyc; do pycdc "$f" > "${f%.pyc}.py"; done
