@@ -9,13 +9,13 @@
 # Script de NiPeGun para desempaquetar Decompilar todos los archivos .pyc de la carpeta actual Debian
 #
 # Ejecución remota (puede requerir permisos sudo):
-#   curl -sL https://raw.githubusercontent.com/nipegun/dfir-scripts/refs/heads/main/Reversing/Binarios/Python-EmpaquetadoPorPyInstaller-Desempaquetar.sh | bash -s [RutaAlBinario]
+#   curl -sL https://raw.githubusercontent.com/nipegun/dfir-scripts/refs/heads/main/Reversing/Binarios/Python-PuntoPYC-Decompilar-TodosEnCarpeta.sh | bash -s [RutaAlBinario]
 #
 # Ejecución remota como root (para sistemas sin sudo):
-#   curl -sL https://raw.githubusercontent.com/nipegun/dfir-scripts/refs/heads/main/Reversing/Binarios/Python-EmpaquetadoPorPyInstaller-Desempaquetar.sh | sed 's-sudo--g' | bash -s [RutaAlBinario]
+#   curl -sL https://raw.githubusercontent.com/nipegun/dfir-scripts/refs/heads/main/Reversing/Binarios/Python-PuntoPYC-Decompilar-TodosEnCarpeta.sh | sed 's-sudo--g' | bash -s [RutaAlBinario]
 #
 # Bajar y editar directamente el archivo en nano
-#   curl -sL https://raw.githubusercontent.com/nipegun/dfir-scripts/refs/heads/main/Reversing/Binarios/Python-EmpaquetadoPorPyInstaller-Desempaquetar.sh | nano -
+#   curl -sL https://raw.githubusercontent.com/nipegun/dfir-scripts/refs/heads/main/Reversing/Binarios/Python-PuntoPYC-Decompilar-TodosEnCarpeta.sh | nano -
 # ----------
 
 # Decompilar todos los archivos .pyc de la carpeta actual
