@@ -9,13 +9,13 @@
 # Script de NiPeGun para instalar pycdc en Debian
 #
 # Ejecución remota (puede requerir permisos sudo):
-#   curl -sL x | bash
+#   curl -sL https://raw.githubusercontent.com/nipegun/dfir-scripts/refs/heads/main/SoftInst/ParaCLI/pycdc-Instalar.sh | bash
 #
 # Ejecución remota como root (para sistemas sin sudo):
-#   curl -sL x | sed 's-sudo--g' | bash
+#   curl -sL https://raw.githubusercontent.com/nipegun/dfir-scripts/refs/heads/main/SoftInst/ParaCLI/pycdc-Instalar.sh | sed 's-sudo--g' | bash
 #
 # Bajar y editar directamente el archivo en nano
-#   curl -sL x | nano -
+#   curl -sL https://raw.githubusercontent.com/nipegun/dfir-scripts/refs/heads/main/SoftInst/ParaCLI/pycdc-Instalar.sh | nano -
 # ----------
 
 # Definir constantes de color
