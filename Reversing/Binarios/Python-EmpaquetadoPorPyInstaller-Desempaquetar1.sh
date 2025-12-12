@@ -21,15 +21,10 @@
 cArchivoBinario="$1"
 
 # Bajar el script de extracción
-  cp "$cArchivoBinario" /tmp/Binario
-  cd /tmp
   wget https://raw.githubusercontent.com/extremecoders-re/pyinstxtractor/master/pyinstxtractor.py
 
 # Extraer
-  python3 /tmp/pyinstxtractor.py /tmp/Binario
-
-# Mover a la carpet actual
-  mv /tmp/Binario_extracted .
+  python3 pyinstxtractor.py "$cArchivoBinario"
 
 # Notificar fin de ejecución
   echo ""
