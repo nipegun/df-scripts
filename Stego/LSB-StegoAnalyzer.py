@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+# curl -sL https://raw.githubusercontent.com/nipegun/dfir-scripts/refs/heads/main/Stego/LSB-StegoAnalyzer.py | python3 - [archivo]
+
 """
 LSB Steganography Analyzer - Herramienta completa para análisis de esteganografía LSB
 Autor: Generado para análisis de CTF
