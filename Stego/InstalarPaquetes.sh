@@ -1,7 +1,0 @@
-
-
-sudo apt-get -y install python3-pip
-sudo python3 -m pip install stegano --break-system-packages
-
-sudo apt-get -y install optipng
-sudo apt-get -y install pngcrush
