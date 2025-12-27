@@ -18,12 +18,6 @@ from PIL import Image
 class LSBAnalyzer:
   """Clase principal para análisis de esteganografía LSB."""
 
-  cCHANNEL_MAP = {
-    'R': 0, 'G': 1, 'B': 2, 'A': 3,
-    'r': 0, 'g': 1, 'b': 2, 'a': 3,
-    '0': 0, '1': 1, '2': 2, '3': 3
-  }
-
   def __init__(self, vImagePath: str):
     self.vImagePath = vImagePath
     self.vImage = Image.open(vImagePath)
@@ -34,17 +28,33 @@ class LSBAnalyzer:
 
   def fGetAvailableChannels(self) -> dict:
     vModeChannels = {
-      'RGB': {'R': 0, 'G': 1, 'B': 2},
+      'RGB':  {'R': 0, 'G': 1, 'B': 2},
       'RGBA': {'R': 0, 'G': 1, 'B': 2, 'A': 3},
-      'L': {'L': 0},
-      'LA': {'L': 0, 'A': 1},
-      'P': {'P': 0},
+      'L':    {'L': 0},
+      'LA':   {'L': 0, 'A': 1},
+      'P':    {'P': 0},
       'CMYK': {'C': 0, 'M': 1, 'Y': 2, 'K': 3},
-      '1': {'1': 0},
-      'I': {'I': 0},
-      'F': {'F': 0}
+      '1':    {'1': 0},
+      'I':    {'I': 0},
+      'F':    {'F': 0}
     }
     return vModeChannels.get(self.vMode, {'0': 0})
+
+  def fNormalizeChannels(self, vChannels: str) -> str:
+    vRequested = [vC.upper() for vC in (vChannels or "")]
+    vOut = []
+
+    for vC in vRequested:
+      if vC in self.vAvailableChannels and vC not in vOut:
+        vOut.append(vC)
+
+    if vOut:
+      return "".join(vOut)
+
+    if "L" in self.vAvailableChannels:
+      return "L"
+
+    return list(self.vAvailableChannels.keys())[0]
 
   def fInfo(self) -> dict:
     return {
@@ -58,14 +68,11 @@ class LSBAnalyzer:
     }
 
   def fExtractBitPlane(self, vChannel: str = 'R', vBit: int = 0, vEnhance: bool = True) -> Image.Image:
-    if vChannel.upper() not in self.vAvailableChannels and vChannel not in self.vAvailableChannels:
-      raise ValueError(f"Canal '{vChannel}' no disponible")
+    vChannel = (vChannel or "").upper()
+    if vChannel not in self.vAvailableChannels:
+      vChannel = self.fNormalizeChannels(vChannel)[0]
 
-    vChannelIdx = self.vAvailableChannels.get(
-      vChannel.upper(),
-      self.vAvailableChannels.get(vChannel, 0)
-    )
-
+    vChannelIdx = self.vAvailableChannels[vChannel]
     vNewPixels = []
 
     for vPixel in self.vPixels:
@@ -83,6 +90,11 @@ class LSBAnalyzer:
     return vResult
 
   def fExtractCombinedLSB(self, vChannels: str = 'RGB', vBit: int = 0, vEnhance: bool = True) -> Image.Image:
+    vChannels = self.fNormalizeChannels(vChannels)
+
+    if len(self.vAvailableChannels) == 1:
+      return self.fExtractBitPlane(vChannels[0], vBit, vEnhance)
+
     vChannelImages = []
     vTargetChannels = list(vChannels.upper())
 
@@ -99,10 +111,12 @@ class LSBAnalyzer:
     return Image.merge('RGB', vChannelImages[:3])
 
   def fExtractAllBitPlanes(self, vChannel: str = 'R') -> list:
+    vChannel = self.fNormalizeChannels(vChannel)[0]
     return [self.fExtractBitPlane(vChannel, vBit) for vBit in range(8)]
 
   def fExtractLSBData(self, vChannels: str = 'RGB', vBit: int = 0,
                       vOrder: str = 'xy', vNumBytes: int = None) -> bytes:
+    vChannels = self.fNormalizeChannels(vChannels)
     vBits = []
     vTargetChannels = list(vChannels.upper())
 
@@ -138,6 +152,7 @@ class LSBAnalyzer:
     if vOrders is None:
       vOrders = ['xy', 'yx']
 
+    vChannels = self.fNormalizeChannels(vChannels)
     vResults = {}
 
     for vOrder in vOrders:
@@ -170,7 +185,7 @@ def fMain():
 
   vParser.add_argument('image')
   vParser.add_argument('-o', '--output')
-  vParser.add_argument('-c', '--channels', default='R')
+  vParser.add_argument('-c', '--channels', default='AUTO')
   vParser.add_argument('-b', '--bit', type=int, default=0)
   vParser.add_argument('--extract', action='store_true')
   vParser.add_argument('--info', action='store_true')
@@ -183,6 +198,9 @@ def fMain():
 
   fPrintBanner()
   vAnalyzer = LSBAnalyzer(vArgs.image)
+
+  if vArgs.channels.upper() == "AUTO":
+    vArgs.channels = list(vAnalyzer.vAvailableChannels.keys())[0]
 
   if vArgs.info:
     for vK, vV in vAnalyzer.fInfo().items():
